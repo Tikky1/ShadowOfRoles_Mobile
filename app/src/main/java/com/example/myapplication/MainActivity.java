@@ -2,36 +2,49 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
+
+import com.example.myapplication.managers.SceneManager;
 
 public class MainActivity extends Activity {
-    
+    private Button startGameBtn;
+    private Button gameGuideBtn;
+    private Button feedbackBtn;
+    private Button creditsBtn;
+    private Button quitBtn;
+
+    private SceneManager sceneManager;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Butonları bağla
-        Button startGameButton = findViewById(R.id.startGameButton);
-        Button gameGuideButton = findViewById(R.id.gameGuideButton);
-        Button achievementsButton = findViewById(R.id.achievementsButton);
-        Button settingsButton = findViewById(R.id.settingsButton);
-        Button creditsButton = findViewById(R.id.creditsButton);
-        Button exitButton = findViewById(R.id.exitButton);
+        startGameBtn = findViewById(R.id.startGameBtn);
+        gameGuideBtn = findViewById(R.id.gameGuideBtn);
+        feedbackBtn = findViewById(R.id.feedbackBtn);
+        creditsBtn = findViewById(R.id.creditsBtn);
+        quitBtn = findViewById(R.id.quitBtn);
 
-        // Butonlara tıklama olaylarını ekle
-        startGameButton.setOnClickListener(v -> openActivity(PlayerNamesActivity.class));
-        gameGuideButton.setOnClickListener(v -> openActivity(GameGuideActivity.class));
-        achievementsButton.setOnClickListener(v -> openActivity(AchievementsActivity.class));
-        settingsButton.setOnClickListener(v -> openActivity(SettingsActivity.class));
-        creditsButton.setOnClickListener(v -> openActivity(CreditsActivity.class));
+        // Click Listeners
+        startGameBtn.setOnClickListener(v -> openActivity(PlayerNamesActivity.class));
+        feedbackBtn.setOnClickListener(v ->{
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FurkanKirat/Shadow-of-Roles/issues"));
+                    startActivity(browserIntent);
+                });
+        quitBtn.setOnClickListener(v -> System.exit(0));
 
-        // Çıkış butonu
-        exitButton.setOnClickListener(v -> finish());
+        ImageView backgroundImage = findViewById(R.id.backgroundImage);
+        sceneManager = SceneManager.getInstance(this);
+        backgroundImage.setImageDrawable(sceneManager.nextImage());
     }
 
     private void openActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
     }
+
+
 }
