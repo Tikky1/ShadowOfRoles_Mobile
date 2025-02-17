@@ -41,31 +41,46 @@
             android:id="@+id/startGameBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/start_game" />
+            android:background="@drawable/button_style"
+            android:textColor="@color/white"
+            android:text="@string/start_game"
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/gameGuideBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/game_guide" />
+            android:background="@drawable/button_style"
+            android:textColor="@color/white"
+            android:text="@string/game_guide"
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/feedbackBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/feedback" />
+            android:background="@drawable/button_style"
+            android:textColor="@color/white"
+            android:text="@string/feedback"
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/creditsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/credits" />
+            android:background="@drawable/button_style"
+            android:textColor="@color/white"
+            android:text="@string/credits"
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/quitBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/quit" />
+            android:background="@drawable/button_style"
+            android:textColor="@color/white"
+            android:text="@string/quit"
+            android:layout_margin="10dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
