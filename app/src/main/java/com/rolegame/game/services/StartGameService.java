@@ -56,6 +56,16 @@ public class StartGameService {
         return playerCount;
     }
 
+    public void setPlayerCountMin(){
+        playerCount = MIN_PLAYER_COUNT;
+    }
+
+    public void setPlayerCountMax(){
+        playerCount = MAX_PLAYER_COUNT;
+    }
+
+
+
     public GameService getGameService() {
         return gameService;
     }

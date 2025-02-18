@@ -49,6 +49,7 @@ public class PlayerNamesActivity extends AppCompatActivity {
         Button startGameBtn = findViewById(R.id.startGameBtn);
         playerNamesContainer = findViewById(R.id.playerNamesContainer);
 
+        startGameService.setPlayerCountMin();
 
         playerCountText.setText(Integer.toString(startGameService.getPlayerCount()));
 
@@ -121,4 +122,5 @@ public class PlayerNamesActivity extends AppCompatActivity {
         layout.addView(checkBox);
         playerNamesContainer.addView(layout);
     }
+
 }
