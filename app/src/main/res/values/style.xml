@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Üst çubuğu kaldır -->
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- Ekranı tamamen kapla (durum çubuğunu ve navigasyon çubuğunu kaldır) -->
+        <item name="android:windowFullscreen">true</item>
+
+        <!-- Şeffaf durum çubuğu -->
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <!-- Sistem çubuğunun arka planını değiştirmesine izin ver -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <!-- Çentikli ekranlarda içeriğin çentiğe uzanmasını sağla -->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+
+</resources>
