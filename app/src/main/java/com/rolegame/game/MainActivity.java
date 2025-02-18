@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
         startGameBtn = findViewById(R.id.startGameBtn);
         gameGuideBtn = findViewById(R.id.gameGuideBtn);
         feedbackBtn = findViewById(R.id.feedbackBtn);
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FurkanKirat/Shadow-of-Roles/issues"));
                     startActivity(browserIntent);
                 });
+        creditsBtn.setOnClickListener(v -> openActivity(CreditsActivity.class));
         quitBtn.setOnClickListener(v -> {
             QuitAlert quitAlert = new QuitAlert();
             quitAlert.show(getSupportFragmentManager(), "quitAlert");
