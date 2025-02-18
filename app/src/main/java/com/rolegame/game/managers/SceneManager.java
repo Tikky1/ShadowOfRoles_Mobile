@@ -19,7 +19,7 @@ public class SceneManager {
     private final Context context;
 
     private SceneManager(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     public Drawable getCurrentImage() {

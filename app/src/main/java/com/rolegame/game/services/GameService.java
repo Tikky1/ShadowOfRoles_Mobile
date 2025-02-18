@@ -36,8 +36,8 @@ public final class GameService {
 
     private Team winnerTeam;
 
-    public GameService(ArrayList<NameAndIsAI> info, ArrayList<RoleTemplate> roles){
-        initializePlayers(info, roles);
+    public GameService(ArrayList<Player> players){
+        initializePlayers(players);
         timeService = new TimeService();
         votingService = new VotingService();
         messageService = new MessageService(this);
@@ -46,19 +46,15 @@ public final class GameService {
 
     /**
      * Initializes the players and distributes their roles
-     * @param info players' information list
+     * @param players players' list
      */
-    private void initializePlayers(ArrayList<NameAndIsAI> info, ArrayList<RoleTemplate> roles){
+    private void initializePlayers(ArrayList<Player> players){
 
-        playerCount = info.size();
+        playerCount = players.size();
 
         for(int i=0;i<playerCount;i++){
-            System.out.println(roles.get(i).getName());
-            if(info.get(i).isAI()){
-                allPlayers.add(new AIPlayer(i+1,info.get(i).getName(), new Role(roles.get(i))));
-            }else{
-                allPlayers.add(new HumanPlayer(i+1,info.get(i).getName(), new Role(roles.get(i))));
-            }
+            System.out.println(players.get(i).getRole().getTemplate().getName());
+            allPlayers.add(players.get(i));
 
         }
         updateAlivePlayers();

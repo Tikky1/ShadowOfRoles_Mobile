@@ -20,18 +20,20 @@ public abstract class Player {
     private boolean isImmune;
     private boolean isRevealed;
 
-    public Player(int number, String name, Role role) {
+    public Player(int number, String name) {
         this.number = number;
         this.name = name;
-        this.role = role;
         this.isAlive = true;
-        this.role.setRoleOwner(this);
         this.isRevealed = false;
         hasWon = false;
         causesOfDeath = new LinkedList<>();
-        resetStates();
     }
 
+    public final void setRole(Role role) {
+        this.role = role;
+        this.role.setRoleOwner(this);
+        resetStates();
+    }
     public final void resetStates(){
         this.getRole().setChoosenPlayer(null);
         this.setDefence(this.getRole().getTemplate().getDefence());
@@ -75,10 +77,7 @@ public abstract class Player {
         return role;
     }
 
-    public final void setRole(Role role) {
-        this.role = role;
-        this.role.setRoleOwner(this);
-    }
+
 
     public final String getNameAndRole(){
         return name+" ("+role.getTemplate().getName()+")";

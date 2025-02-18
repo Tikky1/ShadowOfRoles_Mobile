@@ -1,6 +1,8 @@
 package com.rolegame.game.services;
 
 import com.rolegame.game.models.player.Player;
+import com.rolegame.game.models.roles.Role;
+import com.rolegame.game.models.roles.templates.RoleTemplate;
 
 import java.util.ArrayList;
 
@@ -10,6 +12,8 @@ public class StartGameService {
     public final int MIN_PLAYER_COUNT = 5;
     private static StartGameService instance;
     private int playerCount = MIN_PLAYER_COUNT;
+
+    private GameService gameService;
 
     private ArrayList<Player> players;
 
@@ -31,7 +35,13 @@ public class StartGameService {
         return players;
     }
 
-
+    public void initializeGameService(ArrayList<Player> players){
+        ArrayList<RoleTemplate> roles = RoleService.initializeRoles(playerCount);
+        for(int i=0;i<players.size();i++){
+            players.get(i).setRole(new Role(roles.get(i)));
+        }
+        this.gameService = new GameService(players);
+    }
     public int increasePlayerCount(){
         if(playerCount<MAX_PLAYER_COUNT){
             playerCount++;
@@ -44,5 +54,9 @@ public class StartGameService {
             playerCount--;
         }
         return playerCount;
+    }
+
+    public GameService getGameService() {
+        return gameService;
     }
 }
