@@ -1,15 +1,20 @@
 package com.rolegame.game;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.rolegame.game.managers.SceneManager;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private Button startGameBtn;
     private Button gameGuideBtn;
     private Button feedbackBtn;
@@ -34,11 +39,15 @@ public class MainActivity extends Activity {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FurkanKirat/Shadow-of-Roles/issues"));
                     startActivity(browserIntent);
                 });
-        quitBtn.setOnClickListener(v -> System.exit(0));
+        quitBtn.setOnClickListener(v -> {
+            QuitAlert quitAlert = new QuitAlert();
+            quitAlert.show(getSupportFragmentManager(), "quitAlert");
+        });
 
         ImageView backgroundImage = findViewById(R.id.backgroundImage);
         sceneManager = SceneManager.getInstance(this);
         backgroundImage.setImageDrawable(sceneManager.nextImage());
+
     }
 
     private void openActivity(Class<?> cls) {

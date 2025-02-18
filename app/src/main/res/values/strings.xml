@@ -6,4 +6,8 @@
     <string name="credits">Credits</string>
     <string name="quit">Quit</string>
     <string name="player">"Player "</string>
+    <string name="ok">OK</string>
+    <string name="cancel">"Cancel"</string>
+    <string name="quit_message">Do you want to exit?</string>
+
 </resources>
