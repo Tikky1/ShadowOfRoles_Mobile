@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FurkanKirat/Shadow-of-Roles/issues"));
                     startActivity(browserIntent);
                 });
+        creditsBtn.setOnClickListener(v -> openActivity(CreditsActivity.class));
         quitBtn.setOnClickListener(v -> System.exit(0));
 
         ImageView backgroundImage = findViewById(R.id.backgroundImage);

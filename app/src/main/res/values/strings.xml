@@ -5,5 +5,26 @@
     <string name="feedback">Feedback</string>
     <string name="credits">Credits</string>
     <string name="quit">Quit</string>
+
     <string name="player">"Player "</string>
+
+    <string name="credits_text">
+*Oyunun Geliştirici Ekibi:*
+- *Baş Geliştirici:* Furkan Kırat
+- *Oyun Tasarımı:* Furkan Kırat ve Efekan Kul
+- *Kodlama ve Programlama:* Furkan Kırat ve Efekan Kul
+- *Grafik Tasarım:* Furkan Kırat ve Efekan Kul
+- *Test ve QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı
+
+*Özel Teşekkürler:*
+Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı
+
+*Geliştirme Araçları ve Kaynaklar:*
+- Java - Yazılım dili
+- JavaFX - UI kütüphanesi
+- GitHub - Versiyon kontrolü
+
+*Özel Teşekkürler:*
+Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara ve projeye katkıda bulunan herkese teşekkür ederiz. </string>
+>>>>>>> Stashed changes
 </resources>
