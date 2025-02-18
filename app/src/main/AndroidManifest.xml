@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/game_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
+        android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
