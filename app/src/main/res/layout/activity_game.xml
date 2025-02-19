@@ -53,14 +53,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/alivePlayersView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/light_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintVertical_bias="0.61"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"/>
 
     <ImageButton
         android:id="@+id/announcementsBtn"
@@ -107,7 +109,7 @@
         app:layout_constraintVertical_bias="0.025"
         app:srcCompat="@drawable/rolebookbtn" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/pass_turn_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -115,6 +117,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/backgroundImage3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/button_style"
         app:layout_constraintTop_toBottomOf="@+id/alivePlayersView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
