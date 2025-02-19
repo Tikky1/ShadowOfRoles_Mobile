@@ -79,7 +79,7 @@ public class PlayerNamesActivity extends AppCompatActivity {
             ArrayList<Player> players = new ArrayList<>(playerCount);
 
             for(int i=0;i<playerCount;++i){
-                LinearLayout layout = (LinearLayout) playerNamesContainer.getChildAt(0);
+                LinearLayout layout = (LinearLayout) playerNamesContainer.getChildAt(i);
                 CheckBox checkBox = (CheckBox) layout.getChildAt(1);
                 EditText editText = (EditText) layout.getChildAt(0);
 

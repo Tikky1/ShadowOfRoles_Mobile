@@ -6,7 +6,13 @@
     <string name="credits">Credits</string>
     <string name="quit">Quit</string>
 
+
     <string name="player">"Player "</string>
+    <string name="select">"Select"</string>
+    <string name="unselect">"Unselect"</string>
+    <string name="player_and_number">"{playerName}\nNumber: {playerNumber} "</string>
+    <string name="day">"Day: %d"</string>
+    <string name="night">"Night: %d"</string>
 
     <string name="credits_text">
 *Oyunun Geliştirici Ekibi:*
@@ -30,5 +36,6 @@ Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara
     <string name="ok">OK</string>
     <string name="cancel">"Cancel"</string>
     <string name="quit_message">Do you want to exit?</string>
+    <string name="pass_turn">Pass Turn</string>
 
 </resources>

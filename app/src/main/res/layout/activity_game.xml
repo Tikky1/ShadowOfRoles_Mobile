@@ -20,10 +20,42 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/background0" />
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="381dp"
-        android:layout_height="61dp"
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/player"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/gravestoneBtn"
+        app:layout_constraintStart_toEndOf="@+id/roleBookBtn"
+        app:layout_constraintTop_toBottomOf="@+id/timeText" />
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/night"
+        app:layout_constraintBottom_toBottomOf="@+id/gravestoneBtn"
+        app:layout_constraintEnd_toStartOf="@+id/gravestoneBtn"
+        app:layout_constraintStart_toEndOf="@+id/roleBookBtn"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/roleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/nameText"
+        android:layout_marginTop="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alivePlayersView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +63,7 @@
         app:layout_constraintVertical_bias="0.61" />
 
     <ImageButton
-        android:id="@+id/duyuruBtn"
+        android:id="@+id/announcementsBtn"
         android:layout_width="107dp"
         android:layout_height="101dp"
         android:adjustViewBounds="true"
@@ -61,7 +93,7 @@
         app:srcCompat="@drawable/gravestonebtn" />
 
     <ImageButton
-        android:id="@+id/rolebookBtn"
+        android:id="@+id/roleBookBtn"
         android:layout_width="100dp"
         android:layout_height="113dp"
         android:adjustViewBounds="true"
@@ -74,5 +106,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025"
         app:srcCompat="@drawable/rolebookbtn" />
+
+    <Button
+        android:id="@+id/pass_turn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pass_turn"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alivePlayersView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

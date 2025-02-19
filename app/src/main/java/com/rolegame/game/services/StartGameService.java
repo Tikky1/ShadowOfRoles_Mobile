@@ -15,7 +15,6 @@ public class StartGameService {
 
     private GameService gameService;
 
-    private ArrayList<Player> players;
 
     public static StartGameService getInstance(){
 
@@ -29,10 +28,6 @@ public class StartGameService {
 
     public int getPlayerCount() {
         return playerCount;
-    }
-
-    public ArrayList<Player> getPlayers() {
-        return players;
     }
 
     public void initializeGameService(ArrayList<Player> players){
@@ -63,8 +58,6 @@ public class StartGameService {
     public void setPlayerCountMax(){
         playerCount = MAX_PLAYER_COUNT;
     }
-
-
 
     public GameService getGameService() {
         return gameService;

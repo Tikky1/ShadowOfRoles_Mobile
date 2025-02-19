@@ -1,8 +1,6 @@
 package com.rolegame.game;
 
-import android.app.ActionBar;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 

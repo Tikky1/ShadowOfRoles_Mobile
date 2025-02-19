@@ -24,10 +24,6 @@
         </activity>
         <activity android:name=".GameGuideActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".AchievementsActivity"
-            android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".SettingsActivity"
-            android:theme="@style/FullscreenTheme"/>
         <activity android:name=".CreditsActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".PlayerNamesActivity"
