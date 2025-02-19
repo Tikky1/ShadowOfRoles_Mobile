@@ -10,7 +10,8 @@
     <string name="player">"Player "</string>
     <string name="select">"Select"</string>
     <string name="unselect">"Unselect"</string>
-    <string name="player_and_number">"{playerName}\nNumber: {playerNumber} "</string>
+    <string name="player_name">"{playerName}"</string>
+    <string name="player_number">Number: {playerNumber}</string>
     <string name="day">"Day: %d"</string>
     <string name="night">"Night: %d"</string>
 

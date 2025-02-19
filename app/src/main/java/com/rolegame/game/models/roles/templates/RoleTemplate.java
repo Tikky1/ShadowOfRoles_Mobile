@@ -75,7 +75,7 @@ public abstract class RoleTemplate implements PerformAbility {
     }
 
     public final String getName() {
-        return LanguageManager.getRoleText(id.toString(),"name");
+        return id.toString();
     }
 
     public final String getAttributes() {

@@ -1,11 +1,14 @@
 package com.rolegame.game;
 
+import static com.rolegame.game.gamestate.Time.*;
+
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,14 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rolegame.game.gamestate.Time;
-import com.rolegame.game.managers.LanguageManager;
-import com.rolegame.game.managers.SceneManager;
+import com.rolegame.game.managers.GameScreenImageManager;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.enums.AbilityType;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
-
-import java.util.Optional;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -31,9 +31,11 @@ public class GameActivity extends AppCompatActivity {
 
     private TextView nameText;
 
+    private TextView numberText;
     private TextView roleText;
 
     private Button passTurnButton;
+    private ImageView backgroundImage;
 
 
     @Override
@@ -46,12 +48,15 @@ public class GameActivity extends AppCompatActivity {
         alivePlayersView = findViewById(R.id.alivePlayersView);
         timeText = findViewById(R.id.timeText);
         nameText = findViewById(R.id.nameText);
+        numberText = findViewById(R.id.numberText);
         roleText = findViewById(R.id.roleText);
         passTurnButton = findViewById(R.id.pass_turn_button);
+        backgroundImage = findViewById(R.id.backgroundImageGame);
 
 
         setTimeText();
         setNameText();
+        setNumberText();
         setRoleText();
         setAlivePlayersView();
         setPassTurnButtonOnClicked();
@@ -69,10 +74,18 @@ public class GameActivity extends AppCompatActivity {
 
     private void setNameText(){
         Player currentPlayer = gameService.getCurrentPlayer();
-        String template = getString(R.string.player_and_number);
-        template = template.replace("{playerName}", currentPlayer.getName())
-                .replace("{playerNumber}", currentPlayer.getNumber()+"");
+        String template = getString(R.string.player_name);
+        template = template
+                .replace("{playerName}", currentPlayer.getName());
         nameText.setText(template);
+    }
+
+    private void setNumberText(){
+        Player currentPlayer = gameService.getCurrentPlayer();
+        String template = getString(R.string.player_number);
+        template = template
+                .replace("{playerNumber}", currentPlayer.getNumber()+"");
+        numberText.setText(template);
     }
 
     private void setAlivePlayersView(){
@@ -108,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
 
             if(gameService.passTurn()){
 
-                //toggleDayNightCycleUI();
+                toggleDayNightCycleUI();
 
             }
 //            switch (gameService.getTimeService().getTime()){
@@ -155,7 +168,35 @@ public class GameActivity extends AppCompatActivity {
 
     private void changePlayerUI(){
         setNameText();
+        setNumberText();
         setRoleText();
         setAlivePlayersView();
+    }
+
+
+    private void setBackgroundImage(){
+        GameScreenImageManager gameScreenImageManager = GameScreenImageManager.getInstance(this);
+        Drawable image;
+        switch (gameService.getTimeService().getTime()){
+            case DAY:
+                image = gameScreenImageManager.nextDayImage();
+                break;
+            case VOTING:
+                image = gameScreenImageManager.nextVotingImage();
+                break;
+            case NIGHT:
+                image = gameScreenImageManager.nextNightImage();
+                break;
+            default:
+                image = null;
+                break;
+
+        }
+        backgroundImage.setImageDrawable(image);
+    }
+
+    private void toggleDayNightCycleUI(){
+        setBackgroundImage();
+        setTimeText();
     }
 }
