@@ -1,4 +1,4 @@
-package com.rolegame.game;
+package com.rolegame.game.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.rolegame.game.R;
 import com.rolegame.game.managers.SceneManager;
 import com.rolegame.game.models.player.AIPlayer;
 import com.rolegame.game.models.player.HumanPlayer;
@@ -72,21 +73,28 @@ public class PlayerNamesActivity extends AppCompatActivity {
         });
 
         startGameBtn.setOnClickListener(v -> {
+
             int playerCount = startGameService.getPlayerCount();
             ArrayList<Player> players = new ArrayList<>(playerCount);
 
+            boolean isHumanPlayerExist = false;
             for(int i=0;i<playerCount;++i){
                 LinearLayout layout = (LinearLayout) playerNamesContainer.getChildAt(i);
                 CheckBox checkBox = (CheckBox) layout.getChildAt(1);
                 EditText editText = (EditText) layout.getChildAt(0);
 
                 String playerName = editText.getText().toString();
-                if(checkBox.isSelected()){
+                if(checkBox.isChecked()){
                     players.add(new AIPlayer(i+1, playerName));
                 }
                 else{
                     players.add(new HumanPlayer(i+1, playerName));
+                    isHumanPlayerExist = true;
                 }
+            }
+            if(!isHumanPlayerExist){
+                Toast.makeText(this, "All Players Cannot be AI Player!", Toast.LENGTH_LONG).show();
+                return;
             }
             Toast.makeText(this, "Game is Starting", Toast.LENGTH_SHORT).show();
             startGameService.initializeGameService(players);

@@ -1,9 +1,8 @@
-package com.rolegame.game;
-
-import static com.rolegame.game.gamestate.Time.*;
+package com.rolegame.game.ui.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -16,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rolegame.game.ui.adapters.PlayersViewAdapter;
+import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.managers.GameScreenImageManager;
 import com.rolegame.game.models.player.Player;
@@ -203,7 +204,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void toggleDayNightCycleUI(){
+
+        if(gameService.isGameFinished()){
+            Intent intent = new Intent(this, GameEndActivity.class);
+            startActivity(intent);
+        }
+
         setBackgroundImage();
         setTimeText();
+
+
     }
 }

@@ -14,7 +14,7 @@
         android:name=".GameApplication"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
@@ -23,13 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameGuideActivity"
+        <activity android:name=".ui.activities.GameGuideActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".CreditsActivity"
+        <activity android:name=".ui.activities.CreditsActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".PlayerNamesActivity"
+        <activity android:name=".ui.activities.PlayerNamesActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".GameActivity"
+        <activity android:name=".ui.activities.GameActivity"
+            android:theme="@style/FullscreenTheme"/>
+        <activity android:name=".ui.activities.GameEndActivity"
             android:theme="@style/FullscreenTheme"/>
 
     </application>

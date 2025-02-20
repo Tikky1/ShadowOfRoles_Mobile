@@ -1,4 +1,4 @@
-package com.rolegame.game;
+package com.rolegame.game.ui.alerts;
 
 import android.content.DialogInterface;
 import android.content.Context;

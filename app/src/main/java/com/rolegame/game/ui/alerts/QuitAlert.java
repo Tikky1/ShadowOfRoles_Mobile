@@ -1,4 +1,4 @@
-package com.rolegame.game;
+package com.rolegame.game.ui.alerts;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
+
+import com.rolegame.game.R;
 
 public class QuitAlert extends DialogFragment {
     @Override

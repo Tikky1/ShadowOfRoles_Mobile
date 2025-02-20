@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:theme="@style/FullscreenTheme"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".GameActivity">
+    tools:context=".ui.activities.GameActivity">
 
     <ImageView
         android:id="@+id/backgroundImageGame"

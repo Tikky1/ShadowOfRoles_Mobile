@@ -1,8 +1,10 @@
-package com.rolegame.game;
+package com.rolegame.game.ui.activities;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.rolegame.game.R;
 
 public class GameGuideActivity extends AppCompatActivity {
     @Override

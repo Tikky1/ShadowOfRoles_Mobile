@@ -1,4 +1,4 @@
-package com.rolegame.game;
+package com.rolegame.game.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.rolegame.game.ui.alerts.QuitAlert;
+import com.rolegame.game.R;
 import com.rolegame.game.managers.SceneManager;
 
 public class MainActivity extends AppCompatActivity {

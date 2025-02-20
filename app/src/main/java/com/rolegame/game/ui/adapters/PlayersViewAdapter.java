@@ -1,4 +1,4 @@
-package com.rolegame.game;
+package com.rolegame.game.ui.adapters;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.templates.corrupterroles.support.LastJoke;

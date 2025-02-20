@@ -18,7 +18,6 @@ import java.util.*;
 public final class GameService {
     private final ArrayList<Player> allPlayers = new ArrayList<>();
     private final ArrayList<Player> alivePlayers = new ArrayList<>();
-    private final ArrayList<Player> deadPlayers = new ArrayList<>();
 
     private final VotingService votingService;
     private final TimeService timeService;
@@ -29,6 +28,8 @@ public final class GameService {
     private int playerCount;
 
     private Team winnerTeam;
+
+    private boolean isGameFinished = false;
 
     public GameService(ArrayList<Player> players){
         initializePlayers(players);
@@ -47,7 +48,7 @@ public final class GameService {
         playerCount = players.size();
 
         for(int i=0;i<playerCount;i++){
-            System.out.println(players.get(i).getRole().getTemplate().getName());
+            System.out.println(players.get(i).getClass().getName());
             allPlayers.add(players.get(i));
 
         }
@@ -226,7 +227,7 @@ public final class GameService {
      * @return updated dead players
      */
     public ArrayList<Player> getDeadPlayers() {
-        deadPlayers.clear();
+        ArrayList<Player> deadPlayers = new ArrayList<>();
         for (Player allPlayer : allPlayers) {
             if (!allPlayer.isAlive()) {
                 deadPlayers.add(allPlayer);
@@ -318,7 +319,7 @@ public final class GameService {
      * Finishes the game if the end conditions are taken place
      */
     public void finishGame(){
-
+        isGameFinished = true;
         if(winnerTeam!=Team.NONE &&winnerTeam!=Team.NEUTRAL){
             for(Player player : allPlayers){
                 if(player.getRole().getTemplate().getTeam()==winnerTeam){
@@ -361,7 +362,7 @@ public final class GameService {
                     break;
 
                 default:
-                    // Optional default case if needed
+
                     break;
             }
 
@@ -469,5 +470,9 @@ public final class GameService {
 
     public MessageService getMessageService() {
         return messageService;
+    }
+
+    public boolean isGameFinished() {
+        return isGameFinished;
     }
 }
