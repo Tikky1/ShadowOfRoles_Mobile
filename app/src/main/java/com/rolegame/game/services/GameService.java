@@ -4,20 +4,14 @@ import com.rolegame.game.gamestate.CauseOfDeath;
 import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.managers.LanguageManager;
 import com.rolegame.game.models.player.AIPlayer;
-import com.rolegame.game.models.player.HumanPlayer;
-import com.rolegame.game.models.player.NameAndIsAI;
 import com.rolegame.game.models.roles.abilities.PriorityChangingRole;
 import com.rolegame.game.models.roles.abilities.RoleBlockAbility;
-import com.rolegame.game.models.roles.corrupterroles.support.LastJoke;
+import com.rolegame.game.models.roles.templates.corrupterroles.support.LastJoke;
 import com.rolegame.game.models.roles.enums.AbilityType;
-import com.rolegame.game.models.roles.neutralroles.NeutralRole;
-import com.rolegame.game.models.roles.neutralroles.chaos.Clown;
-import com.rolegame.game.models.roles.neutralroles.chaos.ChillGuy;
-import com.rolegame.game.models.roles.neutralroles.good.Lorekeeper;
-import com.rolegame.game.models.roles.Role;
+import com.rolegame.game.models.roles.templates.neutralroles.NeutralRole;
+import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 import com.rolegame.game.models.roles.enums.Team;
 import com.rolegame.game.models.player.Player;
-import com.rolegame.game.models.roles.templates.RoleTemplate;
 
 import java.util.*;
 
@@ -143,7 +137,7 @@ public final class GameService {
 
 
             if(votingService.getMaxVoted()!=null){
-                messageService.sendMessage(LanguageManager.getText("Message","voteExecute")
+                messageService.sendMessage(LanguageManager.getInstance().getText("vote_execute")
                                 .replace("{playerName}", votingService.getMaxVoted().getName())
                                 .replace("{roleName}", votingService.getMaxVoted().getRole().getTemplate().getName()),
                         null, true, true);
@@ -170,11 +164,11 @@ public final class GameService {
             votingService.vote(currentPlayer,chosenPlayer);
 
             if(chosenPlayer!=null){
-                messageService.sendMessage(LanguageManager.getText("Message","vote")
+                messageService.sendMessage(LanguageManager.getInstance().getText("voted_for")
                                 .replace("{playerName}", chosenPlayer.getName())
                         ,currentPlayer,false, true);
             }else{
-                messageService.sendMessage(LanguageManager.getText("Message","noVote"), currentPlayer, false, true);
+                messageService.sendMessage(LanguageManager.getInstance().getText("voted_for_none"), currentPlayer, false, true);
             }
 
         }
@@ -182,12 +176,12 @@ public final class GameService {
             AbilityType abilityType = currentPlayer.getRole().getTemplate().getAbilityType();
             if(!(abilityType == AbilityType.PASSIVE || abilityType == AbilityType.NO_ABILITY)){
                 if(chosenPlayer!=null){
-                    messageService.sendMessage(LanguageManager.getText("Message","ability")
+                    messageService.sendMessage(LanguageManager.getInstance().getText("ability_used_on")
                                     .replace("{playerName}", chosenPlayer.getName())
                             ,currentPlayer,false, false);
                 }
                 else{
-                    messageService.sendMessage(LanguageManager.getText("Message","noAbilityUsed"), currentPlayer, false,false);
+                    messageService.sendMessage(LanguageManager.getInstance().getText("ability_did_not_used"), currentPlayer, false,false);
                 }
             }
         }

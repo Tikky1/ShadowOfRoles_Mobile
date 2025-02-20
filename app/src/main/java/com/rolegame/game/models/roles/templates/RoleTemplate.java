@@ -75,15 +75,16 @@ public abstract class RoleTemplate implements PerformAbility {
     }
 
     public final String getName() {
-        return id.toString();
+        LanguageManager languageManager = LanguageManager.getInstance();
+        return languageManager.getText(languageManager.enumToStringXml(id.name())+"_name");
     }
 
     public final String getAttributes() {
-        return LanguageManager.getText(id.toString(),"attributes");
+        return LanguageManager.getInstance().getText(id.toString()+"_attributes");
     }
 
     public final String getAbilities() {
-        return LanguageManager.getText(id.toString(),"abilities");
+        return LanguageManager.getInstance().getText(id.toString()+"_abilities");
     }
 
     public abstract String getGoal();
@@ -138,7 +139,7 @@ public abstract class RoleTemplate implements PerformAbility {
 
     public abstract ChanceProperty getChanceProperty();
 
-    public class ChanceProperty {
+    public static class ChanceProperty {
         private final int chance;
         private final int maxNumber;
 

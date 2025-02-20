@@ -1,10 +1,10 @@
 package com.rolegame.game.models.player;
 
-import com.rolegame.game.models.roles.neutralroles.NeutralRole;
+import com.rolegame.game.models.roles.templates.neutralroles.NeutralRole;
 import com.rolegame.game.services.RoleService;
 import com.rolegame.game.models.roles.enums.Team;
-import com.rolegame.game.models.roles.folkroles.unique.Entrepreneur;
-import com.rolegame.game.models.roles.neutralroles.good.Lorekeeper;
+import com.rolegame.game.models.roles.templates.folkroles.unique.Entrepreneur;
+import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 
 import java.util.ArrayList;
 import java.util.Random;

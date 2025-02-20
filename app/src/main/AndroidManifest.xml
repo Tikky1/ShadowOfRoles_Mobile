@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/game_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
+        android:name=".GameApplication"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"

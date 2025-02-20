@@ -1,11 +1,12 @@
 <resources>
+
+    <!--Main Menu-->
     <string name="app_name">Shadow of Roles</string>
     <string name="start_game">Start Game</string>
     <string name="game_guide">Game Guide</string>
     <string name="feedback">Feedback</string>
     <string name="credits">Credits</string>
     <string name="quit">Quit</string>
-
 
     <string name="player">"Player "</string>
     <string name="select">"Select"</string>
@@ -16,27 +17,223 @@
     <string name="night">"Night: %d"</string>
 
     <string name="credits_text">
-*Oyunun Geliştirici Ekibi:*
-- *Baş Geliştirici:* Furkan Kırat
-- *Oyun Tasarımı:* Furkan Kırat ve Efekan Kul
-- *Kodlama ve Programlama:* Furkan Kırat ve Efekan Kul
-- *Grafik Tasarım:* Furkan Kırat ve Efekan Kul
-- *Test ve QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı
+*Oyunun Geliştirici Ekibi:*\n
+- *Baş Geliştirici:* Furkan Kırat\n
+- *Oyun Tasarımı:* Furkan Kırat ve Efekan Kul\n
+- *Kodlama ve Programlama:* Furkan Kırat ve Efekan Kul\n
+- *Grafik Tasarım:* Furkan Kırat ve Efekan Kul\n
+- *Test ve QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
 
-*Özel Teşekkürler:*
-Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı
+*Özel Teşekkürler:*\n
+Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
 
-*Geliştirme Araçları ve Kaynaklar:*
-- Java - Yazılım dili
-- JavaFX - UI kütüphanesi
-- GitHub - Versiyon kontrolü
+*Geliştirme Araçları ve Kaynaklar:*\n
+- Java - Yazılım dili\n
+- JavaFX - UI kütüphanesi\n
+- GitHub - Versiyon kontrolü\n
 
 *Özel Teşekkürler:*
 Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara ve projeye katkıda bulunan herkese teşekkür ederiz. </string>
->>>>>>> Stashed changes
     <string name="ok">OK</string>
     <string name="cancel">"Cancel"</string>
     <string name="quit_message">Do you want to exit?</string>
     <string name="pass_turn">Pass Turn</string>
+
+    <!--Roles-->
+
+    <!--Detective-->
+    <string name="detective_name">Detective</string>
+    <string name="detective_abilities">You choose one and see two roles, including that person\'s role</string>
+    <string name="detective_attributes">N/A</string>
+    <string name="detective_ability_message">Your target\'s role is {roleName1} or {roleName2}</string>
+
+    <!--Observer-->
+    <string name="observer_name">Observer</string>
+    <string name="observer_abilities">At night you can see which team a person belongs to</string>
+    <string name="observer_attributes">N/A</string>
+    <string name="observer_ability_message">Your target\'s team is: {teamName}</string>
+
+    <!--Soulbinder-->
+    <string name="soulbinder_name">Soulbinder</string>
+    <string name="soulbinder_abilities">You choose someone at night and if they get attacked, you prevent them from dying</string>
+    <string name="soulbinder_attributes">N/A</string>
+
+    <!--Stalker-->
+    <string name="stalker_name">Stalker</string>
+    <string name="stalker_abilities">You choose a person and see who that person goes to at night</string>
+    <string name="stalker_attributes">N/A</string>
+    <string name="stalker_ability_message">Your target has visited {playerName} this night!</string>
+    <string name="stalker_ability_message_nobody">Your target did not visited anybody this night!</string>
+
+    <!--Psycho-->
+    <string name="psycho_name">Psycho</string>
+    <string name="psycho_abilities">Kill one person each night</string>
+    <string name="psycho_attributes">N/A</string>
+    <string name="psycho_kill_message">You have slain your target successfully</string>
+    <string name="psycho_kill_announcement">{playerName} has been slain by a Psycho</string>
+
+    <!--Dark Revealer-->
+    <string name="darkrevealer_name">Dark Revealer</string>
+    <string name="darkrevealer_abilities">At night you see someone\'s role</string>
+    <string name="darkrevealer_attributes">N/A</string>
+    <string name="darkrevealer_ability_message">Your target\'s role is: {roleName}</string>
+
+    <!--Interrupter-->
+    <string name="interrupter_name">Interrupter</string>
+    <string name="interrupter_abilities">You can role block someone in the night</string>
+    <string name="interrupter_attributes">N/A</string>
+
+    <!--Seal Master-->
+    <string name="sealmaster_name">Seal Master</string>
+    <string name="sealmaster_abilities">You can role block someone in the night</string>
+    <string name="sealmaster_attributes">N/A</string>
+
+    <!--Role Block-->
+    <string name="role_blocked_message">You have been role blocked this night</string>
+    <string name="immune_message">Your target is immune</string>
+    <string name="rb_immune_message">Someone tried to role block you but you are immune</string>
+    <string name="role_block_message">You have role blocked your target</string>
+
+    <!--Assassin-->
+    <string name="assassin_name">Assassin</string>
+    <string name="assassin_abilities">Kill one person each night</string>
+    <string name="assassin_attributes">You have basic defence and attack, you are immune to role blocking</string>
+    <string name="assassin_goal">Kill every folk and corrupter member</string>
+    <string name="assassin_kill_message">You have slain your target successfully</string>
+    <string name="assassin_kill_announcement">{playerName} has been slain by an Assassin</string>
+
+    <!--Seal Master-->
+    <string name="chillguy_name">Chill Guy</string>
+    <string name="chillguy_abilities">Just simple person. You do nothing</string>
+    <string name="chillguy_attributes">If you reveal your role you will lose the game</string>
+    <string name="chillguy_goal">Have Fun</string>
+
+    <!--Last Joke-->
+    <string name="lastjoke_name">Last Joke</string>
+    <string name="lastjoke_abilities">When you die you will comeback to life and you must kill one player</string>
+    <string name="lastjoke_attributes">N/A</string>
+    <string name="lastjoke_kill_message">You have successfully made your last joke to {playerName}</string>
+    <string name="lastjoke_kill_announcement">Someone make their Last Joke to {playerName}</string>
+
+    <!--Clown-->
+    <string name="clown_name">Clown</string>
+    <string name="clown_abilities">N/A</string>
+    <string name="clown_attributes">N/A</string>
+    <string name="clown_goal">You have to die at night by someone to win the game</string>
+
+    <!--Disguiser-->
+    <string name="disguiser_name">Disguiser</string>
+    <string name="disguiser_abilities">Disguise to random role every night but you can\'t know until you use it</string>
+    <string name="disguiser_attributes">N/A</string>
+
+    <!--Dark Seer-->
+    <string name="darkseer_name">Dark Seer</string>
+    <string name="darkseer_abilities">You see the role of two living people, but you cannot see the role owner</string>
+    <string name="darkseer_attributes">N/A</string>
+    <string name="darkseer_ability_message">The roles of the two currently living player in the play are: {roleName1} and {roleName2}</string>
+    <string name="darkseer_ability_message_one_left">The role of the currently living person in the play is: {roleName}</string>
+    <string name="darkseer_ability_message_no_left">There are not any players to see their role</string>
+
+    <!--Blinder-->
+    <string name="blinder_name">Blinder</string>
+    <string name="blinder_abilities">When you blind someone that player perform their ability randomly</string>
+    <string name="blinder_attributes">N/A</string>
+    <string name="blinder_ability_message">You have successfully blinded your target</string>
+    <string name="got_blinded_message">You are blinded this night</string>
+
+    <!--Folk Hero-->
+    <string name="folkhero_name">Folk Hero</string>
+    <string name="folkhero_abilities">You make people immune others cannot visit your target</string>
+    <string name="folkhero_attributes">You can use your ability twice in a game</string>
+    <string name="folkhero_ability_message">You have successfully immunized your target</string>
+
+    <!-- Entrepreneur -->
+    <string name="entrepreneur_name">Entrepreneur</string>
+    <string name="entrepreneur_attributes">You get 2 coins every day</string>
+    <string name="entrepreneur_abilities">You have some money, you can get other people to do work with this money.</string>
+    <string name="entrepreneur_insufficient_money">You don\'t have enough money to: %1$s</string>
+    <string name="entrepreneur_attack">Attack</string>
+    <string name="entrepreneur_heal">Heal</string>
+    <string name="entrepreneur_info">Info</string>
+    <string name="entrepreneur_pass">Pass Ability</string>
+    <string name="entrepreneur_selected">Selected: %1$s</string>
+    <string name="entrepreneur_none">None</string>
+    <string name="entrepreneur_money">Your money: %1$d</string>
+    <string name="entrepreneur_kill_message">You have slain your target successfully</string>
+    <string name="entrepreneur_kill_announcement">%1$s has been slain by an Entrepreneur</string>
+
+    <!-- Lorekeeper -->
+    <string name="lorekepeer_name">Lore Keeper</string>
+    <string name="lorekeeper_attributes">You need to correctly guess 2 roles out of 5,6,7 people. You need to correctly guess 3 roles in 8,9,10 people.</string>
+    <string name="lorekeeper_abilities">You choose an actor and then you choose what role that actor plays.</string>
+    <string name="lorekeeper_goal">You try to guess the actors\' roles</string>
+    <string name="lorekeeper_ability_message">The following player has revealed: %1$s (%2$s)</string>
+    <string name="lorekeeper_guess">Your true guess count is: %1$d</string>
+
+    <!-- Ability-->
+    <string name="ability_no_use_left">Your ability could not be used because you have reached your ability\'s maximum usage queue</string>
+    <string name="ability_defence">You could not slay your target because your attack was not powerful enough</string>
+    <string name="ability_no_role_selected">Your role could not be used because you did not select any role</string>
+    <string name="ability_no_ability_exists">Your ability could not be used because your role does not have the ability</string>
+    <string name="ability_heal">You have successfully protected your target</string>
+    <string name="ability_used_on">You tried to use your ability on: {playerName}</string>
+    <string name="ability_did_not_used">You did not used your ability on anybody</string>
+
+    <!-- Cause of Death -->
+    <string name="cause_of_death_assassin">Assassin</string>
+    <string name="cause_of_death_psycho">Psycho</string>
+    <string name="cause_of_death_hanging">Hanged</string>
+    <string name="cause_of_death_lastjoke">Last Joke</string>
+    <string name="cause_of_death_entrepreneur">Entrepreneur</string>
+
+    <!-- Goal -->
+    <string name="goal_folk">Find and execute all corrupters and neutrals</string>
+    <string name="goal_corrupter">Kill the folk and neutrals</string>
+
+    <!-- Voting -->
+    <string name="voted_for">You have voted for : {playerName}</string>
+    <string name="voted_for_none">You did not voted for anybody</string>
+    <string name="vote_execute">{playerName} ({roleName}) was hanged by majority vote</string>
+
+
+
+
+    <!-- Role Book-->
+
+    <!-- Main Catagories -->
+    <string name="role_book_role">Roles</string>
+    <string name="role_book_folk_role">Folk Roles</string>
+    <string name="role_book_corrupter_role">Corrupter Roles</string>
+    <string name="role_book_neutral_role">Neutral Roles</string>
+
+    <string name="role_book_folk">Folk</string>
+    <string name="role_book_corrupter">Corrupter</string>
+    <string name="role_book_neutral">Neutral</string>
+    <string name="role_book_none">None</string>
+
+    <!-- Folk Roles -->
+    <string name="role_book_folk_analyst">Folk Analyst</string>
+    <string name="role_book_folk_protector">Folk Protector</string>
+    <string name="role_book_folk_killing">Folk Killing</string>
+    <string name="role_book_folk_support">Folk Support</string>
+    <string name="role_book_folk_unique">Folk Unique</string>
+
+    <!-- Corrupter Roles -->
+    <string name="role_book_corrupter_analyst">Corrupter Analyst</string>
+    <string name="role_book_corrupter_killing">Corrupter Killing</string>
+    <string name="role_book_corrupter_support">Corrupter Support</string>
+
+    <!-- Neutral Roles -->
+    <string name="role_book_neutral_evil">Neutral Evil</string>
+    <string name="role_book_neutral_killing">Neutral Killing</string>
+    <string name="role_book_neutral_chaos">Neutral Chaos</string>
+    <string name="role_book_neutral_good">Neutral Good</string>
+
+    <!-- Properties -->
+    <string name="role_book_abilities">Abilities</string>
+    <string name="role_book_attributes">Attributes</string>
+    <string name="role_book_goal">Goal</string>
+    <string name="role_book_attack">Attack</string>
+    <string name="role_book_defence">Defence</string>
 
 </resources>

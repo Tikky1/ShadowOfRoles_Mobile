@@ -1,5 +1,6 @@
 package com.rolegame.game;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.rolegame.game.managers.SceneManager;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static MainActivity instance;
     private Button startGameBtn;
     private Button gameGuideBtn;
     private Button feedbackBtn;
@@ -19,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
 
     private SceneManager sceneManager;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.activity_main);
-
-
 
         startGameBtn = findViewById(R.id.startGameBtn);
         gameGuideBtn = findViewById(R.id.gameGuideBtn);
@@ -52,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
     private void openActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
+    }
+
+    public static Context getAppContext() {
+        return instance.getApplicationContext();
     }
 
 

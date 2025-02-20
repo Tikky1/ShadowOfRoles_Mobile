@@ -27,7 +27,7 @@ public interface InvestigativeAbility {
         String roleName1 = firstIsChosen ? choosenPlayer.getRole().getTemplate().getName() : randRole.getName();
         String roleName2 = firstIsChosen ? randRole.getName() : choosenPlayer.getRole().getTemplate().getName();
 
-        String message = LanguageManager.getText("Detective","abilityMessage")
+        String message = LanguageManager.getInstance().getText("detective_ability_message")
                 .replace("{roleName1}", roleName1)
                 .replace("{roleName2}", roleName2);
 
@@ -44,7 +44,7 @@ public interface InvestigativeAbility {
      * @return
      */
     default AbilityResult observerAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
-        gameService.getMessageService().sendAbilityMessage(LanguageManager.getText("Observer","abilityMessage")
+        gameService.getMessageService().sendAbilityMessage(LanguageManager.getInstance().getText("observer_ability_message")
                         .replace("{teamName}", choosenPlayer.getRole().getTemplate().getTeam().name()),roleOwner);
         return AbilityResult.SUCCESSFUL;
     }
@@ -59,10 +59,10 @@ public interface InvestigativeAbility {
     default AbilityResult stalkerAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
         String message;
         if(choosenPlayer.getRole().getChoosenPlayer()==null||!choosenPlayer.getRole().isCanPerform()){
-            message = LanguageManager.getText("Stalker","nobodyMessage");
+            message = LanguageManager.getInstance().getText("stalker_ability_message_nobody");
         }
         else{
-            message = LanguageManager.getText("Stalker","visitMessage")
+            message = LanguageManager.getInstance().getText("stalker_ability_message")
                     .replace("{playerName}", choosenPlayer.getRole().getChoosenPlayer().getName());
         }
 
@@ -79,7 +79,7 @@ public interface InvestigativeAbility {
      */
     default AbilityResult darkRevealerAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
 
-        String message = LanguageManager.getText("DarkRevealer","abilityMessage").replace("{roleName}",choosenPlayer.getRole().getTemplate().getName());
+        String message = LanguageManager.getInstance().getText("darkrevealer_ability_message").replace("{roleName}",choosenPlayer.getRole().getTemplate().getName());
         gameService.getMessageService().sendAbilityMessage(message,roleOwner);
 
         return AbilityResult.SUCCESSFUL;
@@ -100,16 +100,16 @@ public interface InvestigativeAbility {
         String message;
 
         if (players.size() >= 2) {
-            message = LanguageManager.getText("Darkseer","abilityMessage")
-                    .replace("{roleName1}",players.getFirst().getRole().getTemplate().getName())
+            message = LanguageManager.getInstance().getText("darkseer_ability_message")
+                    .replace("{roleName1}",players.get(0).getRole().getTemplate().getName())
                     .replace("{roleName2}",players.get(1).getRole().getTemplate().getName());
         }
         else if (players.size()==1) {
-            message = LanguageManager.getText("Darkseer","oneLeftMessage")
-                    .replace("{roleName}",players.getFirst().getRole().getTemplate().getName());
+            message = LanguageManager.getInstance().getText("darkseer_ability_message_one_left")
+                    .replace("{roleName}",players.get(0).getRole().getTemplate().getName());
         }
         else{
-            message = LanguageManager.getText("Darkseer","zeroLeftMessage");
+            message = LanguageManager.getInstance().getText("darkseer_ability_message_no_left");
         }
 
         gameService.getMessageService().sendAbilityMessage(message,roleOwner);

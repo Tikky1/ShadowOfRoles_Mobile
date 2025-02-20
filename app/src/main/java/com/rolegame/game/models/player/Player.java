@@ -43,8 +43,9 @@ public abstract class Player {
     }
 
     public final String getCausesOfDeathAsString(){
+        LanguageManager languageManager = LanguageManager.getInstance();
         return causesOfDeath.stream()
-                .map( causeOfDeath->LanguageManager.getText("CauseOfDeath", LanguageManager.enumToJsonKey(causeOfDeath.name())))
+                .map( causeOfDeath->languageManager.getText("cause_of_death_"+languageManager.enumToStringXml(causeOfDeath.name())))
                 .collect(Collectors.joining(", "));
     }
 

@@ -60,6 +60,7 @@ public class GameActivity extends AppCompatActivity {
         setRoleText();
         setAlivePlayersView();
         setPassTurnButtonOnClicked();
+        setBackgroundImage();
 
     }
 

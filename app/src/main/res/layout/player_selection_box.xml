@@ -43,7 +43,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/player_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_weight="5"

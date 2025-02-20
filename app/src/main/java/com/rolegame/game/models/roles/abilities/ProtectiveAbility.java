@@ -8,7 +8,8 @@ import com.rolegame.game.services.GameService;
 public interface ProtectiveAbility {
 
     default AbilityResult heal(Player roleOwner, Player choosenPlayer, GameService gameService) {
-        gameService.getMessageService().sendAbilityMessage(LanguageManager.getText("Ability","heal"), roleOwner);
+        LanguageManager languageManager = LanguageManager.getInstance();
+        gameService.getMessageService().sendAbilityMessage(languageManager.getText("ability_heal"), roleOwner);
 
         if(choosenPlayer.getDefence()<1){
             choosenPlayer.setDefence(1);

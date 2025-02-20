@@ -1,29 +1,52 @@
 package com.rolegame.game.managers;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.util.Log;
+
+import com.rolegame.game.GameApplication;
+
 import java.util.Locale;
 
 public class LanguageManager {
 
-    public static String getText(String string, String string2){
+    // Is not a memory leak because the application object is always in the memory already
+    @SuppressLint("StaticFieldLeak")
+    private static LanguageManager instance;
+    private final Context context;
 
-        return string+"."+string2;
+    private LanguageManager(Context context) {
+        this.context = context;
     }
 
-    public static String getRoleText(String string, String string2){
-
-        return string+"."+string2;
-    }
-
-    public static String enumToJsonKey(String enumName) {
-        StringBuilder jsonKey = new StringBuilder();
-
-
-        String[] parts = enumName.split("_");
-        jsonKey.append(parts[0].toLowerCase(Locale.ROOT));
-        for (int i = 1; i < parts.length; i++) {
-            jsonKey.append(parts[i].substring(0, 1).toUpperCase(Locale.ROOT))
-                    .append(parts[i].substring(1).toLowerCase(Locale.ROOT));
+    public static LanguageManager getInstance() {
+        if (instance == null) {
+            instance = new LanguageManager(GameApplication.getAppContext());
         }
-        return jsonKey.toString();
+        return instance;
     }
+
+    public String enumToStringXml(String enumName){
+        enumName = enumName.toLowerCase(Locale.ROOT);
+        return enumName;
+    }
+
+    public String getText(String key) {
+        if (key == null || key.isEmpty()) {
+            Log.w("LanguageManager", "Invalid key: null or empty");
+            return "Undefined key";
+        }
+
+        int resourceId = context.getResources().getIdentifier(key, "string", context.getPackageName());
+
+        if (resourceId > 0) {
+            return context.getString(resourceId);
+        } else {
+            Log.w("LanguageManager", "String resource not found for key: " + key);
+            return "Undefined: " + key;
+        }
+    }
+
+
+
 }

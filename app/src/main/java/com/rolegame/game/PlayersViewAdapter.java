@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.models.player.Player;
-import com.rolegame.game.models.roles.corrupterroles.support.LastJoke;
+import com.rolegame.game.models.roles.templates.corrupterroles.support.LastJoke;
 import com.rolegame.game.models.roles.enums.Team;
-import com.rolegame.game.models.roles.neutralroles.good.Lorekeeper;
+import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 
 import java.util.ArrayList;
 import java.util.List;
