@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -91,10 +92,15 @@ public class GameActivity extends AppCompatActivity {
 
     private void setAlivePlayersView(){
         alivePlayersView.removeAllViews();
-        PlayersViewAdapter playersViewAdapter = new PlayersViewAdapter(gameService.getTimeService().getTime(), gameService.getCurrentPlayer());
+        PlayersViewAdapter playersViewAdapter = new PlayersViewAdapter(gameService.getTimeService().getTime(), gameService.getCurrentPlayer(), this);
         playersViewAdapter.setPlayers(gameService.getAlivePlayers());
         alivePlayersView.setAdapter(playersViewAdapter);
         alivePlayersView.setLayoutManager(new LinearLayoutManager(this));
+
+        int maxHeight = getResources().getDimensionPixelSize(R.dimen.max_recycler_view_height);
+        ViewGroup.LayoutParams params = alivePlayersView.getLayoutParams();
+        params.height = maxHeight;
+        alivePlayersView.setLayoutParams(params);
     }
 
     private void setRoleText(){

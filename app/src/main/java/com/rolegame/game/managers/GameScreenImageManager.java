@@ -11,9 +11,9 @@ public class GameScreenImageManager {
     private static GameScreenImageManager instance;
 
     private final int[][] images = {
-            { R.drawable.background0, R.drawable.background1 }, // Day Images (0)
-            { R.drawable.background0, R.drawable.background1 }, // Voting Images (1)
-            { R.drawable.background0, R.drawable.background1 }  // Night Images (2)
+            {R.drawable.day0 }, // Day Images (0)
+            {R.drawable.voting0 }, // Voting Images (1)
+            {R.drawable.night0 }  // Night Images (2)
     };
 
     private final int[] indices = { 0, 0, 0 }; // [dayIndex, votingIndex, nightIndex]

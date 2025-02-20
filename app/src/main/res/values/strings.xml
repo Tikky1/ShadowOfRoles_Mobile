@@ -163,7 +163,7 @@ Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara
     <string name="entrepreneur_kill_announcement">%1$s has been slain by an Entrepreneur</string>
 
     <!-- Lorekeeper -->
-    <string name="lorekepeer_name">Lore Keeper</string>
+    <string name="lorekeeper_name">Lore Keeper</string>
     <string name="lorekeeper_attributes">You need to correctly guess 2 roles out of 5,6,7 people. You need to correctly guess 3 roles in 8,9,10 people.</string>
     <string name="lorekeeper_abilities">You choose an actor and then you choose what role that actor plays.</string>
     <string name="lorekeeper_goal">You try to guess the actors\' roles</string>

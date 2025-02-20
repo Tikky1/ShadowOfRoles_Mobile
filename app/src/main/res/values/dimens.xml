@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="player_box_margin">16dp</dimen>
+    <dimen name="max_recycler_view_height">400dp</dimen>
+</resources>

@@ -3,13 +3,16 @@ package com.rolegame.game;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rolegame.game.gamestate.Time;
@@ -30,10 +33,13 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
     private final Player currentPlayer;
 
+    private final int itemMargin;
 
-    public PlayersViewAdapter(Time time, Player currentPlayer) {
+
+    public PlayersViewAdapter(Time time, Player currentPlayer, Context context) {
         this.time = time;
         this.currentPlayer = currentPlayer;
+        this.itemMargin = context.getResources().getDimensionPixelSize(R.dimen.player_box_margin);
     }
 
     @NonNull
@@ -41,6 +47,12 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.player_selection_box, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
+
+        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
+
+        layoutParams.setMargins(itemMargin, itemMargin, itemMargin, itemMargin);
+        view.setLayoutParams(layoutParams);
+
         allSelectionBoxes.add(viewHolder);
         return viewHolder;
     }
@@ -49,8 +61,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Player player = players.get(position);
-        holder.setCurrentPlayer(currentPlayer);
-        holder.setPlayer(player);
+        holder.setCurrentPlayerAndOtherPlayer(currentPlayer,player);
         holder.playerNumberView.setText(player.getNumber()+"");
         holder.playerNameView.setText(player.getName());
 
@@ -123,6 +134,8 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
         private final TextView playerNumberView;
         private final Button selectionBtn;
 
+        private final FrameLayout numberCircle;
+
         private boolean isSelected = false;
 
         private Player currentPlayer;
@@ -134,6 +147,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             playerNameView = itemView.findViewById(R.id.player_name);
             playerNumberView = itemView.findViewById(R.id.player_number);
             selectionBtn = itemView.findViewById(R.id.player_button);
+            numberCircle = itemView.findViewById(R.id.number_circle);
             setButtonEvent();
         }
 
@@ -155,12 +169,13 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             });
         }
 
-        public void setCurrentPlayer(Player currentPlayer) {
+        private void setCurrentPlayerAndOtherPlayer(Player currentPlayer, Player player) {
             this.currentPlayer = currentPlayer;
+            this.player = player;
+            if(currentPlayer.getNumber() == player.getNumber()){
+                numberCircle.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.circle_background_current));
+            }
         }
 
-        public void setPlayer(Player player) {
-            this.player = player;
-        }
     }
 }
