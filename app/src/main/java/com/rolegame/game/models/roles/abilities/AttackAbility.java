@@ -6,12 +6,14 @@ import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.enums.AbilityResult;
 import com.rolegame.game.services.GameService;
 
+import java.util.Locale;
+
 public interface AttackAbility {
 
     default AbilityResult attack(Player roleOwner, Player choosenPlayer, GameService gameService, CauseOfDeath causeOfDeath){
         LanguageManager languageManager = LanguageManager.getInstance();
         if(roleOwner.getAttack() > choosenPlayer.getDefence()){
-            String roleName = roleOwner.getRole().getTemplate().getId().toString();
+            String roleName = roleOwner.getRole().getTemplate().getId().toString().toLowerCase(Locale.ROOT);
             choosenPlayer.setAlive(false);
             choosenPlayer.addCauseOfDeath(causeOfDeath);
             gameService.getMessageService().sendAbilityMessage(languageManager.getText(roleName+"_kill_message"), roleOwner);

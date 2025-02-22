@@ -16,6 +16,16 @@
     <string name="day">"Day: %d"</string>
     <string name="night">"Night: %d"</string>
 
+    <!--Game End-->
+    <string name="winner_team_corrupter">Corrupter</string>
+    <string name="winner_team_folk">Folk</string>
+    <string name="winner_team_assassin">Assassin</string>
+    <string name="winner_team_chillguy">Chill Guy</string>
+    <string name="winner_team_clown">Clown</string>
+    <string name="winner_team_lorekeeper">Lore Keeper</string>
+    <string name="winner_team_text">{team} has won!</string>
+    <string name="winner_draw">Game is Draw!</string>
+
     <string name="credits_text">
 *Oyunun Geliştirici Ekibi:*\n
 - *Baş Geliştirici:* Furkan Kırat\n

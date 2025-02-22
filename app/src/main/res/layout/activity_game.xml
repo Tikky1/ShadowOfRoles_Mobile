@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/abilityText"
             android:layout_centerHorizontal="true"
-            android:text="@string/credits_text"
+            android:text="@string/assassin_attributes"
             android:textColor="@color/white" />
 
         <TextView
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/goalText"
             android:layout_centerHorizontal="true"
-            android:text="Number"
+            android:text="@string/assassin_abilities"
             android:textColor="@color/white" />
 
         <TextView
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/teamText"
             android:layout_centerHorizontal="true"
-            android:text="@string/player"
+            android:text="@string/assassin_goal"
             android:textColor="@color/white" />
 
         <TextView
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="@string/night"
+            android:text="@string/role_book_neutral"
             android:textColor="@color/white" />
     </RelativeLayout>
 

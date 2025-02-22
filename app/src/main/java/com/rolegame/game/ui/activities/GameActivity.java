@@ -205,7 +205,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void toggleDayNightCycleUI(){
 
-        if(gameService.isGameFinished()){
+        if(gameService.getFinishGameService().isGameFinished()){
             Intent intent = new Intent(this, GameEndActivity.class);
             startActivity(intent);
         }

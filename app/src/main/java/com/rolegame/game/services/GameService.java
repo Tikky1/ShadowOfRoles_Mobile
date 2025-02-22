@@ -2,6 +2,7 @@ package com.rolegame.game.services;
 
 import com.rolegame.game.gamestate.CauseOfDeath;
 import com.rolegame.game.gamestate.Time;
+import com.rolegame.game.gamestate.WinnerTeam;
 import com.rolegame.game.managers.LanguageManager;
 import com.rolegame.game.models.player.AIPlayer;
 import com.rolegame.game.models.roles.abilities.PriorityChangingRole;
@@ -14,6 +15,7 @@ import com.rolegame.game.models.roles.enums.Team;
 import com.rolegame.game.models.player.Player;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public final class GameService {
     private final ArrayList<Player> allPlayers = new ArrayList<>();
@@ -22,20 +24,20 @@ public final class GameService {
     private final VotingService votingService;
     private final TimeService timeService;
     private final MessageService messageService;
+    private final FinishGameService finishGameService;
 
     private Player currentPlayer;
     private int currentPlayerIndex;
     private int playerCount;
 
-    private Team winnerTeam;
 
-    private boolean isGameFinished = false;
 
     public GameService(ArrayList<Player> players){
         initializePlayers(players);
         timeService = new TimeService();
         votingService = new VotingService();
         messageService = new MessageService(this);
+        finishGameService = new FinishGameService(this);
     }
 
 
@@ -68,8 +70,8 @@ public final class GameService {
                 break;
         }
 
-        if(checkGameFinished()){
-            finishGame();
+        if(finishGameService.checkGameFinished()){
+            finishGameService.finishGame();
         }
     }
 
@@ -236,144 +238,7 @@ public final class GameService {
         return deadPlayers;
     }
 
-    /**
-     * Checks the game if it is finished and finishes the game
-     * @return game is finished or not
-     */
-    public boolean checkGameFinished(){
 
-        // Finishes the game if only 1 player is alive
-        if(alivePlayers.size()==1){
-            winnerTeam = alivePlayers.get(0).getRole().getTemplate().getTeam();
-            return true;
-        }
-
-        // Finishes the game if nobody is alive
-        if(alivePlayers.isEmpty()){
-            winnerTeam = Team.NONE;
-            return true;
-        }
-
-
-        // If only 2 players are alive checks the game if it is finished
-        if(alivePlayers.size()==2){
-            Player player1 = alivePlayers.get(0);
-            Player player2 = alivePlayers.get(1);
-
-            Optional<Player> player = alivePlayers.stream()
-                    .filter(p -> p.getRole().getTemplate() instanceof NeutralRole)
-                    .filter(p -> ((NeutralRole) p.getRole().getTemplate()).canWinWithOtherTeams())
-                    .findFirst();
-
-            // If one of the players' role is neutral role and the role can win with other teams finishes the game
-            if(player.isPresent()){
-                winnerTeam = player1.getRole().getTemplate().getTeam() == Team.NEUTRAL ? player2.getRole().getTemplate().getTeam() : player1.getRole().getTemplate().getTeam();
-                return true;
-            }
-
-            // Finishes the game if the last two players cannot kill each other
-            if(player1.getRole().getTemplate().getTeam()!=player2.getRole().getTemplate().getTeam()
-                    &&player2.getAttack()<=player1.getRole().getTemplate().getDefence()
-                    &&player1.getAttack()<=player2.getDefence()) {
-                winnerTeam = Team.NONE;
-                return true;
-            }
-
-            // Finishes the game if one of the last two players can role block and the other is not immune to role block
-            Optional<Player> roleBlockerPlayer = alivePlayers.stream()
-                    .filter(p -> p.getRole().getTemplate() instanceof RoleBlockAbility)
-                    .findFirst();
-
-            Optional<Player> roleBlockablePlayer = alivePlayers.stream()
-                    .filter(p -> !p.getRole().getTemplate().isRoleBlockImmune())
-                    .findFirst();
-
-            if(roleBlockerPlayer.isPresent() && roleBlockablePlayer.isPresent() &&
-                    player1.getRole().getTemplate().getTeam() != player2.getRole().getTemplate().getTeam()){
-                winnerTeam = Team.NONE;
-                return true;
-            }
-
-        }
-
-        // Continues the game if all players have the same team
-        for(int i=0;i<alivePlayers.size()-1;i++){
-            if(!alivePlayers.get(i).getRole().getTemplate().getTeam().equals(alivePlayers.get(i+1).getRole().getTemplate().getTeam())){
-                return false;
-            }
-        }
-
-        // Checks if the living players are neutral if so game continues because they are independent
-        if(alivePlayers.get(0).getRole().getTemplate().getTeam()!=Team.NEUTRAL){
-            for(Player alivePlayer : alivePlayers){
-                winnerTeam = alivePlayer.getRole().getTemplate().getTeam();
-            }
-            return true;
-        }
-
-        return false;
-
-    }
-
-    /**
-     * Finishes the game if the end conditions are taken place
-     */
-    public void finishGame(){
-        isGameFinished = true;
-        if(winnerTeam!=Team.NONE &&winnerTeam!=Team.NEUTRAL){
-            for(Player player : allPlayers){
-                if(player.getRole().getTemplate().getTeam()==winnerTeam){
-                    player.setHasWon(true);
-                }
-            }
-        }
-
-        if(winnerTeam == Team.NEUTRAL){
-            alivePlayers.get(0).setHasWon(true);
-        }
-
-        boolean chillGuyExist = false;
-        for(Player player: allPlayers){
-
-            switch (player.getRole().getTemplate().getId()) {
-                case ChillGuy:
-                    chillGuyExist = true;
-                    break;
-
-                case Clown:
-                    if (!player.isAlive() && !player.getCausesOfDeath().contains(CauseOfDeath.HANGING)) {
-                        player.setHasWon(true);
-                    }
-                    break;
-
-                case Lorekeeper:
-                    Lorekeeper lorekeeper = (Lorekeeper) player.getRole().getTemplate();
-                    int winCount;
-
-                    if (playerCount > 6) {
-                        winCount = 3;
-                    } else {
-                        winCount = 2;
-                    }
-
-                    if (lorekeeper.getTrueGuessCount() >= winCount) {
-                        player.setHasWon(true);
-                    }
-                    break;
-
-                default:
-
-                    break;
-            }
-
-        }
-
-
-        messageService.resetMessages();
-        votingService.nullifyVotes();
-
-
-    }
 
     /**
      * Passes to the turn to the next player
@@ -382,10 +247,10 @@ public final class GameService {
     public boolean passTurn() {
 
         if(!doesHumanPlayerExist()){
-            while(!checkGameFinished()){
+            while(!finishGameService.checkGameFinished()){
                 toggleDayNightCycle();
             }
-            finishGame();
+            finishGameService.finishGame();
             return true;
         }
 
@@ -452,9 +317,6 @@ public final class GameService {
         return currentPlayer;
     }
 
-    public Team getWinnerTeam() {
-        return winnerTeam;
-    }
 
     public ArrayList<Player> getAllPlayers() {
         return allPlayers;
@@ -472,7 +334,12 @@ public final class GameService {
         return messageService;
     }
 
-    public boolean isGameFinished() {
-        return isGameFinished;
+    public VotingService getVotingService() {
+        return votingService;
     }
+
+    public FinishGameService getFinishGameService() {
+        return finishGameService;
+    }
+
 }
