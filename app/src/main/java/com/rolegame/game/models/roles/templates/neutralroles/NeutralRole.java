@@ -12,7 +12,7 @@ public abstract class NeutralRole extends RoleTemplate {
 
     @Override
     public String getGoal() {
-        return LanguageManager.getInstance().getText(id.toString() + "_goal");
+        return languageManager.getText(languageManager.enumToStringXml(id.name())+"_goal");
     }
 
     public abstract boolean canWinWithOtherTeams();

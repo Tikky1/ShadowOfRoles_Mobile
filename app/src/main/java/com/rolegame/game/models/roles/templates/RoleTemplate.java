@@ -21,6 +21,8 @@ public abstract class RoleTemplate implements PerformAbility {
     protected AbilityType abilityType;
     private final boolean hasNormalWinCondition;
 
+    protected final LanguageManager languageManager = LanguageManager.getInstance();
+
     public RoleTemplate(RoleID id, AbilityType abilityType, RolePriority rolePriority, RoleCategory roleCategory,
                         Team team, double attack ,double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
         // IMPORTANT! When adding a new role template, the role id and role name in the lang json files must be the same!
@@ -82,11 +84,11 @@ public abstract class RoleTemplate implements PerformAbility {
     }
 
     public final String getAttributes() {
-        return LanguageManager.getInstance().getText(id.toString()+"_attributes");
+        return languageManager.getText( languageManager.enumToStringXml(id.name() + "_attributes"));
     }
 
     public final String getAbilities() {
-        return LanguageManager.getInstance().getText(id.toString()+"_abilities");
+        return languageManager.getText(languageManager.enumToStringXml(id.name())+"_abilities");
     }
 
     public abstract String getGoal();
@@ -97,6 +99,10 @@ public abstract class RoleTemplate implements PerformAbility {
 
     public final Team getTeam() {
         return team;
+    }
+
+    public final String getTeamText(){
+        return languageManager.getText("team_" + languageManager.enumToStringXml(team.name()));
     }
 
     public final double getAttack() {

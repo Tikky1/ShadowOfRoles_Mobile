@@ -205,8 +205,10 @@ Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara
     <string name="voted_for_none">You did not voted for anybody</string>
     <string name="vote_execute">{playerName} ({roleName}) was hanged by majority vote</string>
 
-
-
+    <!-- Teams -->
+    <string name="team_corrupter">Corrupter</string>
+    <string name="team_folk">Folk</string>
+    <string name="team_Neutral">Neutral</string>
 
     <!-- Role Book-->
 

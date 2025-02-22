@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rolegame.game.models.roles.enums.Team;
+import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.ui.adapters.PlayersViewAdapter;
 import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
@@ -39,6 +42,8 @@ public class GameActivity extends AppCompatActivity {
     private Button passTurnButton;
     private ImageView backgroundImage;
 
+    private RelativeLayout playerRoleInfoLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class GameActivity extends AppCompatActivity {
         roleText = findViewById(R.id.roleText);
         passTurnButton = findViewById(R.id.pass_turn_button);
         backgroundImage = findViewById(R.id.backgroundImageGame);
+        playerRoleInfoLayout = findViewById(R.id.playerRoleInfoLayout);
 
 
         setTimeText();
@@ -63,8 +69,27 @@ public class GameActivity extends AppCompatActivity {
         setAlivePlayersView();
         setPassTurnButtonOnClicked();
         setBackgroundImage();
+        setRoleInfoLayout();
 
     }
+
+    private void setRoleInfoLayout(){
+        RoleTemplate currentRole = gameService.getCurrentPlayer().getRole().getTemplate();
+
+        TextView teamText = playerRoleInfoLayout.findViewById(R.id.teamText);
+        teamText.setText(currentRole.getTeamText());
+
+        TextView goalText = playerRoleInfoLayout.findViewById(R.id.goalText);
+        goalText.setText(currentRole.getGoal());
+
+        TextView abilityText = playerRoleInfoLayout.findViewById(R.id.abilityText);
+        abilityText.setText(currentRole.getAbilities());
+
+        TextView attributesText = playerRoleInfoLayout.findViewById(R.id.attributesText);
+        attributesText.setText(currentRole.getAttributes());
+    }
+
+
 
     private void setTimeText(){
         String template = gameService.getTimeService().getTime() != Time.NIGHT ?
@@ -179,6 +204,7 @@ public class GameActivity extends AppCompatActivity {
         setNumberText();
         setRoleText();
         setAlivePlayersView();
+        setRoleInfoLayout();
     }
 
 
