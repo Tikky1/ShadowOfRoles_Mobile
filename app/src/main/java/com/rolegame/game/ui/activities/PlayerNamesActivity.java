@@ -96,7 +96,7 @@ public class PlayerNamesActivity extends AppCompatActivity {
                 Toast.makeText(this, "All Players Cannot be AI Player!", Toast.LENGTH_LONG).show();
                 return;
             }
-            Toast.makeText(this, "Game is Starting", Toast.LENGTH_SHORT).show();
+
             startGameService.initializeGameService(players);
 
             Intent intent = new Intent(this, GameActivity.class);

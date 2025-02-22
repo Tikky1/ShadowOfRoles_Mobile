@@ -29,8 +29,6 @@ public final class GameService {
 
     private Player currentPlayer;
     private int currentPlayerIndex;
-    private final int playerCount;
-
 
 
     public GameService(ArrayList<Player> players){
@@ -40,7 +38,6 @@ public final class GameService {
         messageService = new MessageService(this);
         finishGameService = new FinishGameService(this);
 
-        playerCount = players.size();
     }
 
 
@@ -50,8 +47,7 @@ public final class GameService {
      */
     private void initializePlayers(ArrayList<Player> players){
 
-
-        for(int i=0;i<playerCount;i++){
+        for(int i=0;i<players.size();i++){
             System.out.println(players.get(i).getClass().getName());
             allPlayers.add(players.get(i));
 

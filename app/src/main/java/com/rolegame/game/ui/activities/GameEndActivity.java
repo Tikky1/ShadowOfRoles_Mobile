@@ -3,13 +3,16 @@ package com.rolegame.game.ui.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.rolegame.game.R;
 import com.rolegame.game.gamestate.WinnerTeam;
@@ -26,8 +29,13 @@ public class GameEndActivity extends AppCompatActivity {
     private Button mainMenuBtn;
 
     private TextView winnerTeamText;
+    private ImageView winnerTeamImage;
 
     private GameService gameService;
+
+    private WinnerTeam winnerTeam;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +44,15 @@ public class GameEndActivity extends AppCompatActivity {
         endGameTable = findViewById(R.id.end_game_table);
         mainMenuBtn = findViewById(R.id.go_back_main_button);
         winnerTeamText = findViewById(R.id.winner_team_text);
+        winnerTeamImage = findViewById(R.id.winner_team_image);
 
         gameService = StartGameService.getInstance().getGameService();
+        winnerTeam = gameService.getFinishGameService().getHighestPriorityWinningTeam();
 
         createTable();
         setMainMenuBtn();
         setWinnerTeamText();
+        setWinnerTeamImage();
     }
 
 
@@ -62,38 +73,23 @@ public class GameEndActivity extends AppCompatActivity {
         for (Player player : gameService.getAllPlayers()) {
             TableRow tableRow = new TableRow(this);
 
-            TextView idView = new TextView(this);
-            idView.setText(String.format("%d", player.getNumber()));
-            idView.setPadding(8, 16, 8, 16);
-            tableRow.addView(idView);
-
-            TextView nameView = new TextView(this);
-            nameView.setText(player.getName());
-            nameView.setPadding(8, 16, 8, 16);
-            tableRow.addView(nameView);
-
-            TextView roleView = new TextView(this);
-            roleView.setText(player.getRole().getTemplate().getName());
-            roleView.setPadding(8, 16, 8, 16);
-            tableRow.addView(roleView);
-
-            TextView winStatusView = new TextView(this);
-            winStatusView.setText(player.isHasWon() ? "Won" : "Lost");
-            winStatusView.setPadding(8, 16, 8, 16);
-            tableRow.addView(winStatusView);
-
-            TextView aliveStatusView = new TextView(this);
-            aliveStatusView.setText(player.isAlive() ? "Alive" : "Dead");
-            aliveStatusView.setPadding(8, 16, 8, 16);
-            tableRow.addView(aliveStatusView);
-
-            TextView causeOfDeaths = new TextView(this);
-            causeOfDeaths.setText(String.format(player.getCausesOfDeathAsString()));
-            causeOfDeaths.setPadding(8, 16, 8, 16);
-            tableRow.addView(causeOfDeaths);
+            tableRow.addView(createTextView(String.format("%d", player.getNumber())));
+            tableRow.addView(createTextView(player.getName()));
+            tableRow.addView(createTextView(player.getRole().getTemplate().getName()));
+            tableRow.addView(createTextView(player.isHasWon() ? "Won" : "Lost"));
+            tableRow.addView(createTextView(player.isAlive() ? "Alive" : "Dead"));
+            tableRow.addView(createTextView(player.getCausesOfDeathAsString()));
 
             endGameTable.addView(tableRow);
         }
+    }
+
+    private TextView createTextView(String text) {
+        TextView textView = new TextView(this);
+        textView.setText(text);
+        textView.setPadding(8, 16, 8, 16);
+        textView.setTextColor(Color.WHITE);
+        return textView;
     }
 
     private void setMainMenuBtn(){
@@ -104,8 +100,8 @@ public class GameEndActivity extends AppCompatActivity {
     }
 
     private void setWinnerTeamText() {
+
         String winnerTeamStr;
-        WinnerTeam winnerTeam = gameService.getFinishGameService().getHighestPriorityWinningTeam();
 
         if (winnerTeam == null) {
             winnerTeamStr = getString(R.string.winner_draw);
@@ -124,6 +120,33 @@ public class GameEndActivity extends AppCompatActivity {
         winnerTeamText.setText(winnerTeamStr);
 
 
+    }
+
+    private void setWinnerTeamImage(){
+        Drawable image;
+
+        if(winnerTeam == null){
+            image = AppCompatResources.getDrawable(this,R.drawable.winner_draw);
+        }
+
+        else{
+
+            switch (winnerTeam){
+                case FOLK:
+                    image = AppCompatResources.getDrawable(this,R.drawable.winner_folk);
+                    break;
+
+                case CORRUPTER:
+                    image = AppCompatResources.getDrawable(this,R.drawable.winner_corrupt);
+                    break;
+
+                default:
+                    image = AppCompatResources.getDrawable(this,R.drawable.winner_draw);
+                    break;
+            }
+        }
+
+        winnerTeamImage.setImageDrawable(image);
     }
 
 
