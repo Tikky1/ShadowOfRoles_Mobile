@@ -42,8 +42,6 @@ public class GraveyardFragment extends DialogFragment {
 
         graveyardView.setAdapter(graveyardViewAdapter);
 
-        Log.d("RecyclerView", "RecyclerView Height: " + graveyardView.getHeight());
-
         return dialog;
     }
 }

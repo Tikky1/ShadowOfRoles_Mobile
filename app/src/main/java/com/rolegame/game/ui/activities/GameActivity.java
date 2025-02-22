@@ -28,6 +28,7 @@ import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
 import com.rolegame.game.ui.fragments.GraveyardFragment;
 import com.rolegame.game.ui.fragments.MessageFragment;
+import com.rolegame.game.ui.fragments.PassTurnFragment;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -67,7 +68,7 @@ public class GameActivity extends AppCompatActivity {
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
 
-
+        createPassTurnDialog();
         setTimeText();
         setNameText();
         setNumberText();
@@ -185,7 +186,7 @@ public class GameActivity extends AppCompatActivity {
 //                case VOTING -> setStyleImage(passTurnPane,"vote");
 //                case NIGHT -> setStyleImage(passTurnPane,"night");
 //            }
-            changePlayerUI();
+            createPassTurnDialog();
 
         });
     }
@@ -263,5 +264,12 @@ public class GameActivity extends AppCompatActivity {
         setTimeText();
 
 
+    }
+
+    private void createPassTurnDialog(){
+        PassTurnFragment passTurnFragment = new PassTurnFragment();
+        passTurnFragment.setOnDismissListener(this::changePlayerUI);
+        passTurnFragment.setPlayerName(gameService.getCurrentPlayer().getName());
+        passTurnFragment.show(getSupportFragmentManager(), "Pass Turn");
     }
 }

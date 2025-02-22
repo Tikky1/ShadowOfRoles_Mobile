@@ -1,6 +1,5 @@
 package com.rolegame.game.ui.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rolegame.game.R;
 import com.rolegame.game.models.player.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GraveyardViewAdapter extends RecyclerView.Adapter<GraveyardViewAdapter.GraveyardViewHolder> {
