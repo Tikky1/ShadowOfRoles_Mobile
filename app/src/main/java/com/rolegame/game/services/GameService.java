@@ -21,6 +21,7 @@ public final class GameService {
     private final ArrayList<Player> allPlayers = new ArrayList<>();
     private final ArrayList<Player> alivePlayers = new ArrayList<>();
 
+    private final ArrayList<Player> deadPlayers = new ArrayList<>();
     private final VotingService votingService;
     private final TimeService timeService;
     private final MessageService messageService;
@@ -28,7 +29,7 @@ public final class GameService {
 
     private Player currentPlayer;
     private int currentPlayerIndex;
-    private int playerCount;
+    private final int playerCount;
 
 
 
@@ -38,6 +39,8 @@ public final class GameService {
         votingService = new VotingService();
         messageService = new MessageService(this);
         finishGameService = new FinishGameService(this);
+
+        playerCount = players.size();
     }
 
 
@@ -47,7 +50,6 @@ public final class GameService {
      */
     private void initializePlayers(ArrayList<Player> players){
 
-        playerCount = players.size();
 
         for(int i=0;i<playerCount;i++){
             System.out.println(players.get(i).getClass().getName());
@@ -229,10 +231,9 @@ public final class GameService {
      * @return updated dead players
      */
     public ArrayList<Player> getDeadPlayers() {
-        ArrayList<Player> deadPlayers = new ArrayList<>();
-        for (Player allPlayer : allPlayers) {
-            if (!allPlayer.isAlive()) {
-                deadPlayers.add(allPlayer);
+        for (Player player : allPlayers) {
+            if (!player.isAlive() && !deadPlayers.contains(player)) {
+                deadPlayers.add(player);
             }
         }
         return deadPlayers;
@@ -272,7 +273,7 @@ public final class GameService {
     /**
      * Moves the turn to the first human player, skipping AI players.
      */
-    public void moveToFirstHumanPlayer() {
+    private void moveToFirstHumanPlayer() {
 
         for(int i=0;i<alivePlayers.size();i++){
             if(!alivePlayers.get(i).isAIPlayer()){
@@ -283,7 +284,7 @@ public final class GameService {
         }
     }
 
-    public int findFirstHumanPlayer() {
+    private int findFirstHumanPlayer() {
 
         for(int i=0;i<alivePlayers.size();i++){
             if(!alivePlayers.get(i).isAIPlayer()){
@@ -316,7 +317,6 @@ public final class GameService {
     public Player getCurrentPlayer(){
         return currentPlayer;
     }
-
 
     public ArrayList<Player> getAllPlayers() {
         return allPlayers;

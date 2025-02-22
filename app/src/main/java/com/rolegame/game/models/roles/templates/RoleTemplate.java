@@ -19,9 +19,10 @@ public abstract class RoleTemplate implements PerformAbility {
     protected double defence;
     protected boolean isRoleBlockImmune;
     protected AbilityType abilityType;
+    private final boolean hasNormalWinCondition;
 
     public RoleTemplate(RoleID id, AbilityType abilityType, RolePriority rolePriority, RoleCategory roleCategory,
-                        Team team, double attack ,double defence, boolean isRoleBlockImmune) {
+                        Team team, double attack ,double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
         // IMPORTANT! When adding a new role template, the role id and role name in the lang json files must be the same!
         this.id = id;
         this.abilityType = abilityType;
@@ -31,6 +32,7 @@ public abstract class RoleTemplate implements PerformAbility {
         this.attack = attack;
         this.defence = defence;
         this.isRoleBlockImmune = isRoleBlockImmune;
+        this.hasNormalWinCondition = hasNormalWinCondition;
     }
 
     @Override
@@ -135,6 +137,10 @@ public abstract class RoleTemplate implements PerformAbility {
 
     public final void setAbilityType(AbilityType abilityType) {
         this.abilityType = abilityType;
+    }
+
+    public boolean isHasNormalWinCondition() {
+        return hasNormalWinCondition;
     }
 
     public abstract ChanceProperty getChanceProperty();

@@ -9,7 +9,8 @@ import com.rolegame.game.services.GameService;
 
 public final class Assassin extends NeutralRole implements AttackAbility {
     public Assassin() {
-        super(RoleID.Assassin, AbilityType.ACTIVE_OTHERS, RolePriority.NONE, RoleCategory.NEUTRAL_KILLING, 1, 1, true);
+        super(RoleID.Assassin, AbilityType.ACTIVE_OTHERS, RolePriority.NONE, RoleCategory.NEUTRAL_KILLING, 1, 1, true
+        ,true);
     }
 
     @Override

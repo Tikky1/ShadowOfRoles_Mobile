@@ -8,7 +8,8 @@ import com.rolegame.game.services.GameService;
 
 public final class Clown extends NeutralRole implements NoAbility {
     public Clown() {
-        super(RoleID.Clown, AbilityType.NO_ABILITY, RolePriority.NONE, RoleCategory.NEUTRAL_CHAOS, 0, 0, false);
+        super(RoleID.Clown, AbilityType.NO_ABILITY, RolePriority.NONE, RoleCategory.NEUTRAL_CHAOS,
+                0, 0, false, false);
     }
 
     @Override

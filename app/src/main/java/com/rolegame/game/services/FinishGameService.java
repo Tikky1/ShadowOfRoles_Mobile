@@ -10,11 +10,8 @@ import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public class FinishGameService {
 
@@ -36,8 +33,11 @@ public class FinishGameService {
 
         ArrayList<Player> alivePlayers = gameService.getAlivePlayers();
         // Finishes the game if only 1 player is alive
-        if(gameService.getAlivePlayers().size()==1){
-            winnerTeams.add(alivePlayers.get(0).getRole().getTemplate().getId().getWinnerTeam());
+        if(alivePlayers.size()==1){
+
+            if(alivePlayers.get(0).getRole().getTemplate().isHasNormalWinCondition()){
+                winnerTeams.add(alivePlayers.get(0).getRole().getTemplate().getId().getWinnerTeam());
+            }
             return true;
         }
 
@@ -149,6 +149,7 @@ public class FinishGameService {
                 case Clown:
                     if (!player.isAlive() && !player.getCausesOfDeath().contains(CauseOfDeath.HANGING)) {
                         player.setHasWon(true);
+                        winnerTeams.add(WinnerTeam.CLOWN);
                     }
                     break;
 
@@ -156,14 +157,11 @@ public class FinishGameService {
                     Lorekeeper lorekeeper = (Lorekeeper) player.getRole().getTemplate();
                     int winCount;
 
-                    if (gameService.getAllPlayers().size() > 6) {
-                        winCount = 3;
-                    } else {
-                        winCount = 2;
-                    }
+                    winCount = gameService.getAllPlayers().size() > 6 ? 3 : 2;
 
                     if (lorekeeper.getTrueGuessCount() >= winCount) {
                         player.setHasWon(true);
+                        winnerTeams.add(WinnerTeam.LORE_KEEPER);
                     }
                     break;
 
@@ -178,11 +176,6 @@ public class FinishGameService {
         gameService.getMessageService().resetMessages();
         gameService.getVotingService().nullifyVotes();
 
-        if(winnerTeams.isEmpty()){
-            Optional<Player> player = gameService.getAllPlayers().stream().filter(Player::isHasWon).findFirst();
-
-            player.ifPresent(value -> winnerTeams.add(value.getRole().getTemplate().getId().getWinnerTeam()));
-        }
     }
 
 
