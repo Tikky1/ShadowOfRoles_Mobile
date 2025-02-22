@@ -38,6 +38,10 @@ public class Message {
         return isPublic;
     }
 
+    public String getTimeAndDayCountAsString(){
+        return  (isDay ? "Day:" : "Night:")+ dayCount;
+    }
+
     @Override
     public String toString() {
         return "Message{" +

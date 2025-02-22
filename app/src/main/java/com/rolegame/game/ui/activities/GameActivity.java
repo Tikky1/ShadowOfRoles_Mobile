@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rolegame.game.models.roles.enums.Team;
 import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.ui.adapters.PlayersViewAdapter;
 import com.rolegame.game.R;
@@ -26,6 +26,8 @@ import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.enums.AbilityType;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
+import com.rolegame.game.ui.fragments.GraveyardFragment;
+import com.rolegame.game.ui.fragments.MessageFragment;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -39,6 +41,8 @@ public class GameActivity extends AppCompatActivity {
     private TextView numberText;
     private TextView roleText;
 
+    private ImageButton announcementsButton;
+    private ImageButton graveyardButton;
     private Button passTurnButton;
     private ImageView backgroundImage;
 
@@ -60,6 +64,8 @@ public class GameActivity extends AppCompatActivity {
         passTurnButton = findViewById(R.id.pass_turn_button);
         backgroundImage = findViewById(R.id.backgroundImageGame);
         playerRoleInfoLayout = findViewById(R.id.playerRoleInfoLayout);
+        announcementsButton = findViewById(R.id.announcementsBtn);
+        graveyardButton = findViewById(R.id.gravestoneBtn);
 
 
         setTimeText();
@@ -70,7 +76,24 @@ public class GameActivity extends AppCompatActivity {
         setPassTurnButtonOnClicked();
         setBackgroundImage();
         setRoleInfoLayout();
+        setImageButtonOnClicked();
 
+    }
+
+    private void setImageButtonOnClicked(){
+        announcementsButton.setOnClickListener(v -> {
+            MessageFragment messageFragment = new MessageFragment(
+                    gameService.getMessageService().getMessages(), gameService.getCurrentPlayer());
+
+            messageFragment.show(getSupportFragmentManager(), "Messages");
+        });
+
+        graveyardButton.setOnClickListener(v -> {
+            GraveyardFragment graveyardFragment = new GraveyardFragment(
+                    gameService.getDeadPlayers());
+
+            graveyardFragment.show(getSupportFragmentManager(), "Graveyard");
+        });
     }
 
     private void setRoleInfoLayout(){
@@ -117,7 +140,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setAlivePlayersView(){
-        alivePlayersView.removeAllViews();
         PlayersViewAdapter playersViewAdapter = new PlayersViewAdapter(gameService.getTimeService().getTime(), gameService.getCurrentPlayer(), this);
         playersViewAdapter.setPlayers(gameService.getAlivePlayers());
         alivePlayersView.setAdapter(playersViewAdapter);
@@ -127,6 +149,7 @@ public class GameActivity extends AppCompatActivity {
         ViewGroup.LayoutParams params = alivePlayersView.getLayoutParams();
         params.height = maxHeight;
         alivePlayersView.setLayoutParams(params);
+        alivePlayersView.setItemViewCacheSize(gameService.getAlivePlayers().size());
     }
 
     private void setRoleText(){
@@ -154,7 +177,7 @@ public class GameActivity extends AppCompatActivity {
 
             if(gameService.passTurn()){
 
-                toggleDayNightCycleUI();
+                changeTimeUI();
 
             }
 //            switch (gameService.getTimeService().getTime()){
@@ -229,7 +252,7 @@ public class GameActivity extends AppCompatActivity {
         backgroundImage.setImageDrawable(image);
     }
 
-    private void toggleDayNightCycleUI(){
+    private void changeTimeUI(){
 
         if(gameService.getFinishGameService().isGameFinished()){
             Intent intent = new Intent(this, GameEndActivity.class);

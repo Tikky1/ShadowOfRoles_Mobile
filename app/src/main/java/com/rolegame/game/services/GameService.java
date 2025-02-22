@@ -47,11 +47,7 @@ public final class GameService {
      */
     private void initializePlayers(ArrayList<Player> players){
 
-        for(int i=0;i<players.size();i++){
-            System.out.println(players.get(i).getClass().getName());
-            allPlayers.add(players.get(i));
-
-        }
+        allPlayers.addAll(players);
         updateAlivePlayers();
         
     }

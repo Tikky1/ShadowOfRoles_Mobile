@@ -27,7 +27,7 @@ import java.util.List;
 
 public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.ViewHolder>{
 
-    private static final List<ViewHolder> allSelectionBoxes = new ArrayList<>();
+    private final List<ViewHolder> allSelectionBoxes = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
 
     private final Time time;
@@ -55,6 +55,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
         view.setLayoutParams(layoutParams);
 
         allSelectionBoxes.add(viewHolder);
+        viewHolder.setAllSelectionBoxes(allSelectionBoxes);
         return viewHolder;
     }
 
@@ -113,6 +114,8 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             selectButton.setVisibility(isPlayerCurrentPlayer ? View.GONE : View.VISIBLE);
         }
 
+        holder.selectionBtn.setText(holder.isSelected ? "Unselect" : "Select");
+
     }
 
     private boolean isPlayerCurrentPlayer(Player player, Player currentPlayer){
@@ -126,7 +129,6 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
-        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -137,11 +139,13 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
         private final FrameLayout numberCircle;
 
-        private boolean isSelected = false;
+        private boolean isSelected;
 
         private Player currentPlayer;
 
         private Player player;
+
+        private List<ViewHolder> allSelectionBoxes;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -149,6 +153,8 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             playerNumberView = itemView.findViewById(R.id.player_number);
             selectionBtn = itemView.findViewById(R.id.player_button);
             numberCircle = itemView.findViewById(R.id.number_circle);
+
+            isSelected = false;
             setButtonEvent();
         }
 
@@ -158,14 +164,15 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
                 isSelected = !isSelected;
                 currentPlayer.getRole().setChoosenPlayer(isSelected ? player : null);
+
+                boolean tempSelected = isSelected;
                 for (ViewHolder viewHolder : allSelectionBoxes) {
-                    if(viewHolder!=this){
-                        viewHolder.isSelected = false;
-                        viewHolder.selectionBtn.setText("Select");
-                    }
+
+                    viewHolder.isSelected = false;
+                    viewHolder.selectionBtn.setText("Select");
 
                 }
-
+                isSelected = tempSelected;
                 selectionBtn.setText(isSelected ? "Unselect" : "Select");
             });
         }
@@ -178,5 +185,8 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             }
         }
 
+        public void setAllSelectionBoxes(List<ViewHolder> allSelectionBoxes) {
+            this.allSelectionBoxes = allSelectionBoxes;
+        }
     }
 }

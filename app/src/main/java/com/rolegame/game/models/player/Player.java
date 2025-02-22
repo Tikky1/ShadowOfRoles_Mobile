@@ -81,7 +81,7 @@ public abstract class Player {
 
 
     public final String getNameAndRole(){
-        return name+" ("+role.getTemplate().getName()+")";
+        return number + ". " + name + " (" + role.getTemplate().getName()+ ")";
     }
 
     public final boolean isAlive() {
