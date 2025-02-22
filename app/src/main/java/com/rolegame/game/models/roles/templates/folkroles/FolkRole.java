@@ -12,6 +12,6 @@ public abstract class FolkRole extends RoleTemplate {
 
     @Override
     public String getGoal() {
-        return LanguageManager.getInstance().getText("goal_folk_role");
+        return LanguageManager.getInstance().getText("goal_folk");
     }
 }

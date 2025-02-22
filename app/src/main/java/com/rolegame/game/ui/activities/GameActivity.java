@@ -77,16 +77,16 @@ public class GameActivity extends AppCompatActivity {
         RoleTemplate currentRole = gameService.getCurrentPlayer().getRole().getTemplate();
 
         TextView teamText = playerRoleInfoLayout.findViewById(R.id.teamText);
-        teamText.setText(currentRole.getTeamText());
+        teamText.setText("Team: " + currentRole.getTeamText());
 
         TextView goalText = playerRoleInfoLayout.findViewById(R.id.goalText);
-        goalText.setText(currentRole.getGoal());
+        goalText.setText("Goal: " + currentRole.getGoal());
 
         TextView abilityText = playerRoleInfoLayout.findViewById(R.id.abilityText);
-        abilityText.setText(currentRole.getAbilities());
+        abilityText.setText("Abilities: " + currentRole.getAbilities());
 
         TextView attributesText = playerRoleInfoLayout.findViewById(R.id.attributesText);
-        attributesText.setText(currentRole.getAttributes());
+        attributesText.setText("Attributes: " + currentRole.getAttributes());
     }
 
 

@@ -208,7 +208,7 @@ Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara
     <!-- Teams -->
     <string name="team_corrupter">Corrupter</string>
     <string name="team_folk">Folk</string>
-    <string name="team_Neutral">Neutral</string>
+    <string name="team_neutral">Neutral</string>
 
     <!-- Role Book-->
 
