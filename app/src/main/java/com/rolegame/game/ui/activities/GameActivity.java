@@ -26,6 +26,7 @@ import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.enums.AbilityType;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
+import com.rolegame.game.ui.fragments.AnnouncementsFragment;
 import com.rolegame.game.ui.fragments.GraveyardFragment;
 import com.rolegame.game.ui.fragments.MessageFragment;
 import com.rolegame.game.ui.fragments.PassTurnFragment;
@@ -57,6 +58,17 @@ public class GameActivity extends AppCompatActivity {
 
         gameService = StartGameService.getInstance().getGameService();
 
+        initializeViews();
+
+        createPassTurnDialog();
+        setPassTurnButtonOnClicked();
+        setTimeText();
+        setBackgroundImage();
+        setImageButtonOnClicked();
+
+    }
+
+    private void initializeViews(){
         alivePlayersView = findViewById(R.id.alivePlayersView);
         timeText = findViewById(R.id.timeText);
         nameText = findViewById(R.id.nameText);
@@ -67,20 +79,7 @@ public class GameActivity extends AppCompatActivity {
         playerRoleInfoLayout = findViewById(R.id.playerRoleInfoLayout);
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
-
-        createPassTurnDialog();
-        setTimeText();
-        setNameText();
-        setNumberText();
-        setRoleText();
-        setAlivePlayersView();
-        setPassTurnButtonOnClicked();
-        setBackgroundImage();
-        setRoleInfoLayout();
-        setImageButtonOnClicked();
-
     }
-
     private void setImageButtonOnClicked(){
         announcementsButton.setOnClickListener(v -> {
             MessageFragment messageFragment = new MessageFragment(
@@ -176,9 +175,13 @@ public class GameActivity extends AppCompatActivity {
             //passTurnPane.setVisible(true);
             gameService.sendVoteMessages();
 
-            if(gameService.passTurn()){
+            boolean isTimeChanged = gameService.passTurn();
 
-                changeTimeUI();
+            createPassTurnDialog();
+
+            if(isTimeChanged){
+
+                createAnnouncementsDialog();
 
             }
 //            switch (gameService.getTimeService().getTime()){
@@ -186,7 +189,7 @@ public class GameActivity extends AppCompatActivity {
 //                case VOTING -> setStyleImage(passTurnPane,"vote");
 //                case NIGHT -> setStyleImage(passTurnPane,"night");
 //            }
-            createPassTurnDialog();
+
 
         });
     }
@@ -263,6 +266,17 @@ public class GameActivity extends AppCompatActivity {
         setBackgroundImage();
         setTimeText();
 
+        switch (gameService.getTimeService().getTime()){
+            case DAY:
+                createAnnouncementsDialog();
+                break;
+            case NIGHT:
+                createAnnouncementsDialog();
+                break;
+            case VOTING:
+                break;
+        }
+
 
     }
 
@@ -271,5 +285,12 @@ public class GameActivity extends AppCompatActivity {
         passTurnFragment.setOnDismissListener(this::changePlayerUI);
         passTurnFragment.setPlayerName(gameService.getCurrentPlayer().getName());
         passTurnFragment.show(getSupportFragmentManager(), "Pass Turn");
+    }
+
+    private void createAnnouncementsDialog(){
+        AnnouncementsFragment announcementsFragment = new AnnouncementsFragment();
+        announcementsFragment.setAnnouncements(gameService.getMessageService().getMessages());
+        announcementsFragment.setDayText(gameService.getTimeService().getTimeAndDay());
+        announcementsFragment.show(getSupportFragmentManager(), "Start Day Announcements");
     }
 }

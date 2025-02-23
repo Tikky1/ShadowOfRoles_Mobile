@@ -32,4 +32,8 @@ public final class TimeService {
         return time;
     }
 
+    public String getTimeAndDay(){
+        return (time!=Time.NIGHT ? "Day: " : "Night: ") + dayCount;
+    }
+
 }
