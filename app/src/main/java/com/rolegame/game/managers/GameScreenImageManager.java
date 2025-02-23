@@ -15,9 +15,9 @@ public class GameScreenImageManager {
             {R.drawable.voting0 }, // Voting Images (1)
             {R.drawable.night0 }, // Night Images (2)
 
-            {R.drawable.day0 }, // Passing Turn Day Images (0)
-            {R.drawable.voting0 }, // Passing Turn Voting Images (1)
-            {R.drawable.night0 } // Passing Turn Night Images (2)
+            {R.drawable.day_lobby_0 }, // Passing Turn Day Images (0)
+            {R.drawable.voting_lobby_0 }, // Passing Turn Voting Images (1)
+            {R.drawable.night_lobby_0 } // Passing Turn Night Images (2)
 
     };
 

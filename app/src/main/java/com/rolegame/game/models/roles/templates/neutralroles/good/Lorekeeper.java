@@ -40,7 +40,7 @@ public final class Lorekeeper extends NeutralRole {
         if(choosenPlayer.getRole().getTemplate().getId() == guessedRole.getId()){
             trueGuessCount++;
 
-            String messageTemplate = LanguageManager.getInstance().getText("lorekeeper_abilityMessage");
+            String messageTemplate = languageManager.getText("lorekeeper_ability_message");
 
             String message = messageTemplate
                     .replace("{playerName}", choosenPlayer.getName())

@@ -32,7 +32,7 @@ import com.rolegame.game.ui.fragments.GraveyardFragment;
 import com.rolegame.game.ui.fragments.MessageFragment;
 import com.rolegame.game.ui.fragments.PassTurnFragment;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends BaseActivity {
 
     private GameService gameService;
     private RecyclerView alivePlayersView;
@@ -307,7 +307,8 @@ public class GameActivity extends AppCompatActivity {
 
     private void createAnnouncementsDialog(){
         AnnouncementsFragment announcementsFragment = new AnnouncementsFragment();
-        announcementsFragment.setAnnouncements(gameService.getMessageService().getMessages());
+        announcementsFragment.setAnnouncementsAndTimeService(gameService.getMessageService().getMessages(),
+                gameService.getTimeService());
         announcementsFragment.setDayText(gameService.getTimeService().getTimeAndDay());
         announcementsFragment.show(getSupportFragmentManager(), "Start Day Announcements");
     }

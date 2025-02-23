@@ -39,7 +39,11 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
 
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
-        switch (abilityState){
+
+        ChosenAbility chosenAbility = abilityState;
+        abilityState = ChosenAbility.NONE;
+
+        switch (chosenAbility){
 
             case ATTACK: {
                 if(money>= ATTACK_PRICE){
@@ -106,14 +110,17 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
     }
 
     private AbilityResult insufficientMoney(Player roleOwner, GameService gameService){
-        String message = LanguageManager.getInstance().getText("entrepreneur_insufficient_money");
+        String message = languageManager.getText("entrepreneur_insufficient_money");
 
         switch (abilityState){
-            case ATTACK: message += LanguageManager.getInstance().getText("entrepreneur_attack");
+            case ATTACK: message = message
+                    .replace("{abilityName}", languageManager.getText("entrepreneur_attack"));
                 break;
-            case HEAL: message += LanguageManager.getInstance().getText("entrepreneur_heal");
+            case HEAL:  message = message
+                    .replace("{abilityName}", languageManager.getText("entrepreneur_heal"));
                 break;
-            case INFO: message += LanguageManager.getInstance().getText("entrepreneur_info");
+            case INFO:  message = message
+                    .replace("{abilityName}", languageManager.getText("entrepreneur_info"));
                 break;
         }
         sendAbilityMessage(message, roleOwner, gameService.getMessageService());

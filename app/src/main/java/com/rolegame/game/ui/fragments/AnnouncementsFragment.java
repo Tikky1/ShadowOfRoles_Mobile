@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rolegame.game.R;
+import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.models.Message;
+import com.rolegame.game.services.TimeService;
 import com.rolegame.game.ui.adapters.MessagesViewAdapter;
 
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 public class AnnouncementsFragment extends DialogFragment {
 
     private List<Message> announcements;
+    private TimeService timeService;
     private String dayText;
     @Nullable
     @Override
@@ -65,13 +68,43 @@ public class AnnouncementsFragment extends DialogFragment {
         RecyclerView announcementsRecyclerView = view.findViewById(R.id.announcements_recycler_view);
         announcementsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         MessagesViewAdapter messagesViewAdapter = new MessagesViewAdapter();
-        messagesViewAdapter.setMessages(announcements.stream().filter(Message::isPublic).collect(Collectors.toList()));
+
+        messagesViewAdapter.setMessages(filterMessages());
+
         announcementsRecyclerView.setAdapter(messagesViewAdapter);
+
+        hideSystemUI();
 
     }
 
-    public void setAnnouncements(List<Message> announcements) {
+
+    private List<Message> filterMessages(){
+        Time currentTime = timeService.getTime();
+        int currentDayCount = timeService.getDayCount();
+
+        List<Message> filteredMessages = announcements.stream()
+                .filter(message -> message.isPublic() && (
+                        (currentTime == Time.NIGHT && message.isDay() && message.getDayCount() == currentDayCount) ||
+                                (currentTime == Time.DAY && !message.isDay() && message.getDayCount() == currentDayCount - 1)
+                ))
+                .collect(Collectors.toList());
+
+        return filteredMessages;
+    }
+    private void hideSystemUI() {
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            );
+        }
+    }
+    public void setAnnouncementsAndTimeService(List<Message> announcements, TimeService timeService) {
         this.announcements = announcements;
+        this.timeService = timeService;
     }
 
     public void setDayText(String dayText) {

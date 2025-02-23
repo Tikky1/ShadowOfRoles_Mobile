@@ -22,7 +22,7 @@ import com.rolegame.game.models.roles.enums.Team;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
 
-public class GameEndActivity extends AppCompatActivity {
+public class GameEndActivity extends BaseActivity {
 
     private TableLayout endGameTable;
 

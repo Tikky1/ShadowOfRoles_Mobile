@@ -79,7 +79,6 @@ public abstract class RoleTemplate implements PerformAbility {
     }
 
     public final String getName() {
-        LanguageManager languageManager = LanguageManager.getInstance();
         return languageManager.getText(languageManager.enumToStringXml(id.name())+"_name");
     }
 

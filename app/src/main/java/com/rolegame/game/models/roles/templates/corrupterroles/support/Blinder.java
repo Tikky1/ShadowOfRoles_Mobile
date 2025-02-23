@@ -16,7 +16,7 @@ public final class Blinder extends CorrupterRole{
 
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
-        String message = LanguageManager.getInstance().getText("blinder_ability_message");
+        String message = languageManager.getText("blinder_ability_message");
         sendAbilityMessage(message,roleOwner, gameService.getMessageService());
         ArrayList<Player> players = new ArrayList<>(gameService.getAlivePlayers());
 
@@ -24,7 +24,7 @@ public final class Blinder extends CorrupterRole{
 
         choosenPlayer.getRole().setChoosenPlayer(players.get(new Random().nextInt(players.size())));
 
-        sendAbilityMessage(LanguageManager.getInstance().getText("got_blinded_message"), choosenPlayer, gameService.getMessageService());
+        sendAbilityMessage(languageManager.getText("got_blinded_message"), choosenPlayer, gameService.getMessageService());
 
         return AbilityResult.SUCCESSFUL;
     }

@@ -13,7 +13,7 @@ import com.rolegame.game.ui.alerts.QuitAlert;
 import com.rolegame.game.R;
 import com.rolegame.game.managers.SceneManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static MainActivity instance;
     private Button startGameBtn;

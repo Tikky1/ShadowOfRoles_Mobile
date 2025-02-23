@@ -95,6 +95,7 @@ public interface InvestigativeAbility {
     default AbilityResult darkSeerAbility(Player roleOwner, GameService gameService){
 
         ArrayList<Player> players = new ArrayList<>(gameService.getAlivePlayers());
+        players.remove(roleOwner);
 
         Collections.shuffle(players);
         String message;

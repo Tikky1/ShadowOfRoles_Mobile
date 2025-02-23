@@ -25,7 +25,7 @@ import com.rolegame.game.services.StartGameService;
 
 import java.util.ArrayList;
 
-public class PlayerNamesActivity extends AppCompatActivity {
+public class PlayerNamesActivity extends BaseActivity {
     StartGameService startGameService;
     SceneManager sceneManager;
 

@@ -135,6 +135,8 @@ Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara
     <string name="disguiser_name">Disguiser</string>
     <string name="disguiser_abilities">Disguise to random role every night but you can\'t know until you use it</string>
     <string name="disguiser_attributes">N/A</string>
+    <string name="disguiser_kill_message">You have successfully killed your target</string>
+    <string name="disguiser_kill_announcement">{playerName} were killed by someone hiding in the shadows</string>
 
     <!--Dark Seer-->
     <string name="darkseer_name">Dark Seer</string>
@@ -161,24 +163,24 @@ Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara
     <string name="entrepreneur_name">Entrepreneur</string>
     <string name="entrepreneur_attributes">You get 2 coins every day</string>
     <string name="entrepreneur_abilities">You have some money, you can get other people to do work with this money.</string>
-    <string name="entrepreneur_insufficient_money">You don\'t have enough money to: %1$s</string>
+    <string name="entrepreneur_insufficient_money">You don\'t have enough money to: {abilityName}</string>
     <string name="entrepreneur_attack">Attack</string>
     <string name="entrepreneur_heal">Heal</string>
     <string name="entrepreneur_info">Info</string>
     <string name="entrepreneur_pass">Pass Ability</string>
-    <string name="entrepreneur_selected">Selected: %1$s</string>
+    <string name="entrepreneur_selected">Selected: {abilityName}</string>
     <string name="entrepreneur_none">None</string>
-    <string name="entrepreneur_money">Your money: %1$d</string>
+    <string name="entrepreneur_money">Your money: {money}</string>
     <string name="entrepreneur_kill_message">You have slain your target successfully</string>
-    <string name="entrepreneur_kill_announcement">%1$s has been slain by an Entrepreneur</string>
+    <string name="entrepreneur_kill_announcement">{playerName} has been slain by an Entrepreneur</string>
 
     <!-- Lorekeeper -->
     <string name="lorekeeper_name">Lore Keeper</string>
     <string name="lorekeeper_attributes">You need to correctly guess 2 roles out of 5,6,7 people. You need to correctly guess 3 roles in 8,9,10 people.</string>
     <string name="lorekeeper_abilities">You choose an actor and then you choose what role that actor plays.</string>
     <string name="lorekeeper_goal">You try to guess the actors\' roles</string>
-    <string name="lorekeeper_ability_message">The following player has revealed: %1$s (%2$s)</string>
-    <string name="lorekeeper_guess">Your true guess count is: %1$d</string>
+    <string name="lorekeeper_ability_message">The following player has revealed: {playerName} ({roleName})</string>
+    <string name="lorekeeper_guess">Your true guess count is: {guessCount}</string>
 
     <!-- Ability-->
     <string name="ability_no_use_left">Your ability could not be used because you have reached your ability\'s maximum usage queue</string>
@@ -193,7 +195,7 @@ Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara
     <string name="cause_of_death_assassin">Assassin</string>
     <string name="cause_of_death_psycho">Psycho</string>
     <string name="cause_of_death_hanging">Hanged</string>
-    <string name="cause_of_death_lastjoke">Last Joke</string>
+    <string name="cause_of_death_last_joke">Last Joke</string>
     <string name="cause_of_death_entrepreneur">Entrepreneur</string>
 
     <!-- Goal -->
