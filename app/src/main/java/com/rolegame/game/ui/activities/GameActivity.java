@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -181,14 +182,10 @@ public class GameActivity extends AppCompatActivity {
 
             if(isTimeChanged){
 
-                createAnnouncementsDialog();
+                changeTimeUI();
+
 
             }
-//            switch (gameService.getTimeService().getTime()){
-//                case DAY -> setStyleImage(passTurnPane,"day");
-//                case VOTING -> setStyleImage(passTurnPane,"vote");
-//                case NIGHT -> setStyleImage(passTurnPane,"night");
-//            }
 
 
         });
@@ -284,6 +281,27 @@ public class GameActivity extends AppCompatActivity {
         PassTurnFragment passTurnFragment = new PassTurnFragment();
         passTurnFragment.setOnDismissListener(this::changePlayerUI);
         passTurnFragment.setPlayerName(gameService.getCurrentPlayer().getName());
+
+
+        GameScreenImageManager gameScreenImageManager = GameScreenImageManager.getInstance(this);
+        Drawable image;
+        switch (gameService.getTimeService().getTime()){
+            case DAY:
+                image = gameScreenImageManager.nextDayPassingTurnImage();
+                break;
+            case VOTING:
+                image = gameScreenImageManager.nextVotingPassingTurnImage();
+                break;
+            case NIGHT:
+                image = gameScreenImageManager.nextNightPassingTurnImage();
+                break;
+            default:
+                image = null;
+                break;
+
+        }
+        passTurnFragment.setFragmentBackground(image);
+
         passTurnFragment.show(getSupportFragmentManager(), "Pass Turn");
     }
 

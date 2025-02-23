@@ -13,10 +13,15 @@ public class GameScreenImageManager {
     private final int[][] images = {
             {R.drawable.day0 }, // Day Images (0)
             {R.drawable.voting0 }, // Voting Images (1)
-            {R.drawable.night0 }  // Night Images (2)
+            {R.drawable.night0 }, // Night Images (2)
+
+            {R.drawable.day0 }, // Passing Turn Day Images (0)
+            {R.drawable.voting0 }, // Passing Turn Voting Images (1)
+            {R.drawable.night0 } // Passing Turn Night Images (2)
+
     };
 
-    private final int[] indices = { 0, 0, 0 }; // [dayIndex, votingIndex, nightIndex]
+    private final int[] indices = { 0, 0, 0, 0, 0, 0 }; // [dayIndex, votingIndex, nightIndex]
     private final Context context;
 
     private GameScreenImageManager(Context context) {
@@ -38,6 +43,18 @@ public class GameScreenImageManager {
 
     public Drawable nextNightImage() {
         return nextImage(2);
+    }
+
+    public Drawable nextDayPassingTurnImage() {
+        return nextImage(3);
+    }
+
+    public Drawable nextVotingPassingTurnImage() {
+        return nextImage(4);
+    }
+
+    public Drawable nextNightPassingTurnImage() {
+        return nextImage(5);
     }
 
     public static GameScreenImageManager getInstance(Context context) {
