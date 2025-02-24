@@ -1,5 +1,9 @@
 package com.rolegame.game.ui.activities;
 
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,6 +53,8 @@ public class GameActivity extends BaseActivity {
 
     private RelativeLayout playerRoleInfoLayout;
 
+    private Button specialBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +70,19 @@ public class GameActivity extends BaseActivity {
         setTimeText();
         setBackgroundImage();
         setImageButtonOnClicked();
+        specialBtnVisibility();
 
+    }
+    private void specialBtnVisibility(){
+        switch (gameService.getCurrentPlayer().getRole().getTemplate().getId()){
+            case Lorekeeper:
+            case Entrepreneur:
+                specialBtn.setVisibility(VISIBLE);
+                break;
+            default:
+                specialBtn.setVisibility(GONE);
+                break;
+        }
     }
 
     private void initializeViews(){
@@ -78,6 +96,7 @@ public class GameActivity extends BaseActivity {
         playerRoleInfoLayout = findViewById(R.id.playerRoleInfoLayout);
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
+        specialBtn = findViewById(R.id.specialBtn);
     }
     private void setImageButtonOnClicked(){
         announcementsButton.setOnClickListener(v -> {
@@ -227,6 +246,7 @@ public class GameActivity extends BaseActivity {
         setRoleText();
         setAlivePlayersView();
         setRoleInfoLayout();
+        specialBtnVisibility();
     }
 
 
