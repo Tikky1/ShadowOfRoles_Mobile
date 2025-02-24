@@ -6,8 +6,8 @@ import com.rolegame.game.models.roles.templates.RoleTemplate;
 
 public abstract class NeutralRole extends RoleTemplate {
     public NeutralRole(RoleID id, AbilityType abilityType, RolePriority rolePriority, RoleCategory roleCategory,
-                       double attack, double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
-        super(id, abilityType, rolePriority, roleCategory, Team.NEUTRAL, attack, defence, isRoleBlockImmune, hasNormalWinCondition);
+                       WinningTeam winningTeam ,double attack, double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
+        super(id, abilityType, rolePriority, roleCategory, winningTeam, attack, defence, isRoleBlockImmune, hasNormalWinCondition);
     }
 
     @Override

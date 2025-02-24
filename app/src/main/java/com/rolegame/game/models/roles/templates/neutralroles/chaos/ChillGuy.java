@@ -10,7 +10,7 @@ import com.rolegame.game.services.GameService;
 public final class ChillGuy extends NeutralRole implements NoAbility {
     public ChillGuy() {
         super(RoleID.ChillGuy, AbilityType.NO_ABILITY, RolePriority.NONE, RoleCategory.NEUTRAL_CHAOS,
-                0, 0, false, false);
+                WinningTeam.CHILL_GUY,0, 0, false, false);
 
     }
 

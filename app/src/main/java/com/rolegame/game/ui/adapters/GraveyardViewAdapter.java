@@ -45,11 +45,13 @@ public class GraveyardViewAdapter extends RecyclerView.Adapter<GraveyardViewAdap
 
         private final TextView causeOfDeathText;
         private final TextView nameText;
+        private final TextView timeText;
 
         public GraveyardViewHolder(@NonNull View itemView) {
             super(itemView);
             causeOfDeathText = itemView.findViewById(R.id.graveyard_cause_of_death);
             nameText = itemView.findViewById(R.id.graveyard_player_name);
+            timeText = itemView.findViewById(R.id.graveyard_time_of_death);
 
             ViewGroup.LayoutParams params = itemView.getLayoutParams();
             if (params instanceof ViewGroup.MarginLayoutParams) {
@@ -62,8 +64,9 @@ public class GraveyardViewAdapter extends RecyclerView.Adapter<GraveyardViewAdap
 
         public void setTexts(Player player) {
 
-            causeOfDeathText.setText("Cause of Death(s): " +player.getCausesOfDeathAsString());
+            causeOfDeathText.setText("Cause of Death(s): " + player.getDeathProperties().getCausesOfDeathAsString());
             nameText.setText(player.getNameAndRole());
+            timeText.setText("Death Time: " + player.getDeathProperties().getDeathTimeAndDayCount());
 
         }
     }

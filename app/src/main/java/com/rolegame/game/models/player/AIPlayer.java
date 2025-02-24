@@ -22,17 +22,17 @@ public class AIPlayer extends Player {
     public void chooseRandomPlayerVoting(final ArrayList<Player> players){
         ArrayList<Player> choosablePlayers = new ArrayList<>(players);
         choosablePlayers.remove(this);
-        if(getRole().getTemplate().getTeam() == Team.CORRUPTER){
+        if(getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER){
             for(Player player : players){
-                if(player.getRole().getTemplate().getTeam() == Team.CORRUPTER){
+                if(player.getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER){
                     choosablePlayers.remove(player);
                 }
             }
         }
-        else if (getRole().getTemplate().getTeam() == Team.FOLK) {
+        else if (getRole().getTemplate().getWinningTeam().getTeam() == Team.FOLK) {
             for (Player player : players) {
                 if (player.isRevealed()) {
-                    if (player.getRole().getTemplate().getTeam() == Team.CORRUPTER) {
+                    if (player.getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER) {
                         getRole().setChoosenPlayer(player);
                         return;
                     } else if (player.getRole().getTemplate() instanceof NeutralRole) {
@@ -41,7 +41,7 @@ public class AIPlayer extends Player {
                             getRole().setChoosenPlayer(player);
                             return;
                         }
-                    } else if (player.getRole().getTemplate().getTeam() == Team.FOLK) {
+                    } else if (player.getRole().getTemplate().getWinningTeam().getTeam() == Team.FOLK) {
                         choosablePlayers.remove(player);
                     }
                 }
@@ -68,7 +68,7 @@ public class AIPlayer extends Player {
 
             case OTHER_THAN_CORRUPTER:
                 for (Player player : players) {
-                    if (player.getRole().getTemplate().getTeam() == Team.CORRUPTER) {
+                    if (player.getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER) {
                         choosablePlayers.remove(player);
                     }
                 }

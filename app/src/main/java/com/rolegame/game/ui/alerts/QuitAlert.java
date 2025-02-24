@@ -8,8 +8,17 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 
 import com.rolegame.game.R;
+import com.rolegame.game.ui.activities.MainActivity;
 
 public class QuitAlert extends DialogFragment {
+    public interface OnCloseApplication{
+        void closeApplication();
+    }
+
+    private final OnCloseApplication onCloseApplication;
+    public QuitAlert(OnCloseApplication onCloseApplication){
+        this.onCloseApplication = onCloseApplication;
+    }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction.
@@ -17,7 +26,8 @@ public class QuitAlert extends DialogFragment {
         builder.setMessage(R.string.quit_message)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        System.exit(0);
+
+                        onCloseApplication.closeApplication();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

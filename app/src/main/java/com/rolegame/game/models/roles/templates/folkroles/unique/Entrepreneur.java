@@ -1,7 +1,6 @@
 package com.rolegame.game.models.roles.templates.folkroles.unique;
 
-import com.rolegame.game.gamestate.CauseOfDeath;
-import com.rolegame.game.managers.LanguageManager;
+import com.rolegame.game.models.player.properties.CauseOfDeath;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.abilities.AttackAbility;
 import com.rolegame.game.models.roles.abilities.PriorityChangingRole;

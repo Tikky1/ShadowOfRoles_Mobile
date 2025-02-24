@@ -1,7 +1,7 @@
 package com.rolegame.game.services;
 
-import com.rolegame.game.gamestate.CauseOfDeath;
-import com.rolegame.game.gamestate.WinnerTeam;
+import com.rolegame.game.models.player.properties.CauseOfDeath;
+import com.rolegame.game.models.roles.enums.WinningTeam;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.abilities.RoleBlockAbility;
 import com.rolegame.game.models.roles.enums.Team;
@@ -17,13 +17,15 @@ public class FinishGameService {
 
     private final GameService gameService;
 
-    private final TreeSet<WinnerTeam> winnerTeams = new TreeSet<>(Comparator.comparing(WinnerTeam::getPriority));
+    private final TreeSet<WinningTeam> winningTeams = new TreeSet<>(Comparator.comparing(WinningTeam::getPriority));
 
     private boolean isGameFinished = false;
+    private Player chillGuyPlayer = null;
     FinishGameService(GameService gameService){
         this.gameService = gameService;
 
     }
+
 
     /**
      * Checks the game if it is finished and finishes the game
@@ -36,7 +38,7 @@ public class FinishGameService {
         if(alivePlayers.size()==1){
 
             if(alivePlayers.get(0).getRole().getTemplate().isHasNormalWinCondition()){
-                winnerTeams.add(alivePlayers.get(0).getRole().getTemplate().getId().getWinnerTeam());
+                winningTeams.add(alivePlayers.get(0).getRole().getTemplate().getWinningTeam());
             }
             return true;
         }
@@ -59,14 +61,14 @@ public class FinishGameService {
 
             // If one of the players' role is neutral role and the role can win with other teams finishes the game
             if(player.isPresent()){
-                winnerTeams.add(player1.getRole().getTemplate().getTeam() == Team.NEUTRAL ?
-                        player2.getRole().getTemplate().getId().getWinnerTeam() :
-                        player1.getRole().getTemplate().getId().getWinnerTeam());
+                winningTeams.add(player1.getRole().getTemplate().getWinningTeam().getTeam() == Team.NEUTRAL ?
+                        player2.getRole().getTemplate().getWinningTeam() :
+                        player1.getRole().getTemplate().getWinningTeam());
                 return true;
             }
 
             // Finishes the game if the last two players cannot kill each other
-            if(player1.getRole().getTemplate().getTeam()!=player2.getRole().getTemplate().getTeam()
+            if(player1.getRole().getTemplate().getWinningTeam().getTeam()!=player2.getRole().getTemplate().getWinningTeam().getTeam()
                     &&player2.getAttack()<=player1.getRole().getTemplate().getDefence()
                     &&player1.getAttack()<=player2.getDefence()) {
                 return true;
@@ -82,7 +84,7 @@ public class FinishGameService {
                     .findFirst();
 
             if(roleBlockerPlayer.isPresent() && roleBlockablePlayer.isPresent() &&
-                    player1.getRole().getTemplate().getTeam() != player2.getRole().getTemplate().getTeam()){
+                    player1.getRole().getTemplate().getWinningTeam().getTeam() != player2.getRole().getTemplate().getWinningTeam().getTeam()){
                 return true;
             }
 
@@ -90,15 +92,15 @@ public class FinishGameService {
 
         // Continues the game if all players have the same team
         for(int i=0;i<alivePlayers.size()-1;i++){
-            if(!alivePlayers.get(i).getRole().getTemplate().getTeam().equals(alivePlayers.get(i+1).getRole().getTemplate().getTeam())){
+            if(!alivePlayers.get(i).getRole().getTemplate().getWinningTeam().getTeam().equals(alivePlayers.get(i+1).getRole().getTemplate().getWinningTeam().getTeam())){
                 return false;
             }
         }
 
         // Checks if the living players are neutral if so game continues because they are independent
-        if(alivePlayers.get(0).getRole().getTemplate().getTeam()!=Team.NEUTRAL){
+        if(alivePlayers.get(0).getRole().getTemplate().getWinningTeam().getTeam()!=Team.NEUTRAL){
             for(Player alivePlayer : alivePlayers){
-                winnerTeams.add(alivePlayer.getRole().getTemplate().getId().getWinnerTeam());
+                winningTeams.add(alivePlayer.getRole().getTemplate().getWinningTeam());
             }
             return true;
         }
@@ -115,15 +117,15 @@ public class FinishGameService {
         ArrayList<Player> alivePlayers = gameService.getAlivePlayers();
 
         isGameFinished = true;
-        if(!winnerTeams.isEmpty() && winnerIsNotOnlyNeutral()){
+        if(!winningTeams.isEmpty() && winnerIsNotOnlyNeutral()){
             for(Player player : allPlayers){
 
-                for(WinnerTeam winnerTeam: winnerTeams){
+                for(WinningTeam winningTeam : winningTeams){
 
-                    switch (winnerTeam){
+                    switch (winningTeam){
                         case FOLK:
                         case CORRUPTER:
-                            if(player.getRole().getTemplate().getId().getWinnerTeam() == winnerTeam){
+                            if(player.getRole().getTemplate().getWinningTeam() == winningTeam){
                                 player.setHasWon(true);
                             }
                             break;
@@ -138,18 +140,17 @@ public class FinishGameService {
             alivePlayers.get(0).setHasWon(true);
         }
 
-        boolean chillGuyExist = false;
         for(Player player: allPlayers){
 
             switch (player.getRole().getTemplate().getId()) {
                 case ChillGuy:
-                    chillGuyExist = true;
+                    chillGuyPlayer = player;
                     break;
 
                 case Clown:
-                    if (!player.isAlive() && !player.getCausesOfDeath().contains(CauseOfDeath.HANGING)) {
+                    if (!player.getDeathProperties().isAlive() && !player.getDeathProperties().getCausesOfDeath().contains(CauseOfDeath.HANGING)) {
                         player.setHasWon(true);
-                        winnerTeams.add(WinnerTeam.CLOWN);
+                        winningTeams.add(WinningTeam.CLOWN);
                     }
                     break;
 
@@ -161,7 +162,7 @@ public class FinishGameService {
 
                     if (lorekeeper.getTrueGuessCount() >= winCount) {
                         player.setHasWon(true);
-                        winnerTeams.add(WinnerTeam.LORE_KEEPER);
+                        winningTeams.add(WinningTeam.LORE_KEEPER);
                     }
                     break;
 
@@ -180,19 +181,23 @@ public class FinishGameService {
 
 
     private boolean winnerIsNotOnlyNeutral(){
-        return winnerTeams.contains(WinnerTeam.CORRUPTER) || winnerTeams.contains(WinnerTeam.FOLK);
+        return winningTeams.contains(WinningTeam.CORRUPTER) || winningTeams.contains(WinningTeam.FOLK);
     }
 
     public boolean isGameFinished() {
         return isGameFinished;
     }
 
-    public WinnerTeam getHighestPriorityWinningTeam(){
+    public WinningTeam getHighestPriorityWinningTeam(){
 
-        if(winnerTeams.isEmpty()){
+        if(winningTeams.isEmpty()){
             return null;
         }
 
-        return winnerTeams.first();
+        return winningTeams.first();
+    }
+
+    public Player getChillGuyPlayer() {
+        return chillGuyPlayer;
     }
 }

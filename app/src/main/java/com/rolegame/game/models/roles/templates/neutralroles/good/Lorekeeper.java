@@ -16,7 +16,7 @@ public final class Lorekeeper extends NeutralRole {
     private int trueGuessCount;
     public Lorekeeper() {
         super(RoleID.Lorekeeper, AbilityType.ACTIVE_OTHERS, RolePriority.LORE_KEEPER,
-                RoleCategory.NEUTRAL_GOOD, 0, 0, true, false);
+                RoleCategory.NEUTRAL_GOOD, WinningTeam.LORE_KEEPER, 0, 0, true, false);
         trueGuessCount = 0;
         alreadyChosenPlayers = new ArrayList<>();
     }

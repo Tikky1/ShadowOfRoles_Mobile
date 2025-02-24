@@ -46,7 +46,7 @@ public final class RoleService {
      */
     private static void addRole(final RoleTemplate... roles){
         for(RoleTemplate role: roles){
-            rolesMap.computeIfAbsent(role.getTeam(), k->new ArrayList<>()).add(role);
+            rolesMap.computeIfAbsent(role.getWinningTeam().getTeam(), k->new ArrayList<>()).add(role);
             categoryMap.computeIfAbsent(role.getRoleCategory(), k-> new ArrayList<>()).add(role);
             allRoles.add(role);
         }

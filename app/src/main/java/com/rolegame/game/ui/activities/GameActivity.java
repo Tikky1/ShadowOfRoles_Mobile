@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,10 +25,10 @@ import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.enums.AbilityType;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
-import com.rolegame.game.ui.fragments.AnnouncementsFragment;
+import com.rolegame.game.ui.fragments.fullscreen.AnnouncementsFragment;
 import com.rolegame.game.ui.fragments.GraveyardFragment;
 import com.rolegame.game.ui.fragments.MessageFragment;
-import com.rolegame.game.ui.fragments.PassTurnFragment;
+import com.rolegame.game.ui.fragments.fullscreen.PassTurnFragment;
 
 public class GameActivity extends BaseActivity {
 

@@ -1,6 +1,6 @@
 package com.rolegame.game.models.roles.templates.corrupterroles.killing;
 
-import com.rolegame.game.gamestate.CauseOfDeath;
+import com.rolegame.game.models.player.properties.CauseOfDeath;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.templates.corrupterroles.CorrupterRole;
 import com.rolegame.game.models.roles.abilities.AttackAbility;

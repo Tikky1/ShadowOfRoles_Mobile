@@ -1,6 +1,6 @@
 package com.rolegame.game.models.roles.templates.corrupterroles.support;
 
-import com.rolegame.game.gamestate.CauseOfDeath;
+import com.rolegame.game.models.player.properties.CauseOfDeath;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.abilities.AttackAbility;
 import com.rolegame.game.models.roles.templates.corrupterroles.CorrupterRole;
@@ -22,7 +22,7 @@ public final class LastJoke extends CorrupterRole implements AttackAbility {
 
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
-        if(!didUsedAbility && !roleOwner.isAlive()){
+        if(!didUsedAbility && !roleOwner.getDeathProperties().isAlive()){
             didUsedAbility = true;
 
             if(choosenPlayer==null){

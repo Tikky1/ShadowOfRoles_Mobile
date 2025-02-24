@@ -45,7 +45,7 @@ public interface InvestigativeAbility {
      */
     default AbilityResult observerAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
         gameService.getMessageService().sendAbilityMessage(LanguageManager.getInstance().getText("observer_ability_message")
-                        .replace("{teamName}", choosenPlayer.getRole().getTemplate().getTeam().name()),roleOwner);
+                        .replace("{teamName}", choosenPlayer.getRole().getTemplate().getWinningTeam().getTeam().name()),roleOwner);
         return AbilityResult.SUCCESSFUL;
     }
 

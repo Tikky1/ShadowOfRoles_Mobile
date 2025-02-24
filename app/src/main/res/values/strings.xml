@@ -27,23 +27,24 @@
     <string name="winner_draw">Game is Draw!</string>
 
     <string name="credits_text">
-*Oyunun Geliştirici Ekibi:*\n
-- *Baş Geliştirici:* Furkan Kırat\n
-- *Oyun Tasarımı:* Furkan Kırat ve Efekan Kul\n
-- *Kodlama ve Programlama:* Furkan Kırat ve Efekan Kul\n
-- *Grafik Tasarım:* Furkan Kırat ve Efekan Kul\n
-- *Test ve QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
+*Game Development Team:*\n
+- *Lead Developer:* Furkan Kırat\n
+- *Game Design:* Furkan Kırat and Efekan Kul\n
+- *Coding and Programming:* Furkan Kırat and Efekan Kul\n
+- *Graphic Design:* Furkan Kırat and Efekan Kul\n
+- *Testing and QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
 
-*Özel Teşekkürler:*\n
+*Special Thanks:*\n
 Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
 
-*Geliştirme Araçları ve Kaynaklar:*\n
-- Java - Yazılım dili\n
-- JavaFX - UI kütüphanesi\n
-- GitHub - Versiyon kontrolü\n
+*Development Tools and Resources:*\n
+- Java - Programming language\n
+- Android Studio - UI library\n
+- GitHub - Version control\n
 
-*Özel Teşekkürler:*
-Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara ve projeye katkıda bulunan herkese teşekkür ederiz. </string>
+*Special Thanks:*
+We would like to thank all the players who helped in the development of this game, provided feedback, and contributed to the project.
+</string>
     <string name="ok">OK</string>
     <string name="cancel">"Cancel"</string>
     <string name="quit_message">Do you want to exit?</string>
@@ -253,5 +254,6 @@ Bu oyunun geliştirilmesinde yardımcı olan, geri bildirim gönderen oyunculara
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messages">Messages</string>
     <string name="graveyard">Graveyard</string>
+    <string name="chill_guy_alert_text">Oh no! Ending Screen Was Captured by a Chill Guy! Did they revealed their role in the game?</string>
 
 </resources>

@@ -1,6 +1,6 @@
 package com.rolegame.game.services;
 
-import com.rolegame.game.gamestate.CauseOfDeath;
+import com.rolegame.game.models.player.properties.CauseOfDeath;
 import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.managers.LanguageManager;
 import com.rolegame.game.models.player.AIPlayer;
@@ -120,8 +120,8 @@ public final class GameService {
         if(votingService.getMaxVote()>alivePlayers.size()/2){
             for(Player alivePlayer : alivePlayers){
                 if(alivePlayer.getNumber() == votingService.getMaxVoted().getNumber()){
-                    alivePlayer.setAlive(false);
-                    alivePlayer.getCausesOfDeath().add(CauseOfDeath.HANGING);
+
+                    alivePlayer.killPlayer(Time.VOTING, timeService.getDayCount(), CauseOfDeath.HANGING);
                     break;
                 }
             }
@@ -186,7 +186,7 @@ public final class GameService {
         alivePlayers.clear();
         for (Player player : allPlayers) {
 
-            if (player.isAlive()) {
+            if (player.getDeathProperties().isAlive()) {
                 alivePlayers.add(player);
             }
 
@@ -218,7 +218,7 @@ public final class GameService {
      */
     public ArrayList<Player> getDeadPlayers() {
         for (Player player : allPlayers) {
-            if (!player.isAlive() && !deadPlayers.contains(player)) {
+            if (!player.getDeathProperties().isAlive() && !deadPlayers.contains(player)) {
                 deadPlayers.add(player);
             }
         }

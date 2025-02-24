@@ -13,7 +13,7 @@ public abstract class RoleTemplate implements PerformAbility {
 
     protected final RoleID id;
     protected final RoleCategory roleCategory;
-    protected final Team team;
+    protected final WinningTeam winningTeam;
     protected RolePriority rolePriority;
     protected double attack;
     protected double defence;
@@ -24,13 +24,13 @@ public abstract class RoleTemplate implements PerformAbility {
     protected final LanguageManager languageManager = LanguageManager.getInstance();
 
     public RoleTemplate(RoleID id, AbilityType abilityType, RolePriority rolePriority, RoleCategory roleCategory,
-                        Team team, double attack ,double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
+                        WinningTeam winningTeam, double attack ,double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
         // IMPORTANT! When adding a new role template, the role id and role name in the lang json files must be the same!
         this.id = id;
         this.abilityType = abilityType;
         this.rolePriority = rolePriority;
         this.roleCategory = roleCategory;
-        this.team = team;
+        this.winningTeam = winningTeam;
         this.attack = attack;
         this.defence = defence;
         this.isRoleBlockImmune = isRoleBlockImmune;
@@ -96,12 +96,12 @@ public abstract class RoleTemplate implements PerformAbility {
         return rolePriority;
     }
 
-    public final Team getTeam() {
-        return team;
+    public final WinningTeam getWinningTeam() {
+        return winningTeam;
     }
 
     public final String getTeamText(){
-        return languageManager.getText("team_" + languageManager.enumToStringXml(team.name()));
+        return languageManager.getText("team_" + languageManager.enumToStringXml(winningTeam.getTeam().name()));
     }
 
     public final double getAttack() {

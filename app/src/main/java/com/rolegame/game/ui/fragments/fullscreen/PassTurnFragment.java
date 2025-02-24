@@ -1,14 +1,11 @@
-package com.rolegame.game.ui.fragments;
+package com.rolegame.game.ui.fragments.fullscreen;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,11 +13,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
 import com.rolegame.game.R;
 
-public class PassTurnFragment extends DialogFragment {
+public class PassTurnFragment extends FullScreenFragment {
 
 
     private OnDismissListener dismissListener;
@@ -34,14 +30,6 @@ public class PassTurnFragment extends DialogFragment {
     private Drawable image;
 
     private String playerName;
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        }
-        return inflater.inflate(R.layout.fragment_pass_turn, container, false);
-    }
 
     @Override
     public void onStart() {
@@ -55,6 +43,11 @@ public class PassTurnFragment extends DialogFragment {
         }
 
 
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_pass_turn;
     }
 
     @Override
@@ -75,21 +68,8 @@ public class PassTurnFragment extends DialogFragment {
             }
         });
 
-        hideSystemUI();
-
     }
 
-    private void hideSystemUI() {
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            );
-        }
-    }
 
     public void setOnDismissListener(OnDismissListener listener) {
         this.dismissListener = listener;

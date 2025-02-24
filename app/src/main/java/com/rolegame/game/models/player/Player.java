@@ -1,32 +1,36 @@
 package com.rolegame.game.models.player;
 
-import com.rolegame.game.gamestate.CauseOfDeath;
-import com.rolegame.game.managers.LanguageManager;
+import com.rolegame.game.gamestate.Time;
+import com.rolegame.game.models.player.properties.CauseOfDeath;
+import com.rolegame.game.models.player.properties.DeathProperties;
 import com.rolegame.game.models.roles.Role;
 
-import java.util.LinkedList;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public abstract class Player {
     private final int number;
     private final String name;
     private Role role;
-    private boolean isAlive;
     private double attack;
     private double defence;
     private boolean hasWon;
-    private final LinkedList<CauseOfDeath> causesOfDeath;
+    private final DeathProperties deathProperties;
     private boolean isImmune;
     private boolean isRevealed;
 
     public Player(int number, String name) {
         this.number = number;
         this.name = name;
-        this.isAlive = true;
+        this.deathProperties = new DeathProperties();
         this.isRevealed = false;
         hasWon = false;
-        causesOfDeath = new LinkedList<>();
+    }
+
+    public void killPlayer(Time deathTime, int deathDayCount, CauseOfDeath causeOfDeath){
+        deathProperties.setAlive(false);
+        deathProperties.setDeathTime(deathTime);
+        deathProperties.addCauseOfDeath(causeOfDeath);
+        deathProperties.setDayCountOfDeath(deathDayCount);
     }
 
     public final void setRole(Role role) {
@@ -40,13 +44,6 @@ public abstract class Player {
         this.setAttack(this.getRole().getTemplate().getAttack());
         this.getRole().setCanPerform(true);
         this.setImmune(false);
-    }
-
-    public final String getCausesOfDeathAsString(){
-        LanguageManager languageManager = LanguageManager.getInstance();
-        return causesOfDeath.stream()
-                .map( causeOfDeath->languageManager.getText("cause_of_death_"+languageManager.enumToStringXml(causeOfDeath.name())))
-                .collect(Collectors.joining(", "));
     }
 
     @Override
@@ -84,13 +81,6 @@ public abstract class Player {
         return number + ". " + name + " (" + role.getTemplate().getName()+ ")";
     }
 
-    public final boolean isAlive() {
-        return isAlive;
-    }
-
-    public final void setAlive(boolean alive) {
-        isAlive = alive;
-    }
 
     public final double getAttack() {
         return attack;
@@ -116,9 +106,6 @@ public abstract class Player {
         this.hasWon = hasWon;
     }
 
-    public final LinkedList<CauseOfDeath> getCausesOfDeath() {
-        return causesOfDeath;
-    }
     public final void setImmune(boolean isImmune){
         this.isImmune = isImmune;
     }
@@ -127,9 +114,6 @@ public abstract class Player {
         return isImmune;
     }
 
-    public final void addCauseOfDeath(CauseOfDeath causeOfDeath) {
-        causesOfDeath.add(causeOfDeath);
-    }
 
     public final boolean isRevealed() {
         return isRevealed;
@@ -137,6 +121,10 @@ public abstract class Player {
 
     public final void setRevealed(boolean revealed) {
         isRevealed = revealed;
+    }
+
+    public DeathProperties getDeathProperties() {
+        return deathProperties;
     }
 
     public abstract boolean isAIPlayer();

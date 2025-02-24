@@ -1,19 +1,12 @@
-package com.rolegame.game.ui.fragments;
+package com.rolegame.game.ui.fragments.fullscreen;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,33 +19,11 @@ import com.rolegame.game.ui.adapters.MessagesViewAdapter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AnnouncementsFragment extends DialogFragment {
+public class AnnouncementsFragment extends FullScreenFragment {
 
     private List<Message> announcements;
     private TimeService timeService;
     private String dayText;
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        }
-        return inflater.inflate(R.layout.fragment_announcements, container, false);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-
-            getDialog().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -73,8 +44,6 @@ public class AnnouncementsFragment extends DialogFragment {
 
         announcementsRecyclerView.setAdapter(messagesViewAdapter);
 
-        hideSystemUI();
-
     }
 
 
@@ -91,17 +60,7 @@ public class AnnouncementsFragment extends DialogFragment {
 
         return filteredMessages;
     }
-    private void hideSystemUI() {
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            );
-        }
-    }
+
     public void setAnnouncementsAndTimeService(List<Message> announcements, TimeService timeService) {
         this.announcements = announcements;
         this.timeService = timeService;
@@ -109,5 +68,10 @@ public class AnnouncementsFragment extends DialogFragment {
 
     public void setDayText(String dayText) {
         this.dayText = dayText;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_announcements;
     }
 }

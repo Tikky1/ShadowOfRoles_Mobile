@@ -1,8 +1,6 @@
-package com.rolegame.game.gamestate;
+package com.rolegame.game.models.roles.enums;
 
-import com.rolegame.game.models.roles.enums.Team;
-
-public enum WinnerTeam {
+public enum WinningTeam {
 
     FOLK(-2, Team.FOLK),
     CORRUPTER(-1, Team.CORRUPTER),
@@ -13,12 +11,18 @@ public enum WinnerTeam {
     LORE_KEEPER(4, Team.NEUTRAL);
 
     final int priority;
+    final Team team;
 
-    WinnerTeam(int priority, Team team){
+    WinningTeam(int priority, Team team){
         this.priority = priority;
+        this.team = team;
     }
 
     public int getPriority() {
         return priority;
+    }
+
+    public Team getTeam() {
+        return team;
     }
 }

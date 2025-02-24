@@ -92,7 +92,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
                 case OTHER_THAN_CORRUPTER:
                     selectButton.setVisibility(
-                            player.getRole().getTemplate().getTeam() != Team.CORRUPTER ? View.VISIBLE : View.GONE);
+                            player.getRole().getTemplate().getWinningTeam().getTeam() != Team.CORRUPTER ? View.VISIBLE : View.GONE);
                     break;
 
                 default:
@@ -106,7 +106,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
                 }
             }
 
-            if (currentPlayer.getRole().getTemplate() instanceof LastJoke && currentPlayer.isAlive()) {
+            if (currentPlayer.getRole().getTemplate() instanceof LastJoke && currentPlayer.getDeathProperties().isAlive()) {
                 selectButton.setVisibility(GONE);
             }
         }

@@ -21,4 +21,11 @@
         android:layout_below="@id/graveyard_player_name"
         android:textColor="#D3D3D3" />
 
+    <TextView
+        android:id="@+id/graveyard_time_of_death"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/graveyard_cause_of_death"
+        android:textColor="#D3D3D3" />
+
 </RelativeLayout>

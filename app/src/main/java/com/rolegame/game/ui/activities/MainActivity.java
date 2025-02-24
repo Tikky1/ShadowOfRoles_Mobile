@@ -44,7 +44,10 @@ public class MainActivity extends BaseActivity {
                 });
         creditsBtn.setOnClickListener(v -> openActivity(CreditsActivity.class));
         quitBtn.setOnClickListener(v -> {
-            QuitAlert quitAlert = new QuitAlert();
+            QuitAlert quitAlert = new QuitAlert(()->{
+                MainActivity.this.finish();
+                System.exit(0);
+            });
             quitAlert.show(getSupportFragmentManager(), "quitAlert");
         });
 

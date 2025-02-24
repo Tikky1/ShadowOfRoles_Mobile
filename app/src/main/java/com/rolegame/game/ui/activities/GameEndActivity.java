@@ -11,16 +11,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.rolegame.game.R;
-import com.rolegame.game.gamestate.WinnerTeam;
+import com.rolegame.game.models.roles.enums.WinningTeam;
 import com.rolegame.game.managers.LanguageManager;
 import com.rolegame.game.models.player.Player;
-import com.rolegame.game.models.roles.enums.Team;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
+import com.rolegame.game.ui.fragments.fullscreen.ChillGuyFragment;
 
 public class GameEndActivity extends BaseActivity {
 
@@ -33,7 +32,7 @@ public class GameEndActivity extends BaseActivity {
 
     private GameService gameService;
 
-    private WinnerTeam winnerTeam;
+    private WinningTeam winningTeam;
 
 
     @Override
@@ -41,25 +40,45 @@ public class GameEndActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_end);
 
+        gameService = StartGameService.getInstance().getGameService();
+
         endGameTable = findViewById(R.id.end_game_table);
         mainMenuBtn = findViewById(R.id.go_back_main_button);
         winnerTeamText = findViewById(R.id.winner_team_text);
         winnerTeamImage = findViewById(R.id.winner_team_image);
 
-        gameService = StartGameService.getInstance().getGameService();
-        winnerTeam = gameService.getFinishGameService().getHighestPriorityWinningTeam();
+        winningTeam = gameService.getFinishGameService().getHighestPriorityWinningTeam();
 
+        boolean chillGuyExist= createChillGuyAlert();
+
+        if(!chillGuyExist){
+            setActivity();
+        }
+
+
+    }
+
+
+    private boolean createChillGuyAlert(){
+        Player chillGuyPlayer = gameService.getFinishGameService().getChillGuyPlayer();
+        if(chillGuyPlayer != null){
+            ChillGuyFragment chillGuyFragment = new ChillGuyFragment(chillGuyPlayer);
+            chillGuyFragment.setClickOnButton(this::setActivity);
+            chillGuyFragment.show(getSupportFragmentManager(), "Chill Guy Alert");
+            return true;
+        }
+        return false;
+    }
+
+    private void setActivity(){
         createTable();
         setMainMenuBtn();
         setWinnerTeamText();
         setWinnerTeamImage();
     }
-
-
-
     private void createTable(){
         TableRow headerRow = new TableRow(this);
-        String[] headers = {"Number", "Name", "Role", "Win/Loss","Alive/Dead", "Cause Of Deaths"};
+        String[] headers = {"Number", "Name", "Role", "Win/Loss","Alive/Dead", "Cause(s) Of Death"};
         for (String text : headers) {
             TextView textView = new TextView(this);
             textView.setText(text);
@@ -77,8 +96,8 @@ public class GameEndActivity extends BaseActivity {
             tableRow.addView(createTextView(player.getName()));
             tableRow.addView(createTextView(player.getRole().getTemplate().getName()));
             tableRow.addView(createTextView(player.isHasWon() ? "Won" : "Lost"));
-            tableRow.addView(createTextView(player.isAlive() ? "Alive" : "Dead"));
-            tableRow.addView(createTextView(player.getCausesOfDeathAsString()));
+            tableRow.addView(createTextView(player.getDeathProperties().isAlive() ? "Alive" : "Dead"));
+            tableRow.addView(createTextView(player.getDeathProperties().getCausesOfDeathAsString()));
 
             endGameTable.addView(tableRow);
         }
@@ -103,10 +122,10 @@ public class GameEndActivity extends BaseActivity {
 
         String winnerTeamStr;
 
-        if (winnerTeam == null) {
+        if (winningTeam == null) {
             winnerTeamStr = getString(R.string.winner_draw);
         } else {
-            String teamKey = "winner_team_" + LanguageManager.getInstance().enumToStringXml(winnerTeam.name());
+            String teamKey = "winner_team_" + LanguageManager.getInstance().enumToStringXml(winningTeam.name());
 
             int resId = getResources().getIdentifier(teamKey, "string", getPackageName());
 
@@ -125,13 +144,13 @@ public class GameEndActivity extends BaseActivity {
     private void setWinnerTeamImage(){
         Drawable image;
 
-        if(winnerTeam == null){
+        if(winningTeam == null){
             image = AppCompatResources.getDrawable(this,R.drawable.winner_draw);
         }
 
         else{
 
-            switch (winnerTeam){
+            switch (winningTeam){
                 case FOLK:
                     image = AppCompatResources.getDrawable(this,R.drawable.winner_folk);
                     break;

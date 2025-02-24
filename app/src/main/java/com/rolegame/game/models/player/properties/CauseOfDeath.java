@@ -1,4 +1,4 @@
-package com.rolegame.game.gamestate;
+package com.rolegame.game.models.player.properties;
 
 public enum CauseOfDeath {
     HANGING,
