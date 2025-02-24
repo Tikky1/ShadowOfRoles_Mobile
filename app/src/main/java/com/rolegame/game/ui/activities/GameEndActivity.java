@@ -84,6 +84,11 @@ public class GameEndActivity extends BaseActivity {
         setWinnerTeamImage();
     }
     private void createTable(){
+
+        if (endGameTable.getChildCount() != 0) {
+            return;
+        }
+
         TableRow headerRow = new TableRow(this);
         String[] headers = {"Number", "Name", "Role", "Win/Loss","Alive/Dead", "Cause(s) Of Death"};
         for (String text : headers) {
