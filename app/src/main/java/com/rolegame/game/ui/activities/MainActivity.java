@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
         quitBtn.setOnClickListener(v -> {
             QuitAlert quitAlert = new QuitAlert(()->{
                 MainActivity.this.finish();
-                System.exit(0);
+                finishAffinity();
             });
             quitAlert.show(getSupportFragmentManager(), "quitAlert");
         });
