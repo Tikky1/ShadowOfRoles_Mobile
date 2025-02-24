@@ -45,7 +45,10 @@ public class PlayerNamesAdapter extends RecyclerView.Adapter<PlayerNamesAdapter.
 
         holder.isAICheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-            isPlayersAI.set(position, isChecked);
+            if(buttonView.isPressed()){
+
+                isPlayersAI.set(position, isChecked);
+            }
         });
     }
 
