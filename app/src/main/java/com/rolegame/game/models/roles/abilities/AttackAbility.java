@@ -20,8 +20,11 @@ public interface AttackAbility {
 
             String causeOfDeathStr = causeOfDeath.toString().toLowerCase(Locale.ROOT);
             gameService.getMessageService().sendAbilityMessage(languageManager.getText(causeOfDeathStr+"_kill_message"), roleOwner);
-            gameService.getMessageService().sendAbilityAnnouncement(languageManager.getText(causeOfDeathStr+"_kill_announcement")
-                    .replace("{playerName}",choosenPlayer.getName()));
+            gameService.getMessageService().sendAbilityAnnouncement(
+                    languageManager.getText(causeOfDeathStr+"_kill_announcement")
+                    .replace("{playerName}",choosenPlayer.getName())
+                    .replace("{roleName}", choosenPlayer.getRole().getTemplate().getName()
+                    ));
             return AbilityResult.SUCCESSFUL;
         }
         else{

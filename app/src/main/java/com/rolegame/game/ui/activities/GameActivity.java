@@ -246,6 +246,7 @@ public class GameActivity extends BaseActivity {
         setRoleText();
         setAlivePlayersView();
         setRoleInfoLayout();
+        passTurnButton.setClickable(true);
         specialBtnVisibility();
     }
 
@@ -296,6 +297,7 @@ public class GameActivity extends BaseActivity {
     }
 
     private void createPassTurnDialog(){
+        passTurnButton.setClickable(false);
         PassTurnFragment passTurnFragment = new PassTurnFragment();
         passTurnFragment.setOnDismissListener(this::changePlayerUI);
         passTurnFragment.setPlayerName(gameService.getCurrentPlayer().getName());

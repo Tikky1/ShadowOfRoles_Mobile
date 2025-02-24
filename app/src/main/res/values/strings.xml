@@ -81,7 +81,7 @@ We would like to thank all the players who helped in the development of this gam
     <string name="psycho_abilities">Kill one person each night</string>
     <string name="psycho_attributes">N/A</string>
     <string name="psycho_kill_message">You have slain your target successfully</string>
-    <string name="psycho_kill_announcement">{playerName} has been slain by a Psycho</string>
+    <string name="psycho_kill_announcement">{playerName} ({roleName}) has been slain by a Psycho</string>
 
     <!--Dark Revealer-->
     <string name="darkrevealer_name">Dark Revealer</string>
@@ -111,7 +111,7 @@ We would like to thank all the players who helped in the development of this gam
     <string name="assassin_attributes">You have basic defence and attack, you are immune to role blocking</string>
     <string name="assassin_goal">Kill every folk and corrupter member</string>
     <string name="assassin_kill_message">You have slain your target successfully</string>
-    <string name="assassin_kill_announcement">{playerName} has been slain by an Assassin</string>
+    <string name="assassin_kill_announcement">{playerName} ({roleName}) has been slain by an Assassin</string>
 
     <!--Seal Master-->
     <string name="chillguy_name">Chill Guy</string>
@@ -124,7 +124,7 @@ We would like to thank all the players who helped in the development of this gam
     <string name="lastjoke_abilities">When you die you will comeback to life and you must kill one player</string>
     <string name="lastjoke_attributes">N/A</string>
     <string name="lastjoke_kill_message">You have successfully made your last joke to {playerName}</string>
-    <string name="lastjoke_kill_announcement">Someone make their Last Joke to {playerName}</string>
+    <string name="lastjoke_kill_announcement">Someone make their Last Joke to {playerName} ({roleName})</string>
 
     <!--Clown-->
     <string name="clown_name">Clown</string>
@@ -137,7 +137,7 @@ We would like to thank all the players who helped in the development of this gam
     <string name="disguiser_abilities">Disguise to random role every night but you can\'t know until you use it</string>
     <string name="disguiser_attributes">N/A</string>
     <string name="disguiser_kill_message">You have successfully killed your target</string>
-    <string name="disguiser_kill_announcement">{playerName} were killed by someone hiding in the shadows</string>
+    <string name="disguiser_kill_announcement">{playerName} ({roleName}) were killed by someone hiding in the shadows</string>
 
     <!--Dark Seer-->
     <string name="darkseer_name">Dark Seer</string>
@@ -173,7 +173,7 @@ We would like to thank all the players who helped in the development of this gam
     <string name="entrepreneur_none">None</string>
     <string name="entrepreneur_money">Your money: {money}</string>
     <string name="entrepreneur_kill_message">You have slain your target successfully</string>
-    <string name="entrepreneur_kill_announcement">{playerName} has been slain by an Entrepreneur</string>
+    <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) has been slain by an Entrepreneur</string>
 
     <!-- Lorekeeper -->
     <string name="lorekeeper_name">Lore Keeper</string>
