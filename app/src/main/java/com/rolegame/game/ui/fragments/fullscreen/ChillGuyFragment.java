@@ -1,12 +1,9 @@
 package com.rolegame.game.ui.fragments.fullscreen;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,14 +14,11 @@ import com.rolegame.game.models.player.Player;
 public class ChillGuyFragment extends FullScreenFragment {
 
     private final Player chillGuyPlayer;
-    private ClickOnButton clickOnButton;
-    public ChillGuyFragment(Player chillGuyPlayer) {
+    public ChillGuyFragment(OnClose onClose, Player chillGuyPlayer) {
+        super(onClose);
         this.chillGuyPlayer = chillGuyPlayer;
     }
 
-    public interface ClickOnButton{
-        void buttonClicked();
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -40,7 +34,7 @@ public class ChillGuyFragment extends FullScreenFragment {
             if(noButton.isChecked()){
                 chillGuyPlayer.setHasWon(true);
             }
-            clickOnButton.buttonClicked();
+            onClose.backClicked();
             dismiss();
         });
 
@@ -51,7 +45,4 @@ public class ChillGuyFragment extends FullScreenFragment {
         return R.layout.fragment_chillguy;
     }
 
-    public void setClickOnButton(ClickOnButton clickOnButton) {
-        this.clickOnButton = clickOnButton;
-    }
 }

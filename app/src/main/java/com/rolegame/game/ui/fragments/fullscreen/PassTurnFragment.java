@@ -19,12 +19,10 @@ import com.rolegame.game.R;
 public class PassTurnFragment extends FullScreenFragment {
 
 
-    private OnDismissListener dismissListener;
-
     private ImageView fragmentBackground;
 
-    public interface OnDismissListener {
-        void onDialogDismissed();
+    public PassTurnFragment(OnClose onClose) {
+        super(onClose);
     }
 
     private Drawable image;
@@ -63,17 +61,14 @@ public class PassTurnFragment extends FullScreenFragment {
         Button turnPassBtn = view.findViewById(R.id.pass_turn_button);
         turnPassBtn.setOnClickListener(v -> {
             dismiss();
-            if (dismissListener != null) {
-                dismissListener.onDialogDismissed();
+            if (onClose != null) {
+                onClose.backClicked();
             }
         });
 
     }
 
 
-    public void setOnDismissListener(OnDismissListener listener) {
-        this.dismissListener = listener;
-    }
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }

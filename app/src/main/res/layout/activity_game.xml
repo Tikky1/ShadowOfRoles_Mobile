@@ -17,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background0" />
+        app:srcCompat="@drawable/background0"
+        android:contentDescription="Background Image"/>
 
     <RelativeLayout
         android:id="@+id/informationLayout"
@@ -150,7 +151,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.974"
-        app:srcCompat="@drawable/duyurubtn" />
+        app:srcCompat="@drawable/duyurubtn"
+        android:contentDescription="Announcements"/>
 
     <ImageButton
         android:id="@+id/gravestoneBtn"
@@ -165,7 +167,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025"
-        app:srcCompat="@drawable/gravestonebtn" />
+        app:srcCompat="@drawable/gravestonebtn"
+        android:contentDescription="Gravestone"/>
 
     <ImageButton
         android:id="@+id/roleBookBtn"
@@ -180,7 +183,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025"
-        app:srcCompat="@drawable/rolebookbtn" />
+        app:srcCompat="@drawable/rolebookbtn"
+        android:contentDescription="Role Book"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/pass_turn_button"
@@ -192,7 +196,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.859" />
+        app:layout_constraintVertical_bias="0.859"
+        android:textColor="@color/white"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -208,16 +213,18 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/specialBtn"
-        android:layout_width="75dp"
-        android:layout_height="74dp"
-        android:visibility="gone"
+        android:layout_width="100dp"
+        android:layout_height="113dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/backgroundImageGame"
         app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97" />
+        app:layout_constraintVertical_bias="0.97"
+        android:background="@drawable/ekstra_box_picture"
+        android:scaleType="fitXY"
+        android:contentDescription="Special Properties"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

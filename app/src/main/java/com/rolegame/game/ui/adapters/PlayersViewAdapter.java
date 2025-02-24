@@ -20,6 +20,7 @@ import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.templates.corrupterroles.support.LastJoke;
 import com.rolegame.game.models.roles.enums.Team;
+import com.rolegame.game.models.roles.templates.folkroles.protector.FolkHero;
 import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 
 import java.util.ArrayList;
@@ -102,12 +103,19 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             if (currentPlayer.getRole().getTemplate() instanceof Lorekeeper) {
                 Lorekeeper lorekeeper = (Lorekeeper) currentPlayer.getRole().getTemplate();
                 if (lorekeeper.getAlreadyChosenPlayers().contains(player)) {
-                    selectButton.setVisibility(View.GONE);
+                    selectButton.setVisibility(GONE);
                 }
             }
 
             if (currentPlayer.getRole().getTemplate() instanceof LastJoke && currentPlayer.getDeathProperties().isAlive()) {
                 selectButton.setVisibility(GONE);
+            }
+
+            if(currentPlayer.getRole().getTemplate() instanceof FolkHero){
+                FolkHero folkHero = (FolkHero) currentPlayer.getRole().getTemplate();
+                if(folkHero.getRemainingAbilityCount()<=0){
+                    selectButton.setVisibility(GONE);
+                }
             }
         }
         else{

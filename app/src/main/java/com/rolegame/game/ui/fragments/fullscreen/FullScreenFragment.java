@@ -1,5 +1,6 @@
 package com.rolegame.game.ui.fragments.fullscreen;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +15,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public abstract class FullScreenFragment extends DialogFragment {
+
+    protected OnClose onClose;
+    public interface OnClose{
+        void backClicked();
+    }
+
+    public FullScreenFragment(OnClose onClose) {
+        this.onClose = onClose;
+    }
 
     @Nullable
     @Override
@@ -34,6 +44,16 @@ public abstract class FullScreenFragment extends DialogFragment {
 
     }
 
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+
+        if(onClose !=null){
+            onClose.backClicked();
+        }
+
+        super.onDismiss(dialog);
+
+    }
 
     private void hideSystemUI() {
 

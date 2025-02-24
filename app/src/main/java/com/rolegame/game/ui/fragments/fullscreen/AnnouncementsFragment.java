@@ -25,6 +25,10 @@ public class AnnouncementsFragment extends FullScreenFragment {
     private TimeService timeService;
     private String dayText;
 
+    public AnnouncementsFragment(OnClose onClose) {
+        super(onClose);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

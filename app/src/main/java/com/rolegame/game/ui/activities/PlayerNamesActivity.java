@@ -2,19 +2,21 @@ package com.rolegame.game.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.rolegame.game.R;
 import com.rolegame.game.managers.SceneManager;
@@ -22,14 +24,19 @@ import com.rolegame.game.models.player.AIPlayer;
 import com.rolegame.game.models.player.HumanPlayer;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.services.StartGameService;
+import com.rolegame.game.ui.adapters.PlayerNamesAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerNamesActivity extends BaseActivity {
-    StartGameService startGameService;
-    SceneManager sceneManager;
 
-    LinearLayout playerNamesContainer;
+    private List<String> playerNames;
+    private List<Boolean> isPlayersAI;
+    private StartGameService startGameService;
+    private SceneManager sceneManager;
+    private RecyclerView playerNamesContainer;
+    private PlayerNamesAdapter adapter;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -51,24 +58,37 @@ public class PlayerNamesActivity extends BaseActivity {
 
         startGameService.setPlayerCountMin();
 
-        playerCountText.setText(Integer.toString(startGameService.getPlayerCount()));
+        playerNames = new ArrayList<>();
+        isPlayersAI = new ArrayList<>();
+
+        adapter = new PlayerNamesAdapter(playerNames, isPlayersAI);
+        playerNamesContainer.setLayoutManager(new LinearLayoutManager(this));
+        playerNamesContainer.setAdapter(adapter);
 
         for (int i = 1; i <= startGameService.MIN_PLAYER_COUNT; i++) {
-            addPlayerEditText(i);
+            playerNames.add("Player " + i);
+            isPlayersAI.add(false);
         }
+        adapter.notifyDataSetChanged();
+
+        playerCountText.setText(Integer.toString(startGameService.getPlayerCount()));
+
         plusBtn.setOnClickListener(v -> {
-            if (startGameService.getPlayerCount()<startGameService.MAX_PLAYER_COUNT) {
+            if (startGameService.getPlayerCount() < startGameService.MAX_PLAYER_COUNT) {
                 playerCountText.setText(Integer.toString(startGameService.increasePlayerCount()));
-
-                addPlayerEditText(startGameService.getPlayerCount());
+                playerNames.add("Player " + startGameService.getPlayerCount());
+                isPlayersAI.add(false);
+                adapter.notifyItemInserted(playerNames.size() - 1);
             }
-
         });
+
         minusBtn.setOnClickListener(v -> {
-            if (startGameService.getPlayerCount()>startGameService.MIN_PLAYER_COUNT) {
+            if (startGameService.getPlayerCount() > startGameService.MIN_PLAYER_COUNT) {
                 playerCountText.setText(Integer.toString(startGameService.decreasePlayerCount()));
-                int lastIndex = playerNamesContainer.getChildCount() - 1;
-                playerNamesContainer.removeViewAt(lastIndex);
+                int lastIndex = playerNames.size() - 1;
+                playerNames.remove(lastIndex);
+                isPlayersAI.remove(lastIndex);
+                adapter.notifyItemRemoved(lastIndex);
             }
         });
 
@@ -78,21 +98,24 @@ public class PlayerNamesActivity extends BaseActivity {
             ArrayList<Player> players = new ArrayList<>(playerCount);
 
             boolean isHumanPlayerExist = false;
-            for(int i=0;i<playerCount;++i){
-                LinearLayout layout = (LinearLayout) playerNamesContainer.getChildAt(i);
-                CheckBox checkBox = (CheckBox) layout.getChildAt(1);
-                EditText editText = (EditText) layout.getChildAt(0);
 
-                String playerName = editText.getText().toString();
-                if(checkBox.isChecked()){
-                    players.add(new AIPlayer(i+1, playerName));
-                }
-                else{
-                    players.add(new HumanPlayer(i+1, playerName));
+            for (int i = 0; i < playerCount; ++i) {
+
+
+                String playerNameTemplate = playerNames.get(i);
+                Boolean isAI = isPlayersAI.get(i);
+                String playerName = playerNameTemplate.isBlank() ? "Player " + i+1 : playerNameTemplate;
+
+                if (isAI) {
+                    players.add(new AIPlayer(i + 1, playerName));
+                } else {
+                    players.add(new HumanPlayer(i + 1, playerName));
                     isHumanPlayerExist = true;
                 }
+
             }
-            if(!isHumanPlayerExist){
+
+            if (!isHumanPlayerExist) {
                 Toast.makeText(this, "All Players Cannot be AI Player!", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -103,31 +126,4 @@ public class PlayerNamesActivity extends BaseActivity {
             startActivity(intent);
         });
     }
-
-    private void addPlayerEditText(int playerNumber) {
-        LinearLayout layout = new LinearLayout(this);
-        EditText editText = new EditText(this);
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
-        String string = getString(R.string.player) + playerNumber;
-
-        editText.setText(string);
-        editText.setPadding(10, 10, 10, 10);
-        editText.setTextColor(Color.WHITE);
-
-        editText.setLayoutParams(params);
-
-        CheckBox checkBox = new CheckBox(this);
-        checkBox.setButtonTintList(ColorStateList.valueOf(Color.WHITE));
-
-        layout.addView(editText);
-        layout.addView(checkBox);
-        playerNamesContainer.addView(layout);
-    }
-
 }

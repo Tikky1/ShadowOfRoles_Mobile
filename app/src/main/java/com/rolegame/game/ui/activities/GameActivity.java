@@ -1,11 +1,9 @@
 package com.rolegame.game.ui.activities;
 
 import static android.view.View.GONE;
-import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +28,7 @@ import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.enums.AbilityType;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
+import com.rolegame.game.ui.alerts.GoToMainAlert;
 import com.rolegame.game.ui.fragments.fullscreen.AnnouncementsFragment;
 import com.rolegame.game.ui.fragments.GraveyardFragment;
 import com.rolegame.game.ui.fragments.MessageFragment;
@@ -48,13 +48,11 @@ public class GameActivity extends BaseActivity {
 
     private ImageButton announcementsButton;
     private ImageButton graveyardButton;
+    private ImageButton specialBtn;
     private Button passTurnButton;
     private ImageView backgroundImage;
 
     private RelativeLayout playerRoleInfoLayout;
-
-    private Button specialBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +69,18 @@ public class GameActivity extends BaseActivity {
         setBackgroundImage();
         setImageButtonOnClicked();
         specialBtnVisibility();
+
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                GoToMainAlert goToMainAlert = new GoToMainAlert(()->{
+                    Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                    startActivity(intent);
+                });
+                goToMainAlert.show(getSupportFragmentManager(), "Go to main menu");
+            }
+        });
 
     }
     private void specialBtnVisibility(){
@@ -221,18 +231,8 @@ public class GameActivity extends BaseActivity {
         builder.setTitle("You are passing your turn are you sure?")
                 .setMessage("Pass")
                 .setCancelable(false)
-                .setPositiveButton("Pass Turn", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        result[0] = false;
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        result[0] = true;
-                    }
-                });
+                .setPositiveButton("Pass Turn", (dialog, which) -> result[0] = false)
+                .setNegativeButton("Cancel", (dialog, which) -> result[0] = true);
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -298,8 +298,7 @@ public class GameActivity extends BaseActivity {
 
     private void createPassTurnDialog(){
         passTurnButton.setClickable(false);
-        PassTurnFragment passTurnFragment = new PassTurnFragment();
-        passTurnFragment.setOnDismissListener(this::changePlayerUI);
+        PassTurnFragment passTurnFragment = new PassTurnFragment(this::changePlayerUI);
         passTurnFragment.setPlayerName(gameService.getCurrentPlayer().getName());
 
 
@@ -326,7 +325,7 @@ public class GameActivity extends BaseActivity {
     }
 
     private void createAnnouncementsDialog(){
-        AnnouncementsFragment announcementsFragment = new AnnouncementsFragment();
+        AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(()->{});
         announcementsFragment.setAnnouncementsAndTimeService(gameService.getMessageService().getMessages(),
                 gameService.getTimeService());
         announcementsFragment.setDayText(gameService.getTimeService().getTimeAndDay());

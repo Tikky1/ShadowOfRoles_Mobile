@@ -11,6 +11,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.rolegame.game.R;
@@ -49,21 +50,27 @@ public class GameEndActivity extends BaseActivity {
 
         winningTeam = gameService.getFinishGameService().getHighestPriorityWinningTeam();
 
-        boolean chillGuyExist= createChillGuyAlert();
+        boolean chillGuyExist = createChillGuyAlert();
 
         if(!chillGuyExist){
             setActivity();
         }
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(GameEndActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
-
 
     private boolean createChillGuyAlert(){
         Player chillGuyPlayer = gameService.getFinishGameService().getChillGuyPlayer();
         if(chillGuyPlayer != null){
-            ChillGuyFragment chillGuyFragment = new ChillGuyFragment(chillGuyPlayer);
-            chillGuyFragment.setClickOnButton(this::setActivity);
+            ChillGuyFragment chillGuyFragment = new ChillGuyFragment(this::setActivity, chillGuyPlayer);
             chillGuyFragment.show(getSupportFragmentManager(), "Chill Guy Alert");
             return true;
         }

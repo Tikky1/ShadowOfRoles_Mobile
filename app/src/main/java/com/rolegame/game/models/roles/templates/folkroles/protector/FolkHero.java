@@ -1,6 +1,5 @@
 package com.rolegame.game.models.roles.templates.folkroles.protector;
 
-import com.rolegame.game.managers.LanguageManager;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.enums.*;
 import com.rolegame.game.models.roles.templates.folkroles.FolkRole;
@@ -8,12 +7,12 @@ import com.rolegame.game.services.GameService;
 
 public final class FolkHero extends FolkRole {
 
-    private int abilityUseCount;
+    private int remainingAbilityCount;
 
     public FolkHero() {
         super(RoleID.FolkHero, AbilityType.ACTIVE_ALL, RolePriority.IMMUNE,
                 RoleCategory.FOLK_PROTECTOR, 0, 0, false);
-        abilityUseCount = 0;
+        remainingAbilityCount = 2;
     }
 
     @Override
@@ -23,10 +22,10 @@ public final class FolkHero extends FolkRole {
 
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
-        if(abilityUseCount<=2){
+        if(remainingAbilityCount > 0){
             sendAbilityMessage(languageManager.getText("folkhero_ability_message") ,roleOwner, gameService.getMessageService());
             choosenPlayer.setImmune(true);
-            abilityUseCount++;
+            remainingAbilityCount++;
             return AbilityResult.SUCCESSFUL;
         }
         return AbilityResult.NO_ABILITY_USE_LEFT;
@@ -37,7 +36,7 @@ public final class FolkHero extends FolkRole {
         return new ChanceProperty(25, 1);
     }
 
-    public int getAbilityUseCount() {
-        return abilityUseCount;
+    public int getRemainingAbilityCount() {
+        return remainingAbilityCount;
     }
 }
