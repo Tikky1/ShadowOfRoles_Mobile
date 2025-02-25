@@ -10,10 +10,20 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.rolegame.game.R;
+import com.rolegame.game.ui.adapters.ViewPagerAdapter;
 
 public class RoleBookFragment extends DialogFragment {
+
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
+
+    private ViewPagerAdapter viewPagerAdapter;
+
 
     @NonNull
     @Override
@@ -32,6 +42,23 @@ public class RoleBookFragment extends DialogFragment {
         dialog.setOnDismissListener(dialogInterface -> {
             closingAnimation(view);
         });
+
+        tabLayout = view.findViewById(R.id.tab_Layout);
+        viewPager = view.findViewById(R.id.view_Pager);
+
+        viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPager.setAdapter(viewPagerAdapter);
+
+        new TabLayoutMediator(tabLayout,viewPager,(tab, position) -> {
+            switch (position){
+                case 0:
+                    tab.setText("Role Info");
+                    break;
+                case 1:
+                    tab.setText("Role Guide");
+                    break;
+            }
+        }).attach();
 
         Button closeButton = view.findViewById(R.id.close_book_button);
         closeButton.setOnClickListener(v -> closingAnimation(view));
