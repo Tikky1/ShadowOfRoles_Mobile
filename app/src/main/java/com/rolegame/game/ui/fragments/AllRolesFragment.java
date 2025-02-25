@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,12 +52,12 @@ public class AllRolesFragment extends Fragment {
         recyclerView.setAdapter(rolesViewAdapter);
 
 
-        RelativeLayout relativeLayout = view.findViewById(R.id.all_role_info_layout);
+        LinearLayout relativeLayout = view.findViewById(R.id.all_role_info_layout);
         teamText = relativeLayout.findViewById(R.id.all_team_text);
         abilityText = relativeLayout.findViewById(R.id.all_ability_text);
         attributesText = relativeLayout.findViewById(R.id.all_attributes_text);
         goalText = relativeLayout.findViewById(R.id.all_goal_text);
-        roleText = view.findViewById(R.id.all_role_name_text);
+        roleText = view.findViewById(R.id.all_role_text);
 
         setTextViews(RoleService.getAllRoles().get(0));
 
@@ -64,7 +65,7 @@ public class AllRolesFragment extends Fragment {
     }
 
     private void setTextViews(RoleTemplate currentRole){
-        roleText.setText("Current Role: " +currentRole.getName());
+        roleText.setText(currentRole.getName());
         teamText.setText(currentRole.getTeamText());
         abilityText.setText(currentRole.getAbilities());
         attributesText.setText(currentRole.getAttributes());
