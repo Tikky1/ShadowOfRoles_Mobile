@@ -65,6 +65,7 @@ public class RoleBookFragment extends DialogFragment {
             view.startAnimation(animation);
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();

@@ -35,7 +35,6 @@ public final class StartGameService {
     public void initializeGameService(ArrayList<Player> players){
         ArrayList<RoleTemplate> roles = RoleService.initializeRoles(playerCount);
         for(int i=0;i<players.size();i++){
-            Log.w(players.get(i).getName(),roles.get(i).getName());
             players.get(i).setRole(new Role(roles.get(i)));
         }
         this.gameService = new GameService(players);
