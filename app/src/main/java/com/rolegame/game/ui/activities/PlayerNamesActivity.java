@@ -2,19 +2,12 @@ package com.rolegame.game.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -104,12 +97,13 @@ public class PlayerNamesActivity extends BaseActivity {
 
                 String playerNameTemplate = playerNames.get(i);
                 Boolean isAI = isPlayersAI.get(i);
-                String playerName = playerNameTemplate.isBlank() ? "Player " + i+1 : playerNameTemplate;
+                int number = i+1;
+                String playerName = playerNameTemplate.isBlank() ? "Player " + number : playerNameTemplate;
 
                 if (isAI) {
-                    players.add(new AIPlayer(i + 1, playerName));
+                    players.add(new AIPlayer(number, playerName));
                 } else {
-                    players.add(new HumanPlayer(i + 1, playerName));
+                    players.add(new HumanPlayer(number, playerName));
                     isHumanPlayerExist = true;
                 }
 
@@ -125,5 +119,6 @@ public class PlayerNamesActivity extends BaseActivity {
             Intent intent = new Intent(this, GameActivity.class);
             startActivity(intent);
         });
+
     }
 }

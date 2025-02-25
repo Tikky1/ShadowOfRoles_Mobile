@@ -40,7 +40,8 @@
             android:layout_below="@id/nameText"
             android:layout_centerHorizontal="true"
             android:text="Number"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"  />
 
         <TextView
             android:id="@+id/roleText"
@@ -49,7 +50,8 @@
             android:layout_below="@id/numberText"
             android:layout_centerHorizontal="true"
             android:text="Role"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"  />
 
         <TextView
             android:id="@+id/timeText"
@@ -58,7 +60,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="@string/night"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"  />
 
         <TextView
             android:id="@+id/nameText"
@@ -67,7 +70,8 @@
             android:layout_below="@id/timeText"
             android:layout_centerHorizontal="true"
             android:text="@string/player"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"  />
 
     </RelativeLayout>
 
@@ -90,7 +94,8 @@
             android:layout_below="@id/abilityText"
             android:layout_centerHorizontal="true"
             android:text="@string/assassin_attributes"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"  />
 
         <TextView
             android:id="@+id/abilityText"
@@ -99,7 +104,8 @@
             android:layout_below="@id/goalText"
             android:layout_centerHorizontal="true"
             android:text="@string/assassin_abilities"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"  />
 
         <TextView
             android:id="@+id/goalText"
@@ -108,7 +114,8 @@
             android:layout_below="@id/teamText"
             android:layout_centerHorizontal="true"
             android:text="@string/assassin_goal"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"  />
 
         <TextView
             android:id="@+id/teamText"
@@ -117,7 +124,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="@string/role_book_neutral"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"  />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -213,18 +221,5 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
 
-    <ImageButton
-        android:id="@+id/specialBtn"
-        android:layout_width="100dp"
-        android:layout_height="113dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundImageGame"
-        app:layout_constraintHorizontal_bias="0.952"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97"
-        android:background="@drawable/ekstra_box_picture"
-        android:scaleType="fitXY"
-        android:contentDescription="Special Properties"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

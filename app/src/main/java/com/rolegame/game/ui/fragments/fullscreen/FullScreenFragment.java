@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -25,8 +26,10 @@ public abstract class FullScreenFragment extends DialogFragment {
         this.onClose = onClose;
     }
 
+
     @Nullable
     @Override
+    @CallSuper
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);

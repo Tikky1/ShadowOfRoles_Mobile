@@ -1,8 +1,5 @@
 package com.rolegame.game.ui.activities;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -29,6 +26,7 @@ import com.rolegame.game.models.roles.enums.AbilityType;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
 import com.rolegame.game.ui.alerts.GoToMainAlert;
+import com.rolegame.game.ui.fragments.RoleBookFragment;
 import com.rolegame.game.ui.fragments.fullscreen.AnnouncementsFragment;
 import com.rolegame.game.ui.fragments.GraveyardFragment;
 import com.rolegame.game.ui.fragments.MessageFragment;
@@ -48,9 +46,10 @@ public class GameActivity extends BaseActivity {
 
     private ImageButton announcementsButton;
     private ImageButton graveyardButton;
-    private ImageButton specialBtn;
+    private ImageButton roleBookButton;
     private Button passTurnButton;
     private ImageView backgroundImage;
+
 
     private RelativeLayout playerRoleInfoLayout;
 
@@ -68,7 +67,6 @@ public class GameActivity extends BaseActivity {
         setTimeText();
         setBackgroundImage();
         setImageButtonOnClicked();
-        specialBtnVisibility();
 
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -83,17 +81,7 @@ public class GameActivity extends BaseActivity {
         });
 
     }
-    private void specialBtnVisibility(){
-        switch (gameService.getCurrentPlayer().getRole().getTemplate().getId()){
-            case Lorekeeper:
-            case Entrepreneur:
-                specialBtn.setVisibility(VISIBLE);
-                break;
-            default:
-                specialBtn.setVisibility(GONE);
-                break;
-        }
-    }
+
 
     private void initializeViews(){
         alivePlayersView = findViewById(R.id.alivePlayersView);
@@ -106,7 +94,7 @@ public class GameActivity extends BaseActivity {
         playerRoleInfoLayout = findViewById(R.id.playerRoleInfoLayout);
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
-        specialBtn = findViewById(R.id.specialBtn);
+        roleBookButton = findViewById(R.id.roleBookBtn);
     }
     private void setImageButtonOnClicked(){
         announcementsButton.setOnClickListener(v -> {
@@ -121,6 +109,11 @@ public class GameActivity extends BaseActivity {
                     gameService.getDeadPlayers());
 
             graveyardFragment.show(getSupportFragmentManager(), "Graveyard");
+        });
+
+        roleBookButton.setOnClickListener(v->{
+            RoleBookFragment roleBookFragment = new RoleBookFragment();
+            roleBookFragment.show(getSupportFragmentManager(), "Role Book");
         });
     }
 
@@ -247,7 +240,6 @@ public class GameActivity extends BaseActivity {
         setAlivePlayersView();
         setRoleInfoLayout();
         passTurnButton.setClickable(true);
-        specialBtnVisibility();
     }
 
 
@@ -284,8 +276,6 @@ public class GameActivity extends BaseActivity {
 
         switch (gameService.getTimeService().getTime()){
             case DAY:
-                createAnnouncementsDialog();
-                break;
             case NIGHT:
                 createAnnouncementsDialog();
                 break;

@@ -8,7 +8,7 @@ import com.rolegame.game.models.roles.templates.RoleTemplate;
 
 import java.util.ArrayList;
 
-public class StartGameService {
+public final class StartGameService {
 
     public final int MAX_PLAYER_COUNT = 10;
     public final int MIN_PLAYER_COUNT = 5;

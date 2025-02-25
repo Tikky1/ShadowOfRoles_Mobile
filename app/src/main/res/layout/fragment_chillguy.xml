@@ -20,13 +20,14 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/chill_guy_alert_text"
         app:layout_constraintBottom_toBottomOf="@+id/chill_guy_alert_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.106"
+        app:layout_constraintVertical_bias="0.154"
         android:textColor="@color/white"
         android:background="@color/light_gray"/>
 

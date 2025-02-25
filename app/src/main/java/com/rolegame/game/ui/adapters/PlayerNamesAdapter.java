@@ -50,6 +50,7 @@ public class PlayerNamesAdapter extends RecyclerView.Adapter<PlayerNamesAdapter.
                 isPlayersAI.set(position, isChecked);
             }
         });
+
     }
 
     @Override

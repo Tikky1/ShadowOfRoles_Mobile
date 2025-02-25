@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.TreeSet;
 
-public class FinishGameService {
+public final class FinishGameService {
 
     private final GameService gameService;
 
