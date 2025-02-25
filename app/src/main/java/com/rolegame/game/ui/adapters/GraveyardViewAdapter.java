@@ -20,7 +20,7 @@ public class GraveyardViewAdapter extends RecyclerView.Adapter<GraveyardViewAdap
     @NonNull
     @Override
     public GraveyardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.graveyard_box, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.box_graveyard, parent, false);
         GraveyardViewHolder viewHolder = new GraveyardViewHolder(view);
 
         return viewHolder;

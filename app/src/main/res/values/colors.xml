@@ -6,8 +6,20 @@
     <color name="light_gray">#88404142</color>
     <color name="red">#D32F2F</color>
     <color name="green">#388E3C</color>
+
     <color name="player_circle_current_start">#FFC72C</color>
     <color name="player_circle_current_end">#E7C684</color>
     <color name="player_circle_others_start">#4b9cd3</color>
     <color name="player_circle_others_end">#7498BA</color>
+
+    <color name="role_background">#2E0D25</color>
+    <color name="corruptor_color">#FF4500</color>
+    <color name="folk_color">#32CD32</color>
+    <color name="neutral_color">#87CEFA</color>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorGrey">#BDBDBD</color>
+
 </resources>

@@ -47,7 +47,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.player_selection_box, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.box_player_selection, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();

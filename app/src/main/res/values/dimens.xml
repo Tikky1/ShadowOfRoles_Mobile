@@ -1,4 +1,13 @@
 <resources>
     <dimen name="player_box_margin">16dp</dimen>
     <dimen name="max_recycler_view_height">400dp</dimen>
+
+    <dimen name="info_box_width">200dp</dimen>
+    <dimen name="info_box_margin_start">20dp</dimen>
+    <dimen name="info_box_padding">15dp</dimen>
+
+    <dimen name="recycler_margin_end">20dp</dimen>
+
+    <dimen name="role_title_size">18sp</dimen>
+    <dimen name="role_text_size">14sp</dimen>
 </resources>

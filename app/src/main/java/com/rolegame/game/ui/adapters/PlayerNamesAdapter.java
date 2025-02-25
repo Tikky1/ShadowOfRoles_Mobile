@@ -27,7 +27,7 @@ public class PlayerNamesAdapter extends RecyclerView.Adapter<PlayerNamesAdapter.
     @NonNull
     @Override
     public ViewHolderPlayerNames onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.start_game_player_box, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.box_player_names, parent, false);
         return new ViewHolderPlayerNames(view);
     }
 

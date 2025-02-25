@@ -26,6 +26,7 @@ import com.rolegame.game.models.roles.enums.AbilityType;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
 import com.rolegame.game.ui.alerts.GoToMainAlert;
+import com.rolegame.game.ui.fragments.AllRolesFragment;
 import com.rolegame.game.ui.fragments.RoleBookFragment;
 import com.rolegame.game.ui.fragments.fullscreen.AnnouncementsFragment;
 import com.rolegame.game.ui.fragments.GraveyardFragment;
@@ -38,9 +39,7 @@ public class GameActivity extends BaseActivity {
     private RecyclerView alivePlayersView;
 
     private TextView timeText;
-
     private TextView nameText;
-
     private TextView numberText;
     private TextView roleText;
 
@@ -91,7 +90,7 @@ public class GameActivity extends BaseActivity {
         roleText = findViewById(R.id.roleText);
         passTurnButton = findViewById(R.id.pass_turn_button);
         backgroundImage = findViewById(R.id.backgroundImageGame);
-        playerRoleInfoLayout = findViewById(R.id.playerRoleInfoLayout);
+        playerRoleInfoLayout = findViewById(R.id.all_role_info_layout);
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
         roleBookButton = findViewById(R.id.roleBookBtn);
@@ -116,23 +115,6 @@ public class GameActivity extends BaseActivity {
             roleBookFragment.show(getSupportFragmentManager(), "Role Book");
         });
     }
-
-    private void setRoleInfoLayout(){
-        RoleTemplate currentRole = gameService.getCurrentPlayer().getRole().getTemplate();
-
-        TextView teamText = playerRoleInfoLayout.findViewById(R.id.teamText);
-        teamText.setText("Team: " + currentRole.getTeamText());
-
-        TextView goalText = playerRoleInfoLayout.findViewById(R.id.goalText);
-        goalText.setText("Goal: " + currentRole.getGoal());
-
-        TextView abilityText = playerRoleInfoLayout.findViewById(R.id.abilityText);
-        abilityText.setText("Abilities: " + currentRole.getAbilities());
-
-        TextView attributesText = playerRoleInfoLayout.findViewById(R.id.attributesText);
-        attributesText.setText("Attributes: " + currentRole.getAttributes());
-    }
-
 
 
     private void setTimeText(){
@@ -238,7 +220,6 @@ public class GameActivity extends BaseActivity {
         setNumberText();
         setRoleText();
         setAlivePlayersView();
-        setRoleInfoLayout();
         passTurnButton.setClickable(true);
     }
 
