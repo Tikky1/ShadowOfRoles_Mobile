@@ -105,7 +105,7 @@ public class GameEndActivity extends BaseActivity {
             TableRow tableRow = new TableRow(this);
 
             tableRow.addView(createTextView(String.format("%d", player.getNumber())));
-            tableRow.addView(createTextView(player.getName()));
+            tableRow.addView(createTextView(player.getNameAndNumber()));
             tableRow.addView(createTextView(player.getRole().getTemplate().getName()));
             tableRow.addView(createTextView(player.isHasWon() ? "Won" : "Lost"));
             tableRow.addView(createTextView(player.getDeathProperties().isAlive() ? "Alive" : "Dead"));

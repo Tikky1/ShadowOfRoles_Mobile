@@ -156,7 +156,7 @@ public final class GameService {
 
             if(chosenPlayer!=null){
                 messageService.sendMessage(LanguageManager.getInstance().getText("voted_for")
-                                .replace("{playerName}", chosenPlayer.getName())
+                                .replace("{playerName}", chosenPlayer.getNameAndNumber())
                         ,currentPlayer,false, true);
             }else{
                 messageService.sendMessage(LanguageManager.getInstance().getText("voted_for_none"), currentPlayer, false, true);
@@ -168,7 +168,7 @@ public final class GameService {
             if(!(abilityType == AbilityType.PASSIVE || abilityType == AbilityType.NO_ABILITY)){
                 if(chosenPlayer!=null){
                     messageService.sendMessage(LanguageManager.getInstance().getText("ability_used_on")
-                                    .replace("{playerName}", chosenPlayer.getName())
+                                    .replace("{playerName}", chosenPlayer.getNameAndNumber())
                             ,currentPlayer,false, false);
                 }
                 else{

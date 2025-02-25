@@ -38,7 +38,7 @@
                 android:id="@+id/tvLongText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/light_gray"
+                android:background="@drawable/text_background"
                 android:padding="32dp"
                 android:text="@string/credits_text"
                 android:textColor="@color/white"

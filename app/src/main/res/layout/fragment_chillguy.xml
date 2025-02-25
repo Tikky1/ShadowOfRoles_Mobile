@@ -29,7 +29,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.154"
         android:textColor="@color/white"
-        android:background="@color/light_gray"/>
+        android:background="@drawable/text_background"
+        android:textStyle="bold"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/chill_guy_alert_button"
@@ -57,7 +58,7 @@
             android:id="@+id/chill_guy_no_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/light_gray"
+            android:background="@drawable/text_background"
             android:text="No"
             android:textColor="@color/white" />
 
@@ -66,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@android:dimen/app_icon_size"
-            android:background="@color/light_gray"
+            android:background="@drawable/text_background"
             android:text="Yes"
             android:textColor="@color/white" />
     </RadioGroup>

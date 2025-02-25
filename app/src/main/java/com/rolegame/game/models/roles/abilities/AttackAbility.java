@@ -22,7 +22,7 @@ public interface AttackAbility {
             gameService.getMessageService().sendAbilityMessage(languageManager.getText(causeOfDeathStr+"_kill_message"), roleOwner);
             gameService.getMessageService().sendAbilityAnnouncement(
                     languageManager.getText(causeOfDeathStr+"_kill_announcement")
-                    .replace("{playerName}",choosenPlayer.getName())
+                    .replace("{playerName}",choosenPlayer.getNameAndNumber())
                     .replace("{roleName}", choosenPlayer.getRole().getTemplate().getName()
                     ));
             return AbilityResult.SUCCESSFUL;

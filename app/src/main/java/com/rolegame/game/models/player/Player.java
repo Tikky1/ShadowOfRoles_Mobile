@@ -46,8 +46,7 @@ public abstract class Player {
         this.setImmune(false);
     }
 
-    @Override
-    public final String toString(){
+    public final String getNameAndNumber(){
         return number +". " +name;
     }
 

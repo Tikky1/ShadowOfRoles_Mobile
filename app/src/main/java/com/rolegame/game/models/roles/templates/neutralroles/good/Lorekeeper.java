@@ -43,7 +43,7 @@ public final class Lorekeeper extends NeutralRole {
             String messageTemplate = languageManager.getText("lorekeeper_ability_message");
 
             String message = messageTemplate
-                    .replace("{playerName}", choosenPlayer.getName())
+                    .replace("{playerName}", choosenPlayer.getNameAndNumber())
                     .replace("{roleName}", choosenPlayer.getRole().getTemplate().getName());
             sendAbilityAnnouncement(message, gameService.getMessageService());
             choosenPlayer.setRevealed(true);

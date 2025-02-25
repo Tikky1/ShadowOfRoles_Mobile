@@ -20,7 +20,7 @@
         android:id="@+id/pass_turn_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/light_gray"
+        android:background="@drawable/text_background"
         android:text="Your turn has ended!"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -29,7 +29,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintVertical_bias="0.154"
+        android:textStyle="bold"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/pass_turn_button"
