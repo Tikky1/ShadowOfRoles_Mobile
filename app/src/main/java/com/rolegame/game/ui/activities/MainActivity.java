@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.rolegame.game.ui.alerts.QuitAlert;
 import com.rolegame.game.R;
 import com.rolegame.game.managers.SceneManager;

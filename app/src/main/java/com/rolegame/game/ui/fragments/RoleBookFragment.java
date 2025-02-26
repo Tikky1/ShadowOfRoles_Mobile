@@ -2,8 +2,12 @@ package com.rolegame.game.ui.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -17,7 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.rolegame.game.R;
 import com.rolegame.game.ui.adapters.ViewPagerAdapter;
 
-public class RoleBookFragment extends DialogFragment {
+public class RoleBookFragment extends HidingNavigationFragment {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
@@ -32,16 +36,10 @@ public class RoleBookFragment extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_role_book, null);
         builder.setView(view);
 
-        view.setVisibility(View.INVISIBLE);
-        Animation openAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.book_open);
-        view.startAnimation(openAnimation);
-        view.setVisibility(View.VISIBLE);
+        openingAnimation(view);
 
         AlertDialog dialog = builder.create();
-
-        dialog.setOnDismissListener(dialogInterface -> {
-            closingAnimation(view);
-        });
+        backgroundTransparent(dialog);
 
         tabLayout = view.findViewById(R.id.tab_Layout);
         viewPager = view.findViewById(R.id.view_Pager);
@@ -49,8 +47,8 @@ public class RoleBookFragment extends DialogFragment {
         viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
 
-        new TabLayoutMediator(tabLayout,viewPager,(tab, position) -> {
-            switch (position){
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            switch (position) {
                 case 0:
                     tab.setText("Role Info");
                     break;
@@ -63,47 +61,22 @@ public class RoleBookFragment extends DialogFragment {
         Button closeButton = view.findViewById(R.id.close_book_button);
         closeButton.setOnClickListener(v -> closingAnimation(view));
 
-
-
         return dialog;
     }
 
-    private void closingAnimation(View view){
-        if (view != null) {
 
-            Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.book_close);
-
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {}
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    if (getDialog() != null && getDialog().isShowing()) {
-                        getDialog().dismiss();
-                    }
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {}
-            });
-
-            view.setVisibility(View.VISIBLE);
-            view.startAnimation(animation);
-        }
+    @Override
+    public int openingAnimationType() {
+        return R.anim.book_open;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        View view = getView();
-        if (view != null) {
-            Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.book_open);
-            view.startAnimation(animation);
-        }
+    public int closingAnimationType() {
+        return R.anim.book_close;
     }
 
-
-
-
+    @Override
+    public int getLayoutID() {
+        return R.layout.fragment_role_book;
+    }
 }

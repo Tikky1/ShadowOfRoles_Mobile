@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.ui.adapters.PlayersViewAdapter;
 import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
@@ -26,7 +24,6 @@ import com.rolegame.game.models.roles.enums.AbilityType;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.StartGameService;
 import com.rolegame.game.ui.alerts.GoToMainAlert;
-import com.rolegame.game.ui.fragments.AllRolesFragment;
 import com.rolegame.game.ui.fragments.RoleBookFragment;
 import com.rolegame.game.ui.fragments.fullscreen.AnnouncementsFragment;
 import com.rolegame.game.ui.fragments.GraveyardFragment;
@@ -49,8 +46,6 @@ public class GameActivity extends BaseActivity {
     private Button passTurnButton;
     private ImageView backgroundImage;
 
-
-    private RelativeLayout playerRoleInfoLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +85,6 @@ public class GameActivity extends BaseActivity {
         roleText = findViewById(R.id.roleText);
         passTurnButton = findViewById(R.id.pass_turn_button);
         backgroundImage = findViewById(R.id.backgroundImageGame);
-        playerRoleInfoLayout = findViewById(R.id.include_role_info);
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
         roleBookButton = findViewById(R.id.roleBookBtn);

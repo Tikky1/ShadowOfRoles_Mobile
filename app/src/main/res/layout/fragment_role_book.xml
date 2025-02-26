@@ -18,12 +18,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/announcements_picture" />
 
-    <!-- Kapatma Butonu -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/close_book_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/close_button"
+        android:background="@drawable/closing_button"
         android:gravity="center"
         android:text="X"
         app:layout_constraintBottom_toBottomOf="parent"

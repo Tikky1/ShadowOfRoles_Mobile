@@ -5,7 +5,7 @@
     <!-- Translate animation (slide to left) -->
     <translate
         android:fromXDelta="0"
-        android:toXDelta="-100%"
+        android:toXDelta="100%"
         android:duration="500"/>
 
     <!-- Scale animation (shrink to 0) -->
@@ -13,7 +13,7 @@
         android:fromXScale="1.0" android:fromYScale="1.0"
         android:toXScale="0.0" android:toYScale="0.0"
         android:duration="500"
-        android:pivotX="0%" android:pivotY="0%" />
+        android:pivotX="100%" android:pivotY="0%" />
 
     <!-- Fade out animation (alpha) -->
     <alpha

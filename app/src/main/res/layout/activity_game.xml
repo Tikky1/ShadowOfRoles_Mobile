@@ -26,12 +26,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/text_background"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/game_bottom_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintTop_toTopOf="@+id/game_top_guideline">
 
         <TextView
             android:id="@+id/numberText"
@@ -39,9 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/nameText"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:text="Number"
-            android:textColor="@color/white"
-            android:gravity="center"  />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/roleText"
@@ -49,9 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/numberText"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:text="Role"
-            android:textColor="@color/white"
-            android:gravity="center"  />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/timeText"
@@ -59,9 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:text="@string/night"
-            android:textColor="@color/white"
-            android:gravity="center"  />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/nameText"
@@ -69,9 +68,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/timeText"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:text="@string/player"
-            android:textColor="@color/white"
-            android:gravity="center"  />
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 
@@ -112,34 +111,33 @@
     <ImageButton
         android:id="@+id/gravestoneBtn"
         android:layout_width="104dp"
-        android:layout_height="111dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
+        android:contentDescription="Gravestone"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/game_bottom_guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025"
-        app:srcCompat="@drawable/gravestonebtn"
-        android:contentDescription="Gravestone"/>
+        app:layout_constraintTop_toTopOf="@+id/game_top_guideline"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/gravestonebtn" />
 
     <ImageButton
         android:id="@+id/roleBookBtn"
         android:layout_width="100dp"
-        android:layout_height="113dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
+        android:contentDescription="Role Book"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/game_bottom_guideline"
         app:layout_constraintEnd_toEndOf="@+id/backgroundImageGame"
         app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025"
-        app:srcCompat="@drawable/rolebookbtn"
-        android:contentDescription="Role Book"/>
+        app:layout_constraintTop_toTopOf="@+id/game_top_guideline"
+        app:srcCompat="@drawable/rolebookbtn" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/pass_turn_button"
@@ -155,18 +153,18 @@
         android:textColor="@color/white"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/game_top_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_percent="0.02" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/game_bottom_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_percent="0.15" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
