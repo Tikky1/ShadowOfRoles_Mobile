@@ -21,12 +21,19 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:src="@drawable/gamelogo"
-        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Button Group (LinearLayout) -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="wrap_content"
@@ -36,52 +43,53 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage">
+        app:layout_constraintTop_toBottomOf="@+id/gameLogo"
+        app:layout_constraintVertical_bias="0.25">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/startGameBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@drawable/button_style"
-            android:textColor="@color/white"
             android:text="@string/start_game"
-            android:layout_margin="10dp" />
+            android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/gameGuideBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@drawable/button_style"
-            android:textColor="@color/white"
             android:text="@string/game_guide"
-            android:layout_margin="10dp"/>
+            android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/feedbackBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@drawable/button_style"
-            android:textColor="@color/white"
             android:text="@string/feedback"
-            android:layout_margin="10dp"/>
+            android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/creditsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@drawable/button_style"
-            android:textColor="@color/white"
             android:text="@string/credits"
-            android:layout_margin="10dp"/>
+            android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/quitBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@drawable/button_style"
-            android:textColor="@color/white"
             android:text="@string/quit"
-            android:layout_margin="10dp"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
