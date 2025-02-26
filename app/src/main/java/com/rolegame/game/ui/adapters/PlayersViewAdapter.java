@@ -4,6 +4,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.models.player.Player;
+import com.rolegame.game.models.roles.enums.WinningTeam;
+import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.models.roles.templates.corrupterroles.support.LastJoke;
 import com.rolegame.game.models.roles.enums.Team;
 import com.rolegame.game.models.roles.templates.folkroles.protector.FolkHero;
@@ -67,6 +70,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
         holder.setCurrentPlayerAndOtherPlayer(currentPlayer,player);
         holder.playerNumberView.setText(player.getNumber()+"");
         holder.playerNameView.setText(player.getName());
+
 
         Button selectButton = holder.selectionBtn;
 
@@ -124,6 +128,36 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
         holder.selectionBtn.setText(holder.isSelected ? "Unselect" : "Select");
 
+
+        RoleTemplate roleTemplate = player.getRole().getTemplate();
+        holder.roleName.setText("("+roleTemplate.getName()+")");
+
+
+        int color;
+        switch (roleTemplate.getWinningTeam().getTeam()){
+            case FOLK:
+                color = ContextCompat.getColor(selectButton.getContext(),R.color.folk_color);
+                break;
+            case CORRUPTER:
+                color = ContextCompat.getColor(selectButton.getContext(),R.color.corruptor_color);
+                break;
+            default:
+                color = ContextCompat.getColor(selectButton.getContext(),R.color.neutral_color);
+                break;
+        }
+
+        holder.roleName.setTextColor(color);
+
+        if(player.isRevealed()){
+            holder.roleName.setVisibility(VISIBLE);
+        } else if (roleTemplate.getWinningTeam() == WinningTeam.CORRUPTER
+                && currentPlayer.getRole().getTemplate().getWinningTeam() == WinningTeam.CORRUPTER) {
+            holder.roleName.setVisibility(VISIBLE);
+        }else {
+            holder.roleName.setVisibility(GONE);
+        }
+
+
     }
 
     private boolean isPlayerCurrentPlayer(Player player, Player currentPlayer){
@@ -144,7 +178,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
         private final TextView playerNameView;
         private final TextView playerNumberView;
         private final Button selectionBtn;
-
+        private final TextView roleName;
         private final FrameLayout numberCircle;
 
         private boolean isSelected;
@@ -161,6 +195,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             playerNumberView = itemView.findViewById(R.id.player_number);
             selectionBtn = itemView.findViewById(R.id.player_button);
             numberCircle = itemView.findViewById(R.id.number_circle);
+            roleName = itemView.findViewById(R.id.role_name);
 
             isSelected = false;
             setButtonEvent();

@@ -19,14 +19,12 @@ import java.util.List;
 public class LorekeeperAdapter extends ArrayAdapter<RoleTemplate>{
 
     private final List<RoleTemplate> roles;
-    //private final Lorekeeper lorekeeper;
     private final Context context;
 
     public LorekeeperAdapter(@NonNull Context context, List<RoleTemplate> roles) {
         super(context, R.layout.lore_keeper_spinner_item);
         this.context = context;
         this.roles = roles;
-        //this.lorekeeper = lorekeeper;
 
     }
 

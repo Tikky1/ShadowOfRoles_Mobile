@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/announcements_picture" />
+        app:srcCompat="@drawable/rolebook" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/close_book_button"
