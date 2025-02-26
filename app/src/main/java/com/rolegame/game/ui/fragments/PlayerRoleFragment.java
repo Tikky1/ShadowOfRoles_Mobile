@@ -18,7 +18,9 @@ import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.RoleService;
 import com.rolegame.game.services.StartGameService;
-import com.rolegame.game.ui.adapters.LoreSpinnerHelper;
+import com.rolegame.game.ui.adapters.LorekeeperAdapter;
+
+import java.util.List;
 
 
 public class PlayerRoleFragment extends Fragment {
@@ -33,23 +35,17 @@ public class PlayerRoleFragment extends Fragment {
         gameService = StartGameService.getInstance().getGameService();
         setRoleInfoLayout(view);
 
+
         FrameLayout spinnerContainer = view.findViewById(R.id.lore_frame_layout);
+        ViewGroup spinnerBox = (ViewGroup) inflater.inflate(R.layout.lore_keeper_box, spinnerContainer, true);
+        Spinner spinner = spinnerBox.findViewById(R.id.lorekeeper_spinner);
+        LorekeeperAdapter lorekeeperAdapter = new LorekeeperAdapter(view.getContext(), RoleService.getAllRoles());
+        spinner.setAdapter(lorekeeperAdapter);
 
-        LoreSpinnerHelper loreSpinnerHelper = new LoreSpinnerHelper(view.getContext());
-
-        loreSpinnerHelper.setData(RoleService.getAllRoles());
-
-        ViewGroup viewGroup = view.findViewById(R.id.lorekeeper_box);
-
-        Spinner spinner = view.findViewById(R.id.lorekeeper_spinner);
-
-        ArrayAdapter<RoleTemplate> arrayAdapter = new ArrayAdapter<>(view.getContext(),R.layout.lorekeeper_spinner,RoleService.getAllRoles());
-
-        spinner.setAdapter(arrayAdapter);
-
-        spinnerContainer.addView(viewGroup);
         return view;
     }
+
+
 
     private void setRoleInfoLayout(View view) {
         RoleTemplate currentRole = gameService.getCurrentPlayer().getRole().getTemplate();
