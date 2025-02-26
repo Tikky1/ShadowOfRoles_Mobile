@@ -52,11 +52,10 @@ public class AllRolesFragment extends Fragment {
         recyclerView.setAdapter(rolesViewAdapter);
 
 
-        LinearLayout relativeLayout = view.findViewById(R.id.all_role_info_layout);
-        teamText = relativeLayout.findViewById(R.id.all_team_text);
-        abilityText = relativeLayout.findViewById(R.id.all_ability_text);
-        attributesText = relativeLayout.findViewById(R.id.all_attributes_text);
-        goalText = relativeLayout.findViewById(R.id.all_goal_text);
+        teamText = view.findViewById(R.id.all_team_text);
+        abilityText = view.findViewById(R.id.all_ability_text);
+        attributesText = view.findViewById(R.id.all_attributes_text);
+        goalText = view.findViewById(R.id.all_goal_text);
         roleText = view.findViewById(R.id.all_role_text);
 
         setTextViews(RoleService.getAllRoles().get(0));

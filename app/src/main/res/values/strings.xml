@@ -178,8 +178,8 @@ We would like to thank all the players who helped in the development of this gam
     <!-- Lorekeeper -->
     <string name="lorekeeper_name">Lore Keeper</string>
     <string name="lorekeeper_attributes">You need to correctly guess 2 roles out of 5,6,7 people. You need to correctly guess 3 roles in 8,9,10 people.</string>
-    <string name="lorekeeper_abilities">You choose an actor and then you choose what role that actor plays.</string>
-    <string name="lorekeeper_goal">You try to guess the actors\' roles</string>
+    <string name="lorekeeper_abilities">You choose a player and then you choose what role that player has, if you find it correctly player\'s role will be revealed.</string>
+    <string name="lorekeeper_goal">You try to guess the players\' roles</string>
     <string name="lorekeeper_ability_message">The following player has revealed: {playerName} ({roleName})</string>
     <string name="lorekeeper_guess">Your true guess count is: {guessCount}</string>
 

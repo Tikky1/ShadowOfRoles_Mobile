@@ -90,7 +90,7 @@ public class GameActivity extends BaseActivity {
         roleText = findViewById(R.id.roleText);
         passTurnButton = findViewById(R.id.pass_turn_button);
         backgroundImage = findViewById(R.id.backgroundImageGame);
-        playerRoleInfoLayout = findViewById(R.id.all_role_info_layout);
+        playerRoleInfoLayout = findViewById(R.id.include_role_info);
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
         roleBookButton = findViewById(R.id.roleBookBtn);

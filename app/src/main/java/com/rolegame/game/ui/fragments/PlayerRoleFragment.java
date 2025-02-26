@@ -21,17 +21,12 @@ public class PlayerRoleFragment extends Fragment {
 
     private GameService gameService;
 
-    private RelativeLayout playerRoleInfoLayout;
-
-
-
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_player_role_page, container, false);
 
         gameService = StartGameService.getInstance().getGameService();
-        playerRoleInfoLayout = view.findViewById(R.id.playerRoleInfoLayout);
 
         setRoleInfoLayout(view);
 
@@ -41,17 +36,18 @@ public class PlayerRoleFragment extends Fragment {
     private void setRoleInfoLayout(View view){
         RoleTemplate currentRole = gameService.getCurrentPlayer().getRole().getTemplate();
 
-        TextView teamText = view.findViewById(R.id.teamText);
-        teamText.setText("Team: " + currentRole.getTeamText());
+        TextView teamText = view.findViewById(R.id.all_team_text);
+        TextView abilityText = view.findViewById(R.id.all_ability_text);
+        TextView attributesText = view.findViewById(R.id.all_attributes_text);
+        TextView goalText = view.findViewById(R.id.all_goal_text);
+        TextView roleText = view.findViewById(R.id.all_role_text);
 
-        TextView goalText = view.findViewById(R.id.goalText);
-        goalText.setText("Goal: " + currentRole.getGoal());
 
-        TextView abilityText = view.findViewById(R.id.abilityText);
-        abilityText.setText("Abilities: " + currentRole.getAbilities());
-
-        TextView attributesText = view.findViewById(R.id.attributesText);
-        attributesText.setText("Attributes: " + currentRole.getAttributes());
+        roleText.setText(currentRole.getName());
+        teamText.setText(currentRole.getTeamText());
+        abilityText.setText(currentRole.getAbilities());
+        attributesText.setText(currentRole.getAttributes());
+        goalText.setText(currentRole.getGoal());
     }
 
 
