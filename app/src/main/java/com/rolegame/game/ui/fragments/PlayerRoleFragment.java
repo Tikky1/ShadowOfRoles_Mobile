@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.rolegame.game.R;
 import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.services.GameService;
+import com.rolegame.game.services.RoleService;
 import com.rolegame.game.services.StartGameService;
+import com.rolegame.game.ui.adapters.LoreSpinnerHelper;
 
 
 public class PlayerRoleFragment extends Fragment {
@@ -27,13 +31,27 @@ public class PlayerRoleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_player_role_page, container, false);
 
         gameService = StartGameService.getInstance().getGameService();
-
         setRoleInfoLayout(view);
 
+        FrameLayout spinnerContainer = view.findViewById(R.id.lore_frame_layout);
+
+        LoreSpinnerHelper loreSpinnerHelper = new LoreSpinnerHelper(view.getContext());
+
+        loreSpinnerHelper.setData(RoleService.getAllRoles());
+
+        ViewGroup viewGroup = view.findViewById(R.id.lorekeeper_box);
+
+        Spinner spinner = view.findViewById(R.id.lorekeeper_spinner);
+
+        ArrayAdapter<RoleTemplate> arrayAdapter = new ArrayAdapter<>(view.getContext(),R.layout.lorekeeper_spinner,RoleService.getAllRoles());
+
+        spinner.setAdapter(arrayAdapter);
+
+        spinnerContainer.addView(viewGroup);
         return view;
     }
 
-    private void setRoleInfoLayout(View view){
+    private void setRoleInfoLayout(View view) {
         RoleTemplate currentRole = gameService.getCurrentPlayer().getRole().getTemplate();
 
         TextView teamText = view.findViewById(R.id.all_team_text);
@@ -41,7 +59,6 @@ public class PlayerRoleFragment extends Fragment {
         TextView attributesText = view.findViewById(R.id.all_attributes_text);
         TextView goalText = view.findViewById(R.id.all_goal_text);
         TextView roleText = view.findViewById(R.id.all_role_text);
-
 
         roleText.setText(currentRole.getName());
         teamText.setText(currentRole.getTeamText());
