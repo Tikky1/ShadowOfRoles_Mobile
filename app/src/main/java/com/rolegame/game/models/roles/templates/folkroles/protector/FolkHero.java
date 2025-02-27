@@ -25,7 +25,7 @@ public final class FolkHero extends FolkRole {
         if(remainingAbilityCount > 0){
             sendAbilityMessage(languageManager.getText("folkhero_ability_message") ,roleOwner, gameService.getMessageService());
             choosenPlayer.setImmune(true);
-            remainingAbilityCount++;
+            remainingAbilityCount--;
             return AbilityResult.SUCCESSFUL;
         }
         return AbilityResult.NO_ABILITY_USE_LEFT;
