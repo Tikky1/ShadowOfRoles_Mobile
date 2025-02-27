@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.rolegame.game.ui.adapters.GameGuideAdapter;
 import com.rolegame.game.ui.alerts.QuitAlert;
 import com.rolegame.game.R;
 import com.rolegame.game.managers.SceneManager;
+import com.rolegame.game.ui.fragments.RoleBookFragment;
+import com.rolegame.game.ui.fragments.fullscreen.GameGuideFragment;
 
 public class MainActivity extends BaseActivity {
 
-    private static MainActivity instance;
     private Button startGameBtn;
     private Button gameGuideBtn;
     private Button feedbackBtn;
@@ -25,7 +27,6 @@ public class MainActivity extends BaseActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        instance = this;
         setContentView(R.layout.activity_main);
 
         startGameBtn = findViewById(R.id.startGameBtn);
@@ -40,6 +41,10 @@ public class MainActivity extends BaseActivity {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FurkanKirat/Shadow-of-Roles/issues"));
                     startActivity(browserIntent);
                 });
+        gameGuideBtn.setOnClickListener(v -> {
+            GameGuideFragment gameGuideFragment = new GameGuideFragment();
+            gameGuideFragment.show(getSupportFragmentManager(), "Game Guide");
+        });
         creditsBtn.setOnClickListener(v -> openActivity(CreditsActivity.class));
         quitBtn.setOnClickListener(v -> {
             QuitAlert quitAlert = new QuitAlert(()->{
@@ -58,10 +63,6 @@ public class MainActivity extends BaseActivity {
     private void openActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
-    }
-
-    public static Context getAppContext() {
-        return instance.getApplicationContext();
     }
 
 
