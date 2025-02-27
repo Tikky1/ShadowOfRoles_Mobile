@@ -1,6 +1,7 @@
 package com.rolegame.game.ui.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.rolegame.game.R;
 import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class LorekeeperAdapter extends ArrayAdapter<RoleTemplate>{
@@ -25,6 +29,7 @@ public class LorekeeperAdapter extends ArrayAdapter<RoleTemplate>{
         super(context, R.layout.lore_keeper_spinner_item);
         this.context = context;
         this.roles = roles;
+        roles.sort(Comparator.comparing(RoleTemplate::getWinningTeam));
 
     }
 
@@ -52,6 +57,7 @@ public class LorekeeperAdapter extends ArrayAdapter<RoleTemplate>{
         return convertView;
     }
 
+
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
@@ -59,8 +65,31 @@ public class LorekeeperAdapter extends ArrayAdapter<RoleTemplate>{
             convertView = inflater.inflate(R.layout.lore_keeper_spinner_item, parent, false);
         }
 
+
+        RoleTemplate currentRole = roles.get(position);
+
+
         TextView textView = convertView.findViewById(R.id.lore_keeper_item_role_name);
-        textView.setText(roles.get(position).getName());
+        textView.setText(currentRole.getName());
+
+
+        Drawable background;
+        switch (currentRole.getWinningTeam().getTeam()) {
+            case FOLK:
+                background = ContextCompat.getDrawable(context, R.drawable.role_box_folk);
+                break;
+            case CORRUPTER:
+                background = ContextCompat.getDrawable(context, R.drawable.role_box_corrupt);
+                break;
+            default:
+                background = ContextCompat.getDrawable(context, R.drawable.role_box_neutral);
+                break;
+        }
+
+
+        convertView.setBackground(background);
+
         return convertView;
     }
+
 }
