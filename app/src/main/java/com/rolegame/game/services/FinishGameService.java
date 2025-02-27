@@ -5,6 +5,7 @@ import com.rolegame.game.models.roles.enums.WinningTeam;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.abilities.RoleBlockAbility;
 import com.rolegame.game.models.roles.enums.Team;
+import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.models.roles.templates.neutralroles.NeutralRole;
 import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 
@@ -61,9 +62,17 @@ public final class FinishGameService {
 
             // If one of the players' role is neutral role and the role can win with other teams finishes the game
             if(player.isPresent()){
-                winningTeams.add(player1.getRole().getTemplate().getWinningTeam().getTeam() == Team.NEUTRAL ?
-                        player2.getRole().getTemplate().getWinningTeam() :
-                        player1.getRole().getTemplate().getWinningTeam());
+                boolean player1CanWinWithOthers = canWinWithOthers(player1.getRole().getTemplate());
+                boolean player2CanWinWithOthers = canWinWithOthers(player2.getRole().getTemplate());
+
+                if(player1CanWinWithOthers&&player2CanWinWithOthers){
+                    return true;
+                } else if (player1CanWinWithOthers) {
+                    winningTeams.add(player2.getRole().getTemplate().getWinningTeam());
+                }
+                else {
+                    winningTeams.add(player1.getRole().getTemplate().getWinningTeam());
+                }
                 return true;
             }
 
@@ -182,6 +191,15 @@ public final class FinishGameService {
 
     private boolean winnerIsNotOnlyNeutral(){
         return winningTeams.contains(WinningTeam.CORRUPTER) || winningTeams.contains(WinningTeam.FOLK);
+    }
+
+    private boolean canWinWithOthers(RoleTemplate roleTemplate){
+        if(roleTemplate instanceof NeutralRole){
+            NeutralRole neutralRole = (NeutralRole) roleTemplate;
+
+            return neutralRole.canWinWithOtherTeams();
+        }
+        return false;
     }
 
     public boolean isGameFinished() {
