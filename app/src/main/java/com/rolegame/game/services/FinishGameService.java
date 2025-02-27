@@ -55,27 +55,23 @@ public final class FinishGameService {
             Player player1 = gameService.getAlivePlayers().get(0);
             Player player2 = gameService.getAlivePlayers().get(1);
 
-            Optional<Player> player = alivePlayers.stream()
-                    .filter(p -> p.getRole().getTemplate() instanceof NeutralRole)
-                    .filter(p -> ((NeutralRole) p.getRole().getTemplate()).canWinWithOtherTeams())
-                    .findFirst();
 
-            // If one of the players' role is neutral role and the role can win with other teams finishes the game
-            if(player.isPresent()){
-                boolean player1CanWinWithOthers = canWinWithOthers(player1.getRole().getTemplate());
-                boolean player2CanWinWithOthers = canWinWithOthers(player2.getRole().getTemplate());
+            // If one of the players' role can win with other teams finishes the game
+            boolean player1CanWinWithOthers = canWinWithOthers(player1.getRole().getTemplate());
+            boolean player2CanWinWithOthers = canWinWithOthers(player2.getRole().getTemplate());
 
-                if(player1CanWinWithOthers&&player2CanWinWithOthers){
-                    return true;
-                } else if (player1CanWinWithOthers) {
-                    winningTeams.add(player2.getRole().getTemplate().getWinningTeam());
-                }
-                else {
-                    winningTeams.add(player1.getRole().getTemplate().getWinningTeam());
-                }
+            if(player1CanWinWithOthers&&player2CanWinWithOthers){
+                return true;
+            } else if (player1CanWinWithOthers) {
+                winningTeams.add(player2.getRole().getTemplate().getWinningTeam());
+                return true;
+            }
+            else if(player2CanWinWithOthers){
+                winningTeams.add(player1.getRole().getTemplate().getWinningTeam());
                 return true;
             }
 
+            
             // Finishes the game if the last two players cannot kill each other
             if(player1.getRole().getTemplate().getWinningTeam().getTeam()!=player2.getRole().getTemplate().getWinningTeam().getTeam()
                     &&player2.getAttack()<=player1.getRole().getTemplate().getDefence()
