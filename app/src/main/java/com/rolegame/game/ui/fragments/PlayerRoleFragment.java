@@ -36,9 +36,11 @@ public class PlayerRoleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_player_role_page, container, false);
 
         gameService = StartGameService.getInstance().getGameService();
-        setRoleInfoLayout(view);
-
         time = gameService.getTimeService().getTime();
+
+        setRoleInfoLayout(view);
+        setChosenPlayerText(view);
+
 
         switch (gameService.getCurrentPlayer().getRole().getTemplate().getId()){
             case Lorekeeper:
@@ -56,7 +58,6 @@ public class PlayerRoleFragment extends Fragment {
 
         }
 
-
         return view;
     }
 
@@ -71,11 +72,56 @@ public class PlayerRoleFragment extends Fragment {
         TextView goalText = view.findViewById(R.id.all_goal_text);
         TextView roleText = view.findViewById(R.id.all_role_text);
 
+
         roleText.setText(currentRole.getName());
         teamText.setText(currentRole.getTeamText());
         abilityText.setText(currentRole.getAbilities());
         attributesText.setText(currentRole.getAttributes());
         goalText.setText(currentRole.getGoal());
+    }
+
+    private void setChosenPlayerText(View view){
+        Player player = gameService.getCurrentPlayer();
+        Player chosenPlayer = player.getRole().getChoosenPlayer();
+        TextView chosenPlayerText = view.findViewById(R.id.chosen_player_text);
+        String abilityText;
+
+        if(time == Time.VOTING){
+            if(chosenPlayer==null){
+                abilityText = getString(R.string.chosen_player_text_voting_nobody);
+            }else{
+                abilityText = getString(R.string.chosen_player_text_voting);
+            }
+        }
+
+        else if(time == Time.NIGHT){
+            switch (player.getRole().getTemplate().getAbilityType()){
+                case PASSIVE:
+                case NO_ABILITY:
+                    abilityText = getString(R.string.chosen_player_text_night_no_ability);
+                    break;
+
+                default:
+                    if(chosenPlayer==null){
+                        abilityText = getString(R.string.chosen_player_text_night_nobody);
+                    }
+                    else{
+                        abilityText = getString(R.string.chosen_player_text_night);
+                    }
+                    break;
+            }
+        }
+        else{
+            abilityText = "";
+            chosenPlayerText.setVisibility(GONE);
+        }
+
+        if(chosenPlayer!=null){
+            abilityText = abilityText.replace("{playerName}", chosenPlayer.getNameAndNumber());
+        }
+
+        chosenPlayerText.setText(abilityText);
+
     }
 
     private void setLoreKeeperInfo(View view, LayoutInflater inflater){
@@ -98,7 +144,6 @@ public class PlayerRoleFragment extends Fragment {
         ViewGroup folkHeroBox = (ViewGroup) inflater.inflate(R.layout.folk_hero_box, spinnerContainer, true);
         TextView currentText = folkHeroBox.findViewById(R.id.folk_hero_this_night_text_view);
         TextView nextText = folkHeroBox.findViewById(R.id.folk_hero_next_night_text);
-        TextView selectedPlayerText = folkHeroBox.findViewById(R.id.folk_hero_selected_player);
 
         int remainingAbilityCount = folkHero.getRemainingAbilityCount();
         currentText.setText("Remaining Ability Count: " + remainingAbilityCount);
@@ -108,12 +153,8 @@ public class PlayerRoleFragment extends Fragment {
         nextText.setText("Expected Ability Count: " +
                 (isAbilityUsed ? remainingAbilityCount-1 : remainingAbilityCount));
 
-        selectedPlayerText.setText(isAbilityUsed ? "Choosen player is: " + currentPlayer.getRole().getChoosenPlayer().getNameAndNumber()
-                : "You are not using your ability!");
-
         if(time !=Time.NIGHT){
             nextText.setVisibility(GONE);
-            selectedPlayerText.setVisibility(GONE);
         }
     }
 

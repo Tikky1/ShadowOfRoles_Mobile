@@ -121,7 +121,7 @@ public final class GameService {
             for(Player alivePlayer : alivePlayers){
                 if(alivePlayer.getNumber() == votingService.getMaxVoted().getNumber()){
 
-                    alivePlayer.killPlayer(Time.VOTING, timeService.getDayCount(), CauseOfDeath.HANGING);
+                    alivePlayer.killPlayer(Time.VOTING, timeService.getDayCount(), CauseOfDeath.HANGING, true);
                     break;
                 }
             }

@@ -26,11 +26,13 @@ public abstract class Player {
         hasWon = false;
     }
 
-    public void killPlayer(Time deathTime, int deathDayCount, CauseOfDeath causeOfDeath){
+    public void killPlayer(Time deathTime, int deathDayCount, CauseOfDeath causeOfDeath, boolean isDay){
         deathProperties.setAlive(false);
         deathProperties.setDeathTime(deathTime);
         deathProperties.addCauseOfDeath(causeOfDeath);
-        deathProperties.setDayCountOfDeath(deathDayCount);
+
+        if(isDay) deathProperties.setDayCountOfDeathDay(deathDayCount);
+        else deathProperties.setDayCountOfDeathNight(deathDayCount);
     }
 
     public final void setRole(Role role) {

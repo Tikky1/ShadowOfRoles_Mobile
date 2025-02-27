@@ -256,4 +256,9 @@ We would like to thank all the players who helped in the development of this gam
     <string name="graveyard">Graveyard</string>
     <string name="chill_guy_alert_text">Oh no! Ending Screen Was Captured by a Chill Guy! Did they revealed their role in the game?</string>
 
+    <string name="chosen_player_text_night">You are using your ability on: {playerName}</string>
+    <string name="chosen_player_text_night_nobody">You are not using your ability!</string>
+    <string name="chosen_player_text_night_no_ability">Your role has not any active night ability</string>
+    <string name="chosen_player_text_voting">You are voting for: {playerName}</string>
+    <string name="chosen_player_text_voting_nobody">You did not voted for anybody</string>
 </resources>

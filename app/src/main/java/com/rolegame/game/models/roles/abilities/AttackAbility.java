@@ -15,7 +15,7 @@ public interface AttackAbility {
         LanguageManager languageManager = LanguageManager.getInstance();
         if(roleOwner.getAttack() > choosenPlayer.getDefence()){
 
-            choosenPlayer.killPlayer(Time.NIGHT, gameService.getTimeService().getDayCount(), causeOfDeath);
+            choosenPlayer.killPlayer(Time.NIGHT, gameService.getTimeService().getDayCount(), causeOfDeath, false);
 
 
             String causeOfDeathStr = causeOfDeath.toString().toLowerCase(Locale.ROOT);

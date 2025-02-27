@@ -53,8 +53,12 @@ public class DeathProperties {
         return dayCountOfDeath;
     }
 
-    public void setDayCountOfDeath(int dayCountOfDeath) {
+    public void setDayCountOfDeathDay(int dayCountOfDeath) {
         this.dayCountOfDeath = dayCountOfDeath;
+    }
+
+    public void setDayCountOfDeathNight(int dayCountOfDeath) {
+        this.dayCountOfDeath = dayCountOfDeath-1;
     }
 
     public Time getDeathTime() {
