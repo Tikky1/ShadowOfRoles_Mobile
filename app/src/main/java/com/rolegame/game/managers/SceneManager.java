@@ -10,7 +10,8 @@ import com.rolegame.game.R;
 public class SceneManager {
     private static SceneManager instance;
     private final int[] images = {
-            R.drawable.background0
+            R.drawable.menu_night,
+            R.drawable.menu_day
     };
 
     private int currentIndex = 0;
