@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,8 +18,10 @@ import androidx.fragment.app.Fragment;
 import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.models.player.Player;
+import com.rolegame.game.models.roles.enums.RoleID;
 import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.models.roles.templates.folkroles.protector.FolkHero;
+import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.RoleService;
 import com.rolegame.game.services.StartGameService;
@@ -28,6 +31,7 @@ import com.rolegame.game.ui.adapters.LorekeeperAdapter;
 public class PlayerRoleFragment extends Fragment {
 
     private GameService gameService;
+    private Player currentPlayer;
     private Time time;
 
     @NonNull
@@ -37,12 +41,13 @@ public class PlayerRoleFragment extends Fragment {
 
         gameService = StartGameService.getInstance().getGameService();
         time = gameService.getTimeService().getTime();
+        currentPlayer = gameService.getCurrentPlayer();
 
         setRoleInfoLayout(view);
         setChosenPlayerText(view);
 
 
-        switch (gameService.getCurrentPlayer().getRole().getTemplate().getId()){
+        switch (currentPlayer.getRole().getTemplate().getId()){
             case Lorekeeper:
 
                 setLoreKeeperInfo(view, inflater);
@@ -64,7 +69,7 @@ public class PlayerRoleFragment extends Fragment {
 
 
     private void setRoleInfoLayout(View view) {
-        RoleTemplate currentRole = gameService.getCurrentPlayer().getRole().getTemplate();
+        RoleTemplate currentRole = currentPlayer.getRole().getTemplate();
 
         TextView teamText = view.findViewById(R.id.all_team_text);
         TextView abilityText = view.findViewById(R.id.all_ability_text);
@@ -81,8 +86,7 @@ public class PlayerRoleFragment extends Fragment {
     }
 
     private void setChosenPlayerText(View view){
-        Player player = gameService.getCurrentPlayer();
-        Player chosenPlayer = player.getRole().getChoosenPlayer();
+        Player chosenPlayer = currentPlayer.getRole().getChoosenPlayer();
         TextView chosenPlayerText = view.findViewById(R.id.chosen_player_text);
         String abilityText;
 
@@ -95,7 +99,7 @@ public class PlayerRoleFragment extends Fragment {
         }
 
         else if(time == Time.NIGHT){
-            switch (player.getRole().getTemplate().getAbilityType()){
+            switch (currentPlayer.getRole().getTemplate().getAbilityType()){
                 case PASSIVE:
                 case NO_ABILITY:
                     abilityText = getString(R.string.chosen_player_text_night_no_ability);
@@ -125,11 +129,28 @@ public class PlayerRoleFragment extends Fragment {
     }
 
     private void setLoreKeeperInfo(View view, LayoutInflater inflater){
+        Lorekeeper lorekeeper = (Lorekeeper) currentPlayer.getRole().getTemplate();
         FrameLayout spinnerContainer = view.findViewById(R.id.unique_roles_layout);
         ViewGroup spinnerBox = (ViewGroup) inflater.inflate(R.layout.lore_keeper_box, spinnerContainer, true);
         Spinner spinner = spinnerBox.findViewById(R.id.lorekeeper_spinner);
+        Button selectButton = spinnerBox.findViewById(R.id.role_select_button);
+        Button noneButton = spinnerBox.findViewById(R.id.role_select_none_button);
+        TextView chosenRoleText = spinnerBox.findViewById(R.id.selected_role_text);
+
         LorekeeperAdapter lorekeeperAdapter = new LorekeeperAdapter(view.getContext(), RoleService.getAllRoles());
         spinner.setAdapter(lorekeeperAdapter);
+        selectButton.setOnClickListener(v -> {
+            lorekeeper.setGuessedRole((RoleTemplate) spinner.getSelectedItem());
+            setLoreKeeperSelectedRole(lorekeeper, chosenRoleText);
+        });
+        noneButton.setOnClickListener(v -> {
+            lorekeeper.setGuessedRole(null);
+            setLoreKeeperSelectedRole(lorekeeper, chosenRoleText);
+        });
+        setLoreKeeperSelectedRole(lorekeeper,chosenRoleText);
+    }
+    private void setLoreKeeperSelectedRole(Lorekeeper lorekeeper, TextView textView){
+        textView.setText((lorekeeper.getGuessedRole()==null) ? "No role selected" : "Selected role: " + lorekeeper.getGuessedRole().getName());
     }
 
     private void setEntrepreneurInfo(){
@@ -137,7 +158,6 @@ public class PlayerRoleFragment extends Fragment {
     }
 
     private void setFolkHeroInfo(View view, LayoutInflater inflater){
-        Player currentPlayer = gameService.getCurrentPlayer();
         FolkHero folkHero = (FolkHero) currentPlayer.getRole().getTemplate();
 
         FrameLayout spinnerContainer = view.findViewById(R.id.unique_roles_layout);

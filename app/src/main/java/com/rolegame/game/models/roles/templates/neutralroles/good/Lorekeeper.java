@@ -48,6 +48,7 @@ public final class Lorekeeper extends NeutralRole {
             sendAbilityAnnouncement(message, gameService.getMessageService());
             choosenPlayer.setRevealed(true);
         }
+        guessedRole = null;
         return AbilityResult.SUCCESSFUL;
     }
 
