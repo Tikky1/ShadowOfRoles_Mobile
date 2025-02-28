@@ -1,7 +1,10 @@
 package com.rolegame.game.ui.activities;
 
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 
@@ -15,6 +18,10 @@ public class CreditsActivity extends ImageChangingActivity {
         setContentView(R.layout.activity_credits);
         backgroundImage = findViewById(R.id.credits_background_image);
         backgroundImage.setImageDrawable(sceneManager.nextImage());
+
+        TextView creditsText = findViewById(R.id.credits_text);
+        Animation creditsAnimation = AnimationUtils.loadAnimation(this, R.anim.credits_animation);
+        creditsText.startAnimation(creditsAnimation);
     }
 
     @Override

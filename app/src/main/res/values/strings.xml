@@ -32,15 +32,15 @@
 - *Game Design:* Furkan Kırat and Efekan Kul\n
 - *Coding and Programming:* Furkan Kırat and Efekan Kul\n
 - *Graphic Design:* Furkan Kırat and Efekan Kul\n
-- *Testing and QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
+- *Testing and QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı*\n\n
 
 *Special Thanks:*\n
-Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
+Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n\n
 
 *Development Tools and Resources:*\n
 - Java - Programming language\n
 - Android Studio - UI library\n
-- GitHub - Version control\n
+- GitHub - Version control\n\n
 
 *Special Thanks:*
 We would like to thank all the players who helped in the development of this game, provided feedback, and contributed to the project.
@@ -257,9 +257,9 @@ We would like to thank all the players who helped in the development of this gam
 
     <string name="chosen_player_text_night">You are using your ability on: {playerName}</string>
     <string name="chosen_player_text_night_nobody">You are not using your ability!</string>
-    <string name="chosen_player_text_night_no_ability">Your role has not any active night ability</string>
+    <string name="chosen_player_text_night_no_ability">Your role does not have any active night ability</string>
     <string name="chosen_player_text_voting">You are voting for: {playerName}</string>
     <string name="chosen_player_text_voting_nobody">You did not voted for anybody</string>
-    <string name="rules_text">Game Rules and Flow\n\n1. Night Phase:\n\nThe game begins at night, and each player, in turn, takes the device to check their role.\nEach player performs their assigned task according to their role and then passes the device to the next player.\nThe night phase ends once all players have completed their tasks.\n\n2. Morning Phase:\n\nIn the morning, each player takes the device in turn to see the results of the task performed by their role during the night.\n\nAfter all players have reviewed their results, the device is returned to the first player, and the voting phase begins.\n\n3. Voting Phase:\n\nBefore voting, players discuss and exchange ideas based on the information they gathered during the night.\nThe voting is open, and each player states their vote in turn, while the first player records the votes.\nThe player who receives more than half of the votes is eliminated.\nAfter voting is complete, the game transitions back to the night phase, and this cycle continues.\nTeams and Objectives\nFolk:\n\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Folk team.\nCorrupted:\n\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Corrupted team.\nNeutral:\n\nNeutral players have unique win conditions or tasks specific to their roles. Their goal is to achieve their individual objectives.\n\nNote: The game progresses through a day and night cycle, requiring strategy, teamwork, and information sharing to achieve team objectives.</string>
+    <string name="rules_text">Game Rules and Flow\n\n1. Night Phase:\nThe game begins at night, and each player, in turn, takes the device to check their role.\nEach player performs their assigned task according to their role and then passes the device to the next player.\nThe night phase ends once all players have used their abilities.\n\n2. Day Phase:\nIn the day, each player takes the device in turn to see the results of the task performed by their role during the night.\n\nAfter all players have reviewed their results, the device is returned to the first player, and the voting phase begins.\n\n3. Voting Phase:\nBefore voting, players discuss and exchange ideas based on the information they gathered during the night. \nThe voting is open, and each player cast their vote and pass the device to next player.\nThe player who receives more than half of the votes is eliminated.\nAfter voting is complete, the game transitions back to the night phase, and this cycle continues.\n\nTeams and Objectives\n\nFolk:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Folk team.\n\nCorrupted:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Corrupted team.\n\nNeutral:\nNeutral players have unique win conditions or tasks specific to their roles. Their goal is to achieve their individual objectives. For more information check the role guide.\n\nNote: The game progresses through a day and night cycle, requiring strategy, teamwork, and information sharing to achieve team objectives.</string>
     <string name="main_goal_text">Have Fun</string>
 </resources>

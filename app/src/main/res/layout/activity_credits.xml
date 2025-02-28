@@ -35,7 +35,7 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/tvLongText"
+                android:id="@+id/credits_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/text_background"
