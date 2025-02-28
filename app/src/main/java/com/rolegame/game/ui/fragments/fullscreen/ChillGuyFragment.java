@@ -10,13 +10,19 @@ import androidx.annotation.Nullable;
 
 import com.rolegame.game.R;
 import com.rolegame.game.models.player.Player;
+import com.rolegame.game.models.roles.enums.WinningTeam;
+import com.rolegame.game.services.FinishGameService;
+
+import java.util.Set;
 
 public class ChillGuyFragment extends FullScreenFragment {
 
     private final Player chillGuyPlayer;
-    public ChillGuyFragment(OnClose onClose, Player chillGuyPlayer) {
+    private final FinishGameService finishGameService;
+    public ChillGuyFragment(OnClose onClose, Player chillGuyPlayer, FinishGameService finishGameService) {
         super(onClose);
         this.chillGuyPlayer = chillGuyPlayer;
+        this.finishGameService = finishGameService;
     }
 
 
@@ -33,6 +39,7 @@ public class ChillGuyFragment extends FullScreenFragment {
         confirmButton.setOnClickListener(v -> {
             if(noButton.isChecked()){
                 chillGuyPlayer.setHasWon(true);
+                finishGameService.addWinningTeam(WinningTeam.CHILL_GUY);
             }
             onClose.backClicked();
             dismiss();

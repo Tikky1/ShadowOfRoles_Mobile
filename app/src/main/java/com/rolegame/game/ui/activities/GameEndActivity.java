@@ -70,7 +70,7 @@ public class GameEndActivity extends BaseActivity {
     private boolean createChillGuyAlert(){
         Player chillGuyPlayer = gameService.getFinishGameService().getChillGuyPlayer();
         if(chillGuyPlayer != null){
-            ChillGuyFragment chillGuyFragment = new ChillGuyFragment(this::setActivity, chillGuyPlayer);
+            ChillGuyFragment chillGuyFragment = new ChillGuyFragment(this::setActivity, chillGuyPlayer, gameService.getFinishGameService());
             chillGuyFragment.show(getSupportFragmentManager(), "Chill Guy Alert");
             return true;
         }

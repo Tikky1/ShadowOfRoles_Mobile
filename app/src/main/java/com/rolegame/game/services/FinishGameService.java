@@ -214,4 +214,8 @@ public final class FinishGameService {
     public Player getChillGuyPlayer() {
         return chillGuyPlayer;
     }
+
+    public void addWinningTeam(WinningTeam winningTeam){
+        winningTeams.add(winningTeam);
+    }
 }
