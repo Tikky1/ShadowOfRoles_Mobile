@@ -1,21 +1,17 @@
 package com.rolegame.game.ui.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.rolegame.game.services.OrientationLockService;
-import com.rolegame.game.ui.adapters.GameGuideAdapter;
 import com.rolegame.game.ui.alerts.QuitAlert;
 import com.rolegame.game.R;
 import com.rolegame.game.managers.SceneManager;
-import com.rolegame.game.ui.fragments.RoleBookFragment;
 import com.rolegame.game.ui.fragments.fullscreen.GameGuideFragment;
 
-public class MainActivity extends BaseActivity implements OrientationLockService {
+public class MainActivity extends BaseActivity{
 
     private Button startGameBtn;
     private Button gameGuideBtn;
@@ -28,8 +24,6 @@ public class MainActivity extends BaseActivity implements OrientationLockService
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        lockOrientation(this);
 
         setContentView(R.layout.activity_main);
 

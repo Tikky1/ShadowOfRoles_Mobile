@@ -1,20 +1,22 @@
 package com.rolegame.game.ui.activities;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.rolegame.game.services.OrientationLockService;
-
-public class BaseActivity extends AppCompatActivity implements OrientationLockService {
+public class BaseActivity extends AppCompatActivity{
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        lockOrientation(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+
 
         hideSystemUI();
     }
