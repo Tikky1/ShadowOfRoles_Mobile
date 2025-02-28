@@ -11,7 +11,8 @@ public class SceneManager {
     private static SceneManager instance;
     private final int[] images = {
             R.drawable.menu_night,
-            R.drawable.menu_day
+            R.drawable.menu_day,
+            R.drawable.background0
     };
 
     private int currentIndex = 0;

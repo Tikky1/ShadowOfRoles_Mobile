@@ -8,7 +8,7 @@
     tools:context=".ui.activities.CreditsActivity">
 
     <ImageView
-        android:id="@+id/backgroundImage2"
+        android:id="@+id/credits_background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"

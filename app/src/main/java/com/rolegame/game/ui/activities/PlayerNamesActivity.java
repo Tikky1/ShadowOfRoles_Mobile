@@ -22,14 +22,14 @@ import com.rolegame.game.ui.adapters.PlayerNamesAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerNamesActivity extends BaseActivity{
+public class PlayerNamesActivity extends ImageChangingActivity{
 
     private List<String> playerNames;
     private List<Boolean> isPlayersAI;
     private StartGameService startGameService;
-    private SceneManager sceneManager;
     private RecyclerView playerNamesContainer;
     private PlayerNamesAdapter adapter;
+    private ImageView backgroundImage;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -39,9 +39,8 @@ public class PlayerNamesActivity extends BaseActivity{
         setContentView(R.layout.activity_player_names);
 
         startGameService = StartGameService.getInstance();
-        sceneManager = SceneManager.getInstance(this);
 
-        ImageView backgroundImage = findViewById(R.id.backgroundImage);
+        backgroundImage = findViewById(R.id.backgroundImage);
         backgroundImage.setImageDrawable(sceneManager.nextImage());
 
         Button minusBtn = findViewById(R.id.minusBtn);
@@ -121,5 +120,10 @@ public class PlayerNamesActivity extends BaseActivity{
             startActivity(intent);
         });
 
+    }
+
+    @Override
+    protected ImageView getBackgroundImage() {
+        return backgroundImage;
     }
 }
