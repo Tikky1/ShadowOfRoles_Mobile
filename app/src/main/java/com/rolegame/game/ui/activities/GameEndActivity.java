@@ -19,10 +19,11 @@ import com.rolegame.game.models.roles.enums.WinningTeam;
 import com.rolegame.game.managers.LanguageManager;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.services.GameService;
+import com.rolegame.game.services.OrientationLockService;
 import com.rolegame.game.services.StartGameService;
 import com.rolegame.game.ui.fragments.fullscreen.ChillGuyFragment;
 
-public class GameEndActivity extends BaseActivity {
+public class GameEndActivity extends BaseActivity implements OrientationLockService {
 
     private TableLayout endGameTable;
 
@@ -39,6 +40,9 @@ public class GameEndActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        lockOrientation(this);
+
         setContentView(R.layout.activity_game_end);
 
         gameService = StartGameService.getInstance().getGameService();

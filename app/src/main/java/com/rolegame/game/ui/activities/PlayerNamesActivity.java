@@ -16,13 +16,14 @@ import com.rolegame.game.managers.SceneManager;
 import com.rolegame.game.models.player.AIPlayer;
 import com.rolegame.game.models.player.HumanPlayer;
 import com.rolegame.game.models.player.Player;
+import com.rolegame.game.services.OrientationLockService;
 import com.rolegame.game.services.StartGameService;
 import com.rolegame.game.ui.adapters.PlayerNamesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerNamesActivity extends BaseActivity {
+public class PlayerNamesActivity extends BaseActivity implements OrientationLockService {
 
     private List<String> playerNames;
     private List<Boolean> isPlayersAI;
@@ -35,6 +36,9 @@ public class PlayerNamesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        lockOrientation(this);
+
         setContentView(R.layout.activity_player_names);
 
         startGameService = StartGameService.getInstance();

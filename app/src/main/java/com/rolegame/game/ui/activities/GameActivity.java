@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rolegame.game.services.OrientationLockService;
 import com.rolegame.game.ui.adapters.PlayersViewAdapter;
 import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
@@ -30,7 +31,7 @@ import com.rolegame.game.ui.fragments.GraveyardFragment;
 import com.rolegame.game.ui.fragments.MessageFragment;
 import com.rolegame.game.ui.fragments.fullscreen.PassTurnFragment;
 
-public class GameActivity extends BaseActivity {
+public class GameActivity extends BaseActivity implements OrientationLockService {
 
     private GameService gameService;
     private RecyclerView alivePlayersView;
@@ -50,6 +51,9 @@ public class GameActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        lockOrientation(this);
+
         setContentView(R.layout.activity_game);
 
         gameService = StartGameService.getInstance().getGameService();

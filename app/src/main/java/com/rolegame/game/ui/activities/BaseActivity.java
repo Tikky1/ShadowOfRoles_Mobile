@@ -5,12 +5,16 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class BaseActivity extends AppCompatActivity {
+import com.rolegame.game.services.OrientationLockService;
+
+public class BaseActivity extends AppCompatActivity implements OrientationLockService {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        lockOrientation(this);
 
         hideSystemUI();
     }
