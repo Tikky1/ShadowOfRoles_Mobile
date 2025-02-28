@@ -15,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public abstract class FullScreenFragment extends DialogFragment {
+import com.rolegame.game.ui.fragments.IFullScreenFragment;
+
+public abstract class FullScreenFragment extends DialogFragment implements IFullScreenFragment {
 
     protected OnClose onClose;
     public interface OnClose{
@@ -42,7 +44,7 @@ public abstract class FullScreenFragment extends DialogFragment {
         super.onStart();
         if (getDialog() != null && getDialog().getWindow() != null) {
 
-            hideSystemUI();
+            hideSystemUIBackgroundBlack(this);
         }
 
     }
@@ -58,23 +60,6 @@ public abstract class FullScreenFragment extends DialogFragment {
 
     }
 
-    private void hideSystemUI() {
-
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-
-        getDialog().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        getDialog().getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        );
-
-    }
 
     protected abstract int getLayoutResource();
 }

@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.rolegame.game.R;
 import com.rolegame.game.ui.adapters.ViewPagerAdapter;
 
-public class RoleBookFragment extends HidingNavigationFragment {
+public class RoleBookFragment extends HidingNavigationFragment implements IFullScreenFragment{
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
@@ -60,10 +60,14 @@ public class RoleBookFragment extends HidingNavigationFragment {
 
         Button closeButton = view.findViewById(R.id.close_book_button);
         closeButton.setOnClickListener(v -> closingAnimation(view));
-
         return dialog;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        hideSystemUI(this);
+    }
 
     @Override
     public int openingAnimationType() {
