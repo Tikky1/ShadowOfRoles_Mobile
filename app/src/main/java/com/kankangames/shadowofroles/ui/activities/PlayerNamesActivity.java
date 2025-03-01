@@ -71,6 +71,8 @@ public class PlayerNamesActivity extends ImageChangingActivity{
                 playerNames.add("Player " + startGameService.getPlayerCount());
                 isPlayersAI.add(false);
                 adapter.notifyItemInserted(playerNames.size() - 1);
+                playerNamesContainer.post(() -> playerNamesContainer.smoothScrollToPosition(adapter.getItemCount() - 1));
+
             }
         });
 
@@ -81,6 +83,7 @@ public class PlayerNamesActivity extends ImageChangingActivity{
                 playerNames.remove(lastIndex);
                 isPlayersAI.remove(lastIndex);
                 adapter.notifyItemRemoved(lastIndex);
+                playerNamesContainer.post(() -> playerNamesContainer.smoothScrollToPosition(adapter.getItemCount() - 1));
             }
         });
 
