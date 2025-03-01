@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rolegame.game"
+    namespace = "com.kankangames.shadowofroles"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.rolegame.game"
+        applicationId = "com.kankangames.shadowofroles"
         minSdk = 28
         targetSdk = 35
         versionCode = 1

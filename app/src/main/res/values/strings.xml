@@ -43,8 +43,9 @@ Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n\n
 - GitHub - Version control\n\n
 
 *Special Thanks:*
-We would like to thank all the players who helped in the development of this game, provided feedback, and contributed to the project.
-</string>
+We would like to thank all the players who helped in the development of this game, provided feedback, and contributed to the project.\n\n
+"This game is released under the CC0 1.0 Universal (Public Domain Dedication). You may copy, modify, distribute, and perform the work, even for commercial purposes, without asking permission."
+    </string>
     <string name="ok">OK</string>
     <string name="cancel">"Cancel"</string>
     <string name="quit_message">Do you want to exit?</string>
@@ -262,4 +263,5 @@ We would like to thank all the players who helped in the development of this gam
     <string name="chosen_player_text_voting_nobody">You did not voted for anybody</string>
     <string name="rules_text">Game Rules and Flow\n\n1. Night Phase:\nThe game begins at night, and each player, in turn, takes the device to check their role.\nEach player performs their assigned task according to their role and then passes the device to the next player.\nThe night phase ends once all players have used their abilities.\n\n2. Day Phase:\nIn the day, each player takes the device in turn to see the results of the task performed by their role during the night.\n\nAfter all players have reviewed their results, the device is returned to the first player, and the voting phase begins.\n\n3. Voting Phase:\nBefore voting, players discuss and exchange ideas based on the information they gathered during the night. \nThe voting is open, and each player cast their vote and pass the device to next player.\nThe player who receives more than half of the votes is eliminated.\nAfter voting is complete, the game transitions back to the night phase, and this cycle continues.\n\nTeams and Objectives\n\nFolk:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Folk team.\n\nCorrupted:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Corrupted team.\n\nNeutral:\nNeutral players have unique win conditions or tasks specific to their roles. Their goal is to achieve their individual objectives. For more information check the role guide.\n\nNote: The game progresses through a day and night cycle, requiring strategy, teamwork, and information sharing to achieve team objectives.</string>
     <string name="main_goal_text">Have Fun</string>
+    <string name="license_text">This game is licensed under CC0 1.0 Universal.</string>
 </resources>
