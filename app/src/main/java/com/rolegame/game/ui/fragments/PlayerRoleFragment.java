@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,7 +20,6 @@ import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
 import com.rolegame.game.managers.LanguageManager;
 import com.rolegame.game.models.player.Player;
-import com.rolegame.game.models.roles.enums.RoleID;
 import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.models.roles.templates.folkroles.protector.FolkHero;
 import com.rolegame.game.models.roles.templates.folkroles.unique.Entrepreneur;
@@ -160,53 +160,52 @@ public class PlayerRoleFragment extends Fragment {
         FrameLayout entrepreneurLayout = view.findViewById(R.id.unique_roles_layout);
         ViewGroup entrepreneurBox = (ViewGroup) inflater.inflate(R.layout.entrepreneur_box, entrepreneurLayout,true);
         TextView currentMoneyText = entrepreneurBox.findViewById(R.id.entrepreneur_currentmoney_text);
-        TextView infoCostText = entrepreneurBox.findViewById(R.id.entrepreneur_info_cost_text);
-        TextView healCostText = entrepreneurBox.findViewById(R.id.entrepreneur_heal_cost_text);
-        TextView attackCostText = entrepreneurBox.findViewById(R.id.entrepreneur_attack_cost_text);
-        TextView expectedMoneyText = entrepreneurBox.findViewById(R.id.entrepreneur_expected_money_text);
-        Button infoBtn = entrepreneurBox.findViewById(R.id.entrepreneur_info_btn);
-        Button healBtn = entrepreneurBox.findViewById(R.id.entrepreneur_heal_btn);
-        Button attackBtn = entrepreneurBox.findViewById(R.id.entrepreneur_attack_btn);
-        Button passBtn = entrepreneurBox.findViewById(R.id.entrepreneur_pass_btn);
 
-        infoBtn.setText(LanguageManager.getInstance().getText("entrepreneur_info"));
-        healBtn.setText(LanguageManager.getInstance().getText("entrepreneur_heal"));
-        attackBtn.setText(LanguageManager.getInstance().getText("entrepreneur_attack"));
-        passBtn.setText(LanguageManager.getInstance().getText("entrepreneur_pass"));
-        expectedMoneyText.setText("Expected money: ");
+        TextView expectedMoneyText = entrepreneurBox.findViewById(R.id.entrepreneur_expected_money_text);
+        RelativeLayout infoBtn = entrepreneurBox.findViewById(R.id.entrepreneur_info_btn);
+        RelativeLayout healBtn = entrepreneurBox.findViewById(R.id.entrepreneur_heal_btn);
+        RelativeLayout attackBtn = entrepreneurBox.findViewById(R.id.entrepreneur_attack_btn);
+        RelativeLayout passBtn = entrepreneurBox.findViewById(R.id.entrepreneur_pass_btn);
+
+        TextView infoCostText = entrepreneurBox.findViewById(R.id.info_cost);
+        TextView healCostText = entrepreneurBox.findViewById(R.id.heal_cost);
+        TextView attackCostText = entrepreneurBox.findViewById(R.id.attack_cost);
+
+        entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
 
         int currentMoney = entrepreneur.getMoney();
         currentMoneyText.setText("Current money: " + currentMoney);
 
-        infoCostText.setText("Info price is: " + Entrepreneur.ChosenAbility.INFO.getMoney());
-        healCostText.setText("Heal price is: " + Entrepreneur.ChosenAbility.HEAL.getMoney());
-        attackCostText.setText("Attack price is: " + Entrepreneur.ChosenAbility.ATTACK.getMoney());
+        infoCostText.setText("Cost: "+Entrepreneur.ChosenAbility.INFO.getMoney());
+        healCostText.setText("Cost: "+Entrepreneur.ChosenAbility.HEAL.getMoney());
+        attackCostText.setText("Cost: "+Entrepreneur.ChosenAbility.ATTACK.getMoney());
 
         infoBtn.setOnClickListener(v -> {
             entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.INFO);
-            entrepreneur(entrepreneur, expectedMoneyText, currentMoney);
+            entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
         });
 
         healBtn.setOnClickListener(v -> {
             entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.HEAL);
-            entrepreneur(entrepreneur, expectedMoneyText, currentMoney);
+            entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
         });
 
         attackBtn.setOnClickListener(v -> {
             entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.ATTACK);
-            entrepreneur(entrepreneur, expectedMoneyText, currentMoney);
+            entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
         });
 
         passBtn.setOnClickListener(v -> {
             entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.NONE);
-            entrepreneur(entrepreneur, expectedMoneyText, currentMoney);
+            entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
         });
 
 
     }
 
-    private void entrepreneur(Entrepreneur entrepreneur, TextView textView, int currentMoney){
-        textView.setText("Expected money: " + (currentMoney - entrepreneur.getAbilityState().getMoney()));
+    private void entrepreneurExpectedMoney(Entrepreneur entrepreneur, TextView textView){
+        int currentMoney = entrepreneur.getMoney();
+        textView.setText("Current Selected: "+ entrepreneur.getAbilityState() +"\nExpected money: " + (currentMoney - entrepreneur.getAbilityState().getMoney()));
     }
 
     private void setFolkHeroInfo(View view, LayoutInflater inflater){
