@@ -4,16 +4,9 @@
 
     <!-- Translate animation (slide from bottom-left to center) -->
     <translate
-        android:fromXDelta="-100%" android:fromYDelta="100%"
-        android:toXDelta="0" android:toYDelta="0"
-        android:duration="500"/>
-
-    <!-- Scale animation (expand from 0 to 1) -->
-    <scale
-        android:fromXScale="0.0" android:fromYScale="0.0"
-        android:toXScale="1.0" android:toYScale="1.0"
-        android:duration="500"
-        android:pivotX="0%" android:pivotY="100%" />
+        android:fromXDelta="-100%"
+        android:toXDelta="0"
+        android:duration="500" />
 
     <!-- Fade in animation (alpha) -->
     <alpha

@@ -73,7 +73,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
 
     @Override
     public ChanceProperty getChanceProperty() {
-        return new ChanceProperty(150000, 1);
+        return new ChanceProperty(15, 1);
     }
 
     public ChosenAbility getAbilityState() {
