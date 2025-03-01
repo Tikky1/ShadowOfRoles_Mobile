@@ -2,13 +2,12 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/accelerate_interpolator">
 
-    <!-- Kaydırma Animasyonu (Sola Kayarak Çıkış) -->
     <translate
         android:fromXDelta="0"
         android:toXDelta="-100%"
         android:duration="500" />
 
-    <!-- Saydamlık Animasyonu (Geç Kapanma) -->
+
     <alpha
         android:fromAlpha="1.0"
         android:toAlpha="0.0"
