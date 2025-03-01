@@ -2,13 +2,12 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/decelerate_interpolator">
 
-    <!-- Translate animation (slide from right to left) -->
+
     <translate
         android:fromXDelta="100%"
         android:toXDelta="0"
         android:duration="500" />
 
-    <!-- Fade in animation (alpha) -->
     <alpha
         android:fromAlpha="0.0"
         android:toAlpha="1.0"
