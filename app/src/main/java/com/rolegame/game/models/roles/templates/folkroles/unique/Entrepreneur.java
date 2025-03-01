@@ -13,10 +13,6 @@ import com.rolegame.game.services.GameService;
 import java.util.Random;
 
 public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackAbility, InvestigativeAbility, PriorityChangingRole {
-
-    private static final int HEAL_PRICE = 3;
-    private static final int INFO_PRICE = 2;
-    private static final int ATTACK_PRICE = 4;
     private int money;
     private ChosenAbility abilityState;
     public Entrepreneur() {
@@ -45,24 +41,24 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
         switch (chosenAbility){
 
             case ATTACK: {
-                if(money>= ATTACK_PRICE){
-                    money -= ATTACK_PRICE;
+                if(money>= ChosenAbility.ATTACK.money){
+                    money -= ChosenAbility.ATTACK.money;
                     return attack(roleOwner, choosenPlayer, gameService, CauseOfDeath.ENTREPRENEUR);
                 }
                 break;
 
             }
             case HEAL: {
-                if(money>= HEAL_PRICE){
-                    money -= HEAL_PRICE;
+                if(money>= ChosenAbility.HEAL.money){
+                    money -= ChosenAbility.HEAL.money;
                     return heal(roleOwner, choosenPlayer, gameService);
                 }
                 break;
 
             }
             case INFO:{
-                if(money>= INFO_PRICE){
-                    money -= INFO_PRICE;
+                if(money>= ChosenAbility.INFO.money){
+                    money -= ChosenAbility.INFO.money;
                     return gatherInfo(roleOwner, choosenPlayer, gameService);
                 }
                 break;
@@ -77,7 +73,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
 
     @Override
     public ChanceProperty getChanceProperty() {
-        return new ChanceProperty(15, 1);
+        return new ChanceProperty(150000, 1);
     }
 
     public ChosenAbility getAbilityState() {
@@ -133,16 +129,21 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
 
 
     public enum ChosenAbility{
-        ATTACK(RolePriority.NONE),
-        HEAL(RolePriority.HEAL),
-        INFO(RolePriority.NONE),
-        NONE(RolePriority.NONE);
+        ATTACK(RolePriority.NONE, 4),
+        HEAL(RolePriority.HEAL,3),
+        INFO(RolePriority.NONE,2),
+        NONE(RolePriority.NONE,0);
 
         final RolePriority rolePriority;
+        final int money;
 
-        ChosenAbility(RolePriority rolePriority){
+        ChosenAbility(RolePriority rolePriority , int money){
             this.rolePriority = rolePriority;
+
+            this.money = money;
         }
+
+        public int getMoney(){return money;}
 
     }
 

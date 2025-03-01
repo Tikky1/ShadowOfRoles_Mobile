@@ -168,7 +168,7 @@ We would like to thank all the players who helped in the development of this gam
     <string name="entrepreneur_attack">Attack</string>
     <string name="entrepreneur_heal">Heal</string>
     <string name="entrepreneur_info">Info</string>
-    <string name="entrepreneur_pass">Pass Ability</string>
+    <string name="entrepreneur_pass">Pass</string>
     <string name="entrepreneur_selected">Selected: {abilityName}</string>
     <string name="entrepreneur_none">None</string>
     <string name="entrepreneur_money">Your money: {money}</string>

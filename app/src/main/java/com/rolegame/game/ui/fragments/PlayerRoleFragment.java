@@ -17,10 +17,12 @@ import androidx.fragment.app.Fragment;
 
 import com.rolegame.game.R;
 import com.rolegame.game.gamestate.Time;
+import com.rolegame.game.managers.LanguageManager;
 import com.rolegame.game.models.player.Player;
 import com.rolegame.game.models.roles.enums.RoleID;
 import com.rolegame.game.models.roles.templates.RoleTemplate;
 import com.rolegame.game.models.roles.templates.folkroles.protector.FolkHero;
+import com.rolegame.game.models.roles.templates.folkroles.unique.Entrepreneur;
 import com.rolegame.game.models.roles.templates.neutralroles.good.Lorekeeper;
 import com.rolegame.game.services.GameService;
 import com.rolegame.game.services.RoleService;
@@ -54,7 +56,7 @@ public class PlayerRoleFragment extends Fragment {
                 break;
 
             case Entrepreneur:
-                setEntrepreneurInfo();
+                setEntrepreneurInfo(view,inflater);
                 break;
 
             case FolkHero:
@@ -130,8 +132,8 @@ public class PlayerRoleFragment extends Fragment {
 
     private void setLoreKeeperInfo(View view, LayoutInflater inflater){
         Lorekeeper lorekeeper = (Lorekeeper) currentPlayer.getRole().getTemplate();
-        FrameLayout spinnerContainer = view.findViewById(R.id.unique_roles_layout);
-        ViewGroup spinnerBox = (ViewGroup) inflater.inflate(R.layout.lore_keeper_box, spinnerContainer, true);
+        FrameLayout lorekeeperLayout = view.findViewById(R.id.unique_roles_layout);
+        ViewGroup spinnerBox = (ViewGroup) inflater.inflate(R.layout.lore_keeper_box, lorekeeperLayout, true);
         Spinner spinner = spinnerBox.findViewById(R.id.lorekeeper_spinner);
         Button selectButton = spinnerBox.findViewById(R.id.role_select_button);
         Button noneButton = spinnerBox.findViewById(R.id.role_select_none_button);
@@ -153,15 +155,65 @@ public class PlayerRoleFragment extends Fragment {
         textView.setText((lorekeeper.getGuessedRole()==null) ? "No role selected" : "Selected role: " + lorekeeper.getGuessedRole().getName());
     }
 
-    private void setEntrepreneurInfo(){
+    private void setEntrepreneurInfo(View view, LayoutInflater inflater){
+        Entrepreneur entrepreneur = (Entrepreneur) currentPlayer.getRole().getTemplate();
+        FrameLayout entrepreneurLayout = view.findViewById(R.id.unique_roles_layout);
+        ViewGroup entrepreneurBox = (ViewGroup) inflater.inflate(R.layout.entrepreneur_box, entrepreneurLayout,true);
+        TextView currentMoneyText = entrepreneurBox.findViewById(R.id.entrepreneur_currentmoney_text);
+        TextView infoCostText = entrepreneurBox.findViewById(R.id.entrepreneur_info_cost_text);
+        TextView healCostText = entrepreneurBox.findViewById(R.id.entrepreneur_heal_cost_text);
+        TextView attackCostText = entrepreneurBox.findViewById(R.id.entrepreneur_attack_cost_text);
+        TextView expectedMoneyText = entrepreneurBox.findViewById(R.id.entrepreneur_expected_money_text);
+        Button infoBtn = entrepreneurBox.findViewById(R.id.entrepreneur_info_btn);
+        Button healBtn = entrepreneurBox.findViewById(R.id.entrepreneur_heal_btn);
+        Button attackBtn = entrepreneurBox.findViewById(R.id.entrepreneur_attack_btn);
+        Button passBtn = entrepreneurBox.findViewById(R.id.entrepreneur_pass_btn);
 
+        infoBtn.setText(LanguageManager.getInstance().getText("entrepreneur_info"));
+        healBtn.setText(LanguageManager.getInstance().getText("entrepreneur_heal"));
+        attackBtn.setText(LanguageManager.getInstance().getText("entrepreneur_attack"));
+        passBtn.setText(LanguageManager.getInstance().getText("entrepreneur_pass"));
+        expectedMoneyText.setText("Expected money: ");
+
+        int currentMoney = entrepreneur.getMoney();
+        currentMoneyText.setText("Current money: " + currentMoney);
+
+        infoCostText.setText("Info price is: " + Entrepreneur.ChosenAbility.INFO.getMoney());
+        healCostText.setText("Heal price is: " + Entrepreneur.ChosenAbility.HEAL.getMoney());
+        attackCostText.setText("Attack price is: " + Entrepreneur.ChosenAbility.ATTACK.getMoney());
+
+        infoBtn.setOnClickListener(v -> {
+            entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.INFO);
+            entrepreneur(entrepreneur, expectedMoneyText, currentMoney);
+        });
+
+        healBtn.setOnClickListener(v -> {
+            entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.HEAL);
+            entrepreneur(entrepreneur, expectedMoneyText, currentMoney);
+        });
+
+        attackBtn.setOnClickListener(v -> {
+            entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.ATTACK);
+            entrepreneur(entrepreneur, expectedMoneyText, currentMoney);
+        });
+
+        passBtn.setOnClickListener(v -> {
+            entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.NONE);
+            entrepreneur(entrepreneur, expectedMoneyText, currentMoney);
+        });
+
+
+    }
+
+    private void entrepreneur(Entrepreneur entrepreneur, TextView textView, int currentMoney){
+        textView.setText("Expected money: " + (currentMoney - entrepreneur.getAbilityState().getMoney()));
     }
 
     private void setFolkHeroInfo(View view, LayoutInflater inflater){
         FolkHero folkHero = (FolkHero) currentPlayer.getRole().getTemplate();
 
-        FrameLayout spinnerContainer = view.findViewById(R.id.unique_roles_layout);
-        ViewGroup folkHeroBox = (ViewGroup) inflater.inflate(R.layout.folk_hero_box, spinnerContainer, true);
+        FrameLayout folkHeroLayout = view.findViewById(R.id.unique_roles_layout);
+        ViewGroup folkHeroBox = (ViewGroup) inflater.inflate(R.layout.folk_hero_box, folkHeroLayout, true);
         TextView currentText = folkHeroBox.findViewById(R.id.folk_hero_this_night_text_view);
         TextView nextText = folkHeroBox.findViewById(R.id.folk_hero_next_night_text);
 
