@@ -37,9 +37,8 @@ public class ContactActivity extends BaseActivity {
             intent.putExtra(Intent.EXTRA_SUBJECT, "Konu Başlığı");
             intent.putExtra(Intent.EXTRA_TEXT, "Merhaba, bu bir test e-postası.");
 
-            if(intent.resolveActivity(getPackageManager()) != null){
-                startActivity(intent);
-            }
+            startActivity(intent);
+
         });
 
         playStoreButton.setOnClickListener(v -> {
