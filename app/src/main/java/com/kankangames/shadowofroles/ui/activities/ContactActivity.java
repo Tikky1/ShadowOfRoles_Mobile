@@ -34,8 +34,6 @@ public class ContactActivity extends BaseActivity {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:"));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"kankangames48@gmail.com"});
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Konu Başlığı");
-            intent.putExtra(Intent.EXTRA_TEXT, "Merhaba, bu bir test e-postası.");
 
             startActivity(intent);
 
