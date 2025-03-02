@@ -22,17 +22,14 @@ public class MainActivity extends ImageChangingActivity {
 
         Button startGameBtn = findViewById(R.id.startGameBtn);
         Button gameGuideBtn = findViewById(R.id.gameGuideBtn);
-        Button feedbackBtn = findViewById(R.id.feedbackBtn);
+        Button contactBtn = findViewById(R.id.contactBtn);
         Button creditsBtn = findViewById(R.id.creditsBtn);
         Button quitBtn = findViewById(R.id.quitBtn);
         backgroundImage = findViewById(R.id.backgroundImage);
 
         // Click Listeners
         startGameBtn.setOnClickListener(v -> openActivity(PlayerNamesActivity.class));
-        feedbackBtn.setOnClickListener(v ->{
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FurkanKirat/Shadow-of-Roles/issues"));
-                    startActivity(browserIntent);
-                });
+        contactBtn.setOnClickListener(v ->{openActivity(ContactActivity.class);});
         gameGuideBtn.setOnClickListener(v -> {
             GameGuideFragment gameGuideFragment = new GameGuideFragment();
             gameGuideFragment.show(getSupportFragmentManager(), "Game Guide");

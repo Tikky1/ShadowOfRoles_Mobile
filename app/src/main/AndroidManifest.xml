@@ -31,6 +31,8 @@
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.GameEndActivity"
             android:theme="@style/FullscreenTheme"/>
+        <activity android:name=".ui.activities.ContactActivity"
+            android:theme="@style/FullscreenTheme"/>
 
     </application>
 

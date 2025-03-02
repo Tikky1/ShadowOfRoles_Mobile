@@ -14,7 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/background0" />
+        android:src="@drawable/background0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Logo -->
 
@@ -76,12 +80,12 @@
             android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/feedbackBtn"
+            android:id="@+id/contactBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/button_style"
-            android:text="@string/feedback"
+            android:text="@string/contact"
             android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
