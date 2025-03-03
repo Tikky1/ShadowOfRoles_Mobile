@@ -46,7 +46,7 @@ Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n\n
 We would like to thank all the players who helped in the development of this game, provided feedback, and contributed to the project.\n\n
 "This game is released under the CC0 1.0 Universal (Public Domain Dedication). You may copy, modify, distribute, and perform the work, even for commercial purposes, without asking permission."
     </string>
-    <string name="contact_text">For your comments and suggestions</string>
+    <string name="contact_text">We\'d love to hear your feedback and suggestions. You can also support us by rating us on Google Play!</string>
     <string name="ok">OK</string>
     <string name="cancel">"Cancel"</string>
     <string name="quit_message">Do you want to exit?</string>
@@ -125,8 +125,8 @@ We would like to thank all the players who helped in the development of this gam
     <string name="lastjoke_name">Last Joke</string>
     <string name="lastjoke_abilities">When you die you will comeback to life and you must kill one player</string>
     <string name="lastjoke_attributes">N/A</string>
-    <string name="lastjoke_kill_message">You have successfully made your last joke to {playerName}</string>
-    <string name="lastjoke_kill_announcement">Someone make their Last Joke to {playerName} ({roleName})</string>
+    <string name="last_joke_kill_message">You have successfully made your last joke to {playerName}</string>
+    <string name="last_joke_kill_announcement">Someone make their Last Joke to {playerName} ({roleName})</string>
 
     <!--Clown-->
     <string name="clown_name">Clown</string>

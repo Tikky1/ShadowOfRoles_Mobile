@@ -13,7 +13,9 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="20dp"
-        android:dropDownHeight="200dp" />
+        android:dropDownHeight="200dp"
+        android:background="@android:color/transparent"
+        android:popupBackground="@android:color/transparent"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/role_select_button"

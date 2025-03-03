@@ -11,6 +11,7 @@ public class GameApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
     }
 
     public static Context getAppContext() {

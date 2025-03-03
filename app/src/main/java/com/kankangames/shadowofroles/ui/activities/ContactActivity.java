@@ -23,7 +23,7 @@ public class ContactActivity extends BaseActivity {
         ImageButton playStoreButton = findViewById(R.id.storeBtn);
         TextView contactText = findViewById(R.id.contactText);
 
-        contactText.setText(LanguageManager.getInstance().getText("contact_text"));
+        contactText.setText(R.string.contact_text);
 
         gitButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Tikky1/ShadowOfRoles_Mobile/issues"));
