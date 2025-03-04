@@ -1,16 +1,12 @@
 package com.kankangames.shadowofroles.ui.activities;
 
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.managers.LanguageManager;
 
 public class ContactActivity extends BaseActivity {
     @Override

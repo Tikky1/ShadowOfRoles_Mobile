@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/public_message"
-            android:text="Public Message"
+            android:text="@string/public_message"
             android:textColor="@color/white"
             android:gravity="center"/>
 
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/private_message"
-            android:text="Private Message"
+            android:text="@string/private_message"
             android:textColor="@color/black"
             android:gravity="center"/>
     </LinearLayout>

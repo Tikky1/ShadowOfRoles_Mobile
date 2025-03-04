@@ -1,7 +1,6 @@
 package com.kankangames.shadowofroles.ui.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,7 +16,6 @@ public class MainActivity extends ImageChangingActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         Button startGameBtn = findViewById(R.id.startGameBtn);
@@ -32,7 +30,7 @@ public class MainActivity extends ImageChangingActivity {
         contactBtn.setOnClickListener(v ->{openActivity(ContactActivity.class);});
         gameGuideBtn.setOnClickListener(v -> {
             GameGuideFragment gameGuideFragment = new GameGuideFragment();
-            gameGuideFragment.show(getSupportFragmentManager(), "Game Guide");
+            gameGuideFragment.show(getSupportFragmentManager(), getString(R.string.game_guide));
         });
         creditsBtn.setOnClickListener(v -> openActivity(CreditsActivity.class));
         quitBtn.setOnClickListener(v -> {
@@ -57,6 +55,8 @@ public class MainActivity extends ImageChangingActivity {
         Intent intent = new Intent(this, cls);
         launcher.launch(intent);
     }
+
+
 
 
 

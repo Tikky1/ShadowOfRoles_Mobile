@@ -27,10 +27,12 @@ import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lo
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.ViewHolder>{
 
     private final List<ViewHolder> allSelectionBoxes = new ArrayList<>();
+    private final Context context;
     private ArrayList<Player> players = new ArrayList<>();
 
     private final Time time;
@@ -43,6 +45,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
     public PlayersViewAdapter(Time time, Player currentPlayer, Context context) {
         this.time = time;
         this.currentPlayer = currentPlayer;
+        this.context = context;
         this.itemMargin = context.getResources().getDimensionPixelSize(R.dimen.player_box_margin);
     }
 
@@ -67,7 +70,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Player player = players.get(position);
         holder.setCurrentPlayerAndOtherPlayer(currentPlayer,player);
-        holder.playerNumberView.setText(player.getNumber()+"");
+        holder.playerNumberView.setText(String.format(Locale.ROOT, "%d", player.getNumber()));
         holder.playerNameView.setText(player.getName());
 
 
@@ -125,11 +128,14 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             selectButton.setVisibility(isPlayerCurrentPlayer ? View.GONE : View.VISIBLE);
         }
 
-        holder.selectionBtn.setText(holder.isSelected ? "Unselect" : "Select");
+        holder.selectionBtn.setText(holder.isSelected
+                ? context.getString(R.string.unselect)
+                : context.getString(R.string.select));
+
 
 
         RoleTemplate roleTemplate = player.getRole().getTemplate();
-        holder.roleName.setText("("+roleTemplate.getName()+")");
+        holder.roleName.setText(String.format("(%s)", roleTemplate.getName()));
 
 
         int color;
@@ -147,12 +153,13 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
         holder.roleName.setTextColor(color);
 
-        if(player.isRevealed()){
+        boolean isRevealed = player.isRevealed();
+        boolean areBothCorrupter = roleTemplate.getWinningTeam() == WinningTeam.CORRUPTER
+                && currentPlayer.getRole().getTemplate().getWinningTeam() == WinningTeam.CORRUPTER;
+
+        if(isRevealed||areBothCorrupter||isPlayerCurrentPlayer){
             holder.roleName.setVisibility(VISIBLE);
-        } else if (roleTemplate.getWinningTeam() == WinningTeam.CORRUPTER
-                && currentPlayer.getRole().getTemplate().getWinningTeam() == WinningTeam.CORRUPTER) {
-            holder.roleName.setVisibility(VISIBLE);
-        }else {
+        } else {
             holder.roleName.setVisibility(GONE);
         }
 
@@ -197,11 +204,11 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
             roleName = itemView.findViewById(R.id.role_name);
 
             isSelected = false;
-            setButtonEvent();
+            setButtonEvent(itemView);
         }
 
 
-        private void setButtonEvent(){
+        private void setButtonEvent(View itemView){
             selectionBtn.setOnClickListener(v -> {
 
                 isSelected = !isSelected;
@@ -211,11 +218,15 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
                 for (ViewHolder viewHolder : allSelectionBoxes) {
 
                     viewHolder.isSelected = false;
-                    viewHolder.selectionBtn.setText("Select");
+                    viewHolder.selectionBtn.setText(R.string.select);
 
                 }
                 isSelected = tempSelected;
-                selectionBtn.setText(isSelected ? "Unselect" : "Select");
+
+                selectionBtn.setText(isSelected
+                        ? itemView.getContext().getString(R.string.unselect)
+                        : itemView.getContext().getString(R.string.select));
+
             });
         }
 

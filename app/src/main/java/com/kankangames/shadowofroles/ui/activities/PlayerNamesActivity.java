@@ -1,6 +1,5 @@
 package com.kankangames.shadowofroles.ui.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -20,6 +19,7 @@ import com.kankangames.shadowofroles.ui.adapters.PlayerNamesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class PlayerNamesActivity extends ImageChangingActivity{
 
@@ -30,7 +30,6 @@ public class PlayerNamesActivity extends ImageChangingActivity{
     private PlayerNamesAdapter adapter;
     private ImageView backgroundImage;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,17 +57,17 @@ public class PlayerNamesActivity extends ImageChangingActivity{
         playerNamesContainer.setAdapter(adapter);
 
         for (int i = 1; i <= startGameService.MIN_PLAYER_COUNT; i++) {
-            playerNames.add("Player " + i);
+            playerNames.add(String.format(Locale.ROOT,getString(R.string.player), i));
             isPlayersAI.add(false);
         }
         adapter.notifyDataSetChanged();
 
-        playerCountText.setText(Integer.toString(startGameService.getPlayerCount()));
+        playerCountText.setText(String.format(Locale.ROOT,"%d",startGameService.getPlayerCount()));
 
         plusBtn.setOnClickListener(v -> {
             if (startGameService.getPlayerCount() < startGameService.MAX_PLAYER_COUNT) {
-                playerCountText.setText(Integer.toString(startGameService.increasePlayerCount()));
-                playerNames.add("Player " + startGameService.getPlayerCount());
+                playerCountText.setText(String.format(Locale.ROOT,"%d",startGameService.increasePlayerCount()));
+                playerNames.add(String.format(Locale.ROOT,getString(R.string.player), startGameService.getPlayerCount()));
                 isPlayersAI.add(false);
                 adapter.notifyItemInserted(playerNames.size() - 1);
                 playerNamesContainer.post(() -> playerNamesContainer.smoothScrollToPosition(adapter.getItemCount() - 1));
@@ -78,7 +77,7 @@ public class PlayerNamesActivity extends ImageChangingActivity{
 
         minusBtn.setOnClickListener(v -> {
             if (startGameService.getPlayerCount() > startGameService.MIN_PLAYER_COUNT) {
-                playerCountText.setText(Integer.toString(startGameService.decreasePlayerCount()));
+                playerCountText.setText(String.format(Locale.ROOT,"%d",startGameService.decreasePlayerCount()));
                 int lastIndex = playerNames.size() - 1;
                 playerNames.remove(lastIndex);
                 isPlayersAI.remove(lastIndex);
@@ -100,7 +99,8 @@ public class PlayerNamesActivity extends ImageChangingActivity{
                 String playerNameTemplate = playerNames.get(i);
                 Boolean isAI = isPlayersAI.get(i);
                 int number = i+1;
-                String playerName = playerNameTemplate.isBlank() ? "Player " + number : playerNameTemplate;
+                String playerName = playerNameTemplate.isBlank() ?
+                        String.format(Locale.ROOT,getString(R.string.player), number) : playerNameTemplate;
 
                 if (isAI) {
                     players.add(new AIPlayer(number, playerName));
@@ -112,7 +112,7 @@ public class PlayerNamesActivity extends ImageChangingActivity{
             }
 
             if (!isHumanPlayerExist) {
-                Toast.makeText(this, "All Players Cannot be AI Player!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.all_players_ai_alert), Toast.LENGTH_LONG).show();
                 return;
             }
 

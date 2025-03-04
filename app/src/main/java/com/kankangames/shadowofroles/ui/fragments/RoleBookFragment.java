@@ -43,10 +43,10 @@ public class RoleBookFragment extends HidingNavigationFragment implements IFullS
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Role Info");
+                    tab.setText(R.string.role_info);
                     break;
                 case 1:
-                    tab.setText("Role Guide");
+                    tab.setText(R.string.role_guide);
                     break;
             }
         }).attach();

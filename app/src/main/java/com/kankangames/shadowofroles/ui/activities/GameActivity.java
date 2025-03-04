@@ -30,6 +30,8 @@ import com.kankangames.shadowofroles.ui.fragments.GraveyardFragment;
 import com.kankangames.shadowofroles.ui.fragments.MessageFragment;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.PassTurnFragment;
 
+import java.util.Locale;
+
 public class GameActivity extends BaseActivity{
 
     private GameService gameService;
@@ -71,7 +73,7 @@ public class GameActivity extends BaseActivity{
                     Intent intent = new Intent(GameActivity.this, MainActivity.class);
                     startActivity(intent);
                 });
-                goToMainAlert.show(getSupportFragmentManager(), "Go to main menu");
+                goToMainAlert.show(getSupportFragmentManager(), getString(R.string.go_back_to_main_menu));
             }
         });
 
@@ -95,14 +97,14 @@ public class GameActivity extends BaseActivity{
             MessageFragment messageFragment = new MessageFragment(
                     gameService.getMessageService().getMessages(), gameService.getCurrentPlayer());
 
-            messageFragment.show(getSupportFragmentManager(), "Messages");
+            messageFragment.show(getSupportFragmentManager(), getString(R.string.messages));
         });
 
         graveyardButton.setOnClickListener(v -> {
             GraveyardFragment graveyardFragment = new GraveyardFragment(
                     gameService.getDeadPlayers());
 
-            graveyardFragment.show(getSupportFragmentManager(), "Graveyard");
+            graveyardFragment.show(getSupportFragmentManager(), getString(R.string.graveyard));
         });
 
         roleBookButton.setOnClickListener(v->{
@@ -132,8 +134,7 @@ public class GameActivity extends BaseActivity{
     private void setNumberText(){
         Player currentPlayer = gameService.getCurrentPlayer();
         String template = getString(R.string.player_number);
-        template = template
-                .replace("{playerNumber}", currentPlayer.getNumber()+"");
+        template = String.format(Locale.ROOT, template, currentPlayer.getNumber());
         numberText.setText(template);
     }
 
@@ -170,7 +171,6 @@ public class GameActivity extends BaseActivity{
 
             }
 
-            //passTurnPane.setVisible(true);
             gameService.sendVoteMessages();
 
             boolean isTimeChanged = gameService.passTurn();
@@ -180,7 +180,6 @@ public class GameActivity extends BaseActivity{
             if(isTimeChanged){
 
                 changeTimeUI();
-
 
             }
 

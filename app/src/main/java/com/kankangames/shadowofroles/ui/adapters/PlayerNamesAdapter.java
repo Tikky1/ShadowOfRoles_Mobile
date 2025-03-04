@@ -1,8 +1,12 @@
 package com.kankangames.shadowofroles.ui.adapters;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -18,7 +22,9 @@ public class PlayerNamesAdapter extends RecyclerView.Adapter<PlayerNamesAdapter.
     private final List<String> playerNames;
     private final List<Boolean> isPlayersAI;
 
+    public void updateList(){
 
+    }
     public PlayerNamesAdapter(List<String> playerNames, List<Boolean> isPlayersAI) {
         this.playerNames = playerNames;
         this.isPlayersAI = isPlayersAI;
@@ -37,11 +43,21 @@ public class PlayerNamesAdapter extends RecyclerView.Adapter<PlayerNamesAdapter.
         holder.isAICheckBox.setChecked(isPlayersAI.get(position));
 
         // Listen for changes in the input fields
-        holder.playerName.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                playerNames.set(position, holder.playerName.getText().toString());
+        holder.playerName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Update the player name in the list when the text changes
+                playerNames.set(holder.getAdapterPosition(), charSequence.toString());
             }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
         });
+
+
 
         holder.isAICheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 

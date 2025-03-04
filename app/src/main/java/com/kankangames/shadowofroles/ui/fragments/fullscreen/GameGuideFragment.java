@@ -43,13 +43,13 @@ public class GameGuideFragment extends FullScreenFragment{
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Game Rules");
+                    tab.setText(R.string.game_rules);
                     break;
                 case 1:
-                    tab.setText("Role Guide");
+                    tab.setText(R.string.role_guide);
                     break;
                 case 2:
-                    tab.setText("Main Goal");
+                    tab.setText(R.string.main_goal);
             }
         }).attach();
 

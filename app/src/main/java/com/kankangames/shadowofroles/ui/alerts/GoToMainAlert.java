@@ -21,9 +21,9 @@ public class GoToMainAlert extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Do you want to go to main menu")
-                .setPositiveButton("Yes", (dialog, id) -> goBackToMenu.goToMenu())
-                .setNegativeButton("No", (dialog, id) -> {
+        builder.setMessage(R.string.main_menu_alert_message)
+                .setPositiveButton(R.string.yes, (dialog, id) -> goBackToMenu.goToMenu())
+                .setNegativeButton(R.string.no, (dialog, id) -> {
 
                 });
 

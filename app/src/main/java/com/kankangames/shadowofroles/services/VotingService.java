@@ -1,14 +1,24 @@
 package com.kankangames.shadowofroles.services;
 
+import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.models.player.AIPlayer;
 import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class VotingService {
+    private final GameService gameService;
     private HashMap<Player,Player> votes = new HashMap<>();
     private Player maxVoted;
     private int maxVote;
+
+    public VotingService(GameService gameService) {
+        this.gameService = gameService;
+    }
 
     /**
      * Casts a vote from the voter player to the voted player
@@ -51,6 +61,48 @@ public final class VotingService {
                 maxVote = entry.getValue();
             }
         }
+    }
+
+    /**
+     * After the day voting, executes the max voted player if they get more than half of the votes
+     */
+    public void executeMaxVoted(){
+        ArrayList<Player> alivePlayers = gameService.getAlivePlayers();
+
+        for(int i=0;i<alivePlayers.size();i++) {
+            Player player = alivePlayers.get(i);
+            if(player instanceof AIPlayer){
+                AIPlayer aiPlayer = (AIPlayer) player;
+                aiPlayer.chooseRandomPlayerVoting(alivePlayers);
+                vote(aiPlayer,aiPlayer.getRole().getChoosenPlayer());
+            }
+        }
+
+        updateMaxVoted();
+        if(getMaxVote()>alivePlayers.size()/2){
+            for(Player alivePlayer : alivePlayers){
+                if(alivePlayer.getNumber() == getMaxVoted().getNumber()){
+
+                    alivePlayer.killPlayer(Time.VOTING, gameService.getTimeService().getDayCount(), CauseOfDeath.HANGING, true);
+                    break;
+                }
+            }
+
+
+            if(getMaxVoted()!=null){
+                gameService.getMessageService().sendMessage(LanguageManager.getInstance().getText("vote_execute")
+                                .replace("{playerName}", getMaxVoted().getName())
+                                .replace("{roleName}", getMaxVoted().getRole().getTemplate().getName()),
+                        null, true, true);
+            }
+
+        }
+        gameService.updateAlivePlayers();
+
+        for(Player player: alivePlayers){
+            player.getRole().setChoosenPlayer(null);
+        }
+        clearVotes();
     }
 
     /**

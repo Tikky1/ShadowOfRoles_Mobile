@@ -2,6 +2,7 @@ package com.kankangames.shadowofroles.ui.fragments;
 
 import static android.view.View.GONE;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +29,13 @@ import com.kankangames.shadowofroles.services.RoleService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.adapters.LorekeeperAdapter;
 
+import java.util.Locale;
+
 
 public class PlayerRoleFragment extends Fragment {
 
-    private GameService gameService;
     private Player currentPlayer;
+    private GameService gameService;
     private Time time;
 
     @NonNull
@@ -136,6 +139,8 @@ public class PlayerRoleFragment extends Fragment {
         Button selectButton = spinnerBox.findViewById(R.id.role_select_button);
         Button noneButton = spinnerBox.findViewById(R.id.role_select_none_button);
         TextView chosenRoleText = spinnerBox.findViewById(R.id.selected_role_text);
+        TextView currentGuessCountText = spinnerBox.findViewById(R.id.remaining_winning_guess_count);
+        TextView winningGuessCountText = spinnerBox.findViewById(R.id.winning_guess_count);
 
         LorekeeperAdapter lorekeeperAdapter = new LorekeeperAdapter(view.getContext(), RoleService.getAllRoles());
         spinner.setAdapter(lorekeeperAdapter);
@@ -148,9 +153,18 @@ public class PlayerRoleFragment extends Fragment {
             setLoreKeeperSelectedRole(lorekeeper, chosenRoleText);
         });
         setLoreKeeperSelectedRole(lorekeeper,chosenRoleText);
+
+        int currentGuessCount = lorekeeper.getTrueGuessCount();
+        int winningGuessCount = gameService.getSpecialRolesService().LORE_KEEPER_WINNING_COUNT;
+        currentGuessCountText.setText(String.format(Locale.ROOT, getString(R.string.lorekeeper_current_true_guess_count),
+                currentGuessCount));
+        winningGuessCountText.setText(String.format(Locale.ROOT, getString(R.string.lorekeeper_winning_true_guess_count),
+                winningGuessCount));
     }
     private void setLoreKeeperSelectedRole(Lorekeeper lorekeeper, TextView textView){
-        textView.setText((lorekeeper.getGuessedRole()==null) ? "No role selected" : "Selected role: " + lorekeeper.getGuessedRole().getName());
+        textView.setText((lorekeeper.getGuessedRole()==null)
+                ? getString(R.string.lorekeeper_guessed_role_none)
+                : String.format(Locale.ROOT, getString(R.string.lorekeeper_guessed_role),lorekeeper.getGuessedRole().getName()));
     }
 
     private void setEntrepreneurInfo(View view, LayoutInflater inflater){
@@ -172,11 +186,11 @@ public class PlayerRoleFragment extends Fragment {
         entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
 
         int currentMoney = entrepreneur.getMoney();
-        currentMoneyText.setText("Current money: " + currentMoney);
+        currentMoneyText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_current_money), currentMoney));
 
-        infoCostText.setText("Cost: "+Entrepreneur.ChosenAbility.INFO.getMoney());
-        healCostText.setText("Cost: "+Entrepreneur.ChosenAbility.HEAL.getMoney());
-        attackCostText.setText("Cost: "+Entrepreneur.ChosenAbility.ATTACK.getMoney());
+        infoCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.INFO.getPrice()));
+        healCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.HEAL.getPrice()));
+        attackCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.ATTACK.getPrice()));
 
         infoBtn.setOnClickListener(v -> {
             entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.INFO);
@@ -203,13 +217,25 @@ public class PlayerRoleFragment extends Fragment {
 
     private void entrepreneurExpectedMoney(Entrepreneur entrepreneur, TextView textView){
         int currentMoney = entrepreneur.getMoney();
-        int abilityMoney = entrepreneur.getAbilityState().getMoney();
-        if(currentMoney>=abilityMoney){
-            textView.setText("Current Selected: "+ entrepreneur.getAbilityState() +"\nExpected money: " + (currentMoney - abilityMoney));
+        int abilityMoney = entrepreneur.getAbilityState().getPrice();
+
+        Context context = textView.getContext();
+
+        String message;
+        if (currentMoney >= abilityMoney) {
+            message = String.format(
+                    context.getString(R.string.entrepreneur_selected) + " " +
+                            context.getString(R.string.entrepreneur_expected_money),
+                    entrepreneur.getAbilityState(), (currentMoney - abilityMoney)
+            );
+        } else {
+            message = String.format(
+                    context.getString(R.string.entrepreneur_selected) +
+                            context.getString(R.string.money_insufficient),
+                    entrepreneur.getAbilityState()
+            );
         }
-        else{
-            textView.setText("Current Selected: "+ entrepreneur.getAbilityState() +"\nMoney insufficient");
-        }
+        textView.setText(message);
 
     }
 
@@ -221,13 +247,15 @@ public class PlayerRoleFragment extends Fragment {
         TextView currentText = folkHeroBox.findViewById(R.id.folk_hero_this_night_text_view);
         TextView nextText = folkHeroBox.findViewById(R.id.folk_hero_next_night_text);
 
+        Context context = currentText.getContext();
+
         int remainingAbilityCount = folkHero.getRemainingAbilityCount();
-        currentText.setText("Remaining Ability Count: " + remainingAbilityCount);
+        currentText.setText(String.format(context.getString(R.string.folkhero_remaining_ability_count), remainingAbilityCount));
 
+        boolean isAbilityUsed = currentPlayer.getRole().getChoosenPlayer() != null;
+        int expectedCount = isAbilityUsed ? remainingAbilityCount - 1 : remainingAbilityCount;
 
-        boolean isAbilityUsed = currentPlayer.getRole().getChoosenPlayer() !=null;
-        nextText.setText("Expected Ability Count: " +
-                (isAbilityUsed ? remainingAbilityCount-1 : remainingAbilityCount));
+        nextText.setText(String.format(context.getString(R.string.folkhero_expected_ability_count), expectedCount));
 
         if(time !=Time.NIGHT){
             nextText.setVisibility(GONE);

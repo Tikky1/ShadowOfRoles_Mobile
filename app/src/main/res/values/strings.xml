@@ -8,13 +8,16 @@
     <string name="credits">Credits</string>
     <string name="quit">Quit</string>
 
-    <string name="player">"Player "</string>
     <string name="select">"Select"</string>
     <string name="unselect">"Unselect"</string>
-    <string name="player_name">"{playerName}"</string>
-    <string name="player_number">Number: {playerNumber}</string>
-    <string name="day">"Day: %d"</string>
-    <string name="night">"Night: %d"</string>
+    <string name="clear">Clear</string>
+    <string name="ai">AI</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="player_name" translatable="false">"{playerName}"</string>
+    <string name="player_number">Number: %d</string>
+    <string name="day">Day: %d</string>
+    <string name="night">Night: %d</string>
 
     <!--Game End-->
     <string name="winner_team_corrupter">Corrupter</string>
@@ -161,19 +164,22 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="folkhero_abilities">You make people immune others cannot visit your target</string>
     <string name="folkhero_attributes">You can use your ability twice in a game</string>
     <string name="folkhero_ability_message">You have successfully immunized your target</string>
+    <string name="folkhero_remaining_ability_count">Remaining Ability Count: %d</string>
+    <string name="folkhero_expected_ability_count">Expected Ability Count: %d</string>
 
     <!-- Entrepreneur -->
     <string name="entrepreneur_name">Entrepreneur</string>
     <string name="entrepreneur_attributes">You get 2 coins every day</string>
     <string name="entrepreneur_abilities">You have some money, you can get other people to do work with this money.</string>
-    <string name="entrepreneur_insufficient_money">You don\'t have enough money to: {abilityName}</string>
+    <string name="entrepreneur_current_money">Current Money: %d</string>
+    <string name="entrepreneur_expected_money">Expected Money: %d</string>
+    <string name="money_insufficient">\nMoney insufficient</string>
+    <string name="entrepreneur_selected">Selected Ability: %s</string>
     <string name="entrepreneur_attack">Attack</string>
     <string name="entrepreneur_heal">Heal</string>
     <string name="entrepreneur_info">Info</string>
     <string name="entrepreneur_pass">Pass</string>
-    <string name="entrepreneur_selected">Selected: {abilityName}</string>
-    <string name="entrepreneur_none">None</string>
-    <string name="entrepreneur_money">Your money: {money}</string>
+    <string name="entrepreneur_cost">Cost: %d</string>
     <string name="entrepreneur_kill_message">You have slain your target successfully</string>
     <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) has been slain by an Entrepreneur</string>
 
@@ -184,6 +190,10 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="lorekeeper_goal">You try to guess the players\' roles</string>
     <string name="lorekeeper_ability_message">The following player has revealed: {playerName} ({roleName})</string>
     <string name="lorekeeper_guess">Your true guess count is: {guessCount}</string>
+    <string name="lorekeeper_guessed_role">Selected role: %s</string>
+    <string name="lorekeeper_guessed_role_none">No role selected!</string>
+    <string name="lorekeeper_winning_true_guess_count">You have to guess %d roles correctly to win!</string>
+    <string name="lorekeeper_current_true_guess_count">You have guessed %d roles currently!</string>
 
     <!-- Ability-->
     <string name="ability_no_use_left">Your ability could not be used because you have reached your ability\'s maximum usage queue</string>
@@ -257,6 +267,11 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="graveyard">Graveyard</string>
     <string name="chill_guy_alert_text">Oh no! Ending Screen Was Captured by a Chill Guy! Did they revealed their role in the game?</string>
 
+    <!--Role Book-->
+    <string name="role_info">Role Info</string>
+    <string name="role_guide">Role Guide</string>
+    <string name="game_rules">Game Rules</string>
+    <string name="main_goal">Main Goal</string>
     <string name="chosen_player_text_night">You are using your ability on: {playerName}</string>
     <string name="chosen_player_text_night_nobody">You did not selected anybody!</string>
     <string name="chosen_player_text_night_no_ability">Your role does not have any active night ability</string>
@@ -264,6 +279,43 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="chosen_player_text_voting_nobody">You did not voted for anybody</string>
     <string name="rules_text">Game Rules and Flow\n\n1. Night Phase:\nThe game begins at night, and each player, in turn, takes the device to check their role.\nEach player performs their assigned task according to their role and then passes the device to the next player.\nThe night phase ends once all players have used their abilities.\n\n2. Day Phase:\nIn the day, each player takes the device in turn to see the results of the task performed by their role during the night.\n\nAfter all players have reviewed their results, the device is returned to the first player, and the voting phase begins.\n\n3. Voting Phase:\nBefore voting, players discuss and exchange ideas based on the information they gathered during the night. \nThe voting is open, and each player cast their vote and pass the device to next player.\nThe player who receives more than half of the votes is eliminated.\nAfter voting is complete, the game transitions back to the night phase, and this cycle continues.\n\nTeams and Objectives\n\nFolk:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Folk team.\n\nCorrupted:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Corrupted team.\n\nNeutral:\nNeutral players have unique win conditions or tasks specific to their roles. Their goal is to achieve their individual objectives. For more information check the role guide.\n\nNote: The game progresses through a day and night cycle, requiring strategy, teamwork, and information sharing to achieve team objectives.</string>
     <string name="main_goal_text">Have Fun</string>
-    <string name="license_text">This game is licensed under the Apache License, Version 2.0.</string>
+    <string name="attributes">Attributes:</string>
+    <string name="abilities">Abilities:</string>
+    <string name="goal">Goal:</string>
+    <string name="team">Team:</string>
+    <string name="current_role">Current Role:</string>
+
+    <string name="public_message">Public Message</string>
+    <string name="private_message">Private Message</string>
+
+    <string name="go_back_to_main_menu">Go Back to Main Menu</string>
+
+    <!--Game End-->
+    <string name="won">Won</string>
+    <string name="lost">Lost</string>
+    <string name="alive">Alive</string>
+    <string name="dead">Dead</string>
+    <string name="number_column">Number</string>
+    <string name="name_column">Name</string>
+    <string name="role_column">Role</string>
+    <string name="win_loss_column">Win/Loss</string>
+    <string name="alive_dead_column">Alive/Dead</string>
+    <string name="causes_of_death_column">Cause(s) Of Death</string>
+
+    <!--Player Names-->
+    <string name="player">"Player %d"</string>
+    <string name="all_players_ai_alert">All Players Cannot be AI Player!</string>
+
+    <!--Main Menu Alert-->
+    <string name="main_menu_alert_message">Do you want to go to main menu?</string>
+
+    <string name="pass_turn_message">"It's %s's turn"</string>
+
+    <!--Graveyard-->
+    <string name="graveyard_death_time">Death Time: %s</string>
+    <string name="causes_of_death">Causes of death: %s</string>
+
+
+
 
 </resources>

@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 
 import com.kankangames.shadowofroles.R;
 
+import java.util.Locale;
+
 public class PassTurnFragment extends FullScreenFragment {
 
 
@@ -55,7 +57,7 @@ public class PassTurnFragment extends FullScreenFragment {
         fragmentBackground = view.findViewById(R.id.pass_turn_background);
         fragmentBackground.setImageDrawable(image);
         TextView turnTextView = view.findViewById(R.id.pass_turn_text);
-        turnTextView.setText("It's " + playerName + "'s turn" );
+        turnTextView.setText(String.format(Locale.ROOT, getString(R.string.pass_turn_message), playerName) );
 
 
         Button turnPassBtn = view.findViewById(R.id.pass_turn_button);

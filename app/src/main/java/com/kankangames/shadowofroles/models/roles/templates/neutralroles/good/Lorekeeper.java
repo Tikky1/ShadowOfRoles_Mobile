@@ -68,10 +68,6 @@ public final class Lorekeeper extends NeutralRole {
         return trueGuessCount;
     }
 
-    public void setTrueGuessCount(int trueGuessCount) {
-        this.trueGuessCount = trueGuessCount;
-    }
-
     public List<Player> getAlreadyChosenPlayers() {
         return alreadyChosenPlayers;
     }

@@ -2,6 +2,7 @@ package com.kankangames.shadowofroles.managers;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.util.Log;
 
 import com.kankangames.shadowofroles.GameApplication;
@@ -46,7 +47,5 @@ public class LanguageManager {
             return "Undefined: " + key;
         }
     }
-
-
 
 }

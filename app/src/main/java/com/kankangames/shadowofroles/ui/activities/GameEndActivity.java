@@ -22,6 +22,8 @@ import com.kankangames.shadowofroles.services.GameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.ChillGuyFragment;
 
+import java.util.Locale;
+
 public class GameEndActivity extends BaseActivity{
 
     private TableLayout endGameTable;
@@ -91,7 +93,9 @@ public class GameEndActivity extends BaseActivity{
         }
 
         TableRow headerRow = new TableRow(this);
-        String[] headers = {"Number", "Name", "Role", "Win/Loss","Alive/Dead", "Cause(s) Of Death"};
+        String[] headers = {getString(R.string.number_column), getString(R.string.name_column)
+                , getString(R.string.role_column), getString(R.string.win_loss_column)
+                ,getString(R.string.alive_dead_column), getString(R.string.causes_of_death_column)};
         for (String text : headers) {
             TextView textView = new TextView(this);
             textView.setText(text);
@@ -105,11 +109,11 @@ public class GameEndActivity extends BaseActivity{
         for (Player player : gameService.getAllPlayers()) {
             TableRow tableRow = new TableRow(this);
 
-            tableRow.addView(createTextView(String.format("%d", player.getNumber())));
+            tableRow.addView(createTextView(String.format(Locale.ROOT,"%d", player.getNumber())));
             tableRow.addView(createTextView(player.getNameAndNumber()));
             tableRow.addView(createTextView(player.getRole().getTemplate().getName()));
-            tableRow.addView(createTextView(player.isHasWon() ? "Won" : "Lost"));
-            tableRow.addView(createTextView(player.getDeathProperties().isAlive() ? "Alive" : "Dead"));
+            tableRow.addView(createTextView(player.isHasWon() ? getString(R.string.won) : getString(R.string.lost)));
+            tableRow.addView(createTextView(player.getDeathProperties().isAlive() ? getString(R.string.alive) : getString(R.string.dead)));
             tableRow.addView(createTextView(player.getDeathProperties().getCausesOfDeathAsString()));
 
             endGameTable.addView(tableRow);

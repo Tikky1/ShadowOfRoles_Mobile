@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:text="Current Money"
+        android:text="@string/entrepreneur_current_money"
         android:textColor="@color/white" />
 
     <!-- Expected Money -->
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/entrepreneur_currentmoney_text"
         android:layout_alignParentStart="true"
-        android:text="Expected Money"
+        android:text="@string/entrepreneur_expected_money"
         android:textColor="@color/white"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"/>
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Attack"
+                android:text="@string/entrepreneur_attack"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Heal"
+                android:text="@string/entrepreneur_heal"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Info"
+                android:text="@string/entrepreneur_info"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Pass"
+                android:text="@string/entrepreneur_pass"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 

@@ -163,7 +163,7 @@ public final class FinishGameService {
                     Lorekeeper lorekeeper = (Lorekeeper) player.getRole().getTemplate();
                     int winCount;
 
-                    winCount = gameService.getAllPlayers().size() >= 8 ? 3 : 2;
+                    winCount = gameService.getSpecialRolesService().LORE_KEEPER_WINNING_COUNT;
 
                     if (lorekeeper.getTrueGuessCount() >= winCount) {
                         player.setHasWon(true);

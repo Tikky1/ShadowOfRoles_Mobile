@@ -20,6 +20,7 @@ public final class GameService {
     private final TimeService timeService;
     private final MessageService messageService;
     private final FinishGameService finishGameService;
+    private final SpecialRolesService specialRolesService;
 
     private Player currentPlayer;
     private int currentPlayerIndex;
@@ -28,9 +29,10 @@ public final class GameService {
     public GameService(ArrayList<Player> players){
         initializePlayers(players);
         timeService = new TimeService();
-        votingService = new VotingService();
+        votingService = new VotingService(this);
         messageService = new MessageService(this);
         finishGameService = new FinishGameService(this);
+        specialRolesService = new SpecialRolesService(this);
 
     }
 
@@ -54,7 +56,7 @@ public final class GameService {
                 performAllAbilities();
                 break;
             case NIGHT:
-                executeMaxVoted();
+                votingService.executeMaxVoted();
                 break;
         }
 
@@ -102,46 +104,6 @@ public final class GameService {
 
 
 
-    /**
-     * After the day voting, executes the max voted player if they get more than half of the votes
-     */
-    public void executeMaxVoted(){
-
-        for(int i=0;i<alivePlayers.size();i++) {
-            Player player = alivePlayers.get(i);
-            if(player instanceof AIPlayer){
-                AIPlayer aiPlayer = (AIPlayer) player;
-                aiPlayer.chooseRandomPlayerVoting(alivePlayers);
-                votingService.vote(aiPlayer,aiPlayer.getRole().getChoosenPlayer());
-            }
-        }
-
-        votingService.updateMaxVoted();
-        if(votingService.getMaxVote()>alivePlayers.size()/2){
-            for(Player alivePlayer : alivePlayers){
-                if(alivePlayer.getNumber() == votingService.getMaxVoted().getNumber()){
-
-                    alivePlayer.killPlayer(Time.VOTING, timeService.getDayCount(), CauseOfDeath.HANGING, true);
-                    break;
-                }
-            }
-
-
-            if(votingService.getMaxVoted()!=null){
-                messageService.sendMessage(LanguageManager.getInstance().getText("vote_execute")
-                                .replace("{playerName}", votingService.getMaxVoted().getName())
-                                .replace("{roleName}", votingService.getMaxVoted().getRole().getTemplate().getName()),
-                        null, true, true);
-            }
-
-        }
-        updateAlivePlayers();
-
-        for(Player player: alivePlayers){
-            player.getRole().setChoosenPlayer(null);
-        }
-        votingService.clearVotes();
-    }
 
     /**
      *If it is morning, he casts a vote for the selected player and sends a message stating who they voted for.
@@ -328,4 +290,7 @@ public final class GameService {
         return finishGameService;
     }
 
+    public SpecialRolesService getSpecialRolesService() {
+        return specialRolesService;
+    }
 }

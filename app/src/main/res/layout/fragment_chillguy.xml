@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/text_background"
-            android:text="No"
+            android:text="@string/no"
             android:textColor="@color/white" />
 
         <RadioButton
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@android:dimen/app_icon_size"
             android:background="@drawable/text_background"
-            android:text="Yes"
+            android:text="@string/yes"
             android:textColor="@color/white" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

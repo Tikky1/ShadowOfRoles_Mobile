@@ -46,8 +46,7 @@ public class GraveyardFragment extends HidingNavigationFragment {
 
         RecyclerView graveyardView = dialog.findViewById(R.id.graveyard_recycler_view);
         graveyardView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        GraveyardViewAdapter graveyardViewAdapter = new GraveyardViewAdapter();
-        graveyardViewAdapter.setDeadPlayers(deadPlayers);
+        GraveyardViewAdapter graveyardViewAdapter = new GraveyardViewAdapter(deadPlayers, dialog.getContext());
         graveyardView.setAdapter(graveyardViewAdapter);
 
         return dialog;

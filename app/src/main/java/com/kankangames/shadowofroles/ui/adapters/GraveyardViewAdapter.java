@@ -1,5 +1,6 @@
 package com.kankangames.shadowofroles.ui.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,8 @@ import java.util.List;
 
 public class GraveyardViewAdapter extends RecyclerView.Adapter<GraveyardViewAdapter.GraveyardViewHolder> {
 
-    private List<Player> deadPlayers;
+    private final List<Player> deadPlayers;
+    private final Context context;
 
     @NonNull
     @Override
@@ -28,7 +30,7 @@ public class GraveyardViewAdapter extends RecyclerView.Adapter<GraveyardViewAdap
 
     @Override
     public void onBindViewHolder(@NonNull GraveyardViewHolder holder, int position) {
-        holder.setTexts(deadPlayers.get(position));
+        holder.setTexts(deadPlayers.get(position), context);
     }
 
     @Override
@@ -36,9 +38,9 @@ public class GraveyardViewAdapter extends RecyclerView.Adapter<GraveyardViewAdap
         return deadPlayers.size();
     }
 
-    public void setDeadPlayers(List<Player> deadPlayers) {
+    public GraveyardViewAdapter(List<Player> deadPlayers, Context context) {
         this.deadPlayers = deadPlayers;
-        notifyDataSetChanged();
+        this.context = context;
     }
 
     public static class GraveyardViewHolder extends RecyclerView.ViewHolder {
@@ -62,11 +64,19 @@ public class GraveyardViewAdapter extends RecyclerView.Adapter<GraveyardViewAdap
 
         }
 
-        public void setTexts(Player player) {
+        public void setTexts(Player player, Context context) {
 
-            causeOfDeathText.setText("Cause of Death(s): " + player.getDeathProperties().getCausesOfDeathAsString());
+            causeOfDeathText.setText(
+                    String.format(context.getString(R.string.causes_of_death),
+                            player.getDeathProperties().getCausesOfDeathAsString())
+            );
+
             nameText.setText(player.getNameAndRole());
-            timeText.setText("Death Time: " + player.getDeathProperties().getDeathTimeAndDayCount());
+
+            timeText.setText(
+                    String.format(context.getString(R.string.graveyard_death_time),
+                            player.getDeathProperties().getDeathTimeAndDayCount())
+            );
 
         }
     }

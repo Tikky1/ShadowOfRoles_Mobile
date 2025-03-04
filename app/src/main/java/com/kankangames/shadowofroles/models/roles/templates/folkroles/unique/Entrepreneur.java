@@ -41,24 +41,24 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
         switch (chosenAbility){
 
             case ATTACK: {
-                if(money>= ChosenAbility.ATTACK.money){
-                    money -= ChosenAbility.ATTACK.money;
+                if(money>= ChosenAbility.ATTACK.price){
+                    money -= ChosenAbility.ATTACK.price;
                     return attack(roleOwner, choosenPlayer, gameService, CauseOfDeath.ENTREPRENEUR);
                 }
                 break;
 
             }
             case HEAL: {
-                if(money>= ChosenAbility.HEAL.money){
-                    money -= ChosenAbility.HEAL.money;
+                if(money>= ChosenAbility.HEAL.price){
+                    money -= ChosenAbility.HEAL.price;
                     return heal(roleOwner, choosenPlayer, gameService);
                 }
                 break;
 
             }
             case INFO:{
-                if(money>= ChosenAbility.INFO.money){
-                    money -= ChosenAbility.INFO.money;
+                if(money>= ChosenAbility.INFO.price){
+                    money -= ChosenAbility.INFO.price;
                     return gatherInfo(roleOwner, choosenPlayer, gameService);
                 }
                 break;
@@ -135,15 +135,15 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
         NONE(RolePriority.NONE,0);
 
         final RolePriority rolePriority;
-        final int money;
+        final int price;
 
-        ChosenAbility(RolePriority rolePriority , int money){
+        ChosenAbility(RolePriority rolePriority , int price){
             this.rolePriority = rolePriority;
 
-            this.money = money;
+            this.price = price;
         }
 
-        public int getMoney(){return money;}
+        public int getPrice(){return price;}
 
     }
 
