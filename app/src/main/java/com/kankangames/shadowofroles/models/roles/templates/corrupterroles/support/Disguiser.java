@@ -24,7 +24,7 @@ public final class Disguiser extends CorrupterRole implements PriorityChangingRo
 
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
-        roleOwner.setAttack(currentRole.getAttack());
+        roleOwner.getRole().setAttack(currentRole.getAttack());
         return currentRole.executeAbility(roleOwner, choosenPlayer, gameService);
     }
 

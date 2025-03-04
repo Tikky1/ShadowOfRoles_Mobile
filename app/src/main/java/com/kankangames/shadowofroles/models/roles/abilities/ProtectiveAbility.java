@@ -11,8 +11,8 @@ public interface ProtectiveAbility {
         LanguageManager languageManager = LanguageManager.getInstance();
         gameService.getMessageService().sendAbilityMessage(languageManager.getText("ability_heal"), roleOwner);
 
-        if(choosenPlayer.getDefence()<1){
-            choosenPlayer.setDefence(1);
+        if(choosenPlayer.getRole().getDefence()<1){
+            choosenPlayer.getRole().setDefence(1);
         }
 
         return AbilityResult.SUCCESSFUL;

@@ -74,8 +74,8 @@ public final class FinishGameService {
             
             // Finishes the game if the last two players cannot kill each other
             if(player1.getRole().getTemplate().getWinningTeam().getTeam()!=player2.getRole().getTemplate().getWinningTeam().getTeam()
-                    &&player2.getAttack()<=player1.getRole().getTemplate().getDefence()
-                    &&player1.getAttack()<=player2.getDefence()) {
+                    &&player2.getRole().getAttack()<=player1.getRole().getDefence()
+                    &&player1.getRole().getAttack()<=player2.getRole().getDefence()) {
                 return true;
             }
 

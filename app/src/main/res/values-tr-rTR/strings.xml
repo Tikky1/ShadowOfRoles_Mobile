@@ -1,33 +1,32 @@
 <resources>
 
     <!--Ana Menü-->
-    <string name="app_name">Rollerin Gölgesi</string>
     <string name="start_game">Oyuna Başla</string>
     <string name="game_guide">Oyun Rehberi</string>
     <string name="contact">İletişim</string>
-    <string name="credits">Krediler</string>
+    <string name="credits">Emeği Geçenler</string>
     <string name="quit">Çık</string>
 
     <string name="select">Seç</string>
     <string name="unselect">Seçimi Kaldır</string>
     <string name="clear">Temizle</string>
-    <string name="ai">Yapay Zeka</string>
+    <string name="ai">AI</string>
     <string name="no">Hayır</string>
     <string name="yes">Evet</string>
-    <string name="player_name" translatable="false">"{playerName}"</string>
     <string name="player_number">Numara: %d</string>
     <string name="day">Gün: %d</string>
     <string name="night">Gece: %d</string>
+    <string name="voting">Oylama: %d</string>
 
     <!--Oyun Sonu-->
-    <string name="winner_team_corrupter">Bozan</string>
+    <string name="winner_team_corrupter">Yozlaşmış</string>
     <string name="winner_team_folk">Halk</string>
     <string name="winner_team_assassin">Suikastçı</string>
-    <string name="winner_team_chillguy">Soğuk Adam</string>
-    <string name="winner_team_clown">Soğan</string>
-    <string name="winner_team_lorekeeper">Efsane Koruyucu</string>
+    <string name="winner_team_chillguy">Düz Adam</string>
+    <string name="winner_team_clown">Palyaço</string>
+    <string name="winner_team_lorekeeper">Kadim Bilge</string>
     <string name="winner_team_text">{team} kazandı!</string>
-    <string name="winner_draw">Oyun Beraberlikle Bitti!</string>
+    <string name="winner_draw">Oyun Berabere Bitti!</string>
 
     <string name="credits_text">
 *Oyun Geliştirme Ekibi:*\n
@@ -59,7 +58,7 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
 
     <!--Dedektif-->
     <string name="detective_name">Dedektif</string>
-    <string name="detective_abilities">Birini seçip, o kişinin rolünü görebilirsiniz</string>
+    <string name="detective_abilities">Birini seçersiniz ve o kişinin rolü de dahil olmak üzere iki rol görürsünüz</string>
     <string name="detective_attributes">Yok</string>
     <string name="detective_ability_message">Hedefinizin rolü {roleName1} veya {roleName2}</string>
 
@@ -78,24 +77,24 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="stalker_name">Takipçi</string>
     <string name="stalker_abilities">Birini seçip, geceleyin o kişinin kime gittiğini görebilirsiniz</string>
     <string name="stalker_attributes">Yok</string>
-    <string name="stalker_ability_message">Hedefiniz bu gece {playerName}’ya gitmiş!</string>
+    <string name="stalker_ability_message">Hedefiniz bu gece {playerName} adlı oyuncuya gitmiş!</string>
     <string name="stalker_ability_message_nobody">Hedefiniz bu gece kimseye gitmedi!</string>
 
     <!--Psiko-->
-    <string name="psycho_name">Psiko</string>
+    <string name="psycho_name">Psikopat</string>
     <string name="psycho_abilities">Her gece birini öldürebilirsiniz</string>
     <string name="psycho_attributes">Yok</string>
     <string name="psycho_kill_message">Hedefinizi başarılı bir şekilde öldürdünüz</string>
-    <string name="psycho_kill_announcement">{playerName} ({roleName}) bir Psiko tarafından öldürüldü</string>
+    <string name="psycho_kill_announcement">{playerName} ({roleName}) bir Psikopat tarafından öldürüldü</string>
 
-    <!--Karanlık Açığa Çıkarıcı-->
-    <string name="darkrevealer_name">Karanlık Açığa Çıkarıcı</string>
+    <!--Karanlık Kahin-->
+    <string name="darkrevealer_name">Karanlık Kahin</string>
     <string name="darkrevealer_abilities">Geceleyin, birinin rolünü görebilirsiniz</string>
     <string name="darkrevealer_attributes">Yok</string>
     <string name="darkrevealer_ability_message">Hedefinizin rolü: {roleName}</string>
 
-    <!--Engelleyici-->
-    <string name="interrupter_name">Engelleyici</string>
+    <!--Oyalayacı-->
+    <string name="interrupter_name">Oyalayacı</string>
     <string name="interrupter_abilities">Birini geceleyin engelleyebilirsiniz</string>
     <string name="interrupter_attributes">Yok</string>
 
@@ -106,30 +105,30 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
 
     <!--Rol Engelleme-->
     <string name="role_blocked_message">Bu gece rolünüz engellendi</string>
-    <string name="immune_message">Hedefiniz bağışıklık kazandı</string>
-    <string name="rb_immune_message">Birisi sizi engellemeye çalıştı ama bağışıksınız</string>
+    <string name="immune_message">Hedefiniz dokunulmaz</string>
+    <string name="rb_immune_message">Birisi sizi engellemeye çalıştı ama dokunulmazsınız</string>
     <string name="role_block_message">Hedefinizi engellediniz</string>
 
     <!--Suikastçı-->
     <string name="assassin_name">Suikastçı</string>
     <string name="assassin_abilities">Her gece birini öldürebilirsiniz</string>
     <string name="assassin_attributes">Temel savunma ve saldırı güçleriniz vardır, rol engellemeye karşı bağışıksınız</string>
-    <string name="assassin_goal">Tüm halk ve bozan üyelerini öldürün</string>
+    <string name="assassin_goal">Tüm halk ve yozlaşmış üyelerini öldürün</string>
     <string name="assassin_kill_message">Hedefinizi başarılı bir şekilde öldürdünüz</string>
     <string name="assassin_kill_announcement">{playerName} ({roleName}) bir Suikastçı tarafından öldürüldü</string>
 
     <!--Soğuk Adam-->
-    <string name="chillguy_name">Soğuk Adam</string>
+    <string name="chillguy_name">Düz Adam</string>
     <string name="chillguy_abilities">Sadece basit bir kişisiniz. Hiçbir şey yapmazsınız</string>
     <string name="chillguy_attributes">Eğer rolünüzü açığa çıkarırsanız, oyunu kaybedersiniz</string>
     <string name="chillguy_goal">Eğlenmek</string>
 
     <!--Son Şaka-->
     <string name="lastjoke_name">Son Şaka</string>
-    <string name="lastjoke_abilities">Öldüğünüzde hayata geri dönersiniz ve birini öldürmelisiniz</string>
+    <string name="lastjoke_abilities">Öldüğünüzde hayata geri dönersiniz ve birini öldürürsünüz</string>
     <string name="lastjoke_attributes">Yok</string>
-    <string name="last_joke_kill_message">Başarıyla {playerName}’ya son şakanızı yaptınız</string>
-    <string name="last_joke_kill_announcement">Birisi {playerName} ({roleName})’ya Son Şakasını yaptı</string>
+    <string name="last_joke_kill_message">Başarıyla {playerName} adlı oyuncuya son şakanızı yaptınız</string>
+    <string name="last_joke_kill_announcement">Birisi {playerName} ({roleName}) adlı oyuncuya Son Şakasını yaptı</string>
 
     <!--Palyaço-->
     <string name="clown_name">Palyaço</string>
@@ -138,18 +137,18 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="clown_goal">Oyunu kazanmak için gece ölmeniz gerek</string>
 
 
-    <!--Değiştirici-->
-    <string name="disguiser_name">Değiştirici</string>
-    <string name="disguiser_abilities">Her gece rastgele bir role bürünebilirsiniz ancak kullanana kadar hangi rol olduğunu bilemezsiniz</string>
+    <!--Kılık Değiştiren-->
+    <string name="disguiser_name">Kılık Değiştiren</string>
+    <string name="disguiser_abilities">Her gece rastgele bir role bürünürsünüz ancak kullanana kadar hangi rol olduğunu bilemezsiniz</string>
     <string name="disguiser_attributes">N/A</string>
     <string name="disguiser_kill_message">Hedefinizi başarılı bir şekilde öldürdünüz</string>
     <string name="disguiser_kill_announcement">{playerName} ({roleName}) gölgelerde gizlenen biri tarafından öldürüldü</string>
 
     <!--Karanlık Görücü-->
     <string name="darkseer_name">Karanlık Görücü</string>
-    <string name="darkseer_abilities">İki canlı oyuncunun rolünü görürsünüz, ancak rol sahiplerini göremezsiniz</string>
+    <string name="darkseer_abilities">Yaşayan iki oyuncunun rolünü görürsünüz, ancak rol sahiplerini göremezsiniz</string>
     <string name="darkseer_attributes">N/A</string>
-    <string name="darkseer_ability_message">Oyun içindeki iki şu an yaşayan oyuncunun rolleri: {roleName1} ve {roleName2}</string>
+    <string name="darkseer_ability_message">Oyun içindeki şu an yaşayan iki oyuncunun rolleri: {roleName1} ve {roleName2}</string>
     <string name="darkseer_ability_message_one_left">Oyun içindeki şu an yaşayan kişinin rolü: {roleName}</string>
     <string name="darkseer_ability_message_no_left">Rolünü görebileceğiniz oyuncu kalmadı</string>
 
@@ -162,16 +161,16 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
 
     <!--Halk Kahramanı-->
     <string name="folkhero_name">Halk Kahramanı</string>
-    <string name="folkhero_abilities">İnsanları bağışıklık yaparak, diğer oyuncuların hedefinize gitmesini engellersiniz</string>
+    <string name="folkhero_abilities">İnsanları dokunulmaz yaparak, diğer oyuncuların hedefinize gitmesini engellersiniz</string>
     <string name="folkhero_attributes">Oyunda iki kez yeteneğinizi kullanabilirsiniz</string>
     <string name="folkhero_ability_message">Hedefinizi başarılı bir şekilde bağışıklık kazandırdınız</string>
     <string name="folkhero_remaining_ability_count">Kalan Yetenek Sayısı: %d</string>
-    <string name="folkhero_expected_ability_count">Beklenen Yetnek Sayısı: %d</string>
+    <string name="folkhero_expected_ability_count">Beklenen Yetenek Sayısı: %d</string>
 
-    <!--Girişimci-->
-    <string name="entrepreneur_name">Girişimci</string>
+    <!--Yatırımcı-->
+    <string name="entrepreneur_name">Yatırımcı</string>
     <string name="entrepreneur_attributes">Her gün 2 altın kazanırsınız</string>
-    <string name="entrepreneur_abilities">Biraz paranız var, bu parayla başkalarından iş yapmalarını sağlayabilirsiniz.</string>
+    <string name="entrepreneur_abilities">Bir miktar paraya sahipsiniz, bu parayla başkalarından iş yapmalarını sağlayabilirsiniz.</string>
     <string name="entrepreneur_current_money">Mevcut Para: %d</string>
     <string name="entrepreneur_expected_money">Beklenen Para: %d</string>
     <string name="money_insufficient">\nYetersiz para</string>
@@ -182,39 +181,39 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="entrepreneur_pass">Geç</string>
     <string name="entrepreneur_cost">Maliyet: %d</string>
     <string name="entrepreneur_kill_message">Hedefinizi başarılı bir şekilde öldürdünüz</string>
-    <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) bir Girişimci tarafından öldürüldü</string>
+    <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) bir Yatırımcı tarafından öldürüldü</string>
 
-    <!--Efsane Koruyucu-->
-    <string name="lorekeeper_name">Efsane Koruyucu</string>
-    <string name="lorekeeper_attributes">5,6,7 kişiden 2 rolü doğru tahmin etmeniz gerekir. 8,9,10 kişiden ise 3 rolü doğru tahmin etmeniz gerekir.</string>
+    <!--Kadim Bilge-->
+    <string name="lorekeeper_name">Kadim Bilge</string>
+    <string name="lorekeeper_attributes">Oyundaki oyuncu sayısı 7 veya daha az ise 2 kişinin daha fazla ise 3 kişinin rolünü doğru tahmin etmeniz gerek</string>
     <string name="lorekeeper_abilities">Bir oyuncuyu seçer ve ardından o oyuncunun hangi role sahip olduğunu tahmin edersiniz, doğru tahmin ederseniz oyuncunun rolü açıklanır.</string>
     <string name="lorekeeper_goal">Oyuncuların rollerini doğru tahmin etmeye çalışırsınız</string>
     <string name="lorekeeper_ability_message">Aşağıdaki oyuncunun rolü açıklandı: {playerName} ({roleName})</string>
-    <string name="lorekeeper_guess">Gerçek tahmin sayınız: {guessCount}</string>
+    <string name="lorekeeper_guess">Doğru tahmin sayınız: {guessCount}</string>
     <string name="lorekeeper_guessed_role">Seçilen rol: %s</string>
     <string name="lorekeeper_guessed_role_none">Hiç rol seçilmedi!</string>
-    <string name="lorekeeper_winning_true_guess_count">Kazanan olmak için %d rolü doğru tahmin etmeniz gerekiyor!</string>
+    <string name="lorekeeper_winning_true_guess_count">Kazanmanız için %d rolü doğru tahmin etmeniz gerekiyor!</string>
     <string name="lorekeeper_current_true_guess_count">Şu anda %d rolü doğru tahmin ettiniz!</string>
 
     <!--Yetenek-->
-    <string name="ability_no_use_left">Yetenek sınırına ulaştığınız için yeteneğiniz kullanılmadı</string>
+    <string name="ability_no_use_left">Yetenek sınırına ulaştığınız için yeteneğiniz kullanılamadı</string>
     <string name="ability_defence">Hedefinizi öldüremediniz çünkü saldırınız yeterince güçlü değildi</string>
-    <string name="ability_no_role_selected">Rolünüz seçilmediği için yeteneğiniz kullanılamaz</string>
-    <string name="ability_no_ability_exists">Rolünüzün yeteneği olmadığı için kullanılamaz</string>
+    <string name="ability_no_role_selected">Rol seçmediğiniz için yeteneğiniz kullanılamadı</string>
+    <string name="ability_no_ability_exists">Rolünüzün yeteneği olmadığı için kullanılamadı</string>
     <string name="ability_heal">Hedefinizi başarılı bir şekilde korudunuz</string>
     <string name="ability_used_on">Yeteneklerinizi {playerName} üzerinde kullanmaya çalıştınız</string>
-    <string name="ability_did_not_used">Hiç kimseye yetenek kullanmadınız</string>
+    <string name="ability_did_not_used">Hiç kimse üzerinde yetenek kullanmadınız</string>
 
     <!--Ölüm Sebebi-->
     <string name="cause_of_death_assassin">Suikastçı</string>
-    <string name="cause_of_death_psycho">Psiko</string>
+    <string name="cause_of_death_psycho">Psikopat</string>
     <string name="cause_of_death_hanging">Asılma</string>
     <string name="cause_of_death_last_joke">Son Şaka</string>
-    <string name="cause_of_death_entrepreneur">Girişimci</string>
+    <string name="cause_of_death_entrepreneur">Yatırımcı</string>
 
     <!--Hedef-->
-    <string name="goal_folk">Tüm bozanları ve nötrleri bulup öldürün</string>
-    <string name="goal_corrupter">Halkı ve nötrleri öldürün</string>
+    <string name="goal_folk">Tüm yozlaşmış ve tarafsızları bulup öldürün</string>
+    <string name="goal_corrupter">Halkı ve tarafsızları öldürün</string>
 
     <!--Oylama-->
     <string name="voted_for">Şu kişiye oy verdiniz: {playerName}</string>
@@ -222,72 +221,72 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="vote_execute">{playerName} ({roleName}) çoğunluk oyu ile asıldı</string>
 
     <!--Takımlar-->
-    <string name="team_corrupter">Bozan</string>
+    <string name="team_corrupter">Yozlaşmış</string>
     <string name="team_folk">Halk</string>
-    <string name="team_neutral">Nötr</string>
+    <string name="team_neutral">Tarafsız</string>
 
 
     <!-- Role Book-->
 
     <!-- Main Categories -->
     <string name="role_book_role">Roller</string>
-    <string name="role_book_folk_role">Folk Rolleri</string>
-    <string name="role_book_corrupter_role">Yozlaştırıcı Rolleri</string>
-    <string name="role_book_neutral_role">Nötr Rolleri</string>
+    <string name="role_book_folk_role">Halk Rolleri</string>
+    <string name="role_book_corrupter_role">Yozlaşmış Roller</string>
+    <string name="role_book_neutral_role">Tarafsız Roller</string>
 
     <string name="role_book_folk">Halk</string>
-    <string name="role_book_corrupter">Yozlaştırıcı</string>
-    <string name="role_book_neutral">Nötr</string>
+    <string name="role_book_corrupter">Yozlaşmış</string>
+    <string name="role_book_neutral">Tarafsız</string>
     <string name="role_book_none">Yok</string>
 
     <!-- Folk Roles -->
-    <string name="role_book_folk_analyst">Halk Analisti</string>
-    <string name="role_book_folk_protector">Halk Koruyucusu</string>
-    <string name="role_book_folk_killing">Halk Katliamcı</string>
-    <string name="role_book_folk_support">Halk Destek</string>
-    <string name="role_book_folk_unique">Halk Benzersiz</string>
+    <string name="role_book_folk_analyst">Halk Araştırmacısı</string>
+    <string name="role_book_folk_protector">Halk Muhafızı</string>
+    <string name="role_book_folk_killing">Halk İnfazcısı</string>
+    <string name="role_book_folk_support">Halk Desteği</string>
+    <string name="role_book_folk_unique">Halk Eşsiz</string>
 
     <!-- Corrupter Roles -->
-    <string name="role_book_corrupter_analyst">Yozlaştırıcı Analisti</string>
-    <string name="role_book_corrupter_killing">Yozlaştırıcı Katliamcı</string>
-    <string name="role_book_corrupter_support">Yozlaştırıcı Destek</string>
+    <string name="role_book_corrupter_analyst">Yozlaşmış Araştırmacı</string>
+    <string name="role_book_corrupter_killing">Yozlaşmış Katil</string>
+    <string name="role_book_corrupter_support">Yozlaşmış Destek</string>
 
     <!-- Neutral Roles -->
-    <string name="role_book_neutral_evil">Nötr Kötü</string>
-    <string name="role_book_neutral_killing">Nötr Katliamcı</string>
-    <string name="role_book_neutral_chaos">Nötr Kaos</string>
-    <string name="role_book_neutral_good">Nötr İyi</string>
+    <string name="role_book_neutral_evil">Tarafsız Kötü</string>
+    <string name="role_book_neutral_killing">Tarafsız Katil</string>
+    <string name="role_book_neutral_chaos">Tarafsız Kaos</string>
+    <string name="role_book_neutral_good">Tarafsız İyi</string>
 
     <!-- Properties -->
     <string name="role_book_abilities">Yetenekler</string>
     <string name="role_book_attributes">Özellikler</string>
-    <string name="role_book_goal">Hedef</string>
+    <string name="role_book_goal">Amaç</string>
     <string name="role_book_attack">Saldırı</string>
     <string name="role_book_defence">Savunma</string>
 
     <string name="messages">Mesajlar</string>
     <string name="graveyard">Mezarlık</string>
-    <string name="chill_guy_alert_text">Ah hayır! Son ekran bir Chill Guy tarafından yakalandı! Acaba rolünü oyunda açıkladılar mı?</string>
+    <string name="chill_guy_alert_text">Ah hayır! Son ekran bir Düz Adam tarafından ele geçirildi! Acaba rolünü oyunda açıkladı mı?</string>
 
     <!--Role Book-->
     <string name="role_info">Rol Bilgisi</string>
     <string name="role_guide">Rol Rehberi</string>
     <string name="game_rules">Oyun Kuralları</string>
-    <string name="main_goal">Ana Hedef</string>
-    <string name="chosen_player_text_night">Yeteneklerini şu oyuncuya kullanıyorsun: {playerName}</string>
+    <string name="main_goal">Asıl Amaç</string>
+    <string name="chosen_player_text_night">Yeteneğini şu oyuncu üzerinde kullanıyorsun: {playerName}</string>
     <string name="chosen_player_text_night_nobody">Kimseyi seçmediniz!</string>
     <string name="chosen_player_text_night_no_ability">Rolünüzün aktif gece yeteneği yok</string>
     <string name="chosen_player_text_voting">Şu oyuncuya oy veriyorsunuz: {playerName}</string>
     <string name="chosen_player_text_voting_nobody">Kimseye oy vermediniz</string>
-    <string name="rules_text">Oyun Kuralları ve Akışı\n\n1. Gece Aşaması:\nOyun gece başlayacak ve her oyuncu sırayla cihazı alıp rolünü kontrol eder.\nHer oyuncu, rolüne göre belirlenen görevi yerine getirir ve cihazı bir sonraki oyuncuya geçirebilir.\nGece aşaması, tüm oyuncular yeteneklerini kullandıktan sonra sona erer.\n\n2. Gündüz Aşaması:\nGündüz, her oyuncu sırayla cihazı alır ve rolünün gece boyunca gerçekleştirdiği görevin sonuçlarını görür.\n\nTüm oyuncular sonuçlarını inceledikten sonra cihaz, ilk oyuncuya geri döner ve oylama aşaması başlar.\n\n3. Oylama Aşaması:\nOylama öncesinde oyuncular, gece boyunca topladıkları bilgilere dayalı olarak tartışır ve fikir alışverişinde bulunur.\nOylama açılır, her oyuncu oyunu verir ve cihaz bir sonraki oyuncuya geçer.\nOyu en fazla alan oyuncu, çoğunluk oyuyla elenir.\nOylama tamamlandıktan sonra oyun gece aşamasına geçer ve bu döngü devam eder.\n\nTakımlar ve Hedefler\n\nFolk:\nHedefleri, oyunun sonunda hayatta kalan tüm oyuncuların sadece Folk takımından olmasını sağlamaktır.\n\nYozlaştırıcılar:\nHedefleri, oyunun sonunda hayatta kalan tüm oyuncuların sadece Yozlaştırıcı takımından olmasını sağlamaktır.\n\nNötr:\nNötr oyuncuların, rolleriyle ilgili belirli bireysel hedef veya görevleri vardır. Hedefleri, kendi özel hedeflerini gerçekleştirmektir. Daha fazla bilgi için rol rehberine bakın.\n\nNot: Oyun, bir gündüz ve gece döngüsünde ilerler ve bu, strateji, takım çalışması ve bilgi paylaşımını gerektirir.</string>
-    <string name="main_goal_text">Eğlenin</string>
+    <string name="rules_text">Oyun Kuralları ve Akışı\n\n1. Gece Aşaması:\nOyun gece başlayacak ve her oyuncu sırayla cihazı alıp rolünü kontrol eder.\nHer oyuncu, rolüne göre belirlenen görevi yerine getirir ve cihazı bir sonraki oyuncuya verir.\nGece aşaması, tüm oyuncular yeteneklerini kullandıktan sonra sona erer.\n\n2. Gündüz Aşaması:\nGündüz, her oyuncu sırayla cihazı alır ve rolünün gece boyunca gerçekleştirdiği görevin sonuçlarını görür.\n\nTüm oyuncular sonuçlarını inceledikten sonra cihaz, ilk oyuncuya geri döner ve oylama aşaması başlar.\n\n3. Oylama Aşaması:\nOylama öncesinde oyuncular, gece boyunca topladıkları bilgilere dayalı olarak tartışır ve fikir alışverişinde bulunur.\nOylama açılır, her oyuncu oyunu verir ve cihaz bir sonraki oyuncuya geçer.\nEn fazla oy alan oyuncu, eğer oyların yarısından fazlasını aldıysa ölür.\nOylama tamamlandıktan sonra oyun gece aşamasına geçer ve bu döngü devam eder.\n\nTakımlar ve Hedefler\n\Halk:\nHedefleri, oyunun sonunda hayatta kalan tüm oyuncuların sadece Halk takımından olmasını sağlamaktır.\n\Yozlaşmışlar:\nHedefleri, oyunun sonunda hayatta kalan tüm oyuncuların sadece Yozlaşmış takımından olmasını sağlamaktır.\n\nTarafsızlar:\nTarafsız oyuncuların, rolleriyle ilgili belirli bireysel hedef veya görevleri vardır. Hedefleri, kendi özel hedeflerini gerçekleştirmektir. Daha fazla bilgi için rol rehberine bakın.</string>
+    <string name="main_goal_text">Keyfinize Bakın</string>
     <string name="attributes">Özellikler:</string>
     <string name="abilities">Yetenekler:</string>
     <string name="goal">Hedef:</string>
     <string name="team">Takım:</string>
     <string name="current_role">Mevcut Rol:</string>
 
-    <string name="public_message">Herkese Mesaj</string>
+    <string name="public_message">Genel Mesaj</string>
     <string name="private_message">Özel Mesaj</string>
 
     <string name="go_back_to_main_menu">Ana Menüye Dön</string>

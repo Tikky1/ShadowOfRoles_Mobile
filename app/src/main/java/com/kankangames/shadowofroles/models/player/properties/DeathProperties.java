@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class DeathProperties {
-    private List<CauseOfDeath> causesOfDeath;
+    private final List<CauseOfDeath> causesOfDeath;
     private int dayCountOfDeath;
     private Time deathTime;
     private boolean isAlive;
@@ -26,27 +26,22 @@ public class DeathProperties {
     }
 
     public String getDeathTimeAndDayCount(){
+        LanguageManager languageManager = LanguageManager.getInstance();
+        String deathTimeStr = languageManager.getText(languageManager.enumToStringXml(deathTime.name()));
 
-        String deathTimeStr = deathTime.name().substring(0, 1).toUpperCase(Locale.ROOT) +
-                deathTime.name().substring(1).toLowerCase(Locale.ROOT);
-
-        return deathTimeStr + ": " + dayCountOfDeath;
+        return String.format(deathTimeStr,dayCountOfDeath);
     }
 
     public final String getCausesOfDeathAsString(){
         LanguageManager languageManager = LanguageManager.getInstance();
         return causesOfDeath.stream()
-                .map( causeOfDeath->languageManager.getText("cause_of_death_"+languageManager.enumToStringXml(causeOfDeath.name())))
+                .map(causeOfDeath->languageManager.getText("cause_of_death_"+languageManager.enumToStringXml(causeOfDeath.name())))
                 .collect(Collectors.joining(", "));
     }
 
     // Getters and Setters
     public List<CauseOfDeath> getCausesOfDeath() {
         return causesOfDeath;
-    }
-
-    public void setCausesOfDeath(List<CauseOfDeath> causesOfDeath) {
-        this.causesOfDeath = causesOfDeath;
     }
 
     public int getDayCountOfDeath() {

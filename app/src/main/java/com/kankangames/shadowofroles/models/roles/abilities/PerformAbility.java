@@ -15,7 +15,7 @@ public interface PerformAbility {
      * @return
      */
     default AbilityResult defaultPerformAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
-        if(!roleOwner.getRole().isCanPerform()&&!roleOwner.isImmune()){
+        if(!roleOwner.getRole().isCanPerform()&&!roleOwner.getRole().isImmune()){
             gameService.getMessageService().sendAbilityMessage(LanguageManager.getInstance().getText("role_blocked_message"),roleOwner);
             return AbilityResult.ROLE_BLOCKED;
         }
@@ -24,7 +24,7 @@ public interface PerformAbility {
             return AbilityResult.NO_ONE_SELECTED;
         }
 
-        if(choosenPlayer.isImmune()){
+        if(choosenPlayer.getRole().isImmune()){
             return AbilityResult.TARGET_IMMUNE;
         }
 
@@ -38,7 +38,7 @@ public interface PerformAbility {
      * @return
      */
     default AbilityResult performAbilityForPassiveRoles(Player roleOwner, GameService gameService){
-        if(!roleOwner.getRole().isCanPerform()&&!roleOwner.isImmune()){
+        if(!roleOwner.getRole().isCanPerform()&&!roleOwner.getRole().isImmune()){
             gameService.getMessageService().sendAbilityMessage(LanguageManager.getInstance().getText("role_blocked_message"),roleOwner);
             return AbilityResult.ROLE_BLOCKED;
         }
@@ -58,7 +58,7 @@ public interface PerformAbility {
             return AbilityResult.NO_ONE_SELECTED;
         }
 
-        if(choosenPlayer.isImmune()){
+        if(choosenPlayer.getRole().isImmune()){
             return AbilityResult.TARGET_IMMUNE;
         }
         return roleOwner.getRole().getTemplate().executeAbility(roleOwner, choosenPlayer, gameService);

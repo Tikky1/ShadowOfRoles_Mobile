@@ -1,6 +1,5 @@
 package com.kankangames.shadowofroles.services;
 
-import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.managers.LanguageManager;
 import com.kankangames.shadowofroles.models.player.AIPlayer;
@@ -97,7 +96,7 @@ public final class GameService {
 
         // Resets the players' attributes according to their role
         for(Player player: alivePlayers){
-           player.resetStates();
+           player.getRole().resetStates();
         }
         updateAlivePlayers();
     }

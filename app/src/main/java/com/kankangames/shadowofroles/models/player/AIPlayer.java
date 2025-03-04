@@ -31,7 +31,7 @@ public class AIPlayer extends Player {
         }
         else if (getRole().getTemplate().getWinningTeam().getTeam() == Team.FOLK) {
             for (Player player : players) {
-                if (player.isRevealed()) {
+                if (player.getRole().isRevealed()) {
                     if (player.getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER) {
                         getRole().setChoosenPlayer(player);
                         return;

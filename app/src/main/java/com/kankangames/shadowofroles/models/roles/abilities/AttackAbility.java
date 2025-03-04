@@ -13,7 +13,7 @@ public interface AttackAbility {
 
     default AbilityResult attack(Player roleOwner, Player choosenPlayer, GameService gameService, CauseOfDeath causeOfDeath){
         LanguageManager languageManager = LanguageManager.getInstance();
-        if(roleOwner.getAttack() > choosenPlayer.getDefence()){
+        if(roleOwner.getRole().getAttack() > choosenPlayer.getRole().getDefence()){
 
             choosenPlayer.killPlayer(Time.NIGHT, gameService.getTimeService().getDayCount(), causeOfDeath, false);
 

@@ -1,7 +1,7 @@
 <resources>
 
     <!--Main Menu-->
-    <string name="app_name">Shadow of Roles</string>
+    <string name="app_name" translatable="false">Shadow of Roles</string>
     <string name="start_game">Start Game</string>
     <string name="game_guide">Game Guide</string>
     <string name="contact">Contact</string>
@@ -18,6 +18,7 @@
     <string name="player_number">Number: %d</string>
     <string name="day">Day: %d</string>
     <string name="night">Night: %d</string>
+    <string name="voting">Voting: %d</string>
 
     <!--Game End-->
     <string name="winner_team_corrupter">Corrupter</string>
@@ -185,7 +186,7 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
 
     <!-- Lorekeeper -->
     <string name="lorekeeper_name">Lore Keeper</string>
-    <string name="lorekeeper_attributes">You need to correctly guess 2 roles out of 5,6,7 people. You need to correctly guess 3 roles in 8,9,10 people.</string>
+    <string name="lorekeeper_attributes">If the number of players in the game is 7 or less, you need to correctly guess the role of 2 players, if more, you need to guess the role of 3 players</string>
     <string name="lorekeeper_abilities">You choose a player and then you choose what role that player has, if you find it correctly player\'s role will be revealed.</string>
     <string name="lorekeeper_goal">You try to guess the players\' roles</string>
     <string name="lorekeeper_ability_message">The following player has revealed: {playerName} ({roleName})</string>
@@ -277,7 +278,7 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="chosen_player_text_night_no_ability">Your role does not have any active night ability</string>
     <string name="chosen_player_text_voting">You are voting for: {playerName}</string>
     <string name="chosen_player_text_voting_nobody">You did not voted for anybody</string>
-    <string name="rules_text">Game Rules and Flow\n\n1. Night Phase:\nThe game begins at night, and each player, in turn, takes the device to check their role.\nEach player performs their assigned task according to their role and then passes the device to the next player.\nThe night phase ends once all players have used their abilities.\n\n2. Day Phase:\nIn the day, each player takes the device in turn to see the results of the task performed by their role during the night.\n\nAfter all players have reviewed their results, the device is returned to the first player, and the voting phase begins.\n\n3. Voting Phase:\nBefore voting, players discuss and exchange ideas based on the information they gathered during the night. \nThe voting is open, and each player cast their vote and pass the device to next player.\nThe player who receives more than half of the votes is eliminated.\nAfter voting is complete, the game transitions back to the night phase, and this cycle continues.\n\nTeams and Objectives\n\nFolk:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Folk team.\n\nCorrupted:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Corrupted team.\n\nNeutral:\nNeutral players have unique win conditions or tasks specific to their roles. Their goal is to achieve their individual objectives. For more information check the role guide.\n\nNote: The game progresses through a day and night cycle, requiring strategy, teamwork, and information sharing to achieve team objectives.</string>
+    <string name="rules_text">Game Rules and Flow\n\n1. Night Phase:\nThe game begins at night, and each player, in turn, takes the device to check their role.\nEach player performs their assigned task according to their role and then passes the device to the next player.\nThe night phase ends once all players have used their abilities.\n\n2. Day Phase:\nIn the day, each player takes the device in turn to see the results of the task performed by their role during the night.\n\nAfter all players have reviewed their results, the device is returned to the first player, and the voting phase begins.\n\n3. Voting Phase:\nBefore voting, players discuss and exchange ideas based on the information they gathered during the night. \nThe voting is open, and each player cast their vote and pass the device to next player.\nThe player who receives more than half of the votes is eliminated.\nAfter voting is complete, the game transitions back to the night phase, and this cycle continues.\n\nTeams and Objectives\n\nFolk:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Folk team.\n\nCorrupted:\nTheir goal is to ensure that, by the end of the game, all surviving players belong only to the Corrupted team.\n\nNeutral:\nNeutral players have unique win conditions or tasks specific to their roles. Their goal is to achieve their individual objectives. For more information check the role guide.</string>
     <string name="main_goal_text">Have Fun</string>
     <string name="attributes">Attributes:</string>
     <string name="abilities">Abilities:</string>

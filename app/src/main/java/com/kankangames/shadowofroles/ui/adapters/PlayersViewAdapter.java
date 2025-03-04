@@ -153,7 +153,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
         holder.roleName.setTextColor(color);
 
-        boolean isRevealed = player.isRevealed();
+        boolean isRevealed = player.getRole().isRevealed();
         boolean areBothCorrupter = roleTemplate.getWinningTeam() == WinningTeam.CORRUPTER
                 && currentPlayer.getRole().getTemplate().getWinningTeam() == WinningTeam.CORRUPTER;
 
