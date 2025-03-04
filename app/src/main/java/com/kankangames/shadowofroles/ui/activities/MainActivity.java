@@ -3,6 +3,7 @@ package com.kankangames.shadowofroles.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.kankangames.shadowofroles.ui.alerts.QuitAlert;
@@ -23,6 +24,7 @@ public class MainActivity extends ImageChangingActivity {
         Button contactBtn = findViewById(R.id.contactBtn);
         Button creditsBtn = findViewById(R.id.creditsBtn);
         Button quitBtn = findViewById(R.id.quitBtn);
+        ImageButton settingsBtn = findViewById(R.id.settingsBtn);
         backgroundImage = findViewById(R.id.backgroundImage);
 
         // Click Listeners
@@ -39,6 +41,10 @@ public class MainActivity extends ImageChangingActivity {
                 finishAffinity();
             });
             quitAlert.show(getSupportFragmentManager(), "Quit Alert");
+        });
+
+        settingsBtn.setOnClickListener(v -> {
+            openActivity(SettingsActivity.class);
         });
 
         backgroundImage.setImageDrawable(sceneManager.getCurrentImage());

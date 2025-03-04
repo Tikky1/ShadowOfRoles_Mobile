@@ -18,6 +18,10 @@
     <string name="night">Gece: %d</string>
     <string name="voting">Oylama: %d</string>
 
+    <!--Ayarlar-->
+    <string name="settings_language">Dil Seçin</string>
+    <string name="select_language">Seç</string>
+
     <!--Oyun Sonu-->
     <string name="winner_team_corrupter">Yozlaşmış</string>
     <string name="winner_team_folk">Halk</string>

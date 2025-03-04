@@ -33,6 +33,10 @@
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.ContactActivity"
             android:theme="@style/FullscreenTheme"/>
+        <activity android:name=".ui.activities.SettingsActivity"
+            android:theme="@style/FullscreenTheme">
+
+        </activity>
 
     </application>
 

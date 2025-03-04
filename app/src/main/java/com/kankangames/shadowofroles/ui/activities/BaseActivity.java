@@ -1,10 +1,13 @@
 package com.kankangames.shadowofroles.ui.activities;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.kankangames.shadowofroles.managers.LanguageManager;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -19,6 +22,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
         hideSystemUI();
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LanguageManager.getInstance().updateBaseContext(newBase));
     }
 
     private void hideSystemUI() {

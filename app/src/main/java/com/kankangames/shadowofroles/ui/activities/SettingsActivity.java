@@ -1,0 +1,64 @@
+package com.kankangames.shadowofroles.ui.activities;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.ui.adapters.LanguageSelectAdapter;
+
+public class SettingsActivity extends ImageChangingActivity{
+
+    ImageView background;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_settings);
+
+        background=findViewById(R.id.backgroundImage3);
+        background.setImageDrawable(sceneManager.nextImage());
+
+        setLanguageSpinner();
+    }
+
+    @Override
+    protected ImageView getBackgroundImage() {
+        return findViewById(R.id.backgroundImage3);
+    }
+
+    private void setLanguageSpinner(){
+        Spinner spinner = findViewById(R.id.lang_spinner);
+        LanguageSelectAdapter languageSelectAdapter = new LanguageSelectAdapter(this);
+        spinner.setAdapter(languageSelectAdapter);
+
+        Button selectLangBtn = findViewById(R.id.choose_language_btn);
+
+        selectLangBtn.setOnClickListener(v -> {
+            String lang;
+            if(spinner.getSelectedItem().equals("Türkçe")){
+                lang = "tr";
+            }
+            else {
+                lang = "en";
+            }
+            LanguageManager.getInstance().setLocale(lang);
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+        });
+
+    }
+
+
+
+}
