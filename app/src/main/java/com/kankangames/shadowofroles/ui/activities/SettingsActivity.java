@@ -16,7 +16,6 @@ public class SettingsActivity extends ImageChangingActivity{
     ImageView background;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -35,9 +34,19 @@ public class SettingsActivity extends ImageChangingActivity{
     }
 
     private void setLanguageSpinner(){
+        LanguageManager languageManager = LanguageManager.getInstance();
         Spinner spinner = findViewById(R.id.lang_spinner);
         LanguageSelectAdapter languageSelectAdapter = new LanguageSelectAdapter(this);
         spinner.setAdapter(languageSelectAdapter);
+        switch (languageManager.getSavedLanguage()){
+            case "tr":
+                spinner.setSelection(1);
+                break;
+            default:
+                spinner.setSelection(0);
+                break;
+        }
+
 
         Button selectLangBtn = findViewById(R.id.choose_language_btn);
 
@@ -49,7 +58,7 @@ public class SettingsActivity extends ImageChangingActivity{
             else {
                 lang = "en";
             }
-            LanguageManager.getInstance().setLocale(lang);
+            languageManager.setLocale(lang);
 
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -1,5 +1,7 @@
 package com.kankangames.shadowofroles.managers;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.kankangames.shadowofroles.GameApplication;
+import com.kankangames.shadowofroles.ui.activities.MainActivity;
 
 import java.util.Locale;
 
@@ -17,8 +20,8 @@ public class LanguageManager {
     @SuppressLint("StaticFieldLeak")
     private static LanguageManager instance;
     private Context context;
-    private static final String PREFS_NAME = "language_prefs";
-    private static final String KEY_LANGUAGE = "selected_language";
+    private final String PREFS_NAME = "language_prefs";
+    private final String KEY_LANGUAGE = "selected_language";
 
     private LanguageManager(Context context) {
         this.context = context;
@@ -33,12 +36,12 @@ public class LanguageManager {
 
     public String enumToStringXmlSuffix(String enumName, String suffix){
         enumName = enumName.toLowerCase(Locale.ROOT);
-        enumName =String.format("%s_%s", enumName, suffix);
+        enumName = String.format("%s_%s", enumName, suffix);
         return enumName;
     }
 
     public void setLocale(String languageCode) {
-        saveLanguagePreference(languageCode); // Seçilen dili kaydet
+        saveLanguagePreference(languageCode);
 
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
@@ -47,20 +50,27 @@ public class LanguageManager {
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            context = context.createConfigurationContext(config);
-        } else {
-            resources.updateConfiguration(config, resources.getDisplayMetrics());
-        }
+        context = context.createConfigurationContext(config);
+    }
+
+    public void loadLocale() {
+        SharedPreferences prefs = context.getSharedPreferences("settings", MODE_PRIVATE);
+        String lang = prefs.getString("language", "en");
+
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }
 
     public String getSavedLanguage() {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(KEY_LANGUAGE, "en"); // Varsayılan olarak İngilizce
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        return prefs.getString(KEY_LANGUAGE, "en");
     }
 
     private void saveLanguagePreference(String languageCode) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(KEY_LANGUAGE, languageCode);
         editor.apply();

@@ -20,26 +20,25 @@ import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 import java.util.List;
 
 public class LanguageSelectAdapter extends ArrayAdapter<String> {
-    private final List<String> languageList;
+    private final String[] languageList = {"English","Türkçe"};
 
     private final Context context;
 
     public LanguageSelectAdapter(@NonNull Context context){
         super(context, R.layout.language_spinner_item);
-        this.languageList = List.of("English","Türkçe");
         this.context = context;
 
     }
 
     @Override
     public int getCount() {
-        return languageList.size();
+        return languageList.length;
     }
 
     @Nullable
     @Override
     public String getItem(int position) {
-        return languageList.get(position);
+        return languageList[position];
     }
 
     @NonNull
@@ -51,7 +50,7 @@ public class LanguageSelectAdapter extends ArrayAdapter<String> {
         }
         ConstraintLayout constraintLayout = convertView.findViewById(R.id.langspinner_container);
         TextView textView = constraintLayout.findViewById(R.id.language_spinner_item_name);
-        textView.setText(languageList.get(position));
+        textView.setText(languageList[position]);
         return convertView;
     }
 
@@ -63,13 +62,11 @@ public class LanguageSelectAdapter extends ArrayAdapter<String> {
         }
 
 
-        String lang = languageList.get(position);
+        String lang = languageList[position];
 
 
         TextView textView = convertView.findViewById(R.id.language_spinner_item_name);
         textView.setText(lang);
-
-
 
 
         return convertView;
