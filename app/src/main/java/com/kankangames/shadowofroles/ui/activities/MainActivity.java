@@ -2,6 +2,8 @@ package com.kankangames.shadowofroles.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ public class MainActivity extends ImageChangingActivity {
         Button creditsBtn = findViewById(R.id.creditsBtn);
         Button quitBtn = findViewById(R.id.quitBtn);
         ImageButton settingsBtn = findViewById(R.id.settingsBtn);
+        ImageView cloudImage = findViewById(R.id.cloud_image_view);
         backgroundImage = findViewById(R.id.backgroundImage);
 
         // Click Listeners
@@ -48,6 +51,9 @@ public class MainActivity extends ImageChangingActivity {
         });
 
         backgroundImage.setImageDrawable(sceneManager.getCurrentImage());
+
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.cloud_move);
+        cloudImage.startAnimation(animation);
 
     }
 
