@@ -1,6 +1,6 @@
 package com.kankangames.shadowofroles.services;
 
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.Message;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.RoleID;
@@ -25,9 +25,9 @@ public final class MessageService {
                 isDay, message, receiver, isPublic));
     }
 
-    private void createNightMessage(String message, Player receiver, boolean isPublic, boolean isDay) {
+    private void createNightMessage(String message, Player receiver, boolean isPublic) {
          messages.add(new Message(gameService.getTimeService().getDayCount()-1,
-                isDay, message, receiver, isPublic));
+                false, message, receiver, isPublic));
     }
 
     public void sendMessage(String message, Player receiver, boolean isPublic, boolean isDay, int dayCount) {
@@ -42,8 +42,8 @@ public final class MessageService {
 
         if(alivePlayer.getRole().getTemplate().isRoleBlockImmune() && !alivePlayer.getRole().isCanPerform()
                 && !alivePlayer.getRole().isImmune()){
-            createNightMessage(LanguageManager.getInstance().getText("rb_immune_message"),
-                    alivePlayer, false, false);
+            createNightMessage(TextManager.getInstance().getText("rb_immune_message"),
+                    alivePlayer, false);
         }
 
         if(alivePlayer.getRole().getChoosenPlayer()==null){
@@ -52,17 +52,17 @@ public final class MessageService {
         if(alivePlayer.getRole().getChoosenPlayer().getRole().isImmune() &&
                 alivePlayer.getRole().getTemplate().getRolePriority().getPriority()<= RolePriority.ROLE_BLOCK.getPriority()
         && alivePlayer.getRole().getTemplate().getId() != RoleID.FolkHero){
-            createNightMessage(LanguageManager.getInstance().getText("immune_message"),
-                    alivePlayer, false, false);
+            createNightMessage(TextManager.getInstance().getText("immune_message"),
+                    alivePlayer, false);
         }
     }
 
     public void sendAbilityMessage(String message, Player receiver){
-        createNightMessage(message, receiver, false, false);
+        createNightMessage(message, receiver, false);
     }
 
     public void sendAbilityAnnouncement(String message){
-        createNightMessage(message, null, true, false);
+        createNightMessage(message, null, true);
     }
 
 

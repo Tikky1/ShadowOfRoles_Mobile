@@ -1,7 +1,7 @@
 package com.kankangames.shadowofroles.services;
 
 import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.AIPlayer;
 import com.kankangames.shadowofroles.models.roles.abilities.PriorityChangingRole;
 import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.support.LastJoke;
@@ -116,11 +116,11 @@ public final class GameService {
             votingService.vote(currentPlayer,chosenPlayer);
 
             if(chosenPlayer!=null){
-                messageService.sendMessage(LanguageManager.getInstance().getText("voted_for")
+                messageService.sendMessage(TextManager.getInstance().getText("voted_for")
                                 .replace("{playerName}", chosenPlayer.getNameAndNumber())
                         ,currentPlayer,false, true);
             }else{
-                messageService.sendMessage(LanguageManager.getInstance().getText("voted_for_none"), currentPlayer, false, true);
+                messageService.sendMessage(TextManager.getInstance().getText("voted_for_none"), currentPlayer, false, true);
             }
 
         }
@@ -128,12 +128,12 @@ public final class GameService {
             AbilityType abilityType = currentPlayer.getRole().getTemplate().getAbilityType();
             if(!(abilityType == AbilityType.PASSIVE || abilityType == AbilityType.NO_ABILITY)){
                 if(chosenPlayer!=null){
-                    messageService.sendMessage(LanguageManager.getInstance().getText("ability_used_on")
+                    messageService.sendMessage(TextManager.getInstance().getText("ability_used_on")
                                     .replace("{playerName}", chosenPlayer.getNameAndNumber())
                             ,currentPlayer,false, false);
                 }
                 else{
-                    messageService.sendMessage(LanguageManager.getInstance().getText("ability_did_not_used"), currentPlayer, false,false);
+                    messageService.sendMessage(TextManager.getInstance().getText("ability_did_not_used"), currentPlayer, false,false);
                 }
             }
         }

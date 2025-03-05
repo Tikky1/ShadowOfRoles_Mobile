@@ -106,17 +106,17 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
     }
 
     private AbilityResult insufficientMoney(Player roleOwner, GameService gameService){
-        String message = languageManager.getText("entrepreneur_insufficient_money");
+        String message = textManager.getText("entrepreneur_insufficient_money");
 
         switch (chosenAbility){
             case ATTACK: message = message
-                    .replace("{abilityName}", languageManager.getText("entrepreneur_attack"));
+                    .replace("{abilityName}", textManager.getText("entrepreneur_attack"));
                 break;
             case HEAL:  message = message
-                    .replace("{abilityName}", languageManager.getText("entrepreneur_heal"));
+                    .replace("{abilityName}", textManager.getText("entrepreneur_heal"));
                 break;
             case INFO:  message = message
-                    .replace("{abilityName}", languageManager.getText("entrepreneur_info"));
+                    .replace("{abilityName}", textManager.getText("entrepreneur_info"));
                 break;
         }
         sendAbilityMessage(message, roleOwner, gameService.getMessageService());

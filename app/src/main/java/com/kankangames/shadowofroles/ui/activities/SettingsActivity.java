@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
+import com.kankangames.shadowofroles.GameApplication;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.managers.LanguageManager;
 import com.kankangames.shadowofroles.ui.adapters.LanguageSelectAdapter;
@@ -58,7 +58,7 @@ public class SettingsActivity extends ImageChangingActivity{
             else {
                 lang = "en";
             }
-            languageManager.setLocale(lang);
+            languageManager.setLocale(this,lang);
 
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

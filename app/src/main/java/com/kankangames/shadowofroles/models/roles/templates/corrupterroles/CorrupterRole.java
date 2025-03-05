@@ -11,6 +11,6 @@ public abstract class CorrupterRole extends RoleTemplate {
 
     @Override
     public String getGoal() {
-        return languageManager.getText("goal_corrupter");
+        return textManager.getText("goal_corrupter");
     }
 }

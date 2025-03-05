@@ -1,7 +1,7 @@
 package com.kankangames.shadowofroles.models.player.properties;
 
 import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,16 +25,16 @@ public class DeathProperties {
     }
 
     public String getDeathTimeAndDayCount(){
-        LanguageManager languageManager = LanguageManager.getInstance();
-        String deathTimeStr = languageManager.getTextEnum(deathTime.name());
+        TextManager textManager = TextManager.getInstance();
+        String deathTimeStr = textManager.getTextEnum(deathTime.name());
 
         return String.format(deathTimeStr,dayCountOfDeath);
     }
 
     public final String getCausesOfDeathAsString(){
-        LanguageManager languageManager = LanguageManager.getInstance();
+        TextManager textManager = TextManager.getInstance();
         return causesOfDeath.stream()
-                .map(causeOfDeath->languageManager.getTextPrefix(causeOfDeath.name(),"cause_of_death"))
+                .map(causeOfDeath-> textManager.getTextPrefix(causeOfDeath.name(),"cause_of_death"))
                 .collect(Collectors.joining(", "));
     }
 

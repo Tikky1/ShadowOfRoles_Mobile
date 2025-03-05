@@ -61,9 +61,7 @@ public class LanguageSelectAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(R.layout.language_spinner_item, parent, false);
         }
 
-
         String lang = languageList[position];
-
 
         TextView textView = convertView.findViewById(R.id.language_spinner_item_name);
         textView.setText(lang);

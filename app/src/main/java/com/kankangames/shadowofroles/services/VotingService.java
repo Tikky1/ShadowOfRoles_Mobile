@@ -1,7 +1,7 @@
 package com.kankangames.shadowofroles.services;
 
 import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.AIPlayer;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
@@ -90,7 +90,7 @@ public final class VotingService {
 
 
             if(getMaxVoted()!=null){
-                gameService.getMessageService().sendMessage(LanguageManager.getInstance().getText("vote_execute")
+                gameService.getMessageService().sendMessage(TextManager.getInstance().getText("vote_execute")
                                 .replace("{playerName}", getMaxVoted().getName())
                                 .replace("{roleName}", getMaxVoted().getRole().getTemplate().getName()),
                         null, true, true);

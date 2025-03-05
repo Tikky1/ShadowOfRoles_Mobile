@@ -1,6 +1,6 @@
 package com.kankangames.shadowofroles.models.roles.abilities;
 
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.AbilityResult;
 import com.kankangames.shadowofroles.services.GameService;
@@ -16,7 +16,7 @@ public interface PerformAbility {
      */
     default AbilityResult defaultPerformAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
         if(!roleOwner.getRole().isCanPerform()&&!roleOwner.getRole().isImmune()){
-            gameService.getMessageService().sendAbilityMessage(LanguageManager.getInstance().getText("role_blocked_message"),roleOwner);
+            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("role_blocked_message"),roleOwner);
             return AbilityResult.ROLE_BLOCKED;
         }
 
@@ -39,7 +39,7 @@ public interface PerformAbility {
      */
     default AbilityResult performAbilityForPassiveRoles(Player roleOwner, GameService gameService){
         if(!roleOwner.getRole().isCanPerform()&&!roleOwner.getRole().isImmune()){
-            gameService.getMessageService().sendAbilityMessage(LanguageManager.getInstance().getText("role_blocked_message"),roleOwner);
+            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("role_blocked_message"),roleOwner);
             return AbilityResult.ROLE_BLOCKED;
         }
         return roleOwner.getRole().getTemplate().executeAbility(roleOwner, null, gameService);
@@ -86,7 +86,7 @@ public interface PerformAbility {
         }
 
         if(!roleOwner.getRole().isCanPerform()){
-            gameService.getMessageService().sendAbilityMessage(LanguageManager.getInstance().getText("role_blocked_message") ,roleOwner);
+            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("role_blocked_message") ,roleOwner);
             return AbilityResult.ROLE_BLOCKED;
         }
 

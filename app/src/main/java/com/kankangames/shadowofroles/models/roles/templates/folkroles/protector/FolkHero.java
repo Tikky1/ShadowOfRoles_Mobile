@@ -23,7 +23,7 @@ public final class FolkHero extends FolkRole {
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
         if(remainingAbilityCount > 0){
-            sendAbilityMessage(languageManager.getText("folkhero_ability_message") ,roleOwner, gameService.getMessageService());
+            sendAbilityMessage(textManager.getText("folkhero_ability_message") ,roleOwner, gameService.getMessageService());
             choosenPlayer.getRole().setImmune(true);
             remainingAbilityCount--;
             return AbilityResult.SUCCESSFUL;

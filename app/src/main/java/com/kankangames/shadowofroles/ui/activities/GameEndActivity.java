@@ -16,7 +16,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.services.GameService;
 import com.kankangames.shadowofroles.services.StartGameService;
@@ -142,7 +142,7 @@ public class GameEndActivity extends BaseActivity{
         if (winningTeam == null) {
             winnerTeamStr = getString(R.string.winner_draw);
         } else {
-            String teamKey =  LanguageManager.getInstance().enumToStringXmlPrefix(winningTeam.name(),"winner_team");
+            String teamKey =  TextManager.getInstance().enumToStringXmlPrefix(winningTeam.name(),"winner_team");
 
             int resId = getResources().getIdentifier(teamKey, "string", getPackageName());
 

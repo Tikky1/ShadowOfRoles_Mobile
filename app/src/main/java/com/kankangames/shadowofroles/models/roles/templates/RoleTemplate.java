@@ -1,6 +1,6 @@
 package com.kankangames.shadowofroles.models.roles.templates;
 
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.PerformAbility;
 import com.kankangames.shadowofroles.models.roles.enums.*;
@@ -21,7 +21,7 @@ public abstract class RoleTemplate implements PerformAbility {
     protected AbilityType abilityType;
     private final boolean hasNormalWinCondition;
 
-    protected final LanguageManager languageManager = LanguageManager.getInstance();
+    protected final TextManager textManager = TextManager.getInstance();
 
     public RoleTemplate(RoleID id, AbilityType abilityType, RolePriority rolePriority, RoleCategory roleCategory,
                         WinningTeam winningTeam, double attack ,double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
@@ -79,15 +79,15 @@ public abstract class RoleTemplate implements PerformAbility {
     }
 
     public final String getName() {
-        return languageManager.getTextSuffix(id.name(),"name");
+        return textManager.getTextSuffix(id.name(),"name");
     }
 
     public final String getAttributes() {
-        return languageManager.getTextSuffix(id.name(), "attributes");
+        return textManager.getTextSuffix(id.name(), "attributes");
     }
 
     public final String getAbilities() {
-        return languageManager.getTextSuffix(id.name(),"abilities");
+        return textManager.getTextSuffix(id.name(),"abilities");
     }
 
     public abstract String getGoal();
@@ -101,7 +101,7 @@ public abstract class RoleTemplate implements PerformAbility {
     }
 
     public final String getTeamText(){
-        return languageManager.getTextPrefix(winningTeam.getTeam().name(),"team");
+        return textManager.getTextPrefix(winningTeam.getTeam().name(),"team");
     }
 
     public final double getAttack() {

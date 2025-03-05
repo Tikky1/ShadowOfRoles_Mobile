@@ -1,6 +1,10 @@
 package com.kankangames.shadowofroles.models;
 
 
+import androidx.annotation.NonNull;
+
+import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 
 public class Message {
@@ -39,9 +43,13 @@ public class Message {
     }
 
     public String getTimeAndDayCountAsString(){
-        return  (isDay ? "Day:" : "Night:")+ dayCount;
+        TextManager textManager = TextManager.getInstance();
+        String timeStr = (isDay ? textManager.getText("day") : textManager.getText("night"));
+        timeStr = String.format(timeStr, dayCount);
+        return timeStr;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Message{" +

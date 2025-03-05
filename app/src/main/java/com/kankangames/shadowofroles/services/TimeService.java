@@ -1,6 +1,7 @@
 package com.kankangames.shadowofroles.services;
 
 import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.managers.TextManager;
 
 public final class TimeService {
     private int dayCount = 1;
@@ -33,7 +34,10 @@ public final class TimeService {
     }
 
     public String getTimeAndDay(){
-        return (time!=Time.NIGHT ? "Day: " : "Night: ") + dayCount;
+        TextManager textManager = TextManager.getInstance();
+        String timeStr = (time!=Time.NIGHT ? textManager.getText("day") : textManager.getText("night"));
+        timeStr = String.format(timeStr, dayCount);
+        return timeStr;
     }
 
 }

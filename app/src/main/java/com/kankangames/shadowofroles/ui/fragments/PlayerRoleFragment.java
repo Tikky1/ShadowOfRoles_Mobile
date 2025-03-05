@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.protector.FolkHero;
@@ -38,7 +38,7 @@ public class PlayerRoleFragment extends Fragment {
     private Player currentPlayer;
     private GameService gameService;
     private Time time;
-    private LanguageManager languageManager;
+    private TextManager textManager;
 
     @NonNull
     @Override
@@ -48,7 +48,7 @@ public class PlayerRoleFragment extends Fragment {
         gameService = StartGameService.getInstance().getGameService();
         time = gameService.getTimeService().getTime();
         currentPlayer = gameService.getCurrentPlayer();
-        languageManager = LanguageManager.getInstance();
+        textManager = TextManager.getInstance();
 
         setRoleInfoLayout(view);
         setChosenPlayerText(view);
@@ -229,14 +229,14 @@ public class PlayerRoleFragment extends Fragment {
             message = String.format(
                     context.getString(R.string.entrepreneur_selected) + " "
                             + context.getString(R.string.entrepreneur_expected_money)
-                    , languageManager.getTextPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
+                    , textManager.getTextPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
                     , (currentMoney - abilityMoney)
             );
         } else {
             message = String.format(
                     context.getString(R.string.entrepreneur_selected) +
                             context.getString(R.string.money_insufficient),
-                    languageManager.getTextPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
+                    textManager.getTextPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
             );
         }
         textView.setText(message);
