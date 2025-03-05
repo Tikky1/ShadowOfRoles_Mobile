@@ -177,13 +177,13 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="entrepreneur_attributes">You get 2 coins every day</string>
     <string name="entrepreneur_abilities">You have some money, you can get other people to do work with this money.</string>
     <string name="entrepreneur_current_money">Current Money: %d</string>
-    <string name="entrepreneur_expected_money">Expected Money: %d</string>
+    <string name="entrepreneur_expected_money">\nExpected Money: %d</string>
     <string name="money_insufficient">\nMoney insufficient</string>
     <string name="entrepreneur_selected">Selected Ability: %s</string>
     <string name="entrepreneur_attack">Attack</string>
     <string name="entrepreneur_heal">Heal</string>
     <string name="entrepreneur_info">Info</string>
-    <string name="entrepreneur_pass">Pass</string>
+    <string name="entrepreneur_none">Pass</string>
     <string name="entrepreneur_cost">Cost: %d</string>
     <string name="entrepreneur_kill_message">You have slain your target successfully</string>
     <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) has been slain by an Entrepreneur</string>

@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.managers.LanguageManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.protector.FolkHero;
@@ -37,6 +38,7 @@ public class PlayerRoleFragment extends Fragment {
     private Player currentPlayer;
     private GameService gameService;
     private Time time;
+    private LanguageManager languageManager;
 
     @NonNull
     @Override
@@ -46,6 +48,7 @@ public class PlayerRoleFragment extends Fragment {
         gameService = StartGameService.getInstance().getGameService();
         time = gameService.getTimeService().getTime();
         currentPlayer = gameService.getCurrentPlayer();
+        languageManager = LanguageManager.getInstance();
 
         setRoleInfoLayout(view);
         setChosenPlayerText(view);
@@ -193,22 +196,22 @@ public class PlayerRoleFragment extends Fragment {
         attackCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.ATTACK.getPrice()));
 
         infoBtn.setOnClickListener(v -> {
-            entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.INFO);
+            entrepreneur.setChosenAbility(Entrepreneur.ChosenAbility.INFO);
             entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
         });
 
         healBtn.setOnClickListener(v -> {
-            entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.HEAL);
+            entrepreneur.setChosenAbility(Entrepreneur.ChosenAbility.HEAL);
             entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
         });
 
         attackBtn.setOnClickListener(v -> {
-            entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.ATTACK);
+            entrepreneur.setChosenAbility(Entrepreneur.ChosenAbility.ATTACK);
             entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
         });
 
         passBtn.setOnClickListener(v -> {
-            entrepreneur.setAbilityState(Entrepreneur.ChosenAbility.NONE);
+            entrepreneur.setChosenAbility(Entrepreneur.ChosenAbility.NONE);
             entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
         });
 
@@ -217,22 +220,23 @@ public class PlayerRoleFragment extends Fragment {
 
     private void entrepreneurExpectedMoney(Entrepreneur entrepreneur, TextView textView){
         int currentMoney = entrepreneur.getMoney();
-        int abilityMoney = entrepreneur.getAbilityState().getPrice();
+        int abilityMoney = entrepreneur.getChosenAbility().getPrice();
 
         Context context = textView.getContext();
 
         String message;
         if (currentMoney >= abilityMoney) {
             message = String.format(
-                    context.getString(R.string.entrepreneur_selected) + " " +
-                            context.getString(R.string.entrepreneur_expected_money),
-                    entrepreneur.getAbilityState(), (currentMoney - abilityMoney)
+                    context.getString(R.string.entrepreneur_selected) + " "
+                            + context.getString(R.string.entrepreneur_expected_money)
+                    , languageManager.getTextPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
+                    , (currentMoney - abilityMoney)
             );
         } else {
             message = String.format(
                     context.getString(R.string.entrepreneur_selected) +
                             context.getString(R.string.money_insufficient),
-                    entrepreneur.getAbilityState()
+                    languageManager.getTextPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
             );
         }
         textView.setText(message);

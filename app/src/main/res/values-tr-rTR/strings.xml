@@ -176,13 +176,13 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="entrepreneur_attributes">Her gün 2 altın kazanırsınız</string>
     <string name="entrepreneur_abilities">Bir miktar paraya sahipsiniz, bu parayla başkalarından iş yapmalarını sağlayabilirsiniz.</string>
     <string name="entrepreneur_current_money">Mevcut Para: %d</string>
-    <string name="entrepreneur_expected_money">Beklenen Para: %d</string>
+    <string name="entrepreneur_expected_money">\nBeklenen Para: %d</string>
     <string name="money_insufficient">\nYetersiz para</string>
     <string name="entrepreneur_selected">Seçilen Yetenek: %s</string>
     <string name="entrepreneur_attack">Saldır</string>
     <string name="entrepreneur_heal">İyileştir</string>
     <string name="entrepreneur_info">Bilgi</string>
-    <string name="entrepreneur_pass">Geç</string>
+    <string name="entrepreneur_none">Geç</string>
     <string name="entrepreneur_cost">Maliyet: %d</string>
     <string name="entrepreneur_kill_message">Hedefinizi başarılı bir şekilde öldürdünüz</string>
     <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) bir Yatırımcı tarafından öldürüldü</string>

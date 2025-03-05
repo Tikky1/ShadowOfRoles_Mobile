@@ -14,12 +14,12 @@ import java.util.Random;
 
 public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackAbility, InvestigativeAbility, PriorityChangingRole {
     private int money;
-    private ChosenAbility abilityState;
+    private ChosenAbility chosenAbility;
     public Entrepreneur() {
         super(RoleID.Entrepreneur, AbilityType.ACTIVE_ALL, RolePriority.NONE,
                 RoleCategory.FOLK_UNIQUE, 1, 0, false);
         this.money = 5;
-        this.setAbilityState(ChosenAbility.NONE);
+        this.setChosenAbility(ChosenAbility.NONE);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
 
-        ChosenAbility chosenAbility = abilityState;
-        abilityState = ChosenAbility.NONE;
+        ChosenAbility chosenAbility = this.chosenAbility;
+        this.chosenAbility = ChosenAbility.NONE;
 
         switch (chosenAbility){
 
@@ -76,12 +76,13 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
         return new ChanceProperty(15, 1);
     }
 
-    public ChosenAbility getAbilityState() {
-        return abilityState;
+    public ChosenAbility getChosenAbility() {
+        return chosenAbility;
     }
 
-    public void setAbilityState(ChosenAbility abilityState) {
-        this.abilityState = abilityState;
+    public void setChosenAbility(ChosenAbility chosenAbility) {
+        this.chosenAbility = chosenAbility;
+        this.rolePriority = chosenAbility.rolePriority;
     }
 
     private AbilityResult gatherInfo(Player roleOwner, Player chosenPlayer, GameService gameService){
@@ -107,7 +108,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
     private AbilityResult insufficientMoney(Player roleOwner, GameService gameService){
         String message = languageManager.getText("entrepreneur_insufficient_money");
 
-        switch (abilityState){
+        switch (chosenAbility){
             case ATTACK: message = message
                     .replace("{abilityName}", languageManager.getText("entrepreneur_attack"));
                 break;
@@ -124,7 +125,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
 
     @Override
     public void changePriority() {
-        rolePriority = abilityState.rolePriority;
+        rolePriority = chosenAbility.rolePriority;
     }
 
 
@@ -151,7 +152,4 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
         return money;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
-    }
 }

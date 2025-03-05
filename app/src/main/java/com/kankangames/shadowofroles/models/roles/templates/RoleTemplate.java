@@ -79,15 +79,15 @@ public abstract class RoleTemplate implements PerformAbility {
     }
 
     public final String getName() {
-        return languageManager.getText(languageManager.enumToStringXml(id.name())+"_name");
+        return languageManager.getTextSuffix(id.name(),"name");
     }
 
     public final String getAttributes() {
-        return languageManager.getText( languageManager.enumToStringXml(id.name() + "_attributes"));
+        return languageManager.getTextSuffix(id.name(), "attributes");
     }
 
     public final String getAbilities() {
-        return languageManager.getText(languageManager.enumToStringXml(id.name())+"_abilities");
+        return languageManager.getTextSuffix(id.name(),"abilities");
     }
 
     public abstract String getGoal();
@@ -101,7 +101,7 @@ public abstract class RoleTemplate implements PerformAbility {
     }
 
     public final String getTeamText(){
-        return languageManager.getText("team_" + languageManager.enumToStringXml(winningTeam.getTeam().name()));
+        return languageManager.getTextPrefix(winningTeam.getTeam().name(),"team");
     }
 
     public final double getAttack() {

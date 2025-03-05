@@ -142,7 +142,7 @@ public class GameEndActivity extends BaseActivity{
         if (winningTeam == null) {
             winnerTeamStr = getString(R.string.winner_draw);
         } else {
-            String teamKey = "winner_team_" + LanguageManager.getInstance().enumToStringXml(winningTeam.name());
+            String teamKey =  LanguageManager.getInstance().enumToStringXmlPrefix(winningTeam.name(),"winner_team");
 
             int resId = getResources().getIdentifier(teamKey, "string", getPackageName());
 

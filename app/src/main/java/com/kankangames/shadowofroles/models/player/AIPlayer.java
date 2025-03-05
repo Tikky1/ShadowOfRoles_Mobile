@@ -95,7 +95,7 @@ public class AIPlayer extends Player {
         if (getRole().getTemplate() instanceof Entrepreneur) {
             Entrepreneur entrepreneur = (Entrepreneur) getRole().getTemplate();
             boolean randBool = new Random().nextBoolean();
-            entrepreneur.setAbilityState(randBool ? Entrepreneur.ChosenAbility.HEAL : Entrepreneur.ChosenAbility.ATTACK);
+            entrepreneur.setChosenAbility(randBool ? Entrepreneur.ChosenAbility.HEAL : Entrepreneur.ChosenAbility.ATTACK);
 
         } else if (getRole().getTemplate() instanceof Lorekeeper) {
             Lorekeeper lorekeeper = (Lorekeeper) getRole().getTemplate();

@@ -5,7 +5,6 @@ import com.kankangames.shadowofroles.managers.LanguageManager;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class DeathProperties {
@@ -27,7 +26,7 @@ public class DeathProperties {
 
     public String getDeathTimeAndDayCount(){
         LanguageManager languageManager = LanguageManager.getInstance();
-        String deathTimeStr = languageManager.getText(languageManager.enumToStringXml(deathTime.name()));
+        String deathTimeStr = languageManager.getTextEnum(deathTime.name());
 
         return String.format(deathTimeStr,dayCountOfDeath);
     }
@@ -35,7 +34,7 @@ public class DeathProperties {
     public final String getCausesOfDeathAsString(){
         LanguageManager languageManager = LanguageManager.getInstance();
         return causesOfDeath.stream()
-                .map(causeOfDeath->languageManager.getText("cause_of_death_"+languageManager.enumToStringXml(causeOfDeath.name())))
+                .map(causeOfDeath->languageManager.getTextPrefix(causeOfDeath.name(),"cause_of_death"))
                 .collect(Collectors.joining(", "));
     }
 

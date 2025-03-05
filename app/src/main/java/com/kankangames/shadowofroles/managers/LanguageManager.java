@@ -31,8 +31,10 @@ public class LanguageManager {
         return instance;
     }
 
-    public String enumToStringXml(String enumName) {
-        return enumName.toLowerCase(Locale.ROOT);
+    public String enumToStringXmlSuffix(String enumName, String suffix){
+        enumName = enumName.toLowerCase(Locale.ROOT);
+        enumName =String.format("%s_%s", enumName, suffix);
+        return enumName;
     }
 
     public void setLocale(String languageCode) {
@@ -64,6 +66,16 @@ public class LanguageManager {
         editor.apply();
     }
 
+    public String enumToStringXmlPrefix(String enumName, String prefix){
+        enumName = enumName.toLowerCase(Locale.ROOT);
+        enumName =String.format("%s_%s", prefix, enumName);
+        return enumName;
+    }
+
+    public String enumToStringXml(String enumName){
+        return enumName.toLowerCase(Locale.ROOT);
+    }
+
     public String getText(String key) {
         if (key == null || key.isEmpty()) {
             Log.w("LanguageManager", "Invalid key: null or empty");
@@ -78,6 +90,18 @@ public class LanguageManager {
             Log.w("LanguageManager", "String resource not found for key: " + key);
             return "Undefined: " + key;
         }
+    }
+
+    public String getTextPrefix(String enumName, String prefix){
+        return getText(enumToStringXmlPrefix(enumName, prefix));
+    }
+
+    public String getTextSuffix(String enumName, String prefix){
+        return getText(enumToStringXmlSuffix(enumName, prefix));
+    }
+
+    public String getTextEnum(String enumName){
+        return getText(enumToStringXml(enumName));
     }
 
     public Context updateBaseContext(Context baseContext) {
