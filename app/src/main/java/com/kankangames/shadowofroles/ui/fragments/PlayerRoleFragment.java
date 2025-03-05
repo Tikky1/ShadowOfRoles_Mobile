@@ -185,6 +185,7 @@ public class PlayerRoleFragment extends Fragment {
         TextView infoCostText = entrepreneurBox.findViewById(R.id.info_cost);
         TextView healCostText = entrepreneurBox.findViewById(R.id.heal_cost);
         TextView attackCostText = entrepreneurBox.findViewById(R.id.attack_cost);
+        TextView passCostText = entrepreneurBox.findViewById(R.id.pass_cost);
 
         entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
 
@@ -194,6 +195,7 @@ public class PlayerRoleFragment extends Fragment {
         infoCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.INFO.getPrice()));
         healCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.HEAL.getPrice()));
         attackCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.ATTACK.getPrice()));
+        passCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.NONE.getPrice()));
 
         infoBtn.setOnClickListener(v -> {
             entrepreneur.setChosenAbility(Entrepreneur.ChosenAbility.INFO);

@@ -180,10 +180,10 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="money_insufficient">\nYetersiz para</string>
     <string name="entrepreneur_selected">Seçilen Yetenek: %s</string>
     <string name="entrepreneur_attack">Saldır</string>
-    <string name="entrepreneur_heal">İyileştir</string>
+    <string name="entrepreneur_heal">Şifa</string>
     <string name="entrepreneur_info">Bilgi</string>
-    <string name="entrepreneur_none">Geç</string>
-    <string name="entrepreneur_cost">Maliyet: %d</string>
+    <string name="entrepreneur_none">Yok</string>
+    <string name="entrepreneur_cost">Ücret: %d</string>
     <string name="entrepreneur_kill_message">Hedefinizi başarılı bir şekilde öldürdünüz</string>
     <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) bir Yatırımcı tarafından öldürüldü</string>
 
