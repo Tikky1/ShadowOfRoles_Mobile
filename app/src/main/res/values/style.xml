@@ -12,6 +12,11 @@
 
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 
+
+    </style>
+
+    <style name="Launching" parent="FullscreenTheme">
+        <item name="android:windowBackground">@color/black</item>
     </style>
 
 </resources>

@@ -1,12 +1,16 @@
 package com.kankangames.shadowofroles.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kankangames.shadowofroles.ui.alerts.QuitAlert;
 import com.kankangames.shadowofroles.R;
@@ -16,6 +20,7 @@ public class MainActivity extends ImageChangingActivity {
 
     private ImageView backgroundImage;
 
+    private TextView versionTextView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +32,14 @@ public class MainActivity extends ImageChangingActivity {
         Button creditsBtn = findViewById(R.id.creditsBtn);
         Button quitBtn = findViewById(R.id.quitBtn);
         ImageButton settingsBtn = findViewById(R.id.settingsBtn);
-        ImageView cloudImage = findViewById(R.id.cloud_image_view);
+
+//        ImageView cloudImage = findViewById(R.id.cloud_image_view);
         backgroundImage = findViewById(R.id.backgroundImage);
+        versionTextView = findViewById(R.id.versionTextview);
+
+        version();
+
+
 
         // Click Listeners
         startGameBtn.setOnClickListener(v -> openActivity(PlayerNamesActivity.class));
@@ -50,12 +61,12 @@ public class MainActivity extends ImageChangingActivity {
             openActivity(SettingsActivity.class);
         });
 
-        backgroundImage.setImageDrawable(sceneManager.getCurrentImage());
-
-        Animation animationBackground = AnimationUtils.loadAnimation(this, R.anim.background_move);
-        getBackgroundImage().startAnimation(animationBackground);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.cloud_move);
-        cloudImage.startAnimation(animation);
+//        backgroundImage.setImageDrawable(sceneManager.getCurrentImage());
+//
+//        Animation animationBackground = AnimationUtils.loadAnimation(this, R.anim.background_move);
+//        getBackgroundImage().startAnimation(animationBackground);
+//        Animation animation = AnimationUtils.loadAnimation(this, R.anim.cloud_move);
+////        cloudImage.startAnimation(animation);
 
     }
 
@@ -68,6 +79,16 @@ public class MainActivity extends ImageChangingActivity {
     private void openActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         launcher.launch(intent);
+    }
+    private void version(){
+        try {
+            Context context = getApplicationContext();
+            String versionName = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0).versionName;
+            versionTextView.setText("Version: " + versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

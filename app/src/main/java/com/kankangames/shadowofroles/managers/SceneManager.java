@@ -10,7 +10,9 @@ import com.kankangames.shadowofroles.R;
 public class SceneManager {
     private static SceneManager instance;
     private final int[] images = {
-            R.drawable.nightbig
+            R.drawable.background0,
+            R.drawable.menu_day,
+            R.drawable.menu_night
     };
 
     private int currentIndex = 0;

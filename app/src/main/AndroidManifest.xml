@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/logopng"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/game_logo_round"
         android:supportsRtl="true"
@@ -16,7 +16,13 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/Launching">
+            <meta-data
+                android:name="android.windowSplashScreenBackground"
+                android:resource="@color/black"/> <!-- Arka plan rengini siyah yap -->
+            <meta-data
+                android:name="android.windowSplashScreenAnimatedIcon"
+                android:resource="@drawable/logopng"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
