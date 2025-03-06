@@ -52,6 +52,8 @@ public class MainActivity extends ImageChangingActivity {
 
         backgroundImage.setImageDrawable(sceneManager.getCurrentImage());
 
+        Animation animationBackground = AnimationUtils.loadAnimation(this, R.anim.background_move);
+        getBackgroundImage().startAnimation(animationBackground);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.cloud_move);
         cloudImage.startAnimation(animation);
 

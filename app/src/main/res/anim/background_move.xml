@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fromXDelta="30%p"
-    android:toXDelta="-130%p"
-    android:duration="20000"
+    android:fromXDelta="0%p"
+    android:toXDelta="-300%p"
+    android:duration="15000"
     android:repeatCount="infinite"
-    android:repeatMode="restart"/>
+    android:repeatMode="reverse"/>
