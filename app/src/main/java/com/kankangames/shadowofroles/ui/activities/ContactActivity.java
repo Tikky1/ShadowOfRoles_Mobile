@@ -22,8 +22,7 @@ public class ContactActivity extends BaseActivity {
         contactText.setText(R.string.contact_text);
 
         gitButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Tikky1/ShadowOfRoles_Mobile/issues"));
-            startActivity(intent);
+            openLink("https://github.com/Tikky1/ShadowOfRoles_Mobile/issues");
         });
 
         mailButton.setOnClickListener(v -> {
@@ -36,8 +35,12 @@ public class ContactActivity extends BaseActivity {
         });
 
         playStoreButton.setOnClickListener(v -> {
-
+            openLink("https://play.google.com/store/apps/details?id=com.kankangames.shadowofroles");
         });
 
+    }
+    private void openLink(String link){
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(intent);
     }
 }
