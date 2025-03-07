@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kankangames.shadowofroles.R;
 
-public class ContactActivity extends BaseActivity {
+public class ContactActivity extends ImageChangingActivity {
+    private ImageView backgroundImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +20,8 @@ public class ContactActivity extends BaseActivity {
         ImageButton gitButton = findViewById(R.id.gitBtn);
         ImageButton playStoreButton = findViewById(R.id.storeBtn);
         TextView contactText = findViewById(R.id.contactText);
+        backgroundImage = findViewById(R.id.contact_background_image);
+        backgroundImage.setImageDrawable(sceneManager.nextImage());
 
         contactText.setText(R.string.contact_text);
 
@@ -39,6 +43,12 @@ public class ContactActivity extends BaseActivity {
         });
 
     }
+
+    @Override
+    protected ImageView getBackgroundImage() {
+        return backgroundImage;
+    }
+
     private void openLink(String link){
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
         startActivity(intent);

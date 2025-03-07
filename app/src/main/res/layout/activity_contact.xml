@@ -6,7 +6,7 @@
              android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/backgroundImage2"
+        android:id="@+id/contact_background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage2"
+        app:layout_constraintTop_toTopOf="@+id/contact_background_image"
         app:srcCompat="@drawable/githublogo" />
 
     <ImageButton
@@ -57,10 +57,10 @@
         android:backgroundTint="#92FFFFFF"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundImage2"
+        app:layout_constraintEnd_toEndOf="@+id/contact_background_image"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage2"
+        app:layout_constraintTop_toTopOf="@+id/contact_background_image"
         app:srcCompat="@drawable/maillogo" />
 
     <TextView
@@ -75,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage2"
+        app:layout_constraintTop_toTopOf="@+id/contact_background_image"
         app:layout_constraintVertical_bias="0.185" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
