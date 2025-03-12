@@ -5,10 +5,11 @@ import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.models.player.properties.DeathProperties;
 import com.kankangames.shadowofroles.models.roles.Role;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class Player {
+public abstract class Player implements Serializable {
     private final int number;
     private final String name;
     private final DeathProperties deathProperties;

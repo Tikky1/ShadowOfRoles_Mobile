@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kankangames.shadowofroles.ui.activities.multidevice.MultiDeviceActivity;
 import com.kankangames.shadowofroles.ui.alerts.QuitAlert;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.GameGuideFragment;
@@ -27,6 +25,7 @@ public class MainActivity extends ImageChangingActivity {
         setContentView(R.layout.activity_main);
 
         Button startGameBtn = findViewById(R.id.startGameBtn);
+        Button multiDeviceBtn = findViewById(R.id.multiDeviceGameBtn);
         Button gameGuideBtn = findViewById(R.id.gameGuideBtn);
         Button contactBtn = findViewById(R.id.contactBtn);
         Button creditsBtn = findViewById(R.id.creditsBtn);
@@ -48,6 +47,7 @@ public class MainActivity extends ImageChangingActivity {
             GameGuideFragment gameGuideFragment = new GameGuideFragment();
             gameGuideFragment.show(getSupportFragmentManager(), getString(R.string.game_guide));
         });
+        multiDeviceBtn.setOnClickListener(v -> openActivity(MultiDeviceActivity.class));
         creditsBtn.setOnClickListener(v -> openActivity(CreditsActivity.class));
         quitBtn.setOnClickListener(v -> {
             QuitAlert quitAlert = new QuitAlert(()->{

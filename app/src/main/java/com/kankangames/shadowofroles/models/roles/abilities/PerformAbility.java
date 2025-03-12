@@ -3,7 +3,7 @@ package com.kankangames.shadowofroles.models.roles.abilities;
 import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.AbilityResult;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 public interface PerformAbility {
 
@@ -14,7 +14,7 @@ public interface PerformAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult defaultPerformAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
+    default AbilityResult defaultPerformAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
         if(!roleOwner.getRole().isCanPerform()&&!roleOwner.getRole().isImmune()){
             gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("role_blocked_message"),roleOwner);
             return AbilityResult.ROLE_BLOCKED;
@@ -37,7 +37,7 @@ public interface PerformAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult performAbilityForPassiveRoles(Player roleOwner, GameService gameService){
+    default AbilityResult performAbilityForPassiveRoles(Player roleOwner, BaseGameService gameService){
         if(!roleOwner.getRole().isCanPerform()&&!roleOwner.getRole().isImmune()){
             gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("role_blocked_message"),roleOwner);
             return AbilityResult.ROLE_BLOCKED;
@@ -52,7 +52,7 @@ public interface PerformAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult performAbilityForBlockImmuneRoles(Player roleOwner, Player choosenPlayer, GameService gameService){
+    default AbilityResult performAbilityForBlockImmuneRoles(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
 
         if(roleOwner.getRole().getChoosenPlayer()==null){
             return AbilityResult.NO_ONE_SELECTED;
@@ -79,7 +79,7 @@ public interface PerformAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult performAbilityForFolkHero(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    default AbilityResult performAbilityForFolkHero(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
 
         if(choosenPlayer==null){
             return AbilityResult.NO_ONE_SELECTED;

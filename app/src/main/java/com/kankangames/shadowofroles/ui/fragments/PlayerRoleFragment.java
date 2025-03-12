@@ -25,8 +25,9 @@ import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.protector.FolkHero;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.unique.Entrepreneur;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 import com.kankangames.shadowofroles.services.RoleService;
+import com.kankangames.shadowofroles.services.SingleDeviceGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.adapters.LorekeeperAdapter;
 
@@ -36,7 +37,7 @@ import java.util.Locale;
 public class PlayerRoleFragment extends Fragment {
 
     private Player currentPlayer;
-    private GameService gameService;
+    private BaseGameService gameService;
     private Time time;
     private TextManager textManager;
 
@@ -47,7 +48,11 @@ public class PlayerRoleFragment extends Fragment {
 
         gameService = StartGameService.getInstance().getGameService();
         time = gameService.getTimeService().getTime();
-        currentPlayer = gameService.getCurrentPlayer();
+
+        if(gameService instanceof SingleDeviceGameService){
+            SingleDeviceGameService singleDeviceGameService = (SingleDeviceGameService) gameService;
+            currentPlayer = singleDeviceGameService.getCurrentPlayer();
+        }
         textManager = TextManager.getInstance();
 
         setRoleInfoLayout(view);

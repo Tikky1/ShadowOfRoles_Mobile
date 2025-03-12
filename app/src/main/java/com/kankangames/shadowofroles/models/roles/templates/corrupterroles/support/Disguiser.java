@@ -9,7 +9,7 @@ import com.kankangames.shadowofroles.models.roles.templates.neutralroles.chaos.C
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.chaos.Clown;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 import com.kankangames.shadowofroles.services.RoleService;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public final class Disguiser extends CorrupterRole implements PriorityChangingRo
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         roleOwner.getRole().setAttack(currentRole.getAttack());
         return currentRole.executeAbility(roleOwner, choosenPlayer, gameService);
     }

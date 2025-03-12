@@ -4,7 +4,7 @@ import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.NeutralRole;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public final class Lorekeeper extends NeutralRole {
     }
 
     @Override
-    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         if(choosenPlayer == null){
             return AbilityResult.NO_ONE_SELECTED;
         }
@@ -33,7 +33,7 @@ public final class Lorekeeper extends NeutralRole {
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         alreadyChosenPlayers.add(choosenPlayer);
 
         if(choosenPlayer.getRole().getTemplate().getId() == guessedRole.getId()){

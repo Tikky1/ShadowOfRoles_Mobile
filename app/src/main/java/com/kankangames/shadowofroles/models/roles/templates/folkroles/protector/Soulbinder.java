@@ -4,7 +4,7 @@ import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.ProtectiveAbility;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.FolkRole;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 public final class Soulbinder extends FolkRole implements ProtectiveAbility {
     public Soulbinder() {
@@ -13,7 +13,7 @@ public final class Soulbinder extends FolkRole implements ProtectiveAbility {
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         return heal(roleOwner, choosenPlayer, gameService);
     }
 

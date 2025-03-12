@@ -10,8 +10,6 @@
 
     <!-- Background Image -->
 
-    <!-- Logo -->
-
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="wrap_content"
@@ -25,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background0" />
 
+    <!-- Logo -->
     <ImageView
         android:id="@+id/gameLogo"
         android:layout_width="match_parent"
@@ -62,6 +61,15 @@
             android:layout_margin="10dp"
             android:background="@drawable/button_style"
             android:text="@string/start_game"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/multiDeviceGameBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_style"
+            android:text="@string/multi_device"
             android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton

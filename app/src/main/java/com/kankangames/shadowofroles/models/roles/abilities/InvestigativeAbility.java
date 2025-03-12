@@ -4,7 +4,7 @@ import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.AbilityResult;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 import com.kankangames.shadowofroles.services.RoleService;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public interface InvestigativeAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult detectiveAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
+    default AbilityResult detectiveAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
         RoleTemplate randRole = RoleService.getRandomRole(choosenPlayer.getRole().getTemplate());
 
         boolean firstIsChosen = new Random().nextBoolean();
@@ -43,7 +43,7 @@ public interface InvestigativeAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult observerAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
+    default AbilityResult observerAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
         gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("observer_ability_message")
                         .replace("{teamName}", choosenPlayer.getRole().getTemplate().getWinningTeam().getTeam().name()),roleOwner);
         return AbilityResult.SUCCESSFUL;
@@ -56,7 +56,7 @@ public interface InvestigativeAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult stalkerAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
+    default AbilityResult stalkerAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
         String message;
         if(choosenPlayer.getRole().getChoosenPlayer()==null||!choosenPlayer.getRole().isCanPerform()){
             message = TextManager.getInstance().getText("stalker_ability_message_nobody");
@@ -77,7 +77,7 @@ public interface InvestigativeAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult darkRevealerAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
+    default AbilityResult darkRevealerAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
 
         String message = TextManager.getInstance().getText("darkrevealer_ability_message").replace("{roleName}",choosenPlayer.getRole().getTemplate().getName());
         gameService.getMessageService().sendAbilityMessage(message,roleOwner);
@@ -92,7 +92,7 @@ public interface InvestigativeAbility {
      * @param gameService
      * @return
      */
-    default AbilityResult darkSeerAbility(Player roleOwner, GameService gameService){
+    default AbilityResult darkSeerAbility(Player roleOwner, BaseGameService gameService){
 
         ArrayList<Player> players = new ArrayList<>(gameService.getAlivePlayers());
         players.remove(roleOwner);

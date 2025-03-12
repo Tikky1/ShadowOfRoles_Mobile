@@ -319,7 +319,11 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <!--Graveyard-->
     <string name="graveyard_death_time">Ölüm Zamanı: %s</string>
     <string name="causes_of_death">Ölüm Nedeni: %s</string>
+    <string name="multi_device">Çoklu Cihaz</string>
 
+    <!--MultiPlayer-->
+    <string name="host_game">Oyun Kur</string>
+    <string name="join_game">Oyuna Katıl</string>
 
 
 </resources>

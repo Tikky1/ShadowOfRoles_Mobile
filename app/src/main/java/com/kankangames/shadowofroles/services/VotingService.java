@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class VotingService {
-    private final GameService gameService;
+    private final BaseGameService gameService;
     private HashMap<Player,Player> votes = new HashMap<>();
     private Player maxVoted;
     private int maxVote;
 
-    public VotingService(GameService gameService) {
+    public VotingService(BaseGameService gameService) {
         this.gameService = gameService;
     }
 

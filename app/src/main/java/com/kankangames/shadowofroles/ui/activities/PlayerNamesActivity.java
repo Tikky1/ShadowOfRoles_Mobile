@@ -87,7 +87,6 @@ public class PlayerNamesActivity extends ImageChangingActivity{
         });
 
         startGameBtn.setOnClickListener(v -> {
-
             int playerCount = startGameService.getPlayerCount();
             ArrayList<Player> players = new ArrayList<>(playerCount);
 
@@ -118,7 +117,7 @@ public class PlayerNamesActivity extends ImageChangingActivity{
 
             startGameService.initializeGameService(players);
 
-            Intent intent = new Intent(this, GameActivity.class);
+            Intent intent = new Intent(this, SingleDeviceGameActivity.class);
             startActivity(intent);
         });
 

@@ -5,13 +5,13 @@ import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.AbilityResult;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 import java.util.Locale;
 
 public interface AttackAbility {
 
-    default AbilityResult attack(Player roleOwner, Player choosenPlayer, GameService gameService, CauseOfDeath causeOfDeath){
+    default AbilityResult attack(Player roleOwner, Player choosenPlayer, BaseGameService gameService, CauseOfDeath causeOfDeath){
         TextManager textManager = TextManager.getInstance();
         if(roleOwner.getRole().getAttack() > choosenPlayer.getRole().getDefence()){
 

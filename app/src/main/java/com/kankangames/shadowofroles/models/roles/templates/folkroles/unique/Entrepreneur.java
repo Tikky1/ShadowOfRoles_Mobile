@@ -8,7 +8,7 @@ import com.kankangames.shadowofroles.models.roles.abilities.ProtectiveAbility;
 import com.kankangames.shadowofroles.models.roles.abilities.InvestigativeAbility;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.FolkRole;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 import java.util.Random;
 
@@ -23,7 +23,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
     }
 
     @Override
-    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
 
         if(gameService.getTimeService().getDayCount()>1){
             money += 2; //Passive income
@@ -33,7 +33,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
 
         ChosenAbility chosenAbility = this.chosenAbility;
         this.chosenAbility = ChosenAbility.NONE;
@@ -85,7 +85,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
         this.rolePriority = chosenAbility.rolePriority;
     }
 
-    private AbilityResult gatherInfo(Player roleOwner, Player chosenPlayer, GameService gameService){
+    private AbilityResult gatherInfo(Player roleOwner, Player chosenPlayer, BaseGameService gameService){
         switch (new Random().nextInt(5)){
             case 0: {
                 return darkSeerAbility(roleOwner, gameService);
@@ -105,7 +105,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
         }
     }
 
-    private AbilityResult insufficientMoney(Player roleOwner, GameService gameService){
+    private AbilityResult insufficientMoney(Player roleOwner, BaseGameService gameService){
         String message = textManager.getText("entrepreneur_insufficient_money");
 
         switch (chosenAbility){

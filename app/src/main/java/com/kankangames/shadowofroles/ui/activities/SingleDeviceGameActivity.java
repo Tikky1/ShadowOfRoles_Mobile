@@ -21,7 +21,7 @@ import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.managers.GameScreenImageManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.AbilityType;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.SingleDeviceGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.alerts.GoToMainAlert;
 import com.kankangames.shadowofroles.ui.fragments.RoleBookFragment;
@@ -32,9 +32,9 @@ import com.kankangames.shadowofroles.ui.fragments.fullscreen.PassTurnFragment;
 
 import java.util.Locale;
 
-public class GameActivity extends BaseActivity{
+public class SingleDeviceGameActivity extends BaseActivity{
 
-    private GameService gameService;
+    private SingleDeviceGameService gameService;
     private RecyclerView alivePlayersView;
 
     private TextView timeText;
@@ -55,7 +55,7 @@ public class GameActivity extends BaseActivity{
 
         setContentView(R.layout.activity_game);
 
-        gameService = StartGameService.getInstance().getGameService();
+        gameService = (SingleDeviceGameService) StartGameService.getInstance().getGameService();
 
         initializeViews();
 
@@ -70,12 +70,13 @@ public class GameActivity extends BaseActivity{
             @Override
             public void handleOnBackPressed() {
                 GoToMainAlert goToMainAlert = new GoToMainAlert(()->{
-                    Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SingleDeviceGameActivity.this, MainActivity.class);
                     startActivity(intent);
                 });
                 goToMainAlert.show(getSupportFragmentManager(), getString(R.string.go_back_to_main_menu));
             }
         });
+
 
     }
 

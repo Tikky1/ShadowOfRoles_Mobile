@@ -4,7 +4,7 @@ import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.PerformAbility;
 import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 import com.kankangames.shadowofroles.services.MessageService;
 
 import java.util.Objects;
@@ -61,8 +61,8 @@ public abstract class RoleTemplate implements PerformAbility {
         }
     }
 
-    public abstract AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService);
-    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, GameService gameService){
+    public abstract AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService);
+    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
         return defaultPerformAbility(roleOwner,choosenPlayer,gameService);
     }
 

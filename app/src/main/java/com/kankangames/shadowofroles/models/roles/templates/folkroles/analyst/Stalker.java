@@ -4,7 +4,7 @@ import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.InvestigativeAbility;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.FolkRole;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 public final class Stalker extends FolkRole implements InvestigativeAbility {
 
@@ -14,7 +14,7 @@ public final class Stalker extends FolkRole implements InvestigativeAbility {
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         return stalkerAbility(roleOwner, choosenPlayer, gameService);
     }
 

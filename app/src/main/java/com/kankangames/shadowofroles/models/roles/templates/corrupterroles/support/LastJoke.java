@@ -5,7 +5,7 @@ import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.AttackAbility;
 import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.CorrupterRole;
 import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 public final class LastJoke extends CorrupterRole implements AttackAbility {
     private boolean didUsedAbility;
@@ -16,12 +16,12 @@ public final class LastJoke extends CorrupterRole implements AttackAbility {
     }
 
     @Override
-    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         return executeAbility(roleOwner,choosenPlayer, gameService);
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         if(!didUsedAbility && !roleOwner.getDeathProperties().isAlive()){
             didUsedAbility = true;
 

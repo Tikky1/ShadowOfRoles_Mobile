@@ -3,7 +3,7 @@ package com.kankangames.shadowofroles.models.roles.templates.folkroles.protector
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.FolkRole;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 public final class FolkHero extends FolkRole {
 
@@ -16,12 +16,12 @@ public final class FolkHero extends FolkRole {
     }
 
     @Override
-    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         return performAbilityForFolkHero(roleOwner, choosenPlayer, gameService);
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         if(remainingAbilityCount > 0){
             sendAbilityMessage(textManager.getText("folkhero_ability_message") ,roleOwner, gameService.getMessageService());
             choosenPlayer.getRole().setImmune(true);

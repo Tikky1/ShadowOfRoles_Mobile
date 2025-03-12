@@ -13,7 +13,7 @@ public final class StartGameService {
     private static StartGameService instance;
     private int playerCount = MIN_PLAYER_COUNT;
 
-    private GameService gameService;
+    private BaseGameService gameService;
 
 
     public static StartGameService getInstance(){
@@ -35,7 +35,7 @@ public final class StartGameService {
         for(int i=0;i<players.size();i++){
             players.get(i).setRole(new Role(roles.get(i)));
         }
-        this.gameService = new GameService(players);
+        this.gameService = new SingleDeviceGameService(players);
     }
     public int increasePlayerCount(){
         if(playerCount<MAX_PLAYER_COUNT){
@@ -59,7 +59,7 @@ public final class StartGameService {
         playerCount = MAX_PLAYER_COUNT;
     }
 
-    public GameService getGameService() {
+    public BaseGameService getGameService() {
         return gameService;
     }
 

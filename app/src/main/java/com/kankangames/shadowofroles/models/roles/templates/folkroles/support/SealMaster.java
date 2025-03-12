@@ -4,7 +4,7 @@ import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.RoleBlockAbility;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.FolkRole;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 public final class SealMaster extends FolkRole implements RoleBlockAbility {
     public SealMaster() {
@@ -13,13 +13,13 @@ public final class SealMaster extends FolkRole implements RoleBlockAbility {
     }
 
     @Override
-    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
 
         return performAbilityForBlockImmuneRoles(roleOwner, choosenPlayer, gameService);
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         return roleBlock(choosenPlayer);
     }
 

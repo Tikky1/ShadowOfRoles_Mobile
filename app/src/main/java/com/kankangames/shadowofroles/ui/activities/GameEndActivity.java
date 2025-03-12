@@ -18,7 +18,7 @@ import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
 import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.ChillGuyFragment;
 
@@ -33,7 +33,7 @@ public class GameEndActivity extends BaseActivity{
     private TextView winnerTeamText;
     private ImageView winnerTeamImage;
 
-    private GameService gameService;
+    private BaseGameService gameService;
 
     private WinningTeam winningTeam;
 

@@ -16,13 +16,13 @@ import java.util.TreeSet;
 
 public final class FinishGameService {
 
-    private final GameService gameService;
+    private final BaseGameService gameService;
 
     private final TreeSet<WinningTeam> winningTeams = new TreeSet<>(Comparator.comparing(WinningTeam::getPriority));
 
     private boolean isGameFinished = false;
     private Player chillGuyPlayer = null;
-    FinishGameService(GameService gameService){
+    FinishGameService(BaseGameService gameService){
         this.gameService = gameService;
 
     }

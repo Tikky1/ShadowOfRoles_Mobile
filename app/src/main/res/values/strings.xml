@@ -319,8 +319,9 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <!--Graveyard-->
     <string name="graveyard_death_time">Death Time: %s</string>
     <string name="causes_of_death">Causes of death: %s</string>
-
-
+    <string name="multi_device">Multi Device</string>
+    <string name="host_game">Host Game</string>
+    <string name="join_game">Join Game</string>
 
 
 </resources>

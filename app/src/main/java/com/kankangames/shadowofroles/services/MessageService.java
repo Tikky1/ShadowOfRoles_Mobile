@@ -9,10 +9,10 @@ import com.kankangames.shadowofroles.models.roles.enums.RolePriority;
 import java.util.LinkedList;
 
 public final class MessageService {
-    private final GameService gameService;
+    private final BaseGameService gameService;
     private final LinkedList<Message> messages = new LinkedList<>();
 
-    MessageService(GameService gameService){
+    MessageService(BaseGameService gameService){
         this.gameService = gameService;
     }
     public void resetMessages() {

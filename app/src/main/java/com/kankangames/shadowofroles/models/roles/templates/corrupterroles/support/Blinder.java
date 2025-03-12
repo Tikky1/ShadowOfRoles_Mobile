@@ -3,7 +3,7 @@ package com.kankangames.shadowofroles.models.roles.templates.corrupterroles.supp
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.CorrupterRole;
 import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.services.GameService;
+import com.kankangames.shadowofroles.services.BaseGameService;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,7 +14,7 @@ public final class Blinder extends CorrupterRole{
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, GameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         String message = textManager.getText("blinder_ability_message");
         sendAbilityMessage(message,roleOwner, gameService.getMessageService());
         ArrayList<Player> players = new ArrayList<>(gameService.getAlivePlayers());
