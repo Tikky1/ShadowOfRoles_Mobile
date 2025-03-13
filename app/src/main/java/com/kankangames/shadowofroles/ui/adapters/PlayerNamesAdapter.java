@@ -2,11 +2,9 @@ package com.kankangames.shadowofroles.ui.adapters;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -81,7 +79,7 @@ public class PlayerNamesAdapter extends RecyclerView.Adapter<PlayerNamesAdapter.
 
         public ViewHolderPlayerNames(@NonNull View itemView) {
             super(itemView);
-            playerName = itemView.findViewById(R.id.start_player_name);
+            playerName = itemView.findViewById(R.id.online_player_name);
             isAICheckBox = itemView.findViewById(R.id.is_player_ai_checkbox);
 
             ViewGroup.LayoutParams params = itemView.getLayoutParams();

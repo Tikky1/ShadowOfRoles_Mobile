@@ -17,7 +17,7 @@ import java.util.List;
 
 public class GameLobbyActivity extends BaseActivity {
 
-    private ArrayList<String> playerList;
+    private List<String> playerList;
     private ArrayAdapter<String> playerAdapter;
     private Client client;
 
@@ -33,10 +33,12 @@ public class GameLobbyActivity extends BaseActivity {
         playerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, playerList);
         playersView.setAdapter(playerAdapter);
 
-        client = ClientManager.getInstance().getClient();
-        //client.requestPlayerList();
+        ClientManager clientManager = ClientManager.getInstance();
+        client = clientManager.getClient();
         client.setOnJoinedLobbyListener(this::initializePlayerList);
         client.setOnPlayerJoinListener(this::updatePlayerList);
+        client.connectToServer(clientManager.getIp());
+
     }
 
     private void updatePlayerList(String newPlayer) {
@@ -47,10 +49,8 @@ public class GameLobbyActivity extends BaseActivity {
     }
 
     private void initializePlayerList(List<String> players){
-        playerList = (ArrayList<String>) players;
-        runOnUiThread(() ->{
-            playerAdapter.notifyDataSetChanged();
-        });
+        playerList = players;
+        runOnUiThread(() -> playerAdapter.notifyDataSetChanged());
 
     }
 }

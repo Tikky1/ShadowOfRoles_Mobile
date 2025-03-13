@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MultiDeviceActivity extends BaseActivity {
+public class ListOnlineGamesActivity extends BaseActivity {
     private final ArrayList<String> displayedDeviceNames = new ArrayList<>(); // ListView için
     private final Map<String, String> deviceNameToIpMap = new HashMap<>(); // Cihaz adı -> IP eşlemesi
     private ArrayAdapter<String> adapter;
@@ -30,40 +30,13 @@ public class MultiDeviceActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multi_device);
+        setContentView(R.layout.activity_list_online_games);
 
         ListView activeGamesView = findViewById(R.id.active_games_recycler_view);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayedDeviceNames);
         activeGamesView.setAdapter(adapter);
 
-        Button joinGameBtn = findViewById(R.id.join_game_btn);
-        Button hostGameBtn = findViewById(R.id.host_game_btn);
-        Button refreshBtn = findViewById(R.id.refreshButton);
-
-        // Server aramayı başlat
         startServerDiscovery();
-
-        joinGameBtn.setOnClickListener(v -> {
-            if (!displayedDeviceNames.isEmpty()) {
-                String selectedDevice = displayedDeviceNames.get(0); // İlk sunucuya bağlan
-                connectToServer(selectedDevice);
-            } else {
-                Toast.makeText(this, "Bağlanılacak sunucu bulunamadı!", LENGTH_SHORT).show();
-            }
-        });
-
-        hostGameBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, GameHostingActivity.class);
-            startActivity(intent);
-        });
-
-        refreshBtn.setOnClickListener(v -> {
-            displayedDeviceNames.clear();
-            deviceNameToIpMap.clear();
-            adapter.notifyDataSetChanged();
-            startServerDiscovery();
-            Toast.makeText(this, "Ağ taranıyor...", LENGTH_SHORT).show();
-        });
 
         activeGamesView.setOnItemClickListener((parent, view, position, id) -> {
             String selectedDevice = displayedDeviceNames.get(position);
@@ -72,7 +45,7 @@ public class MultiDeviceActivity extends BaseActivity {
     }
 
     private void startServerDiscovery() {
-        client = new Client();
+        client = ClientManager.getInstance().getClient();
         client.discoverServers();
 
         new Thread(() -> {
@@ -111,7 +84,7 @@ public class MultiDeviceActivity extends BaseActivity {
         try {
             return InetAddress.getByName(ip).getHostName();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
             return ip; // Eğer hata olursa IP’yi göster
         }
     }
@@ -119,9 +92,8 @@ public class MultiDeviceActivity extends BaseActivity {
     private void connectToServer(String deviceName) {
         String serverIp = deviceNameToIpMap.get(deviceName); // Cihaz adına karşılık gelen IP'yi al
         if (serverIp != null) {
-            String playerName = "Player_" + (int) (Math.random() * 100);
-            client.connectToServer(serverIp, playerName);
-            ClientManager.getInstance().setClient(client);
+            ClientManager clientManager = ClientManager.getInstance();
+            clientManager.setIp(serverIp);
             Intent intent = new Intent(this,GameLobbyActivity.class);
             startActivity(intent);
             Toast.makeText(this, "Sunucuya bağlanılıyor: " + serverIp, LENGTH_SHORT).show();

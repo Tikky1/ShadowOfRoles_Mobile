@@ -324,6 +324,7 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <!--MultiPlayer-->
     <string name="host_game">Oyun Kur</string>
     <string name="join_game">Oyuna Katıl</string>
+    <string name="player_name_hint">Oyuncu Adı:</string>
 
 
 </resources>

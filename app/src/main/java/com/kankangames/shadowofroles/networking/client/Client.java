@@ -21,8 +21,10 @@ public class Client {
     private OnServerFoundListener onServerFoundListener;
     private OnJoinedLobbyListener onJoinedLobbyListener;
     private final String ip;
+    private final String name;
 
-    public Client() {
+    public Client(String name) {
+        this.name = name;
         ip = NetworkManager.getIp();
     }
 
@@ -37,53 +39,44 @@ public class Client {
                     socket.receive(packet);
 
                     String message = new String(packet.getData(), 0, packet.getLength());
-                    System.out.println("mesaj alındı: " + message);
+
                     if (message.startsWith("ShadowOfRolesServer:")) {
                         String serverIp = message.split(":")[1];
 
                         if (!discoveredServers.contains(serverIp)) {
                             discoveredServers.add(serverIp);
-                            System.out.println("Bulunan Sunucu: " + serverIp);
-
-                            if(onServerFoundListener !=null) onServerFoundListener.onServerFound(serverIp);
+                            if (onServerFoundListener != null) onServerFoundListener.onServerFound(serverIp);
                         }
                     }
-                    receivePlayersList(message);
-
                 }
             } catch (IOException e) {
-                e.fillInStackTrace();
+                e.printStackTrace();
             }
         }).start();
     }
 
-    public void connectToServer(String serverIp, String playerName) {
+    public void connectToServer(String serverIp) {
         new Thread(() -> {
             try {
                 socket = new Socket(serverIp, SERVER_PORT);
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-                out.println(ip);
+                out.println("IP_NAME:" + ip + ":" + name);
                 connected = true;
-                System.out.println("Sunucuya bağlandınız: " + serverIp);
 
                 // Sunucudan gelen mesajları dinle
                 String message;
                 while ((message = in.readLine()) != null) {
-                    System.out.println("Sunucu: " + message);
+                    receivePlayersList(message);
 
-                    // Eğer mesaj "katıldı" içeriyorsa yeni oyuncu eklenmiştir
-                    if (message.contains("katıldı!")) {
-                        String newPlayer = message.replace(" katıldı!", "").trim();
+                    if (message.contains("PLAYER_JOINED:")) {
+                        String newPlayer = message.split(":")[1];
                         if (onOtherPlayerJoinListener != null) onOtherPlayerJoinListener.onOtherPlayerJoin(newPlayer);
-                       // if (onJoinedLobbyListener != null) onJoinedLobbyListener.onJoinedLobby();
-
                     }
                 }
-
             } catch (IOException e) {
-                e.fillInStackTrace();
+                e.printStackTrace();
             }
         }).start();
     }
@@ -96,15 +89,16 @@ public class Client {
         }).start();
     }
 
-    private void receivePlayersList(String message){
+    private void receivePlayersList(String message) {
         if (message.startsWith("PLAYERS:")) {
-            System.out.println("players received: " + message);
             String[] playerNames = message.replace("PLAYERS:", "").split(",");
+
             if (onJoinedLobbyListener != null) {
                 onJoinedLobbyListener.onJoinedLobby(List.of(playerNames));
             }
         }
     }
+
     public List<String> getDiscoveredServers() {
         return discoveredServers;
     }
@@ -119,5 +113,9 @@ public class Client {
 
     public void setOnJoinedLobbyListener(OnJoinedLobbyListener onJoinedLobbyListener) {
         this.onJoinedLobbyListener = onJoinedLobbyListener;
+    }
+
+    public String getName() {
+        return name;
     }
 }

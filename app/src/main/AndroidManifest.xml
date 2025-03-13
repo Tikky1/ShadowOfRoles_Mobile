@@ -43,13 +43,15 @@
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.SettingsActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".ui.activities.multidevice.MultiDeviceActivity"
+        <activity android:name=".ui.activities.multidevice.ListOnlineGamesActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.multidevice.MultipleDeviceGameActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.multidevice.GameHostingActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.multidevice.GameLobbyActivity"
+            android:theme="@style/FullscreenTheme"/>
+        <activity android:name=".ui.activities.multidevice.OnlineSelectionActivity"
             android:theme="@style/FullscreenTheme">
 
         </activity>

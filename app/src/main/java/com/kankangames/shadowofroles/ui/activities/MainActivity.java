@@ -9,7 +9,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kankangames.shadowofroles.ui.activities.multidevice.MultiDeviceActivity;
+import com.kankangames.shadowofroles.ui.activities.multidevice.ListOnlineGamesActivity;
+import com.kankangames.shadowofroles.ui.activities.multidevice.OnlineSelectionActivity;
 import com.kankangames.shadowofroles.ui.alerts.QuitAlert;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.GameGuideFragment;
@@ -47,7 +48,7 @@ public class MainActivity extends ImageChangingActivity {
             GameGuideFragment gameGuideFragment = new GameGuideFragment();
             gameGuideFragment.show(getSupportFragmentManager(), getString(R.string.game_guide));
         });
-        multiDeviceBtn.setOnClickListener(v -> openActivity(MultiDeviceActivity.class));
+        multiDeviceBtn.setOnClickListener(v -> openActivity(OnlineSelectionActivity.class));
         creditsBtn.setOnClickListener(v -> openActivity(CreditsActivity.class));
         quitBtn.setOnClickListener(v -> {
             QuitAlert quitAlert = new QuitAlert(()->{

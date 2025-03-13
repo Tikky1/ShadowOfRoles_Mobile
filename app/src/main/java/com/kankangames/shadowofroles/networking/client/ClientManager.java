@@ -3,6 +3,7 @@ package com.kankangames.shadowofroles.networking.client;
 public class ClientManager {
     private static ClientManager instance;
     private Client client;
+    private String ip;
 
     private ClientManager() {} // Private constructor
 
@@ -19,5 +20,13 @@ public class ClientManager {
 
     public Client getClient() {
         return client;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

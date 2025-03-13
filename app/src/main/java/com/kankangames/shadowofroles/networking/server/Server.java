@@ -1,5 +1,7 @@
 package com.kankangames.shadowofroles.networking.server;
 
+import android.util.Log;
+
 import com.kankangames.shadowofroles.networking.NetworkManager;
 import com.kankangames.shadowofroles.networking.listeners.OnOtherPlayerJoinListener;
 
@@ -15,12 +17,16 @@ public class Server {
     private ServerSocket serverSocket;
     private boolean running = false;
     private OnOtherPlayerJoinListener onOtherPlayerJoinListener;
+
+    public Server(OnOtherPlayerJoinListener onOtherPlayerJoinListener) {
+        this.onOtherPlayerJoinListener = onOtherPlayerJoinListener;
+    }
+
     public void startServer() {
         new Thread(() -> {
             try {
                 serverSocket = new ServerSocket(PORT);
                 running = true;
-                System.out.println("Server başlatıldı. Bekleniyor...");
 
                 // UDP Broadcast başlat
                 startUdpBroadcast();
@@ -28,21 +34,22 @@ public class Server {
                 while (running) {
                     Socket clientSocket = serverSocket.accept();
 
-
-                    System.out.println("Yeni istemci bağlandı: " + clientSocket.getInetAddress());
-
                     ClientHandler clientHandler = new ClientHandler(clientSocket, this);
-                    String clientName = clientHandler.getClientName();
+                    Thread clientThread = new Thread(clientHandler);
+                    clientThread.start();
+                    clients.add(clientHandler);
                     String message = "PLAYERS:" + clients.stream().map(ClientHandler::getClientName).collect(Collectors.joining(","));
                     broadcastMessage(message);
+                    String lastName = clientHandler.getClientName();
+
+                    if (onOtherPlayerJoinListener != null){
+                        onOtherPlayerJoinListener.onOtherPlayerJoin(lastName);
+                    }
                     System.out.println(message);
 
-                    clients.add(clientHandler);
-                    if(onOtherPlayerJoinListener != null) onOtherPlayerJoinListener.onOtherPlayerJoin(clientHandler.toString());
-                    new Thread(clientHandler).start();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                e.fillInStackTrace();
             }
         }).start();
     }
@@ -57,17 +64,6 @@ public class Server {
                 while (running) {
                     String message = "ShadowOfRolesServer:" + localIp;
                     byte[] buffer = message.getBytes();
-
-                    for (ClientHandler clientHandler : clients) {
-                        String clientIp = clientHandler.getClientName();
-                        // Eğer istemci zaten bağlıysa, ona yayın yapma
-//                        if (clientIp.equals(localIp)) {
-//                            continue;
-//                        }
-                        InetAddress clientAddress = InetAddress.getByName(clientIp);
-
-                        System.out.println("Sunucu duyurusu yapıldı: " + message + " -> " + clientIp);
-                    }
 
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length, broadcastAddress, UDP_PORT);
                     socket.send(packet);

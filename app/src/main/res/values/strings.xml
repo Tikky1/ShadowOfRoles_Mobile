@@ -323,5 +323,7 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="host_game">Host Game</string>
     <string name="join_game">Join Game</string>
 
+    <string name="player_name_hint">Player Name:</string>
+
 
 </resources>

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
+import com.kankangames.shadowofroles.networking.listeners.OnOtherPlayerJoinListener;
 import com.kankangames.shadowofroles.networking.server.Server;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 
@@ -20,7 +21,6 @@ public class GameHostingActivity extends BaseActivity {
     private ArrayAdapter<String> playerAdapter;
     private Server server;
     private Client client;
-    private final String playerName = "Host_" + (int) (Math.random() * 100);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +34,25 @@ public class GameHostingActivity extends BaseActivity {
         playerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, playerList);
         playersView.setAdapter(playerAdapter);
 
-        // Sunucuyu başlat
         startServer();
 
-        // Sunucu cihazını istemci olarak da bağla
-        connectToServer("localhost");
+        connectToServer();
 
         startGameBtn.setOnClickListener(v -> Toast.makeText(this, "Oyun başlatılıyor...", Toast.LENGTH_SHORT).show());
     }
 
     private void startServer() {
-        server = new Server();
-        server.setOnPlayerJoinListener(playerName1 -> {
-            updatePlayerList(playerName1);
-            playerAdapter.notifyDataSetChanged();
-        });
+
+        OnOtherPlayerJoinListener onOtherPlayerJoinListener = this::updatePlayerList;
+        server = new Server(onOtherPlayerJoinListener);
 
         server.startServer();
         runOnUiThread(() -> Toast.makeText(this, "Sunucu başlatıldı", Toast.LENGTH_SHORT).show());
     }
 
-    private void connectToServer(String serverIp) {
-        client = new Client();
-        client.connectToServer(serverIp, playerName);
-        updatePlayerList(playerName);
+    private void connectToServer() {
+        client = ClientManager.getInstance().getClient();
+        client.connectToServer("localhost");
     }
 
     private void updatePlayerList(String newPlayer) {

@@ -7,7 +7,7 @@
 
     <!-- Player Name EditText -->
     <EditText
-        android:id="@+id/start_player_name"
+        android:id="@+id/online_player_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -35,7 +35,7 @@
         android:buttonTint="@color/white"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/start_player_name"
+        app:layout_constraintStart_toEndOf="@id/online_player_name"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"  />
 

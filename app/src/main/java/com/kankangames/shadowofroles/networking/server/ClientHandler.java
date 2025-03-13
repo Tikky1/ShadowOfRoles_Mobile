@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Random;
 
@@ -18,6 +19,7 @@ public class ClientHandler implements Runnable {
     private BufferedReader in;
     private final Server server;
     private String clientName;
+    private String clientIp;
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
@@ -30,15 +32,20 @@ public class ClientHandler implements Runnable {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
 
-            clientName = in.readLine();
-            System.out.println(clientName + " bağlandı.");
+            String received = in.readLine();
+            if(received.startsWith("IP_NAME:")){
+                String[] inArr = received.split(":");
+                clientIp = inArr[1];
+                clientName = inArr[2];
 
-            server.broadcastMessage(clientName + " oyuna katıldı!");
+            }
+
+
+            server.broadcastMessage("PLAYER_JOINED:" + clientIp);
 
             String message;
             while ((message = in.readLine()) != null) {
-                System.out.println(clientName + ": " + message);
-                server.broadcastMessage(clientName + ": " + message);
+                server.broadcastMessage(clientIp + ": " + message);
             }
         } catch (IOException e) {
             e.fillInStackTrace();
@@ -58,11 +65,12 @@ public class ClientHandler implements Runnable {
     }
 
     public String getClientName() {
-        if(clientName!=null) return clientName;
+        if(clientName!=null&&!clientName.isEmpty()) return clientName;
         return "Player_" + new Random().nextInt(100);
     }
 
-
-
+    String getClientIp(){
+        return clientIp;
+    }
 
 }
