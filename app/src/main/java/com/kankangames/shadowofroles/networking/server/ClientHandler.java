@@ -4,13 +4,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.Random;
 
 public class ClientHandler implements Runnable {
     private final Socket socket;
     private PrintWriter out;
     private BufferedReader in;
     private final Server server;
+    private String clientName;
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
@@ -23,7 +30,7 @@ public class ClientHandler implements Runnable {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
 
-            String clientName = in.readLine();
+            clientName = in.readLine();
             System.out.println(clientName + " bağlandı.");
 
             server.broadcastMessage(clientName + " oyuna katıldı!");
@@ -34,12 +41,12 @@ public class ClientHandler implements Runnable {
                 server.broadcastMessage(clientName + ": " + message);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         } finally {
             try {
                 socket.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                e.fillInStackTrace();
             }
         }
     }
@@ -49,4 +56,13 @@ public class ClientHandler implements Runnable {
             out.println(message);
         }
     }
+
+    public String getClientName() {
+        if(clientName!=null) return clientName;
+        return "Player_" + new Random().nextInt(100);
+    }
+
+
+
+
 }

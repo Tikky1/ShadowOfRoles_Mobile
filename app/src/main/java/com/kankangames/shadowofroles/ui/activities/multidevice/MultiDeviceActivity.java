@@ -10,8 +10,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.NetworkUtils;
 import com.kankangames.shadowofroles.networking.client.Client;
+import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 
 import java.net.InetAddress;
@@ -121,6 +121,9 @@ public class MultiDeviceActivity extends BaseActivity {
         if (serverIp != null) {
             String playerName = "Player_" + (int) (Math.random() * 100);
             client.connectToServer(serverIp, playerName);
+            ClientManager.getInstance().setClient(client);
+            Intent intent = new Intent(this,GameLobbyActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "Sunucuya bağlanılıyor: " + serverIp, LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Sunucu bulunamadı!", LENGTH_SHORT).show();

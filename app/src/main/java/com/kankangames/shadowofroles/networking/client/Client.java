@@ -1,8 +1,9 @@
 package com.kankangames.shadowofroles.networking.client;
 
-import android.os.Build;
-
-import com.kankangames.shadowofroles.networking.listeners.OnPlayerJoinListener;
+import com.kankangames.shadowofroles.networking.NetworkManager;
+import com.kankangames.shadowofroles.networking.listeners.OnJoinedLobbyListener;
+import com.kankangames.shadowofroles.networking.listeners.OnOtherPlayerJoinListener;
+import com.kankangames.shadowofroles.networking.listeners.OnServerFoundListener;
 
 import java.io.*;
 import java.net.*;
@@ -16,7 +17,14 @@ public class Client {
     private PrintWriter out;
     private BufferedReader in;
     private boolean connected = false;
-    private OnPlayerJoinListener onPlayerJoinListener;
+    private OnOtherPlayerJoinListener onOtherPlayerJoinListener;
+    private OnServerFoundListener onServerFoundListener;
+    private OnJoinedLobbyListener onJoinedLobbyListener;
+    private final String ip;
+
+    public Client() {
+        ip = NetworkManager.getIp();
+    }
 
     public void discoverServers() {
         new Thread(() -> {
@@ -29,17 +37,22 @@ public class Client {
                     socket.receive(packet);
 
                     String message = new String(packet.getData(), 0, packet.getLength());
-                    if (message.startsWith("SERVER:")) {
+                    System.out.println("mesaj alındı: " + message);
+                    if (message.startsWith("ShadowOfRolesServer:")) {
                         String serverIp = message.split(":")[1];
 
                         if (!discoveredServers.contains(serverIp)) {
                             discoveredServers.add(serverIp);
                             System.out.println("Bulunan Sunucu: " + serverIp);
+
+                            if(onServerFoundListener !=null) onServerFoundListener.onServerFound(serverIp);
                         }
                     }
+                    receivePlayersList(message);
+
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                e.fillInStackTrace();
             }
         }).start();
     }
@@ -51,7 +64,7 @@ public class Client {
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-                out.println(playerName);
+                out.println(ip);
                 connected = true;
                 System.out.println("Sunucuya bağlandınız: " + serverIp);
 
@@ -63,23 +76,48 @@ public class Client {
                     // Eğer mesaj "katıldı" içeriyorsa yeni oyuncu eklenmiştir
                     if (message.contains("katıldı!")) {
                         String newPlayer = message.replace(" katıldı!", "").trim();
-                        if (onPlayerJoinListener != null) {
-                            onPlayerJoinListener.onPlayerJoin(newPlayer);
-                        }
+                        if (onOtherPlayerJoinListener != null) onOtherPlayerJoinListener.onOtherPlayerJoin(newPlayer);
+                       // if (onJoinedLobbyListener != null) onJoinedLobbyListener.onJoinedLobby();
+
                     }
                 }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                e.fillInStackTrace();
             }
         }).start();
     }
 
+    public void requestPlayerList() {
+        new Thread(() -> {
+            if (out != null) {
+                out.println("GET_PLAYERS");
+            }
+        }).start();
+    }
+
+    private void receivePlayersList(String message){
+        if (message.startsWith("PLAYERS:")) {
+            System.out.println("players received: " + message);
+            String[] playerNames = message.replace("PLAYERS:", "").split(",");
+            if (onJoinedLobbyListener != null) {
+                onJoinedLobbyListener.onJoinedLobby(List.of(playerNames));
+            }
+        }
+    }
     public List<String> getDiscoveredServers() {
         return discoveredServers;
     }
 
-    public void setOnPlayerJoinListener(OnPlayerJoinListener onPlayerJoinListener) {
-        this.onPlayerJoinListener = onPlayerJoinListener;
+    public void setOnPlayerJoinListener(OnOtherPlayerJoinListener onOtherPlayerJoinListener) {
+        this.onOtherPlayerJoinListener = onOtherPlayerJoinListener;
+    }
+
+    public void setOnServerFoundListener(OnServerFoundListener onServerFoundListener) {
+        this.onServerFoundListener = onServerFoundListener;
+    }
+
+    public void setOnJoinedLobbyListener(OnJoinedLobbyListener onJoinedLobbyListener) {
+        this.onJoinedLobbyListener = onJoinedLobbyListener;
     }
 }

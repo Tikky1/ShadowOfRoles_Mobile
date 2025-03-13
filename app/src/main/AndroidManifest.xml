@@ -48,6 +48,8 @@
         <activity android:name=".ui.activities.multidevice.MultipleDeviceGameActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.multidevice.GameHostingActivity"
+            android:theme="@style/FullscreenTheme"/>
+        <activity android:name=".ui.activities.multidevice.GameLobbyActivity"
             android:theme="@style/FullscreenTheme">
 
         </activity>

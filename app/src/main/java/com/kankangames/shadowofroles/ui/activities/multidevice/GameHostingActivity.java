@@ -45,7 +45,11 @@ public class GameHostingActivity extends BaseActivity {
 
     private void startServer() {
         server = new Server();
-        //server.setOnPlayerJoinListener(this::updatePlayerList);
+        server.setOnPlayerJoinListener(playerName1 -> {
+            updatePlayerList(playerName1);
+            playerAdapter.notifyDataSetChanged();
+        });
+
         server.startServer();
         runOnUiThread(() -> Toast.makeText(this, "Sunucu başlatıldı", Toast.LENGTH_SHORT).show());
     }

@@ -23,8 +23,6 @@ public class ContactActivity extends ImageChangingActivity {
         backgroundImage = findViewById(R.id.contact_background_image);
         backgroundImage.setImageDrawable(sceneManager.nextImage());
 
-        backgroundImage.setImageDrawable(sceneManager.nextImage());
-
         contactText.setText(R.string.contact_text);
 
         gitButton.setOnClickListener(v -> openLink("https://github.com/Tikky1/ShadowOfRoles_Mobile/issues"));
