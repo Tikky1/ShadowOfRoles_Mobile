@@ -1,31 +1,30 @@
 package com.kankangames.shadowofroles.services;
 
 import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.models.player.AIPlayer;
 import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.abilities.PriorityChangingRole;
 import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.support.LastJoke;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.List;
 
 public abstract class BaseGameService {
 
     protected final ArrayList<Player> allPlayers = new ArrayList<>();
     protected final ArrayList<Player> alivePlayers = new ArrayList<>();
-
     protected final ArrayList<Player> deadPlayers = new ArrayList<>();
     protected final VotingService votingService;
     protected final TimeService timeService;
     protected final MessageService messageService;
     protected final FinishGameService finishGameService;
-    protected final SpecialRolesService specialRolesService;
+    protected final AbilityService abilityService;
 
     public BaseGameService(ArrayList<Player> players){
         timeService = new TimeService();
         votingService = new VotingService(this);
         messageService = new MessageService(this);
         finishGameService = new FinishGameService(this);
-        specialRolesService = new SpecialRolesService(this);
+        abilityService = new AbilityService(this);
 
         initializePlayers(players);
     }
@@ -47,7 +46,7 @@ public abstract class BaseGameService {
         Time time = timeService.getTime();
         switch (time) {
             case DAY :
-                performAllAbilities();
+                abilityService.performAllAbilities();
                 break;
             case NIGHT:
                 votingService.executeMaxVoted();
@@ -81,45 +80,10 @@ public abstract class BaseGameService {
 
             }
 
-
         }
 
     }
 
-    /**
-     *  Performs all abilities according to role priorities
-     */
-    public void performAllAbilities(){
-        ArrayList<Player> players = copyAlivePlayers();
-
-        // If the roles priority changes in each turn changes the priority
-        for(Player player: players){
-            if (player.getRole().getTemplate() instanceof PriorityChangingRole) {
-                PriorityChangingRole priorityChangingRole = (PriorityChangingRole) player.getRole().getTemplate();
-                priorityChangingRole.changePriority();
-            }
-        }
-
-        // Sorts the roles according to priority and if priorities are same sorts
-        players.sort(Comparator.comparing((Player player) -> player.getRole().getTemplate().getRolePriority().getPriority()).reversed()
-                .thenComparing((Player player) -> player.getRole().getTemplate().getId()));
-
-        // Performs the abilities in the sorted list
-        for(Player player: players){
-            player.getRole().getTemplate().performAbility(player, player.getRole().getChoosenPlayer(), this);
-        }
-
-        // Send some messages to some roles
-        for(Player player: players){
-            messageService.sendSpecificRoleMessages(player);
-        }
-
-        // Resets the players' attributes according to their role
-        for(Player player: alivePlayers){
-            player.getRole().resetStates();
-        }
-        updateAlivePlayers();
-    }
 
     /**
      * Updates the dead players
@@ -132,6 +96,25 @@ public abstract class BaseGameService {
             }
         }
         return deadPlayers;
+    }
+
+    protected void chooseRandomPlayersForAI(List<Player> players){
+        for(Player player: players){
+            if(player instanceof AIPlayer){
+                AIPlayer aiPlayer = (AIPlayer) player;
+                aiPlayer.chooseRandomPlayerNight(alivePlayers);
+            }
+        }
+    }
+
+    protected boolean doesHumanPlayerExist(){
+        for (final Player alivePlayer : alivePlayers) {
+            if (!alivePlayer.isAIPlayer()) {
+                return true;
+            }
+        }
+        return false;
+
     }
 
     protected ArrayList<Player> copyAlivePlayers(){
@@ -164,7 +147,7 @@ public abstract class BaseGameService {
         return finishGameService;
     }
 
-    public SpecialRolesService getSpecialRolesService() {
-        return specialRolesService;
+    public AbilityService getSpecialRolesService() {
+        return abilityService;
     }
 }

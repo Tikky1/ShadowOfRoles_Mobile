@@ -25,7 +25,7 @@ public final class VotingService {
      * @param voter voter player
      * @param voted voted player
      */
-    public void vote(final Player voter, final Player voted){
+    private void vote(final Player voter, final Player voted){
         votes.put(voter,voted);
     }
 
@@ -74,8 +74,9 @@ public final class VotingService {
             if(player instanceof AIPlayer){
                 AIPlayer aiPlayer = (AIPlayer) player;
                 aiPlayer.chooseRandomPlayerVoting(alivePlayers);
-                vote(aiPlayer,aiPlayer.getRole().getChoosenPlayer());
+
             }
+            vote(player,player.getRole().getChoosenPlayer());
         }
 
         updateMaxVoted();
@@ -100,9 +101,27 @@ public final class VotingService {
         gameService.updateAlivePlayers();
 
         for(Player player: alivePlayers){
+
+            if(!player.isAIPlayer()){
+                sendVoteMessage(player);
+            }
+
             player.getRole().setChoosenPlayer(null);
         }
         clearVotes();
+    }
+
+    private void sendVoteMessage(Player player){
+        Player chosenPlayer = player.getRole().getChoosenPlayer();
+
+        if(chosenPlayer!=null){
+            gameService.messageService.sendMessage(TextManager.getInstance().getText("voted_for")
+                            .replace("{playerName}", chosenPlayer.getNameAndNumber())
+                    ,player,false, true);
+        }else{
+            gameService.messageService.sendMessage(TextManager.getInstance().getText("voted_for_none"), player, false, true);
+        }
+
     }
 
     /**

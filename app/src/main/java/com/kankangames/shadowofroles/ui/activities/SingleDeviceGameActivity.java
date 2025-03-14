@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.ui.adapters.PlayersViewAdapter;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.gamestate.Time;
@@ -47,6 +48,7 @@ public class SingleDeviceGameActivity extends BaseActivity{
     private ImageButton roleBookButton;
     private Button passTurnButton;
     private ImageView backgroundImage;
+    private final GameMode gameMode = GameMode.SINGLE_DEVICE;
 
 
     @Override
@@ -159,20 +161,6 @@ public class SingleDeviceGameActivity extends BaseActivity{
 
     private void setPassTurnButtonOnClicked(){
         passTurnButton.setOnClickListener(v -> {
-            if(gameService.getCurrentPlayer().getRole().getChoosenPlayer()==null){
-
-                AbilityType abilityType = gameService.getCurrentPlayer().getRole().getTemplate().getAbilityType();
-                if(gameService.getTimeService().getTime() == Time.VOTING||
-                        (gameService.getTimeService().getTime() == Time.NIGHT &&
-                                !(abilityType == AbilityType.NO_ABILITY|| abilityType == AbilityType.PASSIVE))){
-
-                    // Alert will be shown
-                }
-
-
-            }
-
-            gameService.sendVoteMessages();
 
             boolean isTimeChanged = gameService.passTurn();
 
@@ -184,31 +172,8 @@ public class SingleDeviceGameActivity extends BaseActivity{
 
             }
 
-
         });
     }
-
-
-    /**
-     *
-     * @param context
-     * @return true if cancel clicked, false otherwise
-     */
-    private boolean showPassTurnAlert(Context context) {
-        boolean[] result = {true};
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-        builder.setTitle("You are passing your turn are you sure?")
-                .setMessage("Pass")
-                .setCancelable(false)
-                .setPositiveButton("Pass Turn", (dialog, which) -> result[0] = false)
-                .setNegativeButton("Cancel", (dialog, which) -> result[0] = true);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        return result[0];
-    }
-
 
     private void changePlayerUI(){
         setNameText();

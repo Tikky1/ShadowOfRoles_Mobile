@@ -19,6 +19,9 @@ import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.managers.GameScreenImageManager;
 import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.networking.client.Client;
+import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.services.MultiDeviceGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
@@ -46,6 +49,8 @@ public class MultipleDeviceGameActivity extends BaseActivity {
     private ImageButton graveyardButton;
     private ImageButton roleBookButton;
     private ImageView backgroundImage;
+    private final GameMode gameMode = GameMode.MULTIPLE_DEVICE;
+    private Client client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,8 @@ public class MultipleDeviceGameActivity extends BaseActivity {
         setContentView(R.layout.activity_game);
 
         gameService = (MultiDeviceGameService) StartGameService.getInstance().getGameService();
+
+        client = ClientManager.getInstance().getClient();
 
         initializeViews();
 
