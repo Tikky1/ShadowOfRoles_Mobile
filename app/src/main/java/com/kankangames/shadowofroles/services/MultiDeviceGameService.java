@@ -5,8 +5,8 @@ import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
 
 import java.util.ArrayList;
 
-public class MultiDeviceGameService extends BaseGameService{
-    protected TurnTimerService turnTimerService;
+public final class MultiDeviceGameService extends BaseGameService{
+    TurnTimerService turnTimerService;
     public MultiDeviceGameService(ArrayList<Player> players, TurnTimerService.OnTimeChangeListener onTimeChangeListener) {
         super(players);
         turnTimerService = new TurnTimerService(this, onTimeChangeListener);

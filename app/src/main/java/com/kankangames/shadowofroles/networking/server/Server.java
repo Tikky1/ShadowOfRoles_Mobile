@@ -105,11 +105,14 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
 
     public void startUdpBroadcast() {
         new Thread(() -> {
+            System.out.println("x");
             try (DatagramSocket socket = new DatagramSocket()) {
                 InetAddress broadcastAddress = InetAddress.getByName("255.255.255.255");
                 String localIp = NetworkManager.getIp();
+                System.out.println("u");
 
                 while (running && !isGameStarted) {
+                    System.out.println("tried");
                     Thread.sleep(3000);
                     String message = "ShadowOfRolesServer:" + localIp + ":" + clients.get(0).getClientPlayer().getName();
                     byte[] buffer = message.getBytes();
@@ -128,6 +131,7 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
     public void startGame() {
         ArrayList<Player> players = new ArrayList<>();
         int aiPlayerNum = 1;
+        int humanPlayerCount = 0;
         for(int i=0; i < lobbyPlayers.size() ;i++){
             LobbyPlayer lobbyPlayer = lobbyPlayers.get(i);
             if(lobbyPlayer.isAI()){
@@ -135,7 +139,8 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
                 aiPlayerNum++;
             }
             else{
-                players.add(new HumanPlayer(i+1, clients.get(i).getClientPlayer().getName()));
+                players.add(new HumanPlayer(i+1, clients.get(humanPlayerCount).getClientPlayer().getName()));
+                humanPlayerCount++;
             }
         }
 
@@ -169,7 +174,11 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
             broadcastMessage("GAME_ENDED:" + jsonEndGameData);
         }
         else{
-            for (int i=0; i < clients.size(); i++){
+            int humanPlayerCount = 0;
+            for (int i=0; i < lobbyPlayers.size(); i++){
+                if(lobbyPlayers.get(i).isAI()){
+                    continue;
+                }
                 GameData gameData = new GameData(
                         multiDeviceGameService.getMessageService().getMessages(),
                         multiDeviceGameService.getDeadPlayers(),
@@ -179,11 +188,11 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
                         i+1
                 );
 
-                System.out.println(gameData);
+
                 String jsonGameData = gson.toJson(gameData);
                 String message = (didGameStarted ? "GAME_DATA:" : "GAME_STARTED:" ) + jsonGameData;
-                clients.get(i).sendMessage(message);
-                System.out.println("message sended: " + message );
+                clients.get(humanPlayerCount).sendMessage(message);
+                humanPlayerCount++;
             }
         }
 
@@ -217,6 +226,7 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
     }
 
     public void broadcastMessage(String message) {
+        System.out.println("mesaj gönderildi: " + message);
         for (ClientHandler client : clients) {
             client.sendMessage(message);
         }

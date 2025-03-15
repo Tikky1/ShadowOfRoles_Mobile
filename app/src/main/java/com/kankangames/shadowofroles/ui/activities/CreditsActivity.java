@@ -15,7 +15,7 @@ public class CreditsActivity extends ImageChangingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credits);
         backgroundImage = findViewById(R.id.credits_background_image);
-        backgroundImage.setImageDrawable(sceneManager.nextImage());
+        changeImage();
 
         TextView creditsText = findViewById(R.id.credits_text);
         Animation creditsAnimation = AnimationUtils.loadAnimation(this, R.anim.credits_animation);

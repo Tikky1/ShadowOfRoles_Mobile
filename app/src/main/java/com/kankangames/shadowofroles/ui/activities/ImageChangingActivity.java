@@ -43,5 +43,9 @@ public abstract class ImageChangingActivity extends BaseActivity {
         });
     }
 
+    protected void changeImage(){
+        getBackgroundImage().setImageDrawable(sceneManager.nextImage());
+    }
+
     protected abstract ImageView getBackgroundImage();
 }

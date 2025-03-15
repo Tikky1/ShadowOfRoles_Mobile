@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,23 +30,21 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.70" />
 
-
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/active_games_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/text_background_white"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:padding="12dp"
+        android:background="@drawable/text_background"
         android:clipToPadding="false"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/player_names_bottom_guideline"
+        android:elevation="6dp"
+        app:layout_constraintBottom_toTopOf="@id/player_names_bottom_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/player_names_top_guideline"
-        app:layout_constraintVertical_bias="0.5">
-
-    </ListView>
-
+        app:layout_constraintTop_toTopOf="@id/player_names_top_guideline"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

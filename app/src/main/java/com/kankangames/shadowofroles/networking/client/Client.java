@@ -62,18 +62,19 @@ public class Client {
                 byte[] buffer = new byte[1024];
 
                 while (true) {
+                    System.out.println("8");
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                     socket.receive(packet);
 
                     String message = new String(packet.getData(), 0, packet.getLength());
-
+                    System.out.println(message);
                     if (message.startsWith("ShadowOfRolesServer:")) {
                         String[] inputArr = message.split(":");
                         String serverIp = inputArr[1];
                         String hostName = inputArr[2];
 
                         if (!discoveredServers.containsKey(serverIp)) {
-                            discoveredServers.put(serverIp, hostName);
+                            discoveredServers.put(hostName, serverIp);
                         }
                     }
                 }

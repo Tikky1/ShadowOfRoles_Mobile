@@ -6,49 +6,58 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
-import com.kankangames.shadowofroles.ui.activities.BaseActivity;
+import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
+import com.kankangames.shadowofroles.ui.adapters.ServersAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class ListOnlineGamesActivity extends BaseActivity {
+public class ListOnlineGamesActivity extends ImageChangingActivity {
     private final ArrayList<String> displayedDeviceNames = new ArrayList<>();
-    private final Map<String, String> deviceNameToIpMap = new HashMap<>();
-    private ArrayAdapter<String> adapter;
+    private final Map<String, String> deviceNameToIpMap = new ConcurrentHashMap<>();
+    private ServersAdapter adapter;
     private Client client;
+    private ImageView backgroundImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_online_games);
 
-        ListView activeGamesView = findViewById(R.id.active_games_recycler_view);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayedDeviceNames);
+        backgroundImage = findViewById(R.id.backgroundImage);
+        changeImage();
+
+        RecyclerView activeGamesView = findViewById(R.id.active_games_recycler_view);
+        adapter =  new ServersAdapter(displayedDeviceNames, this::connectToServer);
         activeGamesView.setAdapter(adapter);
+        activeGamesView.setLayoutManager(new LinearLayoutManager(this));
 
         startServerDiscovery();
+    }
 
-        activeGamesView.setOnItemClickListener((parent, view, position, id) -> {
-            String selectedDevice = displayedDeviceNames.get(position);
-            connectToServer(selectedDevice);
-        });
+    @Override
+    protected ImageView getBackgroundImage() {
+        return backgroundImage;
     }
 
     private boolean isDiscoveryRunning = false;
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     private void startServerDiscovery() {
+        System.out.println("1");
         client = ClientManager.getInstance().getClient();
         client.discoverServers();
-
+        System.out.println("2");
         isDiscoveryRunning = true;
 
         Runnable discoveryTask = new Runnable() {
@@ -59,8 +68,10 @@ public class ListOnlineGamesActivity extends BaseActivity {
                 synchronized (deviceNameToIpMap) {
                     deviceNameToIpMap.clear();
                     deviceNameToIpMap.putAll(client.getDiscoveredServers());
+                    System.out.println("3");
+                    System.out.println(deviceNameToIpMap);
                 }
-
+                System.out.println("4");
                 displayedDeviceNames.clear();
                 displayedDeviceNames.addAll(deviceNameToIpMap.keySet());
 
@@ -86,7 +97,7 @@ public class ListOnlineGamesActivity extends BaseActivity {
             clientManager.setIp(serverIp);
             Intent intent = new Intent(this,GameLobbyActivity.class);
             startActivity(intent);
-            Toast.makeText(this, "Sunucuya bağlanılıyor: " + serverIp, LENGTH_SHORT).show();
+            Toast.makeText(this, "Sunucuya bağlanılıyor: " + deviceName, LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Sunucu bulunamadı!", LENGTH_SHORT).show();
         }

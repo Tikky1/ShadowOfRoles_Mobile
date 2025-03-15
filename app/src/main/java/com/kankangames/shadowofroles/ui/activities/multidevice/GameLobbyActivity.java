@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,17 +20,19 @@ import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
+import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
 import com.kankangames.shadowofroles.ui.activities.MainActivity;
 import com.kankangames.shadowofroles.ui.adapters.LobbyPlayersAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameLobbyActivity extends BaseActivity {
+public class GameLobbyActivity extends ImageChangingActivity {
 
     private List<LobbyPlayer> playerList;
     private LobbyPlayersAdapter playerAdapter;
     private Client client;
+    private ImageView backgroundImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class GameLobbyActivity extends BaseActivity {
         Button startGameBtn = findViewById(R.id.hosting_start_game_button);
         Button plusBtn = findViewById(R.id.plusBtn);
         Button minusBtn = findViewById(R.id.minusBtn);
+        backgroundImage = findViewById(R.id.backgroundImage);
+        changeImage();
+
 
         plusBtn.setVisibility(GONE);
         minusBtn.setVisibility(GONE);
@@ -78,6 +84,11 @@ public class GameLobbyActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected ImageView getBackgroundImage() {
+        return backgroundImage;
     }
 
     private void updatePlayerList(List<LobbyPlayer> players) {

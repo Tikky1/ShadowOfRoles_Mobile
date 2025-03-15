@@ -5,15 +5,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
+import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
 
-public class OnlineSelectionActivity extends BaseActivity {
+public class OnlineSelectionActivity extends ImageChangingActivity {
 
     private EditText nameText;
+    private ImageView backgroundImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +25,8 @@ public class OnlineSelectionActivity extends BaseActivity {
 
         Button hostGameBtn = findViewById(R.id.host_game_btn);
         Button searchGameBtn = findViewById(R.id.search_game_btn);
+        backgroundImage = findViewById(R.id.backgroundImage);
+        changeImage();
         nameText = findViewById(R.id.online_player_name);
 
         hostGameBtn.setOnClickListener(v -> {
@@ -32,6 +37,11 @@ public class OnlineSelectionActivity extends BaseActivity {
             initializeClient(ListOnlineGamesActivity.class);
         });
 
+    }
+
+    @Override
+    protected ImageView getBackgroundImage() {
+        return backgroundImage;
     }
 
     private void initializeClient(Class<?> cls){

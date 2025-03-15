@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -19,6 +20,7 @@ import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.server.Server;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
+import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
 import com.kankangames.shadowofroles.ui.activities.MainActivity;
 import com.kankangames.shadowofroles.ui.adapters.LobbyPlayersAdapter;
 import com.kankangames.shadowofroles.ui.alerts.GoToMainAlert;
@@ -26,13 +28,14 @@ import com.kankangames.shadowofroles.ui.alerts.GoToMainAlert;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameHostingActivity extends BaseActivity {
+public class GameHostingActivity extends ImageChangingActivity {
 
     private List<LobbyPlayer> playerList;
     private LobbyPlayersAdapter playerAdapter;
     private Server server;
     private Client client;
     private Button startGameBtn;
+    private ImageView backgroundImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class GameHostingActivity extends BaseActivity {
         startGameBtn = findViewById(R.id.hosting_start_game_button);
         Button plusBtn = findViewById(R.id.plusBtn);
         Button minusBtn = findViewById(R.id.minusBtn);
+        backgroundImage = findViewById(R.id.backgroundImage);
+        changeImage();
 
         startServer();
 
@@ -93,6 +98,11 @@ public class GameHostingActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected ImageView getBackgroundImage() {
+        return backgroundImage;
     }
 
     private void startServer() {
