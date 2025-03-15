@@ -3,6 +3,8 @@ package com.kankangames.shadowofroles.services;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.Role;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
 
 import java.util.ArrayList;
 
@@ -13,7 +15,9 @@ public final class StartGameService {
     private static StartGameService instance;
     private int playerCount = MIN_PLAYER_COUNT;
 
-    private BaseGameService gameService;
+    private DataProvider gameService;
+    private GameMode gameMode;
+    private EndGameData endGameData;
 
 
     public static StartGameService getInstance(){
@@ -24,6 +28,10 @@ public final class StartGameService {
 
         return instance;
 
+    }
+
+    public static void resetInstance(){
+        instance = null;
     }
 
     public int getPlayerCount() {
@@ -59,8 +67,27 @@ public final class StartGameService {
         playerCount = MAX_PLAYER_COUNT;
     }
 
-    public BaseGameService getGameService() {
+    public DataProvider getGameService() {
         return gameService;
     }
 
+    public void setGameService(DataProvider gameService) {
+        this.gameService = gameService;
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public EndGameData getEndGameData() {
+        return endGameData;
+    }
+
+    public void setEndGameData(EndGameData endGameData) {
+        this.endGameData = endGameData;
+    }
 }

@@ -1,5 +1,7 @@
 package com.kankangames.shadowofroles.networking.listeners;
 
+import com.kankangames.shadowofroles.models.player.LobbyPlayer;
+
 public interface OnOtherPlayerJoinListener {
-    void onOtherPlayerJoin(String playerName);
+    void onOtherPlayerJoin(LobbyPlayer playerName);
 }

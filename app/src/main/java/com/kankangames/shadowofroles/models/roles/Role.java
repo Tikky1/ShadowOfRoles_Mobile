@@ -7,14 +7,13 @@ import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 public class Role {
 
     protected RoleTemplate template;
-    protected Player roleOwner;
-    protected Player choosenPlayer;
-    protected boolean canPerform;
-    protected AbilityResult abilityResult;
+    protected transient Player choosenPlayer;
+    protected transient boolean canPerform;
+    protected transient AbilityResult abilityResult;
 
-    protected double attack;
-    protected double defence;
-    protected boolean isImmune;
+    protected transient double attack;
+    protected transient double defence;
+    protected transient boolean isImmune;
     protected boolean isRevealed;
 
     public Role(RoleTemplate template) {
@@ -38,14 +37,6 @@ public class Role {
 
     public final void setChoosenPlayer(final Player choosenPlayer) {
         this.choosenPlayer = choosenPlayer;
-    }
-
-    public final Player getRoleOwner() {
-        return roleOwner;
-    }
-
-    public final void setRoleOwner(final Player roleOwner) {
-        this.roleOwner = roleOwner;
     }
 
     public final boolean isCanPerform() {
@@ -102,5 +93,19 @@ public class Role {
 
     public final void setAbilityResult(AbilityResult abilityResult) {
         this.abilityResult = abilityResult;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "template=" + template +
+                ", choosenPlayer=" + choosenPlayer +
+                ", canPerform=" + canPerform +
+                ", abilityResult=" + abilityResult +
+                ", attack=" + attack +
+                ", defence=" + defence +
+                ", isImmune=" + isImmune +
+                ", isRevealed=" + isRevealed +
+                '}';
     }
 }

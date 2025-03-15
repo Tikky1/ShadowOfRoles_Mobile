@@ -11,12 +11,7 @@ import java.util.Random;
 
 public class AIPlayer extends Player {
     public AIPlayer(int number, String name) {
-        super(number, name);
-    }
-
-    @Override
-    public boolean isAIPlayer() {
-        return true;
+        super(number, name, true);
     }
 
     public void chooseRandomPlayerVoting(final ArrayList<Player> players){

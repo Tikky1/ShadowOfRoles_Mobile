@@ -1,11 +1,12 @@
 package com.kankangames.shadowofroles.services;
 
+import com.kankangames.shadowofroles.models.Message;
 import com.kankangames.shadowofroles.models.player.AIPlayer;
 import com.kankangames.shadowofroles.models.player.Player;
 
 import java.util.*;
 
-public final class SingleDeviceGameService extends BaseGameService{
+public final class SingleDeviceGameService extends BaseGameService implements DataProvider {
 
     private Player currentPlayer;
     private int currentPlayerIndex;
@@ -77,6 +78,11 @@ public final class SingleDeviceGameService extends BaseGameService{
         return -1;
     }
 
+
+    @Override
+    public LinkedList<Message> getMessages() {
+        return messageService.getMessages();
+    }
 
     // Getters
     public Player getCurrentPlayer(){

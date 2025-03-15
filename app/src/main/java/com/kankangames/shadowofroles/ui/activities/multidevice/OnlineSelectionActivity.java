@@ -37,7 +37,7 @@ public class OnlineSelectionActivity extends BaseActivity {
     private void initializeClient(Class<?> cls){
         String playerName = nameText.getText().toString();
         if(playerName.isEmpty()){
-            playerName = Build.BRAND + " " + Build.MODEL;
+            playerName = Build.BRAND + "_" + Build.MODEL;
         }
         Client client = new Client(playerName);
         ClientManager.getInstance().setClient(client);

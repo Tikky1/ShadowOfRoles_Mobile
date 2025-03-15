@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import com.kankangames.shadowofroles.R;
 
-public class SceneManager {
+public final class SceneManager {
     private static SceneManager instance;
     private final int[] images = {
             R.drawable.background0,

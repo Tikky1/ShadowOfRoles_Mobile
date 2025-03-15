@@ -7,9 +7,10 @@ import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.services.BaseGameService;
 import com.kankangames.shadowofroles.services.MessageService;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class RoleTemplate implements PerformAbility {
+public abstract class RoleTemplate implements PerformAbility, Serializable {
 
     protected final RoleID id;
     protected final RoleCategory roleCategory;
@@ -21,7 +22,7 @@ public abstract class RoleTemplate implements PerformAbility {
     protected AbilityType abilityType;
     private final boolean hasNormalWinCondition;
 
-    protected final TextManager textManager = TextManager.getInstance();
+    protected transient final TextManager textManager = TextManager.getInstance();
 
     public RoleTemplate(RoleID id, AbilityType abilityType, RolePriority rolePriority, RoleCategory roleCategory,
                         WinningTeam winningTeam, double attack ,double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
@@ -49,10 +50,6 @@ public abstract class RoleTemplate implements PerformAbility {
         return Objects.hashCode(id);
     }
 
-    @Override
-    public final String toString(){
-        return getName();
-    }
     public final RoleTemplate copy() {
         try {
             return this.getClass().getDeclaredConstructor().newInstance();

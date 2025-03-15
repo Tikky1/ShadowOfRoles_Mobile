@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import com.kankangames.shadowofroles.R;
 
-public class GameScreenImageManager {
+public final class GameScreenImageManager {
     private static GameScreenImageManager instance;
 
     private final int[][] images = {

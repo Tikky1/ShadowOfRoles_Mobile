@@ -12,15 +12,20 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.ui.adapters.ViewPagerAdapter;
 
 public class RoleBookFragment extends HidingNavigationFragment implements IFullScreenFragment{
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-
     private ViewPagerAdapter viewPagerAdapter;
 
+    private final GameMode gameMode;
+
+    public RoleBookFragment(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
 
     @NonNull
     @Override
@@ -37,7 +42,7 @@ public class RoleBookFragment extends HidingNavigationFragment implements IFullS
         tabLayout = view.findViewById(R.id.tab_Layout);
         viewPager = view.findViewById(R.id.view_Pager);
 
-        viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPagerAdapter = new ViewPagerAdapter(this, gameMode);
         viewPager.setAdapter(viewPagerAdapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {

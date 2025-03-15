@@ -15,13 +15,20 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.managers.InstanceClearer;
+import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
 import com.kankangames.shadowofroles.managers.TextManager;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.services.BaseGameService;
+import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.networking.client.ClientManager;
+import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
+import com.kankangames.shadowofroles.services.DataProvider;
+import com.kankangames.shadowofroles.services.FinishGameService;
+import com.kankangames.shadowofroles.services.SingleDeviceGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.ChillGuyFragment;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class GameEndActivity extends BaseActivity{
@@ -33,7 +40,8 @@ public class GameEndActivity extends BaseActivity{
     private TextView winnerTeamText;
     private ImageView winnerTeamImage;
 
-    private BaseGameService gameService;
+    private FinishGameService finishGameService;
+    private ArrayList<Player> allPlayers;
 
     private WinningTeam winningTeam;
 
@@ -43,15 +51,27 @@ public class GameEndActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_game_end);
+        StartGameService startGameService = StartGameService.getInstance();
 
-        gameService = StartGameService.getInstance().getGameService();
+        if(startGameService.getGameMode() == GameMode.SINGLE_DEVICE){
+            DataProvider dataProvider = StartGameService.getInstance().getGameService();
+            SingleDeviceGameService singleDeviceGameService = (SingleDeviceGameService) dataProvider;
+            finishGameService = singleDeviceGameService.getFinishGameService();
+            allPlayers = singleDeviceGameService.getAllPlayers();
+        }
+        else{
+            EndGameData endGameData = ClientManager.getInstance().getClient().getEndGameData();
+            finishGameService = endGameData.getFinishGameService();
+            allPlayers = endGameData.getAllPlayers();
+        }
+
 
         endGameTable = findViewById(R.id.end_game_table);
         mainMenuBtn = findViewById(R.id.go_back_main_button);
         winnerTeamText = findViewById(R.id.winner_team_text);
         winnerTeamImage = findViewById(R.id.winner_team_image);
 
-        winningTeam = gameService.getFinishGameService().getHighestPriorityWinningTeam();
+        winningTeam = finishGameService.getHighestPriorityWinningTeam();
 
         boolean chillGuyExist = createChillGuyAlert();
 
@@ -62,8 +82,7 @@ public class GameEndActivity extends BaseActivity{
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Intent intent = new Intent(GameEndActivity.this, MainActivity.class);
-                startActivity(intent);
+                goMainMenu();
             }
         });
 
@@ -71,9 +90,9 @@ public class GameEndActivity extends BaseActivity{
     }
 
     private boolean createChillGuyAlert(){
-        Player chillGuyPlayer = gameService.getFinishGameService().getChillGuyPlayer();
+        Player chillGuyPlayer = finishGameService.getChillGuyPlayer();
         if(chillGuyPlayer != null){
-            ChillGuyFragment chillGuyFragment = new ChillGuyFragment(this::setActivity, chillGuyPlayer, gameService.getFinishGameService());
+            ChillGuyFragment chillGuyFragment = new ChillGuyFragment(this::setActivity, chillGuyPlayer, finishGameService);
             chillGuyFragment.show(getSupportFragmentManager(), "Chill Guy Alert");
             return true;
         }
@@ -106,7 +125,7 @@ public class GameEndActivity extends BaseActivity{
         }
         endGameTable.addView(headerRow);
 
-        for (Player player : gameService.getAllPlayers()) {
+        for (Player player : allPlayers) {
             TableRow tableRow = new TableRow(this);
 
             tableRow.addView(createTextView(String.format(Locale.ROOT,"%d", player.getNumber())));
@@ -130,8 +149,7 @@ public class GameEndActivity extends BaseActivity{
 
     private void setMainMenuBtn(){
         mainMenuBtn.setOnClickListener(v->{
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            goMainMenu();
         });
     }
 
@@ -183,6 +201,12 @@ public class GameEndActivity extends BaseActivity{
         }
 
         winnerTeamImage.setImageDrawable(image);
+    }
+
+    private void goMainMenu(){
+        InstanceClearer.clearInstances();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 

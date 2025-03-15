@@ -25,34 +25,53 @@ import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.protector.FolkHero;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.unique.Entrepreneur;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
+import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.services.BaseGameService;
+import com.kankangames.shadowofroles.services.DataProvider;
+import com.kankangames.shadowofroles.services.MultiDeviceGameService;
 import com.kankangames.shadowofroles.services.RoleService;
 import com.kankangames.shadowofroles.services.SingleDeviceGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.adapters.LorekeeperAdapter;
 
 import java.util.Locale;
+import java.util.Map;
 
 
 public class PlayerRoleFragment extends Fragment {
 
     private Player currentPlayer;
-    private BaseGameService gameService;
+    private DataProvider dataProvider;
     private Time time;
     private TextManager textManager;
+    private final GameMode gameMode;
+
+    public PlayerRoleFragment(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
 
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_player_role_page, container, false);
 
-        gameService = StartGameService.getInstance().getGameService();
-        time = gameService.getTimeService().getTime();
 
-        if(gameService instanceof SingleDeviceGameService){
-            SingleDeviceGameService singleDeviceGameService = (SingleDeviceGameService) gameService;
-            currentPlayer = singleDeviceGameService.getCurrentPlayer();
+        switch (gameMode){
+            case SINGLE_DEVICE:
+                dataProvider = StartGameService.getInstance().getGameService();
+                currentPlayer = dataProvider.getCurrentPlayer();
+                break;
+
+            case MULTIPLE_DEVICE:
+                dataProvider = ClientManager.getInstance().getClient().getDataProvider();
+                currentPlayer = dataProvider.getCurrentPlayer();
+                break;
+
+
         }
+        time = dataProvider.getTimeService().getTime();
+
         textManager = TextManager.getInstance();
 
         setRoleInfoLayout(view);
@@ -163,7 +182,8 @@ public class PlayerRoleFragment extends Fragment {
         setLoreKeeperSelectedRole(lorekeeper,chosenRoleText);
 
         int currentGuessCount = lorekeeper.getTrueGuessCount();
-        int winningGuessCount = gameService.getSpecialRolesService().LORE_KEEPER_WINNING_COUNT;
+        int playerCount = dataProvider.getAlivePlayers().size() + dataProvider.getDeadPlayers().size();
+        int winningGuessCount = playerCount >= 8 ? 3 : 2;
         currentGuessCountText.setText(String.format(Locale.ROOT, getString(R.string.lorekeeper_current_true_guess_count),
                 currentGuessCount));
         winningGuessCountText.setText(String.format(Locale.ROOT, getString(R.string.lorekeeper_winning_true_guess_count),

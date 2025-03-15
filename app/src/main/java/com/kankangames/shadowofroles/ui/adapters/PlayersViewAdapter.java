@@ -77,6 +77,8 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
         Button selectButton = holder.selectionBtn;
 
         boolean isPlayerCurrentPlayer = isPlayerCurrentPlayer(player, currentPlayer);
+
+
         if (time == Time.DAY) {
             selectButton.setVisibility(GONE);
         }
@@ -113,8 +115,10 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
                 }
             }
 
-            if (currentPlayer.getRole().getTemplate() instanceof LastJoke && currentPlayer.getDeathProperties().isAlive()) {
-                selectButton.setVisibility(GONE);
+            if (currentPlayer.getRole().getTemplate() instanceof LastJoke ) {
+                LastJoke lastJoke = (LastJoke) currentPlayer.getRole().getTemplate();
+                if(currentPlayer.getDeathProperties().isAlive()) selectButton.setVisibility(GONE);
+                else if(!lastJoke.isDidUsedAbility()) selectButton.setVisibility(VISIBLE);
             }
 
             if(currentPlayer.getRole().getTemplate() instanceof FolkHero){
@@ -144,7 +148,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
                 color = ContextCompat.getColor(selectButton.getContext(),R.color.folk_color);
                 break;
             case CORRUPTER:
-                color = ContextCompat.getColor(selectButton.getContext(),R.color.corruptor_color);
+                color = ContextCompat.getColor(selectButton.getContext(),R.color.corrupter_color);
                 break;
             default:
                 color = ContextCompat.getColor(selectButton.getContext(),R.color.neutral_color);

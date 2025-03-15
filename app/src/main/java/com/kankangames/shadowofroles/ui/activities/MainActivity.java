@@ -9,6 +9,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.kankangames.shadowofroles.models.player.HumanPlayer;
+import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.models.roles.Role;
+import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
+import com.kankangames.shadowofroles.models.roles.templates.neutralroles.killing.Assassin;
+import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
 import com.kankangames.shadowofroles.ui.activities.multidevice.ListOnlineGamesActivity;
 import com.kankangames.shadowofroles.ui.activities.multidevice.OnlineSelectionActivity;
 import com.kankangames.shadowofroles.ui.alerts.QuitAlert;
@@ -38,8 +46,6 @@ public class MainActivity extends ImageChangingActivity {
         versionTextView = findViewById(R.id.versionTextview);
 
         version();
-
-
 
         // Click Listeners
         startGameBtn.setOnClickListener(v -> openActivity(PlayerNamesActivity.class));

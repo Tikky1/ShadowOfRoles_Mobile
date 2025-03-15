@@ -17,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.gamestate.TimeManager;
 import com.kankangames.shadowofroles.managers.GameScreenImageManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
-import com.kankangames.shadowofroles.services.MultiDeviceGameService;
+import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
+import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 import com.kankangames.shadowofroles.ui.activities.GameEndActivity;
@@ -33,17 +35,19 @@ import com.kankangames.shadowofroles.ui.fragments.GraveyardFragment;
 import com.kankangames.shadowofroles.ui.fragments.MessageFragment;
 import com.kankangames.shadowofroles.ui.fragments.RoleBookFragment;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.AnnouncementsFragment;
+import com.kankangames.shadowofroles.ui.helper.ClockService;
 
 import java.util.Locale;
 
-public class MultipleDeviceGameActivity extends BaseActivity {
-    private MultiDeviceGameService gameService;
+public class MultipleDeviceGameActivity extends BaseActivity implements ClockService.ClockUpdateListener {
+    private GameData gameData;
     private RecyclerView alivePlayersView;
 
     private TextView timeText;
     private TextView nameText;
     private TextView numberText;
     private TextView roleText;
+    private TextView clockText;
 
     private ImageButton announcementsButton;
     private ImageButton graveyardButton;
@@ -51,6 +55,7 @@ public class MultipleDeviceGameActivity extends BaseActivity {
     private ImageView backgroundImage;
     private final GameMode gameMode = GameMode.MULTIPLE_DEVICE;
     private Client client;
+    private ClockService clockService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +63,19 @@ public class MultipleDeviceGameActivity extends BaseActivity {
 
         setContentView(R.layout.activity_game);
 
-        gameService = (MultiDeviceGameService) StartGameService.getInstance().getGameService();
-
         client = ClientManager.getInstance().getClient();
+        initializeClientListeners();
 
+        if(gameData == null) gameData = (GameData) client.getDataProvider();
+
+        clockService = new ClockService(this);
         initializeViews();
+        setRoleText();
+        setNumberText();
+        setNameText();
+        updateGameUI();
 
-//        changePlayerUI();
-        setTimeText();
-        setBackgroundImage();
         setImageButtonOnClicked();
-
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -81,16 +88,36 @@ public class MultipleDeviceGameActivity extends BaseActivity {
             }
         });
 
+    }
 
+    private void initializeClientListeners(){
+        client.setOnGameDataReceived(receivedGameData -> {
+            gameData = receivedGameData;
+            runOnUiThread(this::updateGameUI);
+
+        });
+        client.setOnGameStartingListener(dataProvider -> {
+            gameData = (GameData) dataProvider;
+
+        });
+        client.setOnGameEndedListener(endGameData -> {
+            StartGameService.getInstance().setEndGameData(endGameData);
+            Intent intent = new Intent(this, GameEndActivity.class);
+            startActivity(intent);
+
+        });
     }
 
 
     private void initializeViews(){
         alivePlayersView = findViewById(R.id.alivePlayersView);
+
         timeText = findViewById(R.id.timeText);
         nameText = findViewById(R.id.nameText);
         numberText = findViewById(R.id.numberText);
         roleText = findViewById(R.id.roleText);
+        clockText = findViewById(R.id.clockText);
+
         backgroundImage = findViewById(R.id.backgroundImageGame);
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
@@ -101,81 +128,84 @@ public class MultipleDeviceGameActivity extends BaseActivity {
     }
     private void setImageButtonOnClicked(){
         announcementsButton.setOnClickListener(v -> {
-//            MessageFragment messageFragment = new MessageFragment(
-//                    gameService.getMessageService().getMessages(), client.getPlayer());
+            MessageFragment messageFragment = new MessageFragment(
+                    gameData.getMessages(), gameData.getCurrentPlayer());
 
-//            messageFragment.show(getSupportFragmentManager(), getString(R.string.messages));
+            messageFragment.show(getSupportFragmentManager(), getString(R.string.messages));
         });
 
         graveyardButton.setOnClickListener(v -> {
             GraveyardFragment graveyardFragment = new GraveyardFragment(
-                    gameService.getDeadPlayers());
+                    gameData.getDeadPlayers());
 
             graveyardFragment.show(getSupportFragmentManager(), getString(R.string.graveyard));
         });
 
         roleBookButton.setOnClickListener(v->{
-            RoleBookFragment roleBookFragment = new RoleBookFragment();
+            RoleBookFragment roleBookFragment = new RoleBookFragment(gameMode);
             roleBookFragment.show(getSupportFragmentManager(), "Role Book");
         });
     }
 
 
     private void setTimeText(){
-        String template = gameService.getTimeService().getTime() != Time.NIGHT ?
+        String template = gameData.getTimeService().getTime() != Time.NIGHT ?
                 getString(R.string.day) :
                 getString(R.string.night);
 
-        template = String.format(template, gameService.getTimeService().getDayCount());
+        template = String.format(template, gameData.getTimeService().getDayCount());
         timeText.setText(template);
     }
 
-//    private void setNameText(){
-//        Player currentPlayer = client.getPlayer();
-//        String template = getString(R.string.player_name);
-//        template = template
-//                .replace("{playerName}", currentPlayer.getName());
-//        nameText.setText(template);
-//    }
-//
-//    private void setNumberText(){
-//        Player currentPlayer = client.getPlayer();
-//        String template = getString(R.string.player_number);
-//        template = String.format(Locale.ROOT, template, currentPlayer.getNumber());
-//        numberText.setText(template);
-//    }
-//
-//    private void setAlivePlayersView(){
-//        PlayersViewAdapter playersViewAdapter = new PlayersViewAdapter(
-//                gameService.getTimeService().getTime(), client.getPlayer(), this);
-//        playersViewAdapter.setPlayers(gameService.getAlivePlayers());
-//        alivePlayersView.setAdapter(playersViewAdapter);
-//        alivePlayersView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        int maxHeight = getResources().getDimensionPixelSize(R.dimen.max_recycler_view_height);
-//        ViewGroup.LayoutParams params = alivePlayersView.getLayoutParams();
-//        params.height = maxHeight;
-//        alivePlayersView.setLayoutParams(params);
-//        alivePlayersView.setItemViewCacheSize(gameService.getAlivePlayers().size());
-//    }
-//
-//    private void setRoleText(){
-//        Player currentPlayer = client.getPlayer();
-//        roleText.setText(currentPlayer.getRole().getTemplate().getName());
-//    }
 
-//    private void changePlayerUI(){
-//        setNameText();
-//        setNumberText();
-//        setRoleText();
-//        setAlivePlayersView();
-//    }
+    private void updateGameUI(){
+
+        updateAlivePlayersUI();
+        setTimeText();
+        updateBackgroundImage();
+        changeTimeUI();
+        startTimerText();
+
+    }
+
+    private void startTimerText(){
+        int time;
+        switch (gameData.getTimeService().getTime()){
+            case NIGHT:
+                time = TimeManager.nightTime;
+                break;
+            case DAY:
+                time = TimeManager.dayTime;
+                break;
+            case VOTING:
+                time = TimeManager.votingTime;
+                break;
+            default:
+                time = 20_000;
+                break;
+        }
+        clockService.startTimer(time);
+    }
+
+    private void updateAlivePlayersUI(){
+        PlayersViewAdapter playersViewAdapter = new PlayersViewAdapter(
+                gameData.getTimeService().getTime(), gameData.getCurrentPlayer(), this);
+        playersViewAdapter.setPlayers(gameData.getAlivePlayers());
+        alivePlayersView.setAdapter(playersViewAdapter);
+        alivePlayersView.setLayoutManager(new LinearLayoutManager(this));
+
+        int maxHeight = getResources().getDimensionPixelSize(R.dimen.max_recycler_view_height);
+        ViewGroup.LayoutParams params = alivePlayersView.getLayoutParams();
+        params.height = maxHeight;
+        alivePlayersView.setLayoutParams(params);
+        alivePlayersView.setItemViewCacheSize(gameData.getAlivePlayers().size());
+    }
 
 
-    private void setBackgroundImage(){
+    private void updateBackgroundImage(){
         GameScreenImageManager gameScreenImageManager = GameScreenImageManager.getInstance(this);
         Drawable image;
-        switch (gameService.getTimeService().getTime()){
+        switch (gameData.getTimeService().getTime()){
             case DAY:
                 image = gameScreenImageManager.nextDayImage();
                 break;
@@ -195,15 +225,10 @@ public class MultipleDeviceGameActivity extends BaseActivity {
 
     private void changeTimeUI(){
 
-        if(gameService.getFinishGameService().isGameFinished()){
-            Intent intent = new Intent(this, GameEndActivity.class);
-            startActivity(intent);
-        }
-
-        setBackgroundImage();
+        updateBackgroundImage();
         setTimeText();
 
-        switch (gameService.getTimeService().getTime()){
+        switch (gameData.getTimeService().getTime()){
             case DAY:
             case NIGHT:
                 createAnnouncementsDialog();
@@ -212,20 +237,57 @@ public class MultipleDeviceGameActivity extends BaseActivity {
                 break;
         }
 
-
     }
 
     private void createAnnouncementsDialog(){
-        AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(()->{});
-        announcementsFragment.setAnnouncementsAndTimeService(gameService.getMessageService().getMessages(),
-                gameService.getTimeService());
-        announcementsFragment.setDayText(gameService.getTimeService().getTimeAndDay());
+        AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(null);
+        announcementsFragment.setAnnouncementsAndTimeService(gameData.getMessages(),
+                gameData.getTimeService());
+        announcementsFragment.setDayText(gameData.getTimeService().getTimeAndDay());
         announcementsFragment.show(getSupportFragmentManager(), "Start Day Announcements");
     }
 
+    private void setNameText(){
+        Player currentPlayer = gameData.getCurrentPlayer();
+        String template = getString(R.string.player_name);
+        template = template
+                .replace("{playerName}", currentPlayer.getName());
+        nameText.setText(template);
+    }
 
-//    @Override
-//    public void onGameServiceUpdate(MultiDeviceGameService gameService) {
-//
-//    }
+    private void setNumberText(){
+        Player currentPlayer = gameData.getCurrentPlayer();
+        String template = getString(R.string.player_number);
+        template = String.format(Locale.ROOT, template, currentPlayer.getNumber());
+        numberText.setText(template);
+    }
+
+    private void setRoleText(){
+        Player currentPlayer = gameData.getCurrentPlayer();
+        roleText.setText(currentPlayer.getRole().getTemplate().getName());
+    }
+
+
+    @Override
+    public void onTimeUpdate(int remainingTime) {
+        runOnUiThread(()->{
+            int seconds = remainingTime / 1000;
+            clockText.setText(String.format("%d seconds remaining", seconds));
+        });
+
+    }
+
+    @Override
+    public void onTimeUp() {
+        if(gameData.getTimeService().getTime()!=Time.DAY){
+            Player chosenPlayer = gameData.getCurrentPlayer().getRole().getChoosenPlayer();
+            int chosenPlayerNumber = chosenPlayer==null ? -1 : chosenPlayer.getNumber();
+            client.sendPlayerInfo(new PlayerInfo(
+                            gameData.getCurrentPlayer().getNumber(),
+                            chosenPlayerNumber,
+                            gameData.getCurrentPlayer().getRole().getTemplate()
+                    ));
+        }
+    }
+
 }

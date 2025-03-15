@@ -16,7 +16,7 @@ import java.util.TreeSet;
 
 public final class FinishGameService {
 
-    private final BaseGameService gameService;
+    private transient final BaseGameService gameService;
 
     private final TreeSet<WinningTeam> winningTeams = new TreeSet<>(Comparator.comparing(WinningTeam::getPriority));
 
@@ -179,8 +179,13 @@ public final class FinishGameService {
         }
 
 
-        gameService.getMessageService().resetMessages();
-        gameService.getVotingService().nullifyVotes();
+        gameService.messageService.resetMessages();
+        gameService.votingService.nullifyVotes();
+
+        if(gameService instanceof MultiDeviceGameService){
+            MultiDeviceGameService multiDeviceGameService = (MultiDeviceGameService) gameService;
+            multiDeviceGameService.turnTimerService.stopTimer();
+        }
 
     }
 

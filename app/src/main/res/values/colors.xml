@@ -13,7 +13,7 @@
     <color name="player_circle_others_end">#7498BA</color>
 
     <color name="role_background">#2E0D25</color>
-    <color name="corruptor_color">#FF4500</color>
+    <color name="corrupter_color">#FF4500</color>
     <color name="folk_color">#32CD32</color>
     <color name="neutral_color">#87CEFA</color>
 
@@ -24,5 +24,9 @@
 
     <color name="button_color_first">#E69530</color>
     <color name="button_color_second">#B06A17</color>
+
+    <color name="selectedItem">#FFDD57</color>
+    <color name="transparent">#00000000</color>
+
 
 </resources>

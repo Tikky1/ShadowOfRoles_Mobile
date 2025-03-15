@@ -28,7 +28,7 @@ public final class AbilityService {
         final Player chosenPlayer = player.getRole().getChoosenPlayer();
 
         AbilityType abilityType = player.getRole().getTemplate().getAbilityType();
-        if(!(abilityType == AbilityType.PASSIVE || abilityType == AbilityType.NO_ABILITY)){
+        if(!(abilityType == AbilityType.PASSIVE || abilityType == AbilityType.NO_ABILITY) && !player.isAIPlayer()){
             if(chosenPlayer!=null){
                 gameService.messageService.sendMessage(TextManager.getInstance().getText("ability_used_on")
                                 .replace("{playerName}", chosenPlayer.getNameAndNumber())

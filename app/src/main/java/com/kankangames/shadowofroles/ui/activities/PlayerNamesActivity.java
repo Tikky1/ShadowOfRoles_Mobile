@@ -14,6 +14,7 @@ import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.models.player.AIPlayer;
 import com.kankangames.shadowofroles.models.player.HumanPlayer;
 import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.adapters.PlayerNamesAdapter;
 
@@ -37,7 +38,7 @@ public class PlayerNamesActivity extends ImageChangingActivity{
         setContentView(R.layout.activity_player_names);
 
         startGameService = StartGameService.getInstance();
-
+        startGameService.setGameMode(GameMode.SINGLE_DEVICE);
         backgroundImage = findViewById(R.id.backgroundImage);
         backgroundImage.setImageDrawable(sceneManager.nextImage());
 

@@ -21,8 +21,8 @@ public class NetworkManager {
                 }
             }
         } catch (SocketException e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         }
-        return "127.0.0.1"; // Varsayılan olarak localhost döndür
+        return "127.0.0.1";
     }
 }

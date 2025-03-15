@@ -1,5 +1,7 @@
 package com.kankangames.shadowofroles.ui.activities;
 
+import static android.view.View.GONE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -94,6 +96,9 @@ public class SingleDeviceGameActivity extends BaseActivity{
         announcementsButton = findViewById(R.id.announcementsBtn);
         graveyardButton = findViewById(R.id.gravestoneBtn);
         roleBookButton = findViewById(R.id.roleBookBtn);
+
+        TextView clockText = findViewById(R.id.clockText);
+        clockText.setVisibility(GONE);
     }
     private void setImageButtonOnClicked(){
         announcementsButton.setOnClickListener(v -> {
@@ -111,7 +116,7 @@ public class SingleDeviceGameActivity extends BaseActivity{
         });
 
         roleBookButton.setOnClickListener(v->{
-            RoleBookFragment roleBookFragment = new RoleBookFragment();
+            RoleBookFragment roleBookFragment = new RoleBookFragment(gameMode);
             roleBookFragment.show(getSupportFragmentManager(), "Role Book");
         });
     }

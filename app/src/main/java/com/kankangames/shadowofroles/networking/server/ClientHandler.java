@@ -1,29 +1,30 @@
 package com.kankangames.shadowofroles.networking.server;
 
+import com.google.gson.Gson;
+import com.kankangames.shadowofroles.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.models.player.properties.LobbyPlayerStatus;
+import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
+import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.Socket;
-import java.net.SocketException;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.Random;
 
 public class ClientHandler implements Runnable {
     private final Socket socket;
     private PrintWriter out;
     private BufferedReader in;
     private final Server server;
-    private String clientName;
+    private LobbyPlayer clientPlayer;
     private String clientIp;
+    private final boolean isHost;
 
-    public ClientHandler(Socket socket, Server server) {
+    public ClientHandler(Socket socket, Server server, boolean isHost) {
         this.socket = socket;
         this.server = server;
+        this.isHost = isHost;
     }
 
     @Override
@@ -36,8 +37,7 @@ public class ClientHandler implements Runnable {
             if(received.startsWith("IP_NAME:")){
                 String[] inArr = received.split(":");
                 clientIp = inArr[1];
-                clientName = inArr[2];
-
+                clientPlayer = new LobbyPlayer(inArr[2], isHost, false, LobbyPlayerStatus.WAITING);
             }
 
 
@@ -45,16 +45,37 @@ public class ClientHandler implements Runnable {
 
             String message;
             while ((message = in.readLine()) != null) {
-                server.broadcastMessage(clientIp + ": " + message);
+                if(message.startsWith("IP_NAME:")){
+                    server.broadcastMessage(clientIp + ": " + message);
+                }
+                else if(message.startsWith("UPDATE_PLAYER:")){
+                    Gson gson = GsonProvider.getGson();
+                    String playerJson = message.replace("UPDATE_PLAYER:","");
+
+                    PlayerInfo player = gson.fromJson(playerJson, PlayerInfo.class);
+                    server.multiDeviceGameService.updateAllPlayers(player);
+                }
+
             }
         } catch (IOException e) {
             e.fillInStackTrace();
         } finally {
             try {
                 socket.close();
+                server.removeClient(this);
             } catch (IOException e) {
                 e.fillInStackTrace();
             }
+        }
+    }
+
+    public void closeConnection() {
+        try {
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+            }
+        } catch (IOException e) {
+            e.fillInStackTrace();
         }
     }
 
@@ -64,13 +85,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public String getClientName() {
-        if(clientName!=null&&!clientName.isEmpty()) return clientName;
-        return "Player_" + new Random().nextInt(100);
+    public LobbyPlayer getClientPlayer() {
+        return clientPlayer;
     }
-
-    String getClientIp(){
-        return clientIp;
-    }
-
 }

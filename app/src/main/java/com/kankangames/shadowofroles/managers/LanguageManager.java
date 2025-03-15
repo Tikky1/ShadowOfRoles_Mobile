@@ -1,5 +1,6 @@
 package com.kankangames.shadowofroles.managers;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +12,9 @@ import com.kankangames.shadowofroles.GameApplication;
 
 import java.util.Locale;
 
-public class LanguageManager {
+public final class LanguageManager {
 
+    @SuppressLint("StaticFieldLeak")
     private static LanguageManager instance;
     private Context context;
 

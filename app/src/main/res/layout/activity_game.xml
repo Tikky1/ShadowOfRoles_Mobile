@@ -30,7 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/game_top_guideline">
+        app:layout_constraintTop_toTopOf="@+id/game_top_guideline"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/numberText"
@@ -71,6 +72,15 @@
             android:gravity="center"
             android:text="@string/player"
             android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/clockText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_below="@id/roleText"
+            android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 
@@ -165,6 +175,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

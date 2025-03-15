@@ -9,7 +9,7 @@ import com.kankangames.shadowofroles.GameApplication;
 
 import java.util.Locale;
 
-public class TextManager {
+public final class TextManager {
 
     @SuppressLint("StaticFieldLeak")
     private static TextManager instance;

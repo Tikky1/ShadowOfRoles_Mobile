@@ -4,8 +4,9 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,16 +15,13 @@ import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ListOnlineGamesActivity extends BaseActivity {
-    private final ArrayList<String> displayedDeviceNames = new ArrayList<>(); // ListView için
-    private final Map<String, String> deviceNameToIpMap = new HashMap<>(); // Cihaz adı -> IP eşlemesi
+    private final ArrayList<String> displayedDeviceNames = new ArrayList<>();
+    private final Map<String, String> deviceNameToIpMap = new HashMap<>();
     private ArrayAdapter<String> adapter;
     private Client client;
 
@@ -44,53 +42,45 @@ public class ListOnlineGamesActivity extends BaseActivity {
         });
     }
 
+    private boolean isDiscoveryRunning = false;
+    private final Handler handler = new Handler(Looper.getMainLooper());
+
     private void startServerDiscovery() {
         client = ClientManager.getInstance().getClient();
         client.discoverServers();
 
-        new Thread(() -> {
-            while (true) {
-                List<String> discoveredIps = client.getDiscoveredServers();
-                Map<String, String> nameToIpTempMap = new HashMap<>();
-                List<String> deviceNamesTempList = new ArrayList<>();
+        isDiscoveryRunning = true;
 
-                for (String ip : discoveredIps) {
-                    String deviceName = getDeviceName(ip); // IP'den cihaz adını al
-                    nameToIpTempMap.put(deviceName, ip);
-                    deviceNamesTempList.add(deviceName);
-                }
+        Runnable discoveryTask = new Runnable() {
+            @Override
+            public void run() {
+                if (!isDiscoveryRunning) return;
 
-                runOnUiThread(() -> {
-                    displayedDeviceNames.clear();
-                    displayedDeviceNames.addAll(deviceNamesTempList);
-
+                synchronized (deviceNameToIpMap) {
                     deviceNameToIpMap.clear();
-                    deviceNameToIpMap.putAll(nameToIpTempMap);
-
-                    adapter.notifyDataSetChanged();
-                });
-
-                try {
-                    Thread.sleep(3000); // 3 saniyede bir güncelle
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    deviceNameToIpMap.putAll(client.getDiscoveredServers());
                 }
+
+                displayedDeviceNames.clear();
+                displayedDeviceNames.addAll(deviceNameToIpMap.keySet());
+
+                runOnUiThread(() -> adapter.notifyDataSetChanged());
+
+                handler.postDelayed(this, 3000);
             }
-        }).start();
+        };
+
+        handler.post(discoveryTask);
     }
 
-    // IP’den cihaz adını almak için arka planda çalışan fonksiyon
-    private String getDeviceName(String ip) {
-        try {
-            return InetAddress.getByName(ip).getHostName();
-        } catch (UnknownHostException e) {
-            e.fillInStackTrace();
-            return ip; // Eğer hata olursa IP’yi göster
-        }
+    private void stopServerDiscovery() {
+        isDiscoveryRunning = false;
+        handler.removeCallbacksAndMessages(null);
     }
+
 
     private void connectToServer(String deviceName) {
-        String serverIp = deviceNameToIpMap.get(deviceName); // Cihaz adına karşılık gelen IP'yi al
+        String serverIp = deviceNameToIpMap.get(deviceName);
         if (serverIp != null) {
             ClientManager clientManager = ClientManager.getInstance();
             clientManager.setIp(serverIp);

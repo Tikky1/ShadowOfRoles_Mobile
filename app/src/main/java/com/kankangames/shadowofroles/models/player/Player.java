@@ -5,21 +5,22 @@ import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.models.player.properties.DeathProperties;
 import com.kankangames.shadowofroles.models.roles.Role;
 
-import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class Player implements Serializable {
-    private final int number;
-    private final String name;
-    private final DeathProperties deathProperties;
-    private Role role;
-    private boolean hasWon;
+public abstract class Player{
+    protected final int number;
+    protected final String name;
+    protected final DeathProperties deathProperties;
+    protected Role role;
+    protected boolean hasWon;
+    protected boolean isAI;
 
-    public Player(int number, String name) {
+    public Player(int number, String name, boolean isAI) {
         this.number = number;
         this.name = name;
         this.deathProperties = new DeathProperties();
+        this.isAI = isAI;
         hasWon = false;
     }
 
@@ -34,7 +35,6 @@ public abstract class Player implements Serializable {
 
     public final void setRole(Role role) {
         this.role = role;
-        this.role.setRoleOwner(this);
     }
 
 
@@ -82,5 +82,19 @@ public abstract class Player implements Serializable {
         return deathProperties;
     }
 
-    public abstract boolean isAIPlayer();
+    public boolean isAIPlayer(){
+        return isAI;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "number=" + number +
+                ", name='" + name + '\'' +
+                ", deathProperties=" + deathProperties +
+                ", role=" + role +
+                ", hasWon=" + hasWon +
+                ", isAI=" + isAI +
+                '}';
+    }
 }
