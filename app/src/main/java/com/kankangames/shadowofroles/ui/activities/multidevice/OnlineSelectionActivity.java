@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
-import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
+import com.kankangames.shadowofroles.ui.activities.multidevice.lobby.GameHostingActivity;
 
 public class OnlineSelectionActivity extends ImageChangingActivity {
 

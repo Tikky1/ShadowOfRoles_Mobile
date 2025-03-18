@@ -16,6 +16,7 @@ import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
+import com.kankangames.shadowofroles.ui.activities.multidevice.lobby.GameLobbyActivity;
 import com.kankangames.shadowofroles.ui.adapters.ServersAdapter;
 
 import java.util.ArrayList;
@@ -95,8 +96,9 @@ public class ListOnlineGamesActivity extends ImageChangingActivity {
         if (serverIp != null) {
             ClientManager clientManager = ClientManager.getInstance();
             clientManager.setIp(serverIp);
-            Intent intent = new Intent(this,GameLobbyActivity.class);
+            Intent intent = new Intent(this, GameLobbyActivity.class);
             startActivity(intent);
+            stopServerDiscovery();
             Toast.makeText(this, "Sunucuya bağlanılıyor: " + deviceName, LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Sunucu bulunamadı!", LENGTH_SHORT).show();

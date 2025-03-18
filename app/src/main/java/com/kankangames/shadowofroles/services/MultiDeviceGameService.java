@@ -27,7 +27,7 @@ public final class MultiDeviceGameService extends BaseGameService{
 
 
     public Player findPlayer(int number){
-        for(int i=0;i<allPlayers.size();i++){
+        for(int i=0; i < allPlayers.size() ;i++){
             if(number == allPlayers.get(i).getNumber()){
                 return allPlayers.get(i);
             }

@@ -6,7 +6,11 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-public class NetworkManager {
+public final class NetworkManager {
+
+    public static final int PORT = 5000;
+    public static final int UDP_PORT = 5001;
+    private NetworkManager(){}
     public static String getIp() {
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();

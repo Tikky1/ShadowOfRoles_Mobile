@@ -11,7 +11,8 @@ import com.kankangames.shadowofroles.networking.jsonobjects.adapters.RoleTypeAda
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class GsonProvider {
+public final class GsonProvider {
+    private GsonProvider(){}
     private static final Gson gson;
 
     static {

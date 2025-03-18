@@ -3,6 +3,7 @@ package com.kankangames.shadowofroles.networking.server;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.kankangames.shadowofroles.managers.InstanceClearer;
 import com.kankangames.shadowofroles.models.player.AIPlayer;
 import com.kankangames.shadowofroles.models.player.HumanPlayer;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
@@ -24,8 +25,7 @@ import java.util.*;
 
 public class Server implements TurnTimerService.OnTimeChangeListener {
     private static Server instance;
-    private static final int PORT = 5000;
-    private static final int UDP_PORT = 5001;
+
     private final List<ClientHandler> clients = new ArrayList<>();
     private ServerSocket serverSocket;
     private boolean running = false;
@@ -46,7 +46,7 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
     public void startServer() {
         new Thread(() -> {
             try {
-                serverSocket = new ServerSocket(PORT);
+                serverSocket = new ServerSocket(NetworkManager.PORT);
                 running = true;
 
                 startUdpBroadcast();
@@ -69,26 +69,43 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
         }).start();
     }
 
-    private void addPlayerToList(ClientHandler clientHandler){
+    private void addPlayerToList(ClientHandler clientHandler) {
         new Thread(() -> {
-            try {
-                Thread.sleep(200); // 200ms gecikme
-                clients.add(clientHandler);
-                lobbyPlayers.add(clientHandler.getClientPlayer());
+            int retries = 3;
+            long sleepTime = 500;
+            while (retries > 0) {
+                try {
+                    Thread.sleep(sleepTime);
+                    sleepTime *= 2;
 
-                Gson gson = GsonProvider.getGson();
-                String json = gson.toJson(lobbyPlayers);
+                    if (clientHandler == null || clientHandler.getConnectionStatus() != ConnectionStatus.CONNECTED) {
+                        Log.e("Server", "Client is not connected.");
+                        retries--;
+                        continue;
+                    }
 
-                String message = "PLAYERS:" + json;
-                broadcastMessage(message);
+                    clients.add(clientHandler);
+                    lobbyPlayers.add(clientHandler.getClientPlayer());
 
-                Log.d("Server", message);
-            } catch (InterruptedException e) {
-                e.fillInStackTrace();
+                    Gson gson = GsonProvider.getGson();
+                    String json = gson.toJson(lobbyPlayers);
+
+                    String message = "PLAYERS:" + json;
+                    broadcastMessage(message);
+
+                    Log.d("Server", "Players updated: " + message);
+                    break;
+                } catch (InterruptedException e) {
+                    Log.e("Server", "Thread interrupted while adding player to list: " + e.getMessage());
+                    retries--;
+                } catch (Exception e) {
+                    Log.e("Server", "Error adding player to list: " + e.getMessage());
+                    retries--;
+                }
             }
         }).start();
-
     }
+
 
     public void sendPlayerList() {
 
@@ -105,21 +122,23 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
 
     public void startUdpBroadcast() {
         new Thread(() -> {
-            System.out.println("x");
+
             try (DatagramSocket socket = new DatagramSocket()) {
                 InetAddress broadcastAddress = InetAddress.getByName("255.255.255.255");
                 String localIp = NetworkManager.getIp();
-                System.out.println("u");
 
                 while (running && !isGameStarted) {
-                    System.out.println("tried");
-                    Thread.sleep(3000);
-                    String message = "ShadowOfRolesServer:" + localIp + ":" + clients.get(0).getClientPlayer().getName();
-                    byte[] buffer = message.getBytes();
 
-                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length, broadcastAddress, UDP_PORT);
-                    socket.send(packet);
-                    System.out.println(message);
+                    Thread.sleep(3000);
+                    if(!clients.isEmpty()){
+                        String message = "ShadowOfRolesServer:" + localIp + ":" + clients.get(0).getClientPlayer().getName();
+                        byte[] buffer = message.getBytes();
+
+                        DatagramPacket packet = new DatagramPacket(buffer, buffer.length, broadcastAddress, NetworkManager.UDP_PORT);
+                        socket.send(packet);
+                        System.out.println(message);
+                    }
+
 
                 }
             } catch (IOException | InterruptedException e) {
@@ -151,9 +170,7 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
         for(int i=0;i<players.size();i++){
             players.get(i).setRole(new Role(roleTemplates.get(i)));
         }
-        new Thread( ()->{
-            sendGameData(false);
-        }).start();
+        new Thread( ()-> sendGameData(false)).start();
 
     }
 
@@ -173,14 +190,16 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
             String jsonEndGameData = gson.toJson(endGameData, EndGameData.class);
             broadcastMessage("GAME_ENDED:" + jsonEndGameData);
         }
+
         else{
             int humanPlayerCount = 0;
             for (int i=0; i < lobbyPlayers.size(); i++){
                 if(lobbyPlayers.get(i).isAI()){
                     continue;
                 }
+                Player player = multiDeviceGameService.findPlayer(i+1);
                 GameData gameData = new GameData(
-                        multiDeviceGameService.getMessageService().getMessages(),
+                        multiDeviceGameService.getMessageService().getPlayerMessages(player),
                         multiDeviceGameService.getDeadPlayers(),
                         multiDeviceGameService.getAlivePlayers(),
                         multiDeviceGameService.getTimeService(),
@@ -234,11 +253,15 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
 
 
     public void addLobbyAIPlayer(){
-        LobbyPlayer aiPlayer = new LobbyPlayer("Bot",false,true, LobbyPlayerStatus.READY);
+        LobbyPlayer aiPlayer = new LobbyPlayer("Bot",false,true, LobbyPlayerStatus.BOT);
         lobbyPlayers.add(aiPlayer);
     }
 
     public void kickPlayer(int index){
+
+        if(index >= lobbyPlayers.size() || index<0){
+            return;
+        }
 
         LobbyPlayer kickedPlayer = lobbyPlayers.get(index);
 
@@ -267,14 +290,29 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
                 break;
             }
         }
-        removeClient(clients.get(clientIndex));
+        ClientHandler clientHandler = clients.get(clientIndex);
+        clientHandler.sendMessage("KICKED_FROM_LOBBY");
+        removeClient(clientHandler);
     }
+
 
     public void removeClient(ClientHandler clientHandler) {
         clients.remove(clientHandler);
         lobbyPlayers.remove(clientHandler.getClientPlayer());
         clientHandler.closeConnection();
         sendPlayerList();
+    }
+
+    public void disbandGame(){
+        new Thread(()->{
+            for(ClientHandler clientHandler : clients){
+                clientHandler.sendMessage("GAME_DISBANDED");
+                clientHandler.closeConnection();
+            }
+            clients.clear();
+            InstanceClearer.clearInstances();
+        }).start();
+
     }
 
 

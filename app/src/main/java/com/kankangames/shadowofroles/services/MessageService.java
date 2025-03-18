@@ -7,6 +7,8 @@ import com.kankangames.shadowofroles.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.models.roles.enums.RolePriority;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class MessageService {
     private final BaseGameService gameService;
@@ -57,6 +59,10 @@ public final class MessageService {
         }
     }
 
+    public List<Message> getPlayerMessages(Player player){
+        return messages.stream().filter(message -> message.isPublic() || message.getReceiver().getNumber()
+                == player.getNumber()).collect(Collectors.toList());
+    }
     public void sendAbilityMessage(String message, Player receiver){
         createNightMessage(message, receiver, false);
     }

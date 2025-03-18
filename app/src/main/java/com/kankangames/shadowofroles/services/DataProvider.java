@@ -5,10 +5,11 @@ import com.kankangames.shadowofroles.models.player.Player;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public interface DataProvider {
 
-    LinkedList<Message> getMessages();
+    List<Message> getMessages();
     ArrayList<Player> getAlivePlayers();
     ArrayList<Player> getDeadPlayers();
     TimeService getTimeService();

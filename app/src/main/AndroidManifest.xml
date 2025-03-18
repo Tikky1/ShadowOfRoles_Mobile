@@ -47,9 +47,9 @@
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.multidevice.MultipleDeviceGameActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".ui.activities.multidevice.GameHostingActivity"
+        <activity android:name=".ui.activities.multidevice.lobby.GameHostingActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".ui.activities.multidevice.GameLobbyActivity"
+        <activity android:name=".ui.activities.multidevice.lobby.GameLobbyActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.multidevice.OnlineSelectionActivity"
             android:theme="@style/FullscreenTheme">

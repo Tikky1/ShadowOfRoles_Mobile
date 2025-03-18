@@ -22,9 +22,13 @@ import com.kankangames.shadowofroles.managers.GameScreenImageManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
+import com.kankangames.shadowofroles.networking.client.ClientListenerManager;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
 import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDataReceivedListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameEndedListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameStartingListener;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 import com.kankangames.shadowofroles.ui.activities.GameEndActivity;
@@ -91,16 +95,18 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     }
 
     private void initializeClientListeners(){
-        client.setOnGameDataReceived(receivedGameData -> {
-            gameData = receivedGameData;
-            runOnUiThread(this::updateGameUI);
+        ClientListenerManager listenerManager = client.getClientListenerManager();
 
-        });
-        client.setOnGameStartingListener(dataProvider -> {
+        listenerManager.addListener(OnGameDataReceivedListener.class, receivedGameData -> {
+                    gameData = receivedGameData;
+                    runOnUiThread(this::updateGameUI);
+
+                });
+        listenerManager.addListener(OnGameStartingListener.class,dataProvider -> {
             gameData = (GameData) dataProvider;
 
         });
-        client.setOnGameEndedListener(endGameData -> {
+        listenerManager.addListener(OnGameEndedListener.class, endGameData -> {
             StartGameService.getInstance().setEndGameData(endGameData);
             Intent intent = new Intent(this, GameEndActivity.class);
             startActivity(intent);

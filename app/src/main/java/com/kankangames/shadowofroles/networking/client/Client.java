@@ -1,5 +1,8 @@
 package com.kankangames.shadowofroles.networking.client;
 
+import static com.kankangames.shadowofroles.networking.NetworkManager.PORT;
+import static com.kankangames.shadowofroles.networking.NetworkManager.UDP_PORT;
+
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -11,11 +14,14 @@ import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
 import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
 import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
 import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
-import com.kankangames.shadowofroles.networking.listeners.OnGameDataReceived;
-import com.kankangames.shadowofroles.networking.listeners.OnGameEndedListener;
-import com.kankangames.shadowofroles.networking.listeners.OnGameStartingListener;
-import com.kankangames.shadowofroles.networking.listeners.OnJoinedLobbyListener;
-import com.kankangames.shadowofroles.networking.listeners.OnOtherPlayerJoinListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDataReceivedListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDisbandedListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameEndedListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameStartingListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.ConnectionListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnKickedFromLobbyListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnOtherPlayerJoinListener;
+import com.kankangames.shadowofroles.networking.server.ConnectionStatus;
 import com.kankangames.shadowofroles.services.DataProvider;
 
 import java.io.BufferedReader;
@@ -26,24 +32,17 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Client {
-    private static final int UDP_PORT = 5001;
-    private static final int SERVER_PORT = 5000;
+public final class Client {
+
     private final Map<String,String> discoveredServers = new LinkedTreeMap<>();
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
-    private boolean connected = false;
-    private OnOtherPlayerJoinListener onOtherPlayerJoinListener;
-    private OnJoinedLobbyListener onJoinedLobbyListener;
-    private OnGameDataReceived onGameDataReceived;
-    private OnGameStartingListener onGameStartingListener;
-    private OnGameEndedListener onGameEndedListener;
+    private ConnectionStatus connectionStatus = ConnectionStatus.WAITING;
+    private final ClientListenerManager clientListenerManager;
     private final String ip;
     private final String name;
     private DataProvider dataProvider;
@@ -53,6 +52,7 @@ public class Client {
     public Client(String name) {
         this.name = name;
         ip = NetworkManager.getIp();
+        clientListenerManager = new ClientListenerManager();
     }
 
     public void discoverServers() {
@@ -61,8 +61,8 @@ public class Client {
                 socket.setBroadcast(true);
                 byte[] buffer = new byte[1024];
 
-                while (true) {
-                    System.out.println("8");
+                while (connectionStatus != ConnectionStatus.CONNECTED && connectionStatus != ConnectionStatus.ERROR) {
+
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                     socket.receive(packet);
 
@@ -80,6 +80,7 @@ public class Client {
                 }
             } catch (IOException e) {
                 Log.e("Client", "Server discovery failed", e);
+                connectionStatus = ConnectionStatus.ERROR;
             }
         }).start();
     }
@@ -87,30 +88,37 @@ public class Client {
     public void connectToServer(String serverIp) {
         new Thread(() -> {
             try {
-                socket = new Socket(serverIp, SERVER_PORT);
+                socket = new Socket(serverIp, PORT);
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 out.println("IP_NAME:" + ip + ":" + name);
-                connected = true;
+                connectionStatus = ConnectionStatus.CONNECTED;
 
                 listenForMessages();
 
             } catch (IOException e) {
                 Log.e("Client", "Connection failed", e);
+                clientListenerManager.callListener(ConnectionListener.class,
+                        connectionListener -> connectionListener.onConnectionFailed(e.getMessage()));
             }
         }).start();
     }
 
-    private void listenForMessages() {
-        String message;
+    private synchronized void listenForMessages() {
         try {
-            while ((message = in.readLine()) != null) {
+            String message;
+            while (!socket.isClosed()) {
+                if ((message = in.readLine()) == null) {
+                    break;
+                }
                 Log.d("Message Received", message);
                 handleMessage(message);
             }
         } catch (IOException e) {
-            Log.e("Client", "Error reading message", e);
+            if (!socket.isClosed()) {
+                Log.e("Client", "Error reading message", e);
+            }
         }
     }
 
@@ -125,25 +133,44 @@ public class Client {
             handleGameStarted(message);
         } else if (message.startsWith("GAME_ENDED:")) {
             handleGameEnded(message);
+        } else if (message.startsWith("KICKED_FROM_LOBBY")) {
+            handleKickedFromLobby();
+        } else if (message.startsWith("GAME_DISBANDED")) {
+            handleGameDisbanded();
         }
     }
+
+    private void handleGameDisbanded() {
+        clientListenerManager.callListener(OnGameDisbandedListener.class,
+                OnGameDisbandedListener::onGameDisbanded);
+    }
+
 
     private void updatePlayersList(String message) {
         String jsonPlayers = message.replace("PLAYERS:", "");
         lobbyPlayers = GsonProvider.fromJsonList(jsonPlayers, LobbyPlayer.class);
 
-        if (onJoinedLobbyListener != null) {
-            onJoinedLobbyListener.onJoinedLobby(lobbyPlayers);
-        }
+        clientListenerManager.callListener(ConnectionListener.class,
+                connectionListener -> connectionListener.onConnectionSuccessful(lobbyPlayers));
     }
+
+    private void handleKickedFromLobby() {
+        connectionStatus = ConnectionStatus.DISCONNECTED;
+        ClientManager.getInstance().setClient(null);
+        clientListenerManager.callListener(OnKickedFromLobbyListener.class,
+                OnKickedFromLobbyListener::onKickedFromLobby);
+        this.disconnect();
+        clientListenerManager.resetListeners();
+
+    }
+
 
     private void handlePlayerJoined(String message) {
         String newPlayer = message.split(":")[1];
-        if (onOtherPlayerJoinListener != null) {
-            onOtherPlayerJoinListener.onOtherPlayerJoin(
-                    new LobbyPlayer(newPlayer, false, false, LobbyPlayerStatus.WAITING)
-            );
-        }
+        clientListenerManager.callListener(OnOtherPlayerJoinListener.class,
+                onOtherPlayerJoinListener -> onOtherPlayerJoinListener
+                        .onOtherPlayerJoin(new LobbyPlayer(
+                                newPlayer, false, false, LobbyPlayerStatus.WAITING)));
     }
 
 
@@ -151,27 +178,24 @@ public class Client {
         String json = message.replace("GAME_DATA:", "");
         dataProvider = GsonProvider.getGson().fromJson(json, GameData.class);
 
-        if (onGameDataReceived != null) {
-            onGameDataReceived.onGameDataReceived((GameData) dataProvider);
-        }
+        clientListenerManager.callListener(OnGameDataReceivedListener.class,onGameDataReceivedListener ->
+                onGameDataReceivedListener.onGameDataReceived((GameData) dataProvider));
     }
 
     private void handleGameStarted(String message) {
         String json = message.replace("GAME_STARTED:", "");
         dataProvider = GsonProvider.getGson().fromJson(json, GameData.class);
 
-        if (onGameStartingListener != null) {
-            onGameStartingListener.onGameStarting(dataProvider);
-        }
+        clientListenerManager.callListener(OnGameStartingListener.class,
+               onGameStartingListener ->  onGameStartingListener.onGameStarting(dataProvider));
     }
 
     private void handleGameEnded(String message) {
         String json = message.replace("GAME_ENDED:", "");
         endGameData = GsonProvider.getGson().fromJson(json, EndGameData.class);
 
-        if (onGameEndedListener != null) {
-            onGameEndedListener.onGameEnded(endGameData);
-        }
+        clientListenerManager.callListener(OnGameEndedListener.class,
+               onGameEndedListener -> onGameEndedListener.onGameEnded(endGameData));
     }
 
     public void sendPlayerInfo(PlayerInfo playerInfo) {
@@ -190,43 +214,29 @@ public class Client {
             if (socket != null && !socket.isClosed()) {
                 socket.close();
             }
+            connectionStatus = ConnectionStatus.DISCONNECTED;
+            ClientManager.getInstance().setClient(null);
         } catch (IOException e) {
             Log.e("Client", "Error closing socket", e);
+            connectionStatus = ConnectionStatus.ERROR;
         }
     }
 
+    public void leaveFromLobby(){
+        if(out==null)
+            return;
+        out.println("LOBBY_PLAYER_LEFT");
+        disconnect();
+    }
 
+    // Getters
     public Map<String,String> getDiscoveredServers() {
         return discoveredServers;
     }
 
-    // Listener setters
-    public void setOnPlayerJoinListener(OnOtherPlayerJoinListener onOtherPlayerJoinListener) {
-        this.onOtherPlayerJoinListener = onOtherPlayerJoinListener;
-    }
-
-    public void setOnJoinedLobbyListener(OnJoinedLobbyListener onJoinedLobbyListener) {
-        this.onJoinedLobbyListener = onJoinedLobbyListener;
-    }
-
-    public void setOnGameDataReceived(OnGameDataReceived onGameDataReceived) {
-        this.onGameDataReceived = onGameDataReceived;
-    }
-
-    public void setOnGameStartingListener(OnGameStartingListener onGameStartingListener) {
-        this.onGameStartingListener = onGameStartingListener;
-    }
-
-    public void setOnGameEndedListener(OnGameEndedListener onGameEndedListener) {
-        this.onGameEndedListener = onGameEndedListener;
-    }
-
-    // Getters
-
     public String getName() {
         return name;
     }
-
 
     public DataProvider getDataProvider() {
         return dataProvider;
@@ -238,5 +248,9 @@ public class Client {
 
     public List<LobbyPlayer> getLobbyPlayers() {
         return lobbyPlayers;
+    }
+
+    public ClientListenerManager getClientListenerManager() {
+        return clientListenerManager;
     }
 }

@@ -25,6 +25,7 @@ import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 import java.util.*;
 
 public final class RoleService {
+    private RoleService(){}
     private static final HashMap<Team, List<RoleTemplate>> rolesMap = new HashMap<>();
     private static final HashMap<RoleCategory, List<RoleTemplate>> categoryMap = new HashMap<>();
     private static final List<RoleTemplate> allRoles = new ArrayList<>();
@@ -127,7 +128,7 @@ public final class RoleService {
                 break;
             default:
                 throw new IllegalStateException("Unexpected player count: " + playerCount);
-        };
+        }
         ArrayList<RoleTemplate> rolesList = new ArrayList<>();
         for(final Map.Entry<RoleTemplate,Integer> entry : roles.entrySet()){
 

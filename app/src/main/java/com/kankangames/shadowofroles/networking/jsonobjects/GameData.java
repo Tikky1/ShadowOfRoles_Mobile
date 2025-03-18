@@ -7,16 +7,17 @@ import com.kankangames.shadowofroles.services.TimeService;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class GameData implements DataProvider {
-    private final LinkedList<Message> messages;
+    private final List<Message> messages;
     private final ArrayList<Player> deadPlayers;
     private final ArrayList<Player> alivePlayers;
     private final TimeService timeService;
     private final boolean isGameFinished;
     private final int playerNumber;
 
-    public GameData(LinkedList<Message> messages, ArrayList<Player> deadPlayers, ArrayList<Player> alivePlayers, TimeService timeService, boolean isGameFinished, int playerNumber) {
+    public GameData(List<Message> messages, ArrayList<Player> deadPlayers, ArrayList<Player> alivePlayers, TimeService timeService, boolean isGameFinished, int playerNumber) {
         this.messages = messages;
         this.deadPlayers = deadPlayers;
         this.alivePlayers = alivePlayers;
@@ -26,7 +27,7 @@ public class GameData implements DataProvider {
     }
 
     @Override
-    public LinkedList<Message> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 

@@ -20,6 +20,7 @@ public class ClientHandler implements Runnable {
     private LobbyPlayer clientPlayer;
     private String clientIp;
     private final boolean isHost;
+    private ConnectionStatus connectionStatus = ConnectionStatus.CONNECTED;
 
     public ClientHandler(Socket socket, Server server, boolean isHost) {
         this.socket = socket;
@@ -37,7 +38,8 @@ public class ClientHandler implements Runnable {
             if(received.startsWith("IP_NAME:")){
                 String[] inArr = received.split(":");
                 clientIp = inArr[1];
-                clientPlayer = new LobbyPlayer(inArr[2], isHost, false, LobbyPlayerStatus.WAITING);
+                clientPlayer = new LobbyPlayer(inArr[2], isHost, false,
+                        isHost ? LobbyPlayerStatus.HOST : LobbyPlayerStatus.WAITING);
             }
 
 
@@ -55,10 +57,15 @@ public class ClientHandler implements Runnable {
                     PlayerInfo player = gson.fromJson(playerJson, PlayerInfo.class);
                     server.multiDeviceGameService.updateAllPlayers(player);
                 }
+                else if(message.startsWith("LOBBY_PLAYER_LEFT")){
+                    server.removeClient(this);
+                    closeConnection();
+                }
 
             }
         } catch (IOException e) {
             e.fillInStackTrace();
+            setConnectionStatus(ConnectionStatus.ERROR);
         } finally {
             try {
                 socket.close();
@@ -73,9 +80,11 @@ public class ClientHandler implements Runnable {
         try {
             if (socket != null && !socket.isClosed()) {
                 socket.close();
+                setConnectionStatus(ConnectionStatus.DISCONNECTED);
             }
         } catch (IOException e) {
             e.fillInStackTrace();
+            setConnectionStatus(ConnectionStatus.ERROR);
         }
     }
 
@@ -87,5 +96,13 @@ public class ClientHandler implements Runnable {
 
     public LobbyPlayer getClientPlayer() {
         return clientPlayer;
+    }
+
+    void setConnectionStatus(ConnectionStatus connectionStatus){
+        this.connectionStatus = connectionStatus;
+    }
+
+    public ConnectionStatus getConnectionStatus() {
+        return connectionStatus;
     }
 }

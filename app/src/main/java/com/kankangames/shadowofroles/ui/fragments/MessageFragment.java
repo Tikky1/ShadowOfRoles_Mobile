@@ -17,14 +17,15 @@ import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.ui.adapters.MessagesViewAdapter;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MessageFragment extends HidingNavigationFragment {
 
-    private final LinkedList<Message> messages;
+    private final List<Message> messages;
     private final Player currentPlayer;
 
-    public MessageFragment(LinkedList<Message> messages, Player currentPlayer) {
+    public MessageFragment(List<Message> messages, Player currentPlayer) {
         this.messages = messages;
         this.currentPlayer = currentPlayer;
     }

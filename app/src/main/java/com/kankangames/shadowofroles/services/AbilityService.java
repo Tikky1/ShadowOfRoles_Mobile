@@ -20,22 +20,21 @@ public final class AbilityService {
 
 
     /**
-     *If it is morning, he casts a vote for the selected player and sends a message stating who they voted for.
-     *If it's night, it sends a message about who is using your role.
+     * It sends a message about who is player using their ability on.
      */
-    private void sendAbilityMessages(final Player player){
+    private void sendChosenPlayerMessages(final Player player){
 
         final Player chosenPlayer = player.getRole().getChoosenPlayer();
 
         AbilityType abilityType = player.getRole().getTemplate().getAbilityType();
         if(!(abilityType == AbilityType.PASSIVE || abilityType == AbilityType.NO_ABILITY) && !player.isAIPlayer()){
             if(chosenPlayer!=null){
-                gameService.messageService.sendMessage(TextManager.getInstance().getText("ability_used_on")
+                gameService.messageService.sendAbilityMessage(TextManager.getInstance().getText("ability_used_on")
                                 .replace("{playerName}", chosenPlayer.getNameAndNumber())
-                        ,player,false, false);
+                        ,player);
             }
             else{
-                gameService.messageService.sendMessage(TextManager.getInstance().getText("ability_did_not_used"), player, false,false);
+                gameService.messageService.sendAbilityMessage(TextManager.getInstance().getText("ability_did_not_used"), player);
             }
         }
 
@@ -53,7 +52,7 @@ public final class AbilityService {
                 PriorityChangingRole priorityChangingRole = (PriorityChangingRole) player.getRole().getTemplate();
                 priorityChangingRole.changePriority();
             }
-            sendAbilityMessages(player);
+            sendChosenPlayerMessages(player);
         }
 
         // Sorts the roles according to priority and if priorities are same sorts
