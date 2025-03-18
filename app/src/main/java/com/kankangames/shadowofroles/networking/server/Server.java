@@ -23,15 +23,14 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Server implements TurnTimerService.OnTimeChangeListener {
+public class Server {
     private static Server instance;
 
     private final List<ClientHandler> clients = new ArrayList<>();
+    private final List<LobbyPlayer> lobbyPlayers = new ArrayList<>();
+    private final ServerGameManager serverGameManager;
     private ServerSocket serverSocket;
     private boolean running = false;
-    protected MultiDeviceGameService multiDeviceGameService;
-    private boolean isGameStarted = false;
-    private final List<LobbyPlayer> lobbyPlayers = new ArrayList<>();
 
     public static Server getInstance(){
         if(instance == null){
@@ -41,7 +40,9 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
         return instance;
     }
 
-    private Server() {}
+    private Server() {
+        serverGameManager = new ServerGameManager(lobbyPlayers, this);
+    }
 
     public void startServer() {
         new Thread(() -> {
@@ -127,7 +128,7 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
                 InetAddress broadcastAddress = InetAddress.getByName("255.255.255.255");
                 String localIp = NetworkManager.getIp();
 
-                while (running && !isGameStarted) {
+                while (running && !serverGameManager.isGameStarted) {
 
                     Thread.sleep(3000);
                     if(!clients.isEmpty()){
@@ -147,76 +148,6 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
         }).start();
     }
 
-    public void startGame() {
-        ArrayList<Player> players = new ArrayList<>();
-        int aiPlayerNum = 1;
-        int humanPlayerCount = 0;
-        for(int i=0; i < lobbyPlayers.size() ;i++){
-            LobbyPlayer lobbyPlayer = lobbyPlayers.get(i);
-            if(lobbyPlayer.isAI()){
-                players.add(new AIPlayer(i+1, "Bot " + aiPlayerNum));
-                aiPlayerNum++;
-            }
-            else{
-                players.add(new HumanPlayer(i+1, clients.get(humanPlayerCount).getClientPlayer().getName()));
-                humanPlayerCount++;
-            }
-        }
-
-        isGameStarted = true;
-        multiDeviceGameService = new MultiDeviceGameService(players, this);
-
-        ArrayList<RoleTemplate> roleTemplates = RoleService.initializeRoles(players.size());
-        for(int i=0;i<players.size();i++){
-            players.get(i).setRole(new Role(roleTemplates.get(i)));
-        }
-        new Thread( ()-> sendGameData(false)).start();
-
-    }
-
-    private void sendGameData(boolean didGameStarted){
-
-        Gson gson = GsonProvider.getGson();
-        boolean isGameEnded = multiDeviceGameService.getFinishGameService().isGameFinished();
-
-        if(isGameEnded){
-            for(Player player: multiDeviceGameService.getAllPlayers()){
-                player.getRole().setChoosenPlayer(null);
-            }
-            EndGameData endGameData = new EndGameData(
-                    multiDeviceGameService.getFinishGameService(),
-                    multiDeviceGameService.getAllPlayers()
-            );
-            String jsonEndGameData = gson.toJson(endGameData, EndGameData.class);
-            broadcastMessage("GAME_ENDED:" + jsonEndGameData);
-        }
-
-        else{
-            int humanPlayerCount = 0;
-            for (int i=0; i < lobbyPlayers.size(); i++){
-                if(lobbyPlayers.get(i).isAI()){
-                    continue;
-                }
-                Player player = multiDeviceGameService.findPlayer(i+1);
-                GameData gameData = new GameData(
-                        multiDeviceGameService.getMessageService().getPlayerMessages(player),
-                        multiDeviceGameService.getDeadPlayers(),
-                        multiDeviceGameService.getAlivePlayers(),
-                        multiDeviceGameService.getTimeService(),
-                        multiDeviceGameService.getFinishGameService().isGameFinished(),
-                        i+1
-                );
-
-
-                String jsonGameData = gson.toJson(gameData);
-                String message = (didGameStarted ? "GAME_DATA:" : "GAME_STARTED:" ) + jsonGameData;
-                clients.get(humanPlayerCount).sendMessage(message);
-                humanPlayerCount++;
-            }
-        }
-
-
-    }
 
 
     public static void stopServer() {
@@ -315,10 +246,11 @@ public class Server implements TurnTimerService.OnTimeChangeListener {
 
     }
 
+    public List<ClientHandler> getClients() {
+        return clients;
+    }
 
-
-    @Override
-    public void onTimeChange() {
-        sendGameData(true);
+    public ServerGameManager getServerGameManager() {
+        return serverGameManager;
     }
 }

@@ -21,7 +21,7 @@ public class GameHostingActivity extends AbstractLobbyActivity {
 
         startGameBtn.setOnClickListener(v -> {
             Toast.makeText(this, "Oyun başlatılıyor...", Toast.LENGTH_SHORT).show();
-            server.startGame();
+            server.getServerGameManager().startGame();
         });
 
         plusBtn.setOnClickListener(v -> {

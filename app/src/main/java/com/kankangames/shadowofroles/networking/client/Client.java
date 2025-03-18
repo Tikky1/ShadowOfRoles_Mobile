@@ -1,12 +1,10 @@
 package com.kankangames.shadowofroles.networking.client;
 
 import static com.kankangames.shadowofroles.networking.NetworkManager.PORT;
-import static com.kankangames.shadowofroles.networking.NetworkManager.UDP_PORT;
 
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.models.player.properties.LobbyPlayerStatus;
 import com.kankangames.shadowofroles.networking.NetworkManager;
@@ -28,21 +26,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
-import java.util.Map;
 
 public final class Client {
 
-    private final Map<String,String> discoveredServers = new LinkedTreeMap<>();
+    private final ClientListenerManager clientListenerManager;
+    private final GameFinder gameFinder;
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
     private ConnectionStatus connectionStatus = ConnectionStatus.WAITING;
-    private final ClientListenerManager clientListenerManager;
     private final String ip;
     private final String name;
     private DataProvider dataProvider;
@@ -53,37 +47,9 @@ public final class Client {
         this.name = name;
         ip = NetworkManager.getIp();
         clientListenerManager = new ClientListenerManager();
+        gameFinder = new GameFinder(connectionStatus);
     }
 
-    public void discoverServers() {
-        new Thread(() -> {
-            try (DatagramSocket socket = new DatagramSocket(UDP_PORT, InetAddress.getByName("0.0.0.0"))) {
-                socket.setBroadcast(true);
-                byte[] buffer = new byte[1024];
-
-                while (connectionStatus != ConnectionStatus.CONNECTED && connectionStatus != ConnectionStatus.ERROR) {
-
-                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                    socket.receive(packet);
-
-                    String message = new String(packet.getData(), 0, packet.getLength());
-                    System.out.println(message);
-                    if (message.startsWith("ShadowOfRolesServer:")) {
-                        String[] inputArr = message.split(":");
-                        String serverIp = inputArr[1];
-                        String hostName = inputArr[2];
-
-                        if (!discoveredServers.containsKey(serverIp)) {
-                            discoveredServers.put(hostName, serverIp);
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                Log.e("Client", "Server discovery failed", e);
-                connectionStatus = ConnectionStatus.ERROR;
-            }
-        }).start();
-    }
 
     public void connectToServer(String serverIp) {
         new Thread(() -> {
@@ -230,9 +196,7 @@ public final class Client {
     }
 
     // Getters
-    public Map<String,String> getDiscoveredServers() {
-        return discoveredServers;
-    }
+
 
     public String getName() {
         return name;
@@ -252,5 +216,9 @@ public final class Client {
 
     public ClientListenerManager getClientListenerManager() {
         return clientListenerManager;
+    }
+
+    public GameFinder getGameFinder() {
+        return gameFinder;
     }
 }

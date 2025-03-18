@@ -46,7 +46,7 @@ public class ClientHandler implements Runnable {
             server.broadcastMessage("PLAYER_JOINED:" + clientIp);
 
             String message;
-            while ((message = in.readLine()) != null) {
+            while ((message = in.readLine()) != null && connectionStatus == ConnectionStatus.CONNECTED) {
                 if(message.startsWith("IP_NAME:")){
                     server.broadcastMessage(clientIp + ": " + message);
                 }
@@ -55,7 +55,7 @@ public class ClientHandler implements Runnable {
                     String playerJson = message.replace("UPDATE_PLAYER:","");
 
                     PlayerInfo player = gson.fromJson(playerJson, PlayerInfo.class);
-                    server.multiDeviceGameService.updateAllPlayers(player);
+                    server.getServerGameManager().multiDeviceGameService.updateAllPlayers(player);
                 }
                 else if(message.startsWith("LOBBY_PLAYER_LEFT")){
                     server.removeClient(this);
@@ -70,7 +70,9 @@ public class ClientHandler implements Runnable {
             try {
                 socket.close();
                 server.removeClient(this);
+                setConnectionStatus(ConnectionStatus.DISCONNECTED);
             } catch (IOException e) {
+                setConnectionStatus(ConnectionStatus.ERROR);
                 e.fillInStackTrace();
             }
         }
@@ -83,8 +85,8 @@ public class ClientHandler implements Runnable {
                 setConnectionStatus(ConnectionStatus.DISCONNECTED);
             }
         } catch (IOException e) {
-            e.fillInStackTrace();
             setConnectionStatus(ConnectionStatus.ERROR);
+            e.fillInStackTrace();
         }
     }
 

@@ -57,7 +57,7 @@ public class ListOnlineGamesActivity extends ImageChangingActivity {
     private void startServerDiscovery() {
         System.out.println("1");
         client = ClientManager.getInstance().getClient();
-        client.discoverServers();
+        client.getGameFinder().discoverServers();
         System.out.println("2");
         isDiscoveryRunning = true;
 
@@ -68,7 +68,7 @@ public class ListOnlineGamesActivity extends ImageChangingActivity {
 
                 synchronized (deviceNameToIpMap) {
                     deviceNameToIpMap.clear();
-                    deviceNameToIpMap.putAll(client.getDiscoveredServers());
+                    deviceNameToIpMap.putAll(client.getGameFinder().getDiscoveredServers());
                     System.out.println("3");
                     System.out.println(deviceNameToIpMap);
                 }
@@ -86,6 +86,7 @@ public class ListOnlineGamesActivity extends ImageChangingActivity {
     }
 
     private void stopServerDiscovery() {
+        client.getGameFinder().stopDiscovery();
         isDiscoveryRunning = false;
         handler.removeCallbacksAndMessages(null);
     }

@@ -37,6 +37,7 @@ public class OnlineSelectionActivity extends ImageChangingActivity {
             initializeClient(ListOnlineGamesActivity.class);
         });
 
+
     }
 
     @Override
