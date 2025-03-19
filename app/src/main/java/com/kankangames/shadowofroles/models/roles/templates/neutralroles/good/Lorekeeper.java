@@ -1,15 +1,17 @@
 package com.kankangames.shadowofroles.models.roles.templates.neutralroles.good;
 
 import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.models.roles.abilities.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.NeutralRole;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.services.BaseGameService;
+import com.kankangames.shadowofroles.services.RoleService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Lorekeeper extends NeutralRole {
+public final class Lorekeeper extends NeutralRole implements RoleSpecificValuesChooser {
     private final List<Player> alreadyChosenPlayers;
     private RoleTemplate guessedRole;
     private int trueGuessCount;
@@ -76,4 +78,11 @@ public final class Lorekeeper extends NeutralRole {
     public boolean canWinWithOtherTeams() {
         return true;
     }
+
+    @Override
+    public void chooseRoleSpecificValues(List<Player> choosablePlayers) {
+        guessedRole = RoleService.getRandomRole();
+        choosablePlayers.removeAll(alreadyChosenPlayers);
+    }
+    
 }

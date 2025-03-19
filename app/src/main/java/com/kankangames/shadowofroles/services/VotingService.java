@@ -82,7 +82,7 @@ public final class VotingService {
         updateMaxVoted();
         if(getMaxVote()>alivePlayers.size()/2){
             for(Player alivePlayer : alivePlayers){
-                if(alivePlayer.getNumber() == getMaxVoted().getNumber()){
+                if(alivePlayer.isSamePlayer(getMaxVoted())){
 
                     alivePlayer.killPlayer(Time.VOTING, gameService.getTimeService().getDayCount(), CauseOfDeath.HANGING, true);
                     break;

@@ -3,11 +3,14 @@ package com.kankangames.shadowofroles.models.roles.templates.corrupterroles.supp
 import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.AttackAbility;
+import com.kankangames.shadowofroles.models.roles.abilities.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.CorrupterRole;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.services.BaseGameService;
 
-public final class LastJoke extends CorrupterRole implements AttackAbility {
+import java.util.List;
+
+public final class LastJoke extends CorrupterRole implements AttackAbility, RoleSpecificValuesChooser {
     private boolean didUsedAbility;
     public LastJoke() {
         super(RoleID.LastJoke, AbilityType.OTHER_THAN_CORRUPTER,
@@ -39,9 +42,14 @@ public final class LastJoke extends CorrupterRole implements AttackAbility {
         return new ChanceProperty(15, 1);
     }
 
-    public boolean isDidUsedAbility() {
-        return didUsedAbility;
+    public boolean canUseAbility() {
+        return !didUsedAbility;
     }
+
+    @Override
+    public void chooseRoleSpecificValues(List<Player> choosablePlayers) {}
+
+
 }
 
 

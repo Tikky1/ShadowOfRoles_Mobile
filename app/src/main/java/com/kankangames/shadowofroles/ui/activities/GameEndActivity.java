@@ -20,6 +20,7 @@ import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
 import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
 import com.kankangames.shadowofroles.services.DataProvider;
@@ -53,16 +54,20 @@ public class GameEndActivity extends BaseActivity{
         setContentView(R.layout.activity_game_end);
         StartGameService startGameService = StartGameService.getInstance();
 
-        if(startGameService.getGameMode() == GameMode.SINGLE_DEVICE){
+        GameMode gameMode = startGameService.getGameMode();
+        if(gameMode == GameMode.SINGLE_DEVICE){
             DataProvider dataProvider = StartGameService.getInstance().getGameService();
             SingleDeviceGameService singleDeviceGameService = (SingleDeviceGameService) dataProvider;
             finishGameService = singleDeviceGameService.getFinishGameService();
             allPlayers = singleDeviceGameService.getAllPlayers();
         }
         else{
-            EndGameData endGameData = ClientManager.getInstance().getClient().getEndGameData();
+            Client client = ClientManager.getInstance().getClient();
+            EndGameData endGameData = client.getClientGameManager().getEndGameData();
+            
             finishGameService = endGameData.getFinishGameService();
             allPlayers = endGameData.getAllPlayers();
+
         }
 
 
@@ -91,12 +96,15 @@ public class GameEndActivity extends BaseActivity{
 
     private boolean createChillGuyAlert(){
         Player chillGuyPlayer = finishGameService.getChillGuyPlayer();
-        if(chillGuyPlayer != null){
-            ChillGuyFragment chillGuyFragment = new ChillGuyFragment(this::setActivity, chillGuyPlayer, finishGameService);
-            chillGuyFragment.show(getSupportFragmentManager(), "Chill Guy Alert");
-            return true;
+
+        if(chillGuyPlayer == null){
+            return false;
         }
-        return false;
+
+        ChillGuyFragment chillGuyFragment = new ChillGuyFragment(this::setActivity, chillGuyPlayer, finishGameService);
+        chillGuyFragment.show(getSupportFragmentManager(), "Chill Guy Alert");
+        return true;
+
     }
 
     private void setActivity(){

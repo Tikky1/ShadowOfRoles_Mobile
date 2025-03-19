@@ -14,7 +14,7 @@ import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
-import com.kankangames.shadowofroles.networking.client.ClientListenerManager;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDisbandedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameStartingListener;
@@ -23,7 +23,7 @@ import com.kankangames.shadowofroles.services.DataProvider;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
 import com.kankangames.shadowofroles.ui.activities.MainActivity;
-import com.kankangames.shadowofroles.ui.activities.multidevice.MultipleDeviceGameActivity;
+import com.kankangames.shadowofroles.ui.activities.game.MultipleDeviceGameActivity;
 import com.kankangames.shadowofroles.ui.activities.multidevice.OnlineSelectionActivity;
 import com.kankangames.shadowofroles.ui.adapters.LobbyPlayersAdapter;
 import com.kankangames.shadowofroles.ui.alerts.AlertProvider;
@@ -36,12 +36,10 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
     protected List<LobbyPlayer> playerList;
     protected LobbyPlayersAdapter playerAdapter;
     protected Client client;
-    protected ClientListenerManager listenerManager;
-    protected Button startGameBtn;
+    protected NetworkListenerManager listenerManager;
+
     protected ImageView backgroundImage;
-    protected Button plusBtn;
-    protected Button minusBtn;
-    protected Button closeBtn;
+    protected Button plusBtn, minusBtn, closeBtn, startGameBtn;
     protected RecyclerView playersView;
     protected ClientManager clientManager;
 

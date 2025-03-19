@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.ui.activities.multidevice;
+package com.kankangames.shadowofroles.ui.activities.game;
 
 import static android.view.View.GONE;
 
@@ -22,7 +22,7 @@ import com.kankangames.shadowofroles.managers.GameScreenImageManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
-import com.kankangames.shadowofroles.networking.client.ClientListenerManager;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
 import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
@@ -46,16 +46,8 @@ import java.util.Locale;
 public class MultipleDeviceGameActivity extends BaseActivity implements ClockService.ClockUpdateListener {
     private GameData gameData;
     private RecyclerView alivePlayersView;
-
-    private TextView timeText;
-    private TextView nameText;
-    private TextView numberText;
-    private TextView roleText;
-    private TextView clockText;
-
-    private ImageButton announcementsButton;
-    private ImageButton graveyardButton;
-    private ImageButton roleBookButton;
+    private TextView timeText, nameText, numberText, roleText, clockText;
+    private ImageButton announcementsButton, graveyardButton, roleBookButton;
     private ImageView backgroundImage;
     private final GameMode gameMode = GameMode.MULTIPLE_DEVICE;
     private Client client;
@@ -70,7 +62,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
         client = ClientManager.getInstance().getClient();
         initializeClientListeners();
 
-        if(gameData == null) gameData = (GameData) client.getDataProvider();
+        if(gameData == null) gameData = (GameData) client.getClientGameManager().getDataProvider();
 
         clockService = new ClockService(this);
         initializeViews();
@@ -95,7 +87,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     }
 
     private void initializeClientListeners(){
-        ClientListenerManager listenerManager = client.getClientListenerManager();
+        NetworkListenerManager listenerManager = client.getClientListenerManager();
 
         listenerManager.addListener(OnGameDataReceivedListener.class, receivedGameData -> {
                     gameData = receivedGameData;
@@ -278,7 +270,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     public void onTimeUpdate(int remainingTime) {
         runOnUiThread(()->{
             int seconds = remainingTime / 1000;
-            clockText.setText(String.format("%d seconds remaining", seconds));
+            clockText.setText(String.format(Locale.ROOT,"%d seconds remaining", seconds));
         });
 
     }
@@ -288,7 +280,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
         if(gameData.getTimeService().getTime()!=Time.DAY){
             Player chosenPlayer = gameData.getCurrentPlayer().getRole().getChoosenPlayer();
             int chosenPlayerNumber = chosenPlayer==null ? -1 : chosenPlayer.getNumber();
-            client.sendPlayerInfo(new PlayerInfo(
+            client.getClientGameManager().sendPlayerInfo(new PlayerInfo(
                             gameData.getCurrentPlayer().getNumber(),
                             chosenPlayerNumber,
                             gameData.getCurrentPlayer().getRole().getTemplate()

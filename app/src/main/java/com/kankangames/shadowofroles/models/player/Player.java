@@ -86,6 +86,14 @@ public abstract class Player{
         return isAI;
     }
 
+    public boolean isSamePlayer(Player player){
+        return player.getNumber() == number;
+    }
+
+    public boolean isSamePlayer(int number){
+        return this.number == number;
+    }
+
     @Override
     public String toString() {
         return "Player{" +

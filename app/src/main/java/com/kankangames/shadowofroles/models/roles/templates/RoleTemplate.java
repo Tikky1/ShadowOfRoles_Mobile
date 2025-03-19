@@ -8,7 +8,9 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 import com.kankangames.shadowofroles.services.MessageService;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public abstract class RoleTemplate implements PerformAbility, Serializable {
 
@@ -56,6 +58,22 @@ public abstract class RoleTemplate implements PerformAbility, Serializable {
         } catch (Exception e) {
             throw new RuntimeException("Cannot create copy of Role", e);
         }
+    }
+
+    public <T extends RoleTemplate> T castRole(Class<T> clazz){
+
+        if(clazz.isInstance(this)){
+            return clazz.cast(this);
+        }
+        throw new ClassCastException("Cannot cast " + this.getClass().getSimpleName() + " to " + clazz.getSimpleName());
+
+    }
+
+
+    public List<Player> filterChoosablePlayers(Player roleOwner, List<Player> players){
+        return players.stream().filter(player ->
+                        roleOwner.getRole().getTemplate().getAbilityType().canUseAbility(roleOwner,player)).
+                collect(Collectors.toList());
     }
 
     public abstract AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService);

@@ -35,7 +35,7 @@
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.PlayerNamesActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".ui.activities.SingleDeviceGameActivity"
+        <activity android:name=".ui.activities.game.SingleDeviceGameActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.GameEndActivity"
             android:theme="@style/FullscreenTheme"/>
@@ -45,7 +45,7 @@
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.multidevice.ListOnlineGamesActivity"
             android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".ui.activities.multidevice.MultipleDeviceGameActivity"
+        <activity android:name=".ui.activities.game.MultipleDeviceGameActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".ui.activities.multidevice.lobby.GameHostingActivity"
             android:theme="@style/FullscreenTheme"/>

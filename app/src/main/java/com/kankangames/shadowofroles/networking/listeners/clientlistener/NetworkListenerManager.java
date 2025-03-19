@@ -1,12 +1,10 @@
-package com.kankangames.shadowofroles.networking.client;
-
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.ClientListener;
+package com.kankangames.shadowofroles.networking.listeners.clientlistener;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public final class ClientListenerManager {
+public final class NetworkListenerManager {
     private final Map<Class<? extends ClientListener>, ClientListener> listeners = new HashMap<>();
 
 
@@ -21,7 +19,7 @@ public final class ClientListenerManager {
         }
     }
 
-     void resetListeners(){
+     public void resetListeners(){
         listeners.clear();
     }
 }

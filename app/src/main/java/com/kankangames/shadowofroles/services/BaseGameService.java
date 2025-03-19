@@ -73,7 +73,7 @@ public abstract class BaseGameService {
                 if (player.getRole().getTemplate() instanceof LastJoke) {
 
                     LastJoke lastJoker = (LastJoke) player.getRole().getTemplate();
-                    if (!lastJoker.isDidUsedAbility() && timeService.getTime() == Time.NIGHT) {
+                    if (lastJoker.canUseAbility() && timeService.getTime() == Time.NIGHT) {
                         alivePlayers.add(player);
                     }
                 }

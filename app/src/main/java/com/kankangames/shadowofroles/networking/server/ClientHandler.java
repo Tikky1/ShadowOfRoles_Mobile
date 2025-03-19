@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable {
+public final class ClientHandler implements Runnable {
     private final Socket socket;
     private PrintWriter out;
     private BufferedReader in;
@@ -58,7 +58,7 @@ public class ClientHandler implements Runnable {
                     server.getServerGameManager().multiDeviceGameService.updateAllPlayers(player);
                 }
                 else if(message.startsWith("LOBBY_PLAYER_LEFT")){
-                    server.removeClient(this);
+                    server.getServerLobbyManager().removeClient(this);
                     closeConnection();
                 }
 
@@ -69,7 +69,7 @@ public class ClientHandler implements Runnable {
         } finally {
             try {
                 socket.close();
-                server.removeClient(this);
+                server.getServerLobbyManager().removeClient(this);
                 setConnectionStatus(ConnectionStatus.DISCONNECTED);
             } catch (IOException e) {
                 setConnectionStatus(ConnectionStatus.ERROR);

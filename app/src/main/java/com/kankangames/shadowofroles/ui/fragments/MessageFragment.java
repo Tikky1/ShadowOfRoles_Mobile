@@ -47,7 +47,7 @@ public class MessageFragment extends HidingNavigationFragment {
         messagesView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         MessagesViewAdapter messagesViewAdapter = new MessagesViewAdapter();
         messagesViewAdapter.setMessages(messages.stream().filter(
-                message -> message.isPublic()||message.getReceiver().getNumber() == currentPlayer.getNumber()).collect(Collectors.toList()));
+                message -> message.isPublic()||message.getReceiver().isSamePlayer(currentPlayer)).collect(Collectors.toList()));
         messagesView.setAdapter(messagesViewAdapter);
 
 

@@ -1,5 +1,6 @@
 package com.kankangames.shadowofroles.models.player;
 
+import com.kankangames.shadowofroles.models.roles.abilities.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.NeutralRole;
 import com.kankangames.shadowofroles.services.RoleService;
 import com.kankangames.shadowofroles.models.roles.enums.Team;
@@ -7,6 +8,7 @@ import com.kankangames.shadowofroles.models.roles.templates.folkroles.unique.Ent
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class AIPlayer extends Player {
@@ -28,10 +30,10 @@ public class AIPlayer extends Player {
             for (Player player : players) {
                 if (player.getRole().isRevealed()) {
                     if (player.getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER) {
-                        getRole().setChoosenPlayer(player);
+                        role.setChoosenPlayer(player);
                         return;
-                    } else if (player.getRole().getTemplate() instanceof NeutralRole) {
-                        NeutralRole neutralRole = (NeutralRole) player.getRole().getTemplate();
+                    } else if (player.role.getTemplate() instanceof NeutralRole) {
+                        NeutralRole neutralRole = (NeutralRole) player.role.getTemplate();
                         if (!neutralRole.canWinWithOtherTeams()) {
                             getRole().setChoosenPlayer(player);
                             return;
@@ -51,31 +53,8 @@ public class AIPlayer extends Player {
     }
 
     public void chooseRandomPlayerNight(final ArrayList<Player> players){
-        ArrayList<Player> choosablePlayers = new ArrayList<>(players);
-        switch (getRole().getTemplate().getAbilityType()) {
-            case NO_ABILITY:
-            case PASSIVE:
-                return;
-
-            case ACTIVE_SELF:
-                getRole().setChoosenPlayer(this);
-                return;
-
-            case OTHER_THAN_CORRUPTER:
-                for (Player player : players) {
-                    if (player.getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER) {
-                        choosablePlayers.remove(player);
-                    }
-                }
-                break;
-
-            case ACTIVE_OTHERS:
-                choosablePlayers.remove(this);
-                break;
-
-            default:
-                break;
-        }
+        List<Player> choosablePlayers = new ArrayList<>(players);
+        choosablePlayers = role.getTemplate().filterChoosablePlayers(this, choosablePlayers);
 
         chooseRoleSpecificValues(choosablePlayers);
         if(choosablePlayers.isEmpty()){
@@ -86,17 +65,10 @@ public class AIPlayer extends Player {
 
     }
 
-    private void chooseRoleSpecificValues(final ArrayList<Player> choosablePlayers) {
-        if (getRole().getTemplate() instanceof Entrepreneur) {
-            Entrepreneur entrepreneur = (Entrepreneur) getRole().getTemplate();
-            boolean randBool = new Random().nextBoolean();
-            entrepreneur.setChosenAbility(randBool ? Entrepreneur.ChosenAbility.HEAL : Entrepreneur.ChosenAbility.ATTACK);
-
-        } else if (getRole().getTemplate() instanceof Lorekeeper) {
-            Lorekeeper lorekeeper = (Lorekeeper) getRole().getTemplate();
-            lorekeeper.setGuessedRole(RoleService.getRandomRole());
-            choosablePlayers.removeAll(lorekeeper.getAlreadyChosenPlayers());
-
+    private void chooseRoleSpecificValues(final List<Player> choosablePlayers) {
+        if(role.getTemplate() instanceof RoleSpecificValuesChooser){
+            RoleSpecificValuesChooser roleSpecificValuesChooser = (RoleSpecificValuesChooser) role;
+            roleSpecificValuesChooser.chooseRoleSpecificValues(choosablePlayers);
         }
     }
 

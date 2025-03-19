@@ -20,10 +20,7 @@ import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.support.LastJoke;
-import com.kankangames.shadowofroles.models.roles.enums.Team;
-import com.kankangames.shadowofroles.models.roles.templates.folkroles.protector.FolkHero;
-import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
+import com.kankangames.shadowofroles.ui.helper.PlayerActionVisibility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,77 +65,27 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Player player = players.get(position);
-        holder.setCurrentPlayerAndOtherPlayer(currentPlayer,player);
-        holder.playerNumberView.setText(String.format(Locale.ROOT, "%d", player.getNumber()));
-        holder.playerNameView.setText(player.getName());
+        Player targetPlayer = players.get(position);
+        holder.setCurrentPlayerAndOtherPlayer(currentPlayer,targetPlayer);
+        holder.playerNumberView.setText(String.format(Locale.ROOT, "%d", targetPlayer.getNumber()));
+        holder.playerNameView.setText(targetPlayer.getName());
 
 
         Button selectButton = holder.selectionBtn;
 
-        boolean isPlayerCurrentPlayer = isPlayerCurrentPlayer(player, currentPlayer);
+        PlayerActionVisibility playerActionVisibility = new PlayerActionVisibility(currentPlayer, targetPlayer, time);
 
+        boolean isBtnVisible = playerActionVisibility.shouldShowButton();
+        boolean isPlayerCurrentPlayer = currentPlayer.isSamePlayer(targetPlayer);
 
-        if (time == Time.DAY) {
-            selectButton.setVisibility(GONE);
-        }
-        else if(time == Time.NIGHT){
-
-
-            switch (currentPlayer.getRole().getTemplate().getAbilityType()) {
-
-                case ACTIVE_SELF:
-                    selectButton.setVisibility(isPlayerCurrentPlayer ? VISIBLE : GONE);
-                    break;
-
-                case ACTIVE_ALL:
-                    selectButton.setVisibility(VISIBLE);
-                    break;
-
-                case ACTIVE_OTHERS:
-                    selectButton.setVisibility(isPlayerCurrentPlayer ? View.GONE : View.VISIBLE);
-                    break;
-
-                case OTHER_THAN_CORRUPTER:
-                    selectButton.setVisibility(
-                            player.getRole().getTemplate().getWinningTeam().getTeam() != Team.CORRUPTER ? View.VISIBLE : View.GONE);
-                    break;
-
-                default:
-                    selectButton.setVisibility(GONE);
-            }
-
-            if (currentPlayer.getRole().getTemplate() instanceof Lorekeeper) {
-                Lorekeeper lorekeeper = (Lorekeeper) currentPlayer.getRole().getTemplate();
-                if (lorekeeper.getAlreadyChosenPlayers().contains(player)) {
-                    selectButton.setVisibility(GONE);
-                }
-            }
-
-            if (currentPlayer.getRole().getTemplate() instanceof LastJoke ) {
-                LastJoke lastJoke = (LastJoke) currentPlayer.getRole().getTemplate();
-                if(currentPlayer.getDeathProperties().isAlive()) selectButton.setVisibility(GONE);
-                else if(!lastJoke.isDidUsedAbility()) selectButton.setVisibility(VISIBLE);
-            }
-
-            if(currentPlayer.getRole().getTemplate() instanceof FolkHero){
-                FolkHero folkHero = (FolkHero) currentPlayer.getRole().getTemplate();
-                if(folkHero.getRemainingAbilityCount()<=0){
-                    selectButton.setVisibility(GONE);
-                }
-            }
-        }
-        else{
-            selectButton.setVisibility(isPlayerCurrentPlayer ? View.GONE : View.VISIBLE);
-        }
-
-        holder.selectionBtn.setText(holder.isSelected
+        selectButton.setVisibility(isBtnVisible ? VISIBLE : GONE);
+        selectButton.setText(holder.isSelected
                 ? context.getString(R.string.unselect)
                 : context.getString(R.string.select));
 
 
 
-        RoleTemplate roleTemplate = player.getRole().getTemplate();
+        RoleTemplate roleTemplate = targetPlayer.getRole().getTemplate();
         holder.roleName.setText(String.format("(%s)", roleTemplate.getName()));
 
 
@@ -157,7 +104,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
         holder.roleName.setTextColor(color);
 
-        boolean isRevealed = player.getRole().isRevealed();
+        boolean isRevealed = targetPlayer.getRole().isRevealed();
         boolean areBothCorrupter = roleTemplate.getWinningTeam() == WinningTeam.CORRUPTER
                 && currentPlayer.getRole().getTemplate().getWinningTeam() == WinningTeam.CORRUPTER;
 
@@ -170,9 +117,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
     }
 
-    private boolean isPlayerCurrentPlayer(Player player, Player currentPlayer){
-        return player.getNumber() == currentPlayer.getNumber();
-    }
+
 
     @Override
     public int getItemCount() {
@@ -237,7 +182,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
         private void setCurrentPlayerAndOtherPlayer(Player currentPlayer, Player player) {
             this.currentPlayer = currentPlayer;
             this.player = player;
-            if(currentPlayer.getNumber() == player.getNumber()){
+            if(currentPlayer.isSamePlayer(player)){
                 numberCircle.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.circle_background_current));
             }
         }

@@ -27,16 +27,12 @@ import com.kankangames.shadowofroles.models.roles.templates.folkroles.unique.Ent
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
-import com.kankangames.shadowofroles.services.BaseGameService;
 import com.kankangames.shadowofroles.services.DataProvider;
-import com.kankangames.shadowofroles.services.MultiDeviceGameService;
 import com.kankangames.shadowofroles.services.RoleService;
-import com.kankangames.shadowofroles.services.SingleDeviceGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.adapters.LorekeeperAdapter;
 
 import java.util.Locale;
-import java.util.Map;
 
 
 public class PlayerRoleFragment extends Fragment {
@@ -64,7 +60,7 @@ public class PlayerRoleFragment extends Fragment {
                 break;
 
             case MULTIPLE_DEVICE:
-                dataProvider = ClientManager.getInstance().getClient().getDataProvider();
+                dataProvider = ClientManager.getInstance().getClient().getClientGameManager().getDataProvider();
                 currentPlayer = dataProvider.getCurrentPlayer();
                 break;
 

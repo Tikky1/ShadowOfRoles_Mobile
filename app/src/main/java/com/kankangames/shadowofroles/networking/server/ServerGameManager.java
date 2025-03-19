@@ -17,16 +17,17 @@ import com.kankangames.shadowofroles.services.TurnTimerService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerGameManager implements TurnTimerService.OnTimeChangeListener{
+public final class ServerGameManager implements TurnTimerService.OnTimeChangeListener{
 
-    protected MultiDeviceGameService multiDeviceGameService;
-    protected boolean isGameStarted = false;
+    MultiDeviceGameService multiDeviceGameService;
+    boolean isGameStarted = false;
     private final List<LobbyPlayer> lobbyPlayers;
     private final Server server;
 
-    ServerGameManager(List<LobbyPlayer> lobbyPlayers, Server server){
-        this.lobbyPlayers = lobbyPlayers;
+    ServerGameManager(Server server){
+
         this.server = server;
+        this.lobbyPlayers = server.getServerLobbyManager().getLobbyPlayers();
     }
 
 

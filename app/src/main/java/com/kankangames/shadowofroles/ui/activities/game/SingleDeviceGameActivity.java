@@ -1,8 +1,7 @@
-package com.kankangames.shadowofroles.ui.activities;
+package com.kankangames.shadowofroles.ui.activities.game;
 
 import static android.view.View.GONE;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,17 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.ui.activities.BaseActivity;
+import com.kankangames.shadowofroles.ui.activities.GameEndActivity;
+import com.kankangames.shadowofroles.ui.activities.MainActivity;
 import com.kankangames.shadowofroles.ui.adapters.PlayersViewAdapter;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.managers.GameScreenImageManager;
 import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.enums.AbilityType;
 import com.kankangames.shadowofroles.services.SingleDeviceGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.alerts.GoToMainAlert;
@@ -35,19 +35,14 @@ import com.kankangames.shadowofroles.ui.fragments.fullscreen.PassTurnFragment;
 
 import java.util.Locale;
 
-public class SingleDeviceGameActivity extends BaseActivity{
+public class SingleDeviceGameActivity extends BaseActivity {
 
     private SingleDeviceGameService gameService;
     private RecyclerView alivePlayersView;
 
-    private TextView timeText;
-    private TextView nameText;
-    private TextView numberText;
-    private TextView roleText;
+    private TextView timeText, nameText, numberText, roleText;
 
-    private ImageButton announcementsButton;
-    private ImageButton graveyardButton;
-    private ImageButton roleBookButton;
+    private ImageButton announcementsButton, graveyardButton, roleBookButton;
     private Button passTurnButton;
     private ImageView backgroundImage;
     private final GameMode gameMode = GameMode.SINGLE_DEVICE;

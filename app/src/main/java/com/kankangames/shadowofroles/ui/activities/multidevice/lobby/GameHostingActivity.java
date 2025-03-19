@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.server.Server;
+import com.kankangames.shadowofroles.networking.server.ServerLobbyManager;
 import com.kankangames.shadowofroles.services.StartGameService;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public class GameHostingActivity extends AbstractLobbyActivity {
 
     private Server server;
+    private ServerLobbyManager lobbyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,14 @@ public class GameHostingActivity extends AbstractLobbyActivity {
 
         plusBtn.setOnClickListener(v -> {
             new Thread(()->{
-                server.addLobbyAIPlayer();
-                server.sendPlayerList();
+                lobbyManager.addLobbyAIPlayer();
+                lobbyManager.sendPlayerList();
             }).start();
 
         });
 
         minusBtn.setOnClickListener(v -> {
-            new Thread(() -> server.kickPlayer(playerAdapter.getSelectedPosition())).start();
+            new Thread(() -> lobbyManager.kickPlayer(playerAdapter.getSelectedPosition())).start();
 
         });
 
@@ -45,6 +47,7 @@ public class GameHostingActivity extends AbstractLobbyActivity {
 
         server = Server.getInstance();
         server.startServer();
+        lobbyManager = server.getServerLobbyManager();
         runOnUiThread(() -> Toast.makeText(this, "Sunucu başlatıldı", Toast.LENGTH_SHORT).show());
     }
 
@@ -66,7 +69,7 @@ public class GameHostingActivity extends AbstractLobbyActivity {
 
     @Override
     protected void backPressedAction() {
-        server.disbandGame();
+        lobbyManager.disbandGame();
     }
 
     @Override
@@ -91,6 +94,10 @@ public class GameHostingActivity extends AbstractLobbyActivity {
         });
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        System.out.println("asgydashdasdj.");
+        backPressedAction();
+        super.onDestroy();
+    }
 }

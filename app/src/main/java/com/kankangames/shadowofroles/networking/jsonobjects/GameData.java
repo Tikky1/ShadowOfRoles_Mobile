@@ -53,13 +53,13 @@ public class GameData implements DataProvider {
     @Override
     public Player getCurrentPlayer(){
         for(Player player: alivePlayers){
-            if(player.getNumber() == playerNumber){
+            if(player.isSamePlayer(playerNumber)){
                 return player;
             }
         }
 
         for(Player player: deadPlayers){
-            if(player.getNumber() == playerNumber){
+            if(player.isSamePlayer(playerNumber)){
                 return player;
             }
         }

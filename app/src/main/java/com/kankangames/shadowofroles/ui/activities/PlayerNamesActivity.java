@@ -16,6 +16,7 @@ import com.kankangames.shadowofroles.models.player.HumanPlayer;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.ui.activities.game.SingleDeviceGameActivity;
 import com.kankangames.shadowofroles.ui.adapters.PlayerNamesAdapter;
 
 import java.util.ArrayList;

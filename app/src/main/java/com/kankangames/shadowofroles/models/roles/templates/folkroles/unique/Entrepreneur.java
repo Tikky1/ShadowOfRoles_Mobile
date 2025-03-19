@@ -6,13 +6,16 @@ import com.kankangames.shadowofroles.models.roles.abilities.AttackAbility;
 import com.kankangames.shadowofroles.models.roles.abilities.PriorityChangingRole;
 import com.kankangames.shadowofroles.models.roles.abilities.ProtectiveAbility;
 import com.kankangames.shadowofroles.models.roles.abilities.InvestigativeAbility;
+import com.kankangames.shadowofroles.models.roles.abilities.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.FolkRole;
 import com.kankangames.shadowofroles.services.BaseGameService;
 
+import java.util.List;
 import java.util.Random;
 
-public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackAbility, InvestigativeAbility, PriorityChangingRole {
+public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackAbility,
+        InvestigativeAbility, PriorityChangingRole, RoleSpecificValuesChooser {
     private int money;
     private ChosenAbility chosenAbility;
     public Entrepreneur() {
@@ -128,6 +131,11 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
         rolePriority = chosenAbility.rolePriority;
     }
 
+    @Override
+    public void chooseRoleSpecificValues(List<Player> choosablePlayers) {
+        boolean randBool = new Random().nextBoolean();
+        chosenAbility = randBool ? Entrepreneur.ChosenAbility.HEAL : Entrepreneur.ChosenAbility.ATTACK;
+    }
 
     public enum ChosenAbility{
         ATTACK(RolePriority.NONE, 4),
