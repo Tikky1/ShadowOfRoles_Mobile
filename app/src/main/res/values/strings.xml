@@ -28,7 +28,7 @@
     <string name="winner_team_corrupter">Corrupter</string>
     <string name="winner_team_folk">Folk</string>
     <string name="winner_team_assassin">Assassin</string>
-    <string name="winner_team_chillguy">Chill Guy</string>
+    <string name="winner_team_chill_guy">Chill Guy</string>
     <string name="winner_team_clown">Clown</string>
     <string name="winner_team_lorekeeper">Lore Keeper</string>
     <string name="winner_team_text">{team} has won!</string>
@@ -298,6 +298,7 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <!--Game End-->
     <string name="won">Won</string>
     <string name="lost">Lost</string>
+    <string name="tied">Tied</string>
     <string name="alive">Alive</string>
     <string name="dead">Dead</string>
     <string name="number_column">Number</string>

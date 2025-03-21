@@ -25,12 +25,13 @@ import com.kankangames.shadowofroles.ui.helper.PlayerActionVisibility;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.ViewHolder>{
 
     private final List<ViewHolder> allSelectionBoxes = new ArrayList<>();
     private final Context context;
-    private ArrayList<Player> players = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
 
     private final Time time;
 
@@ -125,7 +126,7 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
     }
 
     public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
+        this.players = players.stream().filter(player -> player.getDeathProperties().isAlive()).collect(Collectors.toList());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

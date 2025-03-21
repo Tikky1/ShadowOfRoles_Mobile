@@ -11,7 +11,12 @@ public final class Psycho extends CorrupterRole implements AttackAbility {
 
     public Psycho() {
         super(RoleID.Psycho, AbilityType.OTHER_THAN_CORRUPTER, RolePriority.NONE,
-                RoleCategory.CORRUPTER_KILLING, 1,0, false);
+                RoleCategory.CORRUPTER_KILLING);
+
+        roleProperties.setKnowsTeamMembers(true)
+                .setAttack(1)
+                .setHasAttackAbility(true)
+                .setCanKill1v1(true);
     }
 
     @Override

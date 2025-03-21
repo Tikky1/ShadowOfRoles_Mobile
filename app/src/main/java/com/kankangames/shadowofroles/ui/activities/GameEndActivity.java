@@ -23,10 +23,12 @@ import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.ChillGuyListener;
 import com.kankangames.shadowofroles.services.DataProvider;
 import com.kankangames.shadowofroles.services.FinishGameService;
 import com.kankangames.shadowofroles.services.SingleDeviceGameService;
 import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.ui.fragments.BlackScreenFragment;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.ChillGuyFragment;
 
 import java.util.ArrayList;
@@ -45,6 +47,8 @@ public class GameEndActivity extends BaseActivity{
     private ArrayList<Player> allPlayers;
 
     private WinningTeam winningTeam;
+    private GameMode gameMode;
+    private Client client;
 
 
     @Override
@@ -54,7 +58,15 @@ public class GameEndActivity extends BaseActivity{
         setContentView(R.layout.activity_game_end);
         StartGameService startGameService = StartGameService.getInstance();
 
-        GameMode gameMode = startGameService.getGameMode();
+
+        endGameTable = findViewById(R.id.end_game_table);
+        mainMenuBtn = findViewById(R.id.go_back_main_button);
+        winnerTeamText = findViewById(R.id.winner_team_text);
+        winnerTeamImage = findViewById(R.id.winner_team_image);
+
+        gameMode = startGameService.getGameMode();
+
+
         if(gameMode == GameMode.SINGLE_DEVICE){
             DataProvider dataProvider = StartGameService.getInstance().getGameService();
             SingleDeviceGameService singleDeviceGameService = (SingleDeviceGameService) dataProvider;
@@ -62,26 +74,31 @@ public class GameEndActivity extends BaseActivity{
             allPlayers = singleDeviceGameService.getAllPlayers();
         }
         else{
-            Client client = ClientManager.getInstance().getClient();
+
+            client = ClientManager.getInstance().getClient();
             EndGameData endGameData = client.getClientGameManager().getEndGameData();
-            
             finishGameService = endGameData.getFinishGameService();
             allPlayers = endGameData.getAllPlayers();
+
+            if(endGameData.getFinishGameService().getChillGuyPlayer()!= null){
+                createBlankAlert();
+                if(client.getClientLobbyManager().isHost()){
+                    createChillGuyAlert();
+                }
+            }else{
+                setActivity();
+            }
+
 
         }
 
 
-        endGameTable = findViewById(R.id.end_game_table);
-        mainMenuBtn = findViewById(R.id.go_back_main_button);
-        winnerTeamText = findViewById(R.id.winner_team_text);
-        winnerTeamImage = findViewById(R.id.winner_team_image);
+        if(gameMode == GameMode.SINGLE_DEVICE){
+            boolean chillGuyExist = createChillGuyAlert();
+            if(chillGuyExist){
+                setActivity();
+            }
 
-        winningTeam = finishGameService.getHighestPriorityWinningTeam();
-
-        boolean chillGuyExist = createChillGuyAlert();
-
-        if(!chillGuyExist){
-            setActivity();
         }
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -94,6 +111,19 @@ public class GameEndActivity extends BaseActivity{
 
     }
 
+    private void createBlankAlert() {
+        BlackScreenFragment blackScreenFragment = new BlackScreenFragment();
+        blackScreenFragment.show(getSupportFragmentManager(), "Black Screen");
+        client.getClientListenerManager().addListener(ChillGuyListener.class,
+                () -> {
+                    blackScreenFragment.dismiss();
+                    EndGameData endGameData = client.getClientGameManager().getEndGameData();
+                    finishGameService = endGameData.getFinishGameService();
+                    allPlayers = endGameData.getAllPlayers();
+                    setActivity();
+                });
+    }
+
     private boolean createChillGuyAlert(){
         Player chillGuyPlayer = finishGameService.getChillGuyPlayer();
 
@@ -101,17 +131,24 @@ public class GameEndActivity extends BaseActivity{
             return false;
         }
 
-        ChillGuyFragment chillGuyFragment = new ChillGuyFragment(this::setActivity, chillGuyPlayer, finishGameService);
+        ChillGuyFragment chillGuyFragment = new ChillGuyFragment(
+                gameMode == GameMode.SINGLE_DEVICE ? this::setActivity : ()->{}
+                , chillGuyPlayer, finishGameService, gameMode);
         chillGuyFragment.show(getSupportFragmentManager(), "Chill Guy Alert");
+
         return true;
 
     }
 
     private void setActivity(){
-        createTable();
-        setMainMenuBtn();
-        setWinnerTeamText();
-        setWinnerTeamImage();
+        winningTeam = finishGameService.getHighestPriorityWinningTeam();
+        runOnUiThread(()->{
+            createTable();
+            setMainMenuBtn();
+            setWinnerTeamText();
+            setWinnerTeamImage();
+        });
+
     }
     private void createTable(){
 
@@ -139,7 +176,23 @@ public class GameEndActivity extends BaseActivity{
             tableRow.addView(createTextView(String.format(Locale.ROOT,"%d", player.getNumber())));
             tableRow.addView(createTextView(player.getName()));
             tableRow.addView(createTextView(player.getRole().getTemplate().getName()));
-            tableRow.addView(createTextView(player.isHasWon() ? getString(R.string.won) : getString(R.string.lost)));
+
+            String winStatus;
+            switch (player.getWinStatus()){
+                case WON:
+                    winStatus = getString(R.string.won);
+                    break;
+                case LOST:
+                    winStatus = getString(R.string.lost);
+                    break;
+                case TIED:
+                    winStatus = getString(R.string.tied);
+                    break;
+                default:
+                    winStatus = "unknown";
+                    break;
+            }
+            tableRow.addView(createTextView(winStatus));
             tableRow.addView(createTextView(player.getDeathProperties().isAlive() ? getString(R.string.alive) : getString(R.string.dead)));
             tableRow.addView(createTextView(player.getDeathProperties().getCausesOfDeathAsString()));
 

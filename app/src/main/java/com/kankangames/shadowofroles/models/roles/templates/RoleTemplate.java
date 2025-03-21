@@ -2,6 +2,7 @@ package com.kankangames.shadowofroles.models.roles.templates;
 
 import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.models.roles.RoleProperties;
 import com.kankangames.shadowofroles.models.roles.abilities.PerformAbility;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.services.BaseGameService;
@@ -15,29 +16,23 @@ import java.util.stream.Collectors;
 public abstract class RoleTemplate implements PerformAbility, Serializable {
 
     protected final RoleID id;
+    protected final RoleProperties roleProperties;
     protected final RoleCategory roleCategory;
     protected final WinningTeam winningTeam;
-    protected RolePriority rolePriority;
-    protected double attack;
-    protected double defence;
-    protected boolean isRoleBlockImmune;
+    protected transient RolePriority rolePriority;
     protected AbilityType abilityType;
-    private final boolean hasNormalWinCondition;
 
     protected transient final TextManager textManager = TextManager.getInstance();
 
     public RoleTemplate(RoleID id, AbilityType abilityType, RolePriority rolePriority, RoleCategory roleCategory,
-                        WinningTeam winningTeam, double attack ,double defence, boolean isRoleBlockImmune, boolean hasNormalWinCondition) {
+                        WinningTeam winningTeam) {
         // IMPORTANT! When adding a new role template, the role id and role name in the lang json files must be the same!
         this.id = id;
+        this.roleProperties = new RoleProperties();
         this.abilityType = abilityType;
         this.rolePriority = rolePriority;
         this.roleCategory = roleCategory;
         this.winningTeam = winningTeam;
-        this.attack = attack;
-        this.defence = defence;
-        this.isRoleBlockImmune = isRoleBlockImmune;
-        this.hasNormalWinCondition = hasNormalWinCondition;
     }
 
     @Override
@@ -119,36 +114,12 @@ public abstract class RoleTemplate implements PerformAbility, Serializable {
         return textManager.getTextPrefix(winningTeam.getTeam().name(),"team");
     }
 
-    public final double getAttack() {
-        return attack;
-    }
-
-    public final void setAttack(double attack) {
-        this.attack = attack;
-    }
-
-    public final double getDefence() {
-        return defence;
-    }
-
-    public final void setDefence(double defence) {
-        this.defence = defence;
-    }
-
     public final RoleCategory getRoleCategory() {
         return roleCategory;
     }
 
     public final void setRolePriority(RolePriority rolePriority) {
         this.rolePriority = rolePriority;
-    }
-
-    public final boolean isRoleBlockImmune() {
-        return isRoleBlockImmune;
-    }
-
-    public final void setRoleBlockImmune(boolean roleBlockImmune) {
-        isRoleBlockImmune = roleBlockImmune;
     }
 
     public final AbilityType getAbilityType() {
@@ -159,8 +130,8 @@ public abstract class RoleTemplate implements PerformAbility, Serializable {
         this.abilityType = abilityType;
     }
 
-    public boolean isHasNormalWinCondition() {
-        return hasNormalWinCondition;
+    public RoleProperties getRoleProperties() {
+        return roleProperties;
     }
 
     public abstract ChanceProperty getChanceProperty();

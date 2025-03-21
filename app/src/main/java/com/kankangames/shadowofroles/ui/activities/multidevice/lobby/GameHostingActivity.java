@@ -10,6 +10,7 @@ import com.kankangames.shadowofroles.networking.server.ServerLobbyManager;
 import com.kankangames.shadowofroles.services.StartGameService;
 
 import java.util.List;
+import java.util.Locale;
 
 public class GameHostingActivity extends AbstractLobbyActivity {
 
@@ -88,7 +89,7 @@ public class GameHostingActivity extends AbstractLobbyActivity {
                     playerCount <= startGameService.MAX_PLAYER_COUNT;
             startGameBtn.setEnabled(isStartEnabled);
             Log.d("Lobby", "Start button enabled: " + isStartEnabled);
-
+            playerCountText.setText(String.format(Locale.ROOT, "Players: %d", playerList.size()));
             playerAdapter.notifyDataSetChanged();
             Log.d("Lobby", "Adapter notifyDataSetChanged called!");
         });

@@ -9,7 +9,7 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class Detective extends FolkRole implements InvestigativeAbility {
     public Detective() {
         super(RoleID.Detective, AbilityType.ACTIVE_OTHERS, RolePriority.NONE,
-                RoleCategory.FOLK_ANALYST, 0,0, false);
+                RoleCategory.FOLK_ANALYST);
     }
 
     @Override

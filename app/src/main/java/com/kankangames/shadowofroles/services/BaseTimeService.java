@@ -3,9 +3,9 @@ package com.kankangames.shadowofroles.services;
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.managers.TextManager;
 
-public final class TimeService {
-    private int dayCount = 1;
-    private Time time = Time.NIGHT;
+public class BaseTimeService {
+    protected int dayCount = 1;
+    protected Time time = Time.NIGHT;
 
     public void toggleTimeCycle(){
         switch (time) {

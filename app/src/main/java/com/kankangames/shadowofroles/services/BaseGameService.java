@@ -14,13 +14,13 @@ public abstract class BaseGameService {
     protected final ArrayList<Player> alivePlayers = new ArrayList<>();
     protected final ArrayList<Player> deadPlayers = new ArrayList<>();
     protected final VotingService votingService;
-    protected final TimeService timeService;
+    protected final BaseTimeService timeService;
     protected final MessageService messageService;
     protected final FinishGameService finishGameService;
     protected final AbilityService abilityService;
 
-    public BaseGameService(ArrayList<Player> players){
-        timeService = new TimeService();
+    public BaseGameService(ArrayList<Player> players, BaseTimeService timeService){
+        this.timeService = timeService;
         votingService = new VotingService(this);
         messageService = new MessageService(this);
         finishGameService = new FinishGameService(this);
@@ -41,23 +41,7 @@ public abstract class BaseGameService {
 
     }
 
-    public void toggleDayNightCycle(){
-        timeService.toggleTimeCycle();
-        Time time = timeService.getTime();
-        switch (time) {
-            case DAY :
-                abilityService.performAllAbilities();
-                break;
-            case NIGHT:
-                votingService.executeMaxVoted();
-                break;
-        }
-
-        if(finishGameService.checkGameFinished()){
-            finishGameService.finishGame();
-        }
-    }
-
+    public abstract void toggleDayNightCycle();
     public void updateAlivePlayers(){
         alivePlayers.clear();
         for (Player player : allPlayers) {
@@ -70,7 +54,7 @@ public abstract class BaseGameService {
 
                 /* If players role is last joke, player is dead and player has not used ability
                  * yet adds the player to the alive players to use their ability */
-                if (player.getRole().getTemplate() instanceof LastJoke) {
+                if (player.getRole().getTemplate().getRoleProperties().hasPostDeathEffect()) {
 
                     LastJoke lastJoker = (LastJoke) player.getRole().getTemplate();
                     if (lastJoker.canUseAbility() && timeService.getTime() == Time.NIGHT) {
@@ -100,7 +84,7 @@ public abstract class BaseGameService {
 
     protected void chooseRandomPlayersForAI(List<Player> players){
         for(Player player: players){
-            if(player instanceof AIPlayer){
+            if(player.isAIPlayer()){
                 AIPlayer aiPlayer = (AIPlayer) player;
                 aiPlayer.chooseRandomPlayerNight(alivePlayers);
             }
@@ -131,7 +115,7 @@ public abstract class BaseGameService {
         return alivePlayers;
     }
 
-    public TimeService getTimeService() {
+    public BaseTimeService getTimeService() {
         return timeService;
     }
 

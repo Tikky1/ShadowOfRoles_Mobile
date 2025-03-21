@@ -7,6 +7,7 @@ import com.kankangames.shadowofroles.managers.InstanceClearer;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.models.player.properties.LobbyPlayerStatus;
 import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
+import com.kankangames.shadowofroles.networking.jsonobjects.LobbyData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +41,8 @@ public final class ServerLobbyManager {
                     clients.add(clientHandler);
                     lobbyPlayers.add(clientHandler.getClientPlayer());
 
-                    Gson gson = GsonProvider.getGson();
-                    String json = gson.toJson(lobbyPlayers);
+                    sendPlayerList();
 
-                    String message = "PLAYERS:" + json;
-                    server.broadcastMessage(message);
-
-                    Log.d("Server", "Players updated: " + message);
                     break;
                 } catch (InterruptedException e) {
                     Log.e("Server", "Thread interrupted while adding player to list: " + e.getMessage());
@@ -63,18 +59,22 @@ public final class ServerLobbyManager {
     public void sendPlayerList() {
 
         Gson gson = GsonProvider.getGson();
-        String json = gson.toJson(lobbyPlayers);
 
-        String message = "PLAYERS:" + json;
+        for(ClientHandler clientHandler : clients){
+            System.out.println(clientHandler.getClientPlayer().getId());
+            LobbyData lobbyData = new LobbyData(lobbyPlayers, clientHandler.getClientPlayer().getId());
+            String json = gson.toJson(lobbyData);
 
-        server.broadcastMessage(message);
+            String message = "PLAYERS:" + json;
+            clientHandler.sendMessage(message);
+        }
 
-        Log.d("Server", "Sent player list to clients: " + message);
+
     }
 
 
     public void addLobbyAIPlayer(){
-        LobbyPlayer aiPlayer = new LobbyPlayer("Bot",false,true, LobbyPlayerStatus.BOT);
+        LobbyPlayer aiPlayer = new LobbyPlayer("Bot",false,true, lobbyPlayers.size(),LobbyPlayerStatus.BOT);
         lobbyPlayers.add(aiPlayer);
     }
 

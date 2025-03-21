@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background0" />
 
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/player_names_top_guideline"
         android:layout_width="wrap_content"

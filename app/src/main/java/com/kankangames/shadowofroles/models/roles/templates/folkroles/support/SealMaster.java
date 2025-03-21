@@ -9,7 +9,9 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class SealMaster extends FolkRole implements RoleBlockAbility {
     public SealMaster() {
         super(RoleID.SealMaster, AbilityType.ACTIVE_OTHERS, RolePriority.ROLE_BLOCK,
-                RoleCategory.FOLK_SUPPORT, 0,0, true);
+                RoleCategory.FOLK_SUPPORT);
+        roleProperties.setCanRoleBlock(true)
+                .setRoleBlockImmune(true);
     }
 
     @Override

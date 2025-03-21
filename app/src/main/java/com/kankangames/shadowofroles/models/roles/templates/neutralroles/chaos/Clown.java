@@ -9,7 +9,12 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class Clown extends NeutralRole implements NoAbility {
     public Clown() {
         super(RoleID.Clown, AbilityType.NO_ABILITY, RolePriority.NONE, RoleCategory.NEUTRAL_CHAOS,
-               WinningTeam.CLOWN ,0, 0,  false, false);
+               WinningTeam.CLOWN);
+
+        roleProperties.setCanWinWithAnyTeam(true)
+                .setHasNormalWinCondition(false)
+                .setWinsAlone(true)
+                .setMustDieToWin(true);
     }
 
     @Override
@@ -27,8 +32,4 @@ public final class Clown extends NeutralRole implements NoAbility {
         return new ChanceProperty(30, 1);
     }
 
-    @Override
-    public boolean canWinWithOtherTeams() {
-        return true;
-    }
 }

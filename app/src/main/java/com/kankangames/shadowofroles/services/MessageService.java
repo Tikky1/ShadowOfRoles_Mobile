@@ -42,7 +42,7 @@ public final class MessageService {
      */
     void sendSpecificRoleMessages(final Player alivePlayer){
 
-        if(alivePlayer.getRole().getTemplate().isRoleBlockImmune() && !alivePlayer.getRole().isCanPerform()
+        if(alivePlayer.getRole().getTemplate().getRoleProperties().isRoleBlockImmune() && !alivePlayer.getRole().isCanPerform()
                 && !alivePlayer.getRole().isImmune()){
             createNightMessage(TextManager.getInstance().getText("rb_immune_message"),
                     alivePlayer, false);
@@ -52,8 +52,8 @@ public final class MessageService {
             return;
         }
         if(alivePlayer.getRole().getChoosenPlayer().getRole().isImmune() &&
-                alivePlayer.getRole().getTemplate().getRolePriority().getPriority()<= RolePriority.ROLE_BLOCK.getPriority()
-        && alivePlayer.getRole().getTemplate().getId() != RoleID.FolkHero){
+                alivePlayer.getRole().getTemplate().getRolePriority().getPriority() <= RolePriority.ROLE_BLOCK.getPriority()
+        && !alivePlayer.getRole().getTemplate().getRoleProperties().hasImmuneAbility()){
             createNightMessage(TextManager.getInstance().getText("immune_message"),
                     alivePlayer, false);
         }

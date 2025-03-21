@@ -9,7 +9,7 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class Observer extends FolkRole implements InvestigativeAbility {
     public Observer() {
         super(RoleID.Observer, AbilityType.ACTIVE_OTHERS, RolePriority.NONE,
-                RoleCategory.FOLK_ANALYST, 0,0, false);
+                RoleCategory.FOLK_ANALYST);
     }
 
     @Override

@@ -18,7 +18,8 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true"
-            android:theme="@style/Launching">
+            android:theme="@style/Launching"
+            android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.windowSplashScreenBackground"
                 android:resource="@color/black"/>
@@ -32,27 +33,38 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.CreditsActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.PlayerNamesActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.game.SingleDeviceGameActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.GameEndActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.ContactActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.SettingsActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.multidevice.ListOnlineGamesActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.game.MultipleDeviceGameActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.multidevice.lobby.GameHostingActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.multidevice.lobby.GameLobbyActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.multidevice.OnlineSelectionActivity"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/FullscreenTheme"
+            android:configChanges="orientation|screenSize">
 
         </activity>
 

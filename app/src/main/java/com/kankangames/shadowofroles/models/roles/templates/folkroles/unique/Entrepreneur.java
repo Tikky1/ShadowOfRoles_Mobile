@@ -3,10 +3,10 @@ package com.kankangames.shadowofroles.models.roles.templates.folkroles.unique;
 import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.AttackAbility;
-import com.kankangames.shadowofroles.models.roles.abilities.PriorityChangingRole;
+import com.kankangames.shadowofroles.models.roles.otherinterfaces.PriorityChangingRole;
 import com.kankangames.shadowofroles.models.roles.abilities.ProtectiveAbility;
 import com.kankangames.shadowofroles.models.roles.abilities.InvestigativeAbility;
-import com.kankangames.shadowofroles.models.roles.abilities.RoleSpecificValuesChooser;
+import com.kankangames.shadowofroles.models.roles.otherinterfaces.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.FolkRole;
 import com.kankangames.shadowofroles.services.BaseGameService;
@@ -16,62 +16,55 @@ import java.util.Random;
 
 public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackAbility,
         InvestigativeAbility, PriorityChangingRole, RoleSpecificValuesChooser {
-    private int money;
     private ChosenAbility chosenAbility;
     public Entrepreneur() {
         super(RoleID.Entrepreneur, AbilityType.ACTIVE_ALL, RolePriority.NONE,
-                RoleCategory.FOLK_UNIQUE, 1, 0, false);
-        this.money = 5;
+                RoleCategory.FOLK_UNIQUE);
+        roleProperties.setAttack(1)
+                .setHasAttackAbility(true)
+                .setMoney(5)
+                .setHasHealingAbility(true)
+                .setCanKill1v1(true);
         this.setChosenAbility(ChosenAbility.NONE);
     }
 
     @Override
     public AbilityResult performAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
 
-        if(gameService.getTimeService().getDayCount()>1){
-            money += 2; //Passive income
+        if(gameService.getTimeService().getDayCount() > 1){
+            roleProperties.incrementMoney(2); //Passive income
         }
 
         return super.performAbility(roleOwner, choosenPlayer, gameService);
     }
 
     @Override
-    public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
+    public AbilityResult executeAbility(Player roleOwner, Player chosenPlayer, BaseGameService gameService) {
 
-        ChosenAbility chosenAbility = this.chosenAbility;
-        this.chosenAbility = ChosenAbility.NONE;
-
-        switch (chosenAbility){
-
-            case ATTACK: {
-                if(money>= ChosenAbility.ATTACK.price){
-                    money -= ChosenAbility.ATTACK.price;
-                    return attack(roleOwner, choosenPlayer, gameService, CauseOfDeath.ENTREPRENEUR);
-                }
-                break;
-
-            }
-            case HEAL: {
-                if(money>= ChosenAbility.HEAL.price){
-                    money -= ChosenAbility.HEAL.price;
-                    return heal(roleOwner, choosenPlayer, gameService);
-                }
-                break;
-
-            }
-            case INFO:{
-                if(money>= ChosenAbility.INFO.price){
-                    money -= ChosenAbility.INFO.price;
-                    return gatherInfo(roleOwner, choosenPlayer, gameService);
-                }
-                break;
-
-            }
-            default: {
-                return AbilityResult.NO_ABILITY_SELECTED;
-            }
+        if(chosenAbility.price > roleProperties.money()){
+            return insufficientMoney(roleOwner, gameService);
         }
-        return insufficientMoney(roleOwner, gameService);
+
+        AbilityResult result;
+        switch (chosenAbility) {
+            case ATTACK:
+                result = attack(roleOwner, chosenPlayer, gameService, CauseOfDeath.ENTREPRENEUR);
+                break;
+            case HEAL:
+                result = heal(roleOwner, chosenPlayer, gameService);
+                break;
+            case INFO:
+                result = gatherInfo(roleOwner, chosenPlayer, gameService);
+                break;
+            default:
+                result = AbilityResult.NO_ABILITY_SELECTED;
+                break;
+        }
+
+        roleProperties.decrementMoney(chosenAbility.price);
+
+        chosenAbility = ChosenAbility.NONE;
+        return result;
     }
 
     @Override
@@ -109,7 +102,7 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
     }
 
     private AbilityResult insufficientMoney(Player roleOwner, BaseGameService gameService){
-        String message = textManager.getText("entrepreneur_insufficient_money");
+        String message = textManager.getText("money_insufficient");
 
         switch (chosenAbility){
             case ATTACK: message = message
@@ -154,10 +147,6 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
 
         public int getPrice(){return price;}
 
-    }
-
-    public int getMoney() {
-        return money;
     }
 
 }

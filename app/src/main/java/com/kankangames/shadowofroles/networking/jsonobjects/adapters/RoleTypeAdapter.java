@@ -65,6 +65,8 @@ public class RoleTypeAdapter implements JsonDeserializer<RoleTemplate> {
                 return context.deserialize(jsonObject, Entrepreneur.class);
             case Lorekeeper:
                 return context.deserialize(jsonObject, Lorekeeper.class);
+            case Blinder:
+                return context.deserialize(jsonObject, Blinder.class);
             default:
                 throw new JsonParseException("Unknown role type: " + roleID);
         }

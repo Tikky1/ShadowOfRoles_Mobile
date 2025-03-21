@@ -22,7 +22,6 @@ import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.models.roles.templates.folkroles.protector.FolkHero;
 import com.kankangames.shadowofroles.models.roles.templates.folkroles.unique.Entrepreneur;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
 import com.kankangames.shadowofroles.networking.GameMode;
@@ -210,7 +209,7 @@ public class PlayerRoleFragment extends Fragment {
 
         entrepreneurExpectedMoney(entrepreneur, expectedMoneyText);
 
-        int currentMoney = entrepreneur.getMoney();
+        int currentMoney = entrepreneur.getRoleProperties().money();
         currentMoneyText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_current_money), currentMoney));
 
         infoCostText.setText(String.format(Locale.ROOT, getString(R.string.entrepreneur_cost), Entrepreneur.ChosenAbility.INFO.getPrice()));
@@ -242,7 +241,7 @@ public class PlayerRoleFragment extends Fragment {
     }
 
     private void entrepreneurExpectedMoney(Entrepreneur entrepreneur, TextView textView){
-        int currentMoney = entrepreneur.getMoney();
+        int currentMoney = entrepreneur.getRoleProperties().money();
         int abilityMoney = entrepreneur.getChosenAbility().getPrice();
 
         Context context = textView.getContext();
@@ -267,7 +266,7 @@ public class PlayerRoleFragment extends Fragment {
     }
 
     private void setFolkHeroInfo(View view, LayoutInflater inflater){
-        FolkHero folkHero = (FolkHero) currentPlayer.getRole().getTemplate();
+        RoleTemplate folkHero = currentPlayer.getRole().getTemplate();
 
         FrameLayout folkHeroLayout = view.findViewById(R.id.unique_roles_layout);
         ViewGroup folkHeroBox = (ViewGroup) inflater.inflate(R.layout.folk_hero_box, folkHeroLayout, true);
@@ -276,7 +275,7 @@ public class PlayerRoleFragment extends Fragment {
 
         Context context = currentText.getContext();
 
-        int remainingAbilityCount = folkHero.getRemainingAbilityCount();
+        int remainingAbilityCount = folkHero.getRoleProperties().abilityUsesLeft();
         currentText.setText(String.format(context.getString(R.string.folkhero_remaining_ability_count), remainingAbilityCount));
 
         boolean isAbilityUsed = currentPlayer.getRole().getChoosenPlayer() != null;

@@ -25,8 +25,8 @@ public class Role {
 
     public final void resetStates(){
         choosenPlayer = null;
-        defence = template.getDefence();
-        attack = template.getAttack();
+        defence = template.getRoleProperties().defence;
+        attack = template.getRoleProperties().attack;
         canPerform = true;
         isImmune = false;
     }

@@ -1,21 +1,18 @@
 package com.kankangames.shadowofroles.networking.client;
 
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
-import com.kankangames.shadowofroles.models.player.properties.LobbyPlayerStatus;
+import com.google.gson.Gson;
 import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
+import com.kankangames.shadowofroles.networking.jsonobjects.LobbyData;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.ConnectionListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDisbandedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnKickedFromLobbyListener;
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnOtherPlayerJoinListener;
 import com.kankangames.shadowofroles.networking.server.ConnectionStatus;
-
-import java.util.List;
 
 public class ClientLobbyManager {
     private final NetworkListenerManager networkListenerManager;
     private final Client client;
-    private List<LobbyPlayer> lobbyPlayers;
+    private LobbyData lobbyData;
 
     ClientLobbyManager(Client client){
         this.client = client;
@@ -29,11 +26,12 @@ public class ClientLobbyManager {
 
 
     void updatePlayersList(String message) {
+        Gson gson = GsonProvider.getGson();
         String jsonPlayers = message.replace("PLAYERS:", "");
-        lobbyPlayers = GsonProvider.fromJsonList(jsonPlayers, LobbyPlayer.class);
+        lobbyData = gson.fromJson(jsonPlayers, LobbyData.class);
 
         networkListenerManager.callListener(ConnectionListener.class,
-                connectionListener -> connectionListener.onConnectionSuccessful(lobbyPlayers));
+                connectionListener -> connectionListener.onConnectionSuccessful(lobbyData));
     }
 
     void handleKickedFromLobby() {
@@ -46,16 +44,14 @@ public class ClientLobbyManager {
 
     }
 
-
-    void handlePlayerJoined(String message) {
-        String newPlayer = message.split(":")[1];
-        networkListenerManager.callListener(OnOtherPlayerJoinListener.class,
-                onOtherPlayerJoinListener -> onOtherPlayerJoinListener
-                        .onOtherPlayerJoin(new LobbyPlayer(
-                                newPlayer, false, false, LobbyPlayerStatus.WAITING)));
+    public LobbyData getLobbyData() {
+        return lobbyData;
     }
 
-    public List<LobbyPlayer> getLobbyPlayers() {
-        return lobbyPlayers;
+    public boolean isHost(){
+        if(lobbyData.getPlayer().isPresent()){
+            return lobbyData.getPlayer().get().isHost();
+        }
+        return false;
     }
 }

@@ -3,7 +3,7 @@ package com.kankangames.shadowofroles.models.roles.templates.corrupterroles.supp
 import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.abilities.AttackAbility;
-import com.kankangames.shadowofroles.models.roles.abilities.RoleSpecificValuesChooser;
+import com.kankangames.shadowofroles.models.roles.otherinterfaces.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.CorrupterRole;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.services.BaseGameService;
@@ -11,11 +11,16 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 import java.util.List;
 
 public final class LastJoke extends CorrupterRole implements AttackAbility, RoleSpecificValuesChooser {
-    private boolean didUsedAbility;
+
     public LastJoke() {
         super(RoleID.LastJoke, AbilityType.OTHER_THAN_CORRUPTER,
-                RolePriority.LAST_JOKE, RoleCategory.CORRUPTER_SUPPORT, 3, 0, true);
-        this.didUsedAbility = false;
+                RolePriority.LAST_JOKE, RoleCategory.CORRUPTER_SUPPORT);
+
+        roleProperties.setKnowsTeamMembers(true)
+                .setHasPostDeathEffect(true)
+                .setAbilityUsesLeft(1)
+                .setCanKill1v1(false);
+
     }
 
     @Override
@@ -25,8 +30,9 @@ public final class LastJoke extends CorrupterRole implements AttackAbility, Role
 
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
-        if(!didUsedAbility && !roleOwner.getDeathProperties().isAlive()){
-            didUsedAbility = true;
+        if(canUseAbility() && !roleOwner.getDeathProperties().isAlive()){
+
+            roleProperties.setAbilityUsesLeft(0);
 
             if(choosenPlayer==null){
                 return AbilityResult.NO_ONE_SELECTED;
@@ -43,7 +49,7 @@ public final class LastJoke extends CorrupterRole implements AttackAbility, Role
     }
 
     public boolean canUseAbility() {
-        return !didUsedAbility;
+        return roleProperties.abilityUsesLeft() > 0;
     }
 
     @Override

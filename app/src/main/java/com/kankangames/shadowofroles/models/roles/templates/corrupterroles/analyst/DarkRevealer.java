@@ -9,7 +9,9 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class DarkRevealer extends CorrupterRole implements InvestigativeAbility {
     public DarkRevealer() {
         super(RoleID.DarkRevealer,  AbilityType.OTHER_THAN_CORRUPTER
-                ,RolePriority.NONE, RoleCategory.CORRUPTER_ANALYST, 0, 0, false);
+                ,RolePriority.NONE, RoleCategory.CORRUPTER_ANALYST);
+
+        roleProperties.setKnowsTeamMembers(true);
     }
 
     @Override

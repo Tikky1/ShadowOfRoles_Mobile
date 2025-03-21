@@ -1,5 +1,10 @@
 package com.kankangames.shadowofroles.models.roles.enums;
 
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public enum WinningTeam {
 
     FOLK(-2, Team.FOLK),
@@ -13,6 +18,16 @@ public enum WinningTeam {
     final int priority;
     final Team team;
 
+    private static final Map<WinningTeam, Set<WinningTeam>> cannotWinWithMap = new HashMap<>();
+
+    static {
+
+        cannotWinWithMap.put(ASSASSIN, EnumSet.of(FOLK, CORRUPTER));
+        cannotWinWithMap.put(CORRUPTER, EnumSet.of(ASSASSIN, FOLK));
+        cannotWinWithMap.put(FOLK, EnumSet.of(CORRUPTER, ASSASSIN));
+
+    }
+
     WinningTeam(int priority, Team team){
         this.priority = priority;
         this.team = team;
@@ -25,4 +40,8 @@ public enum WinningTeam {
     public Team getTeam() {
         return team;
     }
+    public boolean canWinWith(WinningTeam winningTeam){
+        return !cannotWinWithMap.getOrDefault(this, EnumSet.noneOf(WinningTeam.class)).contains(winningTeam);
+    }
+
 }

@@ -73,7 +73,7 @@ public class MessagesViewAdapter extends RecyclerView.Adapter<MessagesViewAdapte
             }
 
 
-            messageText.setText(String.format("%s %s", message.getTimeAndDayCountAsString(), message.getMessage()));
+            messageText.setText(String.format("%s\n %s", message.getTimeAndDayCountAsString(), message.getMessage()));
 
 
         }

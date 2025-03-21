@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.models.Message;
-import com.kankangames.shadowofroles.services.TimeService;
+import com.kankangames.shadowofroles.services.BaseTimeService;
 import com.kankangames.shadowofroles.ui.adapters.MessagesViewAdapter;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class AnnouncementsFragment extends FullScreenFragment {
 
     private List<Message> announcements;
-    private TimeService timeService;
+    private BaseTimeService timeService;
     private String dayText;
 
     public AnnouncementsFragment(OnClose onClose) {
@@ -65,7 +65,7 @@ public class AnnouncementsFragment extends FullScreenFragment {
         return filteredMessages;
     }
 
-    public void setAnnouncementsAndTimeService(List<Message> announcements, TimeService timeService) {
+    public void setAnnouncementsAndTimeService(List<Message> announcements, BaseTimeService timeService) {
         this.announcements = announcements;
         this.timeService = timeService;
     }

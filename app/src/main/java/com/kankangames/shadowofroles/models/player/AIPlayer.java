@@ -1,11 +1,8 @@
 package com.kankangames.shadowofroles.models.player;
 
-import com.kankangames.shadowofroles.models.roles.abilities.RoleSpecificValuesChooser;
-import com.kankangames.shadowofroles.models.roles.templates.neutralroles.NeutralRole;
-import com.kankangames.shadowofroles.services.RoleService;
+import com.kankangames.shadowofroles.models.roles.otherinterfaces.RoleSpecificValuesChooser;
+import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
 import com.kankangames.shadowofroles.models.roles.enums.Team;
-import com.kankangames.shadowofroles.models.roles.templates.folkroles.unique.Entrepreneur;
-import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +16,10 @@ public class AIPlayer extends Player {
     public void chooseRandomPlayerVoting(final ArrayList<Player> players){
         ArrayList<Player> choosablePlayers = new ArrayList<>(players);
         choosablePlayers.remove(this);
-        if(getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER){
+        WinningTeam team = role.getTemplate().getWinningTeam();
+        if(role.getTemplate().getRoleProperties().knowsTeamMembers()){
             for(Player player : players){
-                if(player.getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER){
+                if(player.getRole().getTemplate().getWinningTeam() == team){
                     choosablePlayers.remove(player);
                 }
             }
@@ -29,15 +27,9 @@ public class AIPlayer extends Player {
         else if (getRole().getTemplate().getWinningTeam().getTeam() == Team.FOLK) {
             for (Player player : players) {
                 if (player.getRole().isRevealed()) {
-                    if (player.getRole().getTemplate().getWinningTeam().getTeam() == Team.CORRUPTER) {
+                    if (!player.getRole().getTemplate().getWinningTeam().canWinWith(WinningTeam.FOLK)) {
                         role.setChoosenPlayer(player);
                         return;
-                    } else if (player.role.getTemplate() instanceof NeutralRole) {
-                        NeutralRole neutralRole = (NeutralRole) player.role.getTemplate();
-                        if (!neutralRole.canWinWithOtherTeams()) {
-                            getRole().setChoosenPlayer(player);
-                            return;
-                        }
                     } else if (player.getRole().getTemplate().getWinningTeam().getTeam() == Team.FOLK) {
                         choosablePlayers.remove(player);
                     }
@@ -67,7 +59,7 @@ public class AIPlayer extends Player {
 
     private void chooseRoleSpecificValues(final List<Player> choosablePlayers) {
         if(role.getTemplate() instanceof RoleSpecificValuesChooser){
-            RoleSpecificValuesChooser roleSpecificValuesChooser = (RoleSpecificValuesChooser) role;
+            RoleSpecificValuesChooser roleSpecificValuesChooser = (RoleSpecificValuesChooser) role.getTemplate();
             roleSpecificValuesChooser.chooseRoleSpecificValues(choosablePlayers);
         }
     }

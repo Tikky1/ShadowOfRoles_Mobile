@@ -51,8 +51,10 @@ public final class VotingService {
 
         final HashMap<Player,Integer> voteCounts = new HashMap<>();
 
-        for(final Player votedPlayer: votes.values()){
-            if(votedPlayer!=null) voteCounts.put(votedPlayer, voteCounts.getOrDefault(votedPlayer,0)+1);
+        for(Map.Entry<Player, Player> entry: votes.entrySet()){
+            int voteCount = entry.getKey().getRole().getTemplate().getRoleProperties().voteCount();
+            Player votedPlayer = entry.getValue();
+            if(votedPlayer!=null) voteCounts.put(votedPlayer, voteCounts.getOrDefault(votedPlayer,0)+ voteCount);
         }
 
         for(final Map.Entry<Player, Integer> entry : voteCounts.entrySet()){
@@ -71,7 +73,7 @@ public final class VotingService {
 
         for(int i=0;i<alivePlayers.size();i++) {
             Player player = alivePlayers.get(i);
-            if(player instanceof AIPlayer){
+            if(player.isAIPlayer()){
                 AIPlayer aiPlayer = (AIPlayer) player;
                 aiPlayer.chooseRandomPlayerVoting(alivePlayers);
 

@@ -7,12 +7,11 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 
 public final class FolkHero extends FolkRole {
 
-    private int remainingAbilityCount;
-
     public FolkHero() {
         super(RoleID.FolkHero, AbilityType.ACTIVE_ALL, RolePriority.IMMUNE,
-                RoleCategory.FOLK_PROTECTOR, 0, 0, false);
-        remainingAbilityCount = 2;
+                RoleCategory.FOLK_PROTECTOR);
+        roleProperties.setHasImmuneAbility(true)
+                .setAbilityUsesLeft(2);
     }
 
     @Override
@@ -22,10 +21,10 @@ public final class FolkHero extends FolkRole {
 
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
-        if(remainingAbilityCount > 0){
+        if(roleProperties.abilityUsesLeft() > 0){
             sendAbilityMessage(textManager.getText("folkhero_ability_message") ,roleOwner, gameService.getMessageService());
             choosenPlayer.getRole().setImmune(true);
-            remainingAbilityCount--;
+            roleProperties.decrementAbilityUsesLeft();
             return AbilityResult.SUCCESSFUL;
         }
         return AbilityResult.NO_ABILITY_USE_LEFT;
@@ -36,7 +35,4 @@ public final class FolkHero extends FolkRole {
         return new ChanceProperty(25, 1);
     }
 
-    public int getRemainingAbilityCount() {
-        return remainingAbilityCount;
-    }
 }

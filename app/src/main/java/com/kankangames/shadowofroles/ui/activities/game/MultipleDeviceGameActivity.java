@@ -52,6 +52,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     private final GameMode gameMode = GameMode.MULTIPLE_DEVICE;
     private Client client;
     private ClockService clockService;
+    private boolean activityChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,8 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
 
         });
         listenerManager.addListener(OnGameEndedListener.class, endGameData -> {
+            if(activityChanged) return;
+            activityChanged = true;
             StartGameService.getInstance().setEndGameData(endGameData);
             Intent intent = new Intent(this, GameEndActivity.class);
             startActivity(intent);

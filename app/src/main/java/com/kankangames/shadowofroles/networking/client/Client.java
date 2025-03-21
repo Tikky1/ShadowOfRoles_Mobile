@@ -81,10 +81,9 @@ public final class Client {
     }
 
     private void handleMessage(String message) {
+
         if (message.startsWith("PLAYERS:")) {
             clientLobbyManager.updatePlayersList(message);
-        } else if (message.contains("PLAYER_JOINED:")) {
-            clientLobbyManager.handlePlayerJoined(message);
         } else if (message.startsWith("GAME_DATA:")) {
             clientGameManager.handleGameData(message);
         } else if (message.startsWith("GAME_STARTED:")) {
@@ -95,6 +94,10 @@ public final class Client {
             clientLobbyManager.handleKickedFromLobby();
         } else if (message.startsWith("GAME_DISBANDED")) {
             clientLobbyManager.handleGameDisbanded();
+        } else if (message.startsWith("CHILLGUY_EXISTS:")) {
+            clientGameManager.handleChillGuy(message);
+        } else if (message.startsWith("WAITING_CHILLGUY:")) {
+           clientGameManager.handleGameEnded(message);
         }
     }
 
@@ -141,7 +144,10 @@ public final class Client {
 
 
     public List<LobbyPlayer> getLobbyPlayers() {
-        return clientLobbyManager.getLobbyPlayers();
+        if(clientLobbyManager.getLobbyData() == null){
+            return null;
+        }
+        return clientLobbyManager.getLobbyData().getPlayers();
     }
 
     public NetworkListenerManager getClientListenerManager() {
@@ -162,5 +168,9 @@ public final class Client {
 
     public ClientGameManager getClientGameManager() {
         return clientGameManager;
+    }
+
+    public ClientLobbyManager getClientLobbyManager() {
+        return clientLobbyManager;
     }
 }

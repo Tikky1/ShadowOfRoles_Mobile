@@ -39,11 +39,9 @@ public final class ClientHandler implements Runnable {
                 String[] inArr = received.split(":");
                 clientIp = inArr[1];
                 clientPlayer = new LobbyPlayer(inArr[2], isHost, false,
-                        isHost ? LobbyPlayerStatus.HOST : LobbyPlayerStatus.WAITING);
+                        server.getServerLobbyManager().getLobbyPlayers().size(), isHost ? LobbyPlayerStatus.HOST : LobbyPlayerStatus.WAITING);
             }
 
-
-            server.broadcastMessage("PLAYER_JOINED:" + clientIp);
 
             String message;
             while ((message = in.readLine()) != null && connectionStatus == ConnectionStatus.CONNECTED) {
@@ -60,6 +58,13 @@ public final class ClientHandler implements Runnable {
                 else if(message.startsWith("LOBBY_PLAYER_LEFT")){
                     server.getServerLobbyManager().removeClient(this);
                     closeConnection();
+                } else if (message.startsWith("ChillGuyWinStatus:")) {
+                    Gson gson = GsonProvider.getGson();
+                    String boolJson = message.replace("ChillGuyWinStatus:","");
+                    System.out.println(boolJson);
+                    Boolean chillGuyWinStatus = gson.fromJson(boolJson, Boolean.class);
+                    server.getServerGameManager().multiDeviceGameService.setChillGuyWinStatus(chillGuyWinStatus);
+                    server.getServerGameManager().sendGameData(true);
                 }
 
             }

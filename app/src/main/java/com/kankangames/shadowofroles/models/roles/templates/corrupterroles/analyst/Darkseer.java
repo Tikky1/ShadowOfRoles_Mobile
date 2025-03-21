@@ -9,7 +9,9 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class Darkseer extends CorrupterRole implements InvestigativeAbility {
     public Darkseer() {
         super(RoleID.Darkseer, AbilityType.PASSIVE,
-                RolePriority.NONE, RoleCategory.CORRUPTER_ANALYST, 0, 0, false);
+                RolePriority.NONE, RoleCategory.CORRUPTER_ANALYST);
+
+        roleProperties.setKnowsTeamMembers(true);
     }
 
     @Override

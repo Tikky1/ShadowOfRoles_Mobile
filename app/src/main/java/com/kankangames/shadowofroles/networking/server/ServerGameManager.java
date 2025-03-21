@@ -16,6 +16,7 @@ import com.kankangames.shadowofroles.services.TurnTimerService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public final class ServerGameManager implements TurnTimerService.OnTimeChangeListener{
 
@@ -23,6 +24,7 @@ public final class ServerGameManager implements TurnTimerService.OnTimeChangeLis
     boolean isGameStarted = false;
     private final List<LobbyPlayer> lobbyPlayers;
     private final Server server;
+    private boolean chillGuyHandled = false;
 
     ServerGameManager(Server server){
 
@@ -59,21 +61,30 @@ public final class ServerGameManager implements TurnTimerService.OnTimeChangeLis
     }
 
 
-    private void sendGameData(boolean didGameStarted){
+
+    void sendGameData(boolean didGameStarted){
 
         Gson gson = GsonProvider.getGson();
         boolean isGameEnded = multiDeviceGameService.getFinishGameService().isGameFinished();
 
         if(isGameEnded){
-            for(Player player: multiDeviceGameService.getAllPlayers()){
-                player.getRole().setChoosenPlayer(null);
-            }
+
             EndGameData endGameData = new EndGameData(
                     multiDeviceGameService.getFinishGameService(),
                     multiDeviceGameService.getAllPlayers()
             );
+            Optional<Player> chillGuyPlayer = Optional.ofNullable(multiDeviceGameService.getFinishGameService().getChillGuyPlayer());
+
             String jsonEndGameData = gson.toJson(endGameData, EndGameData.class);
-            server.broadcastMessage("GAME_ENDED:" + jsonEndGameData);
+            if(chillGuyPlayer.isPresent() && !chillGuyHandled){
+                server.broadcastMessage("WAITING_CHILLGUY:" + jsonEndGameData);
+                chillGuyHandled = true;
+            }
+            else{
+                server.broadcastMessage("GAME_ENDED:" + jsonEndGameData);
+            }
+
+
         }
 
         else{

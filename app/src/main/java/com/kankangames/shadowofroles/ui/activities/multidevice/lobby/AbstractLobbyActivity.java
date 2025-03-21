@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
+import com.kankangames.shadowofroles.networking.jsonobjects.LobbyData;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDisbandedListener;
@@ -40,6 +42,7 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
 
     protected ImageView backgroundImage;
     protected Button plusBtn, minusBtn, closeBtn, startGameBtn;
+    protected TextView playerCountText;
     protected RecyclerView playersView;
     protected ClientManager clientManager;
 
@@ -50,16 +53,17 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
 
         playersView = findViewById(R.id.hosting_lobby_recycler_view);
         startGameBtn = findViewById(R.id.hosting_start_game_button);
+        startGameBtn.setEnabled(false);
         plusBtn = findViewById(R.id.plusBtn);
         minusBtn = findViewById(R.id.minusBtn);
         closeBtn = findViewById(R.id.close_button);
         backgroundImage = findViewById(R.id.backgroundImage);
+        playerCountText = findViewById(R.id.player_count_text);
         changeImage();
 
         clientManager = ClientManager.getInstance();
         client = clientManager.getClient();
         listenerManager = client.getClientListenerManager();
-
 
         connectToServer();
 
@@ -77,8 +81,8 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
         listenerManager.addListener(ConnectionListener.class,
                 new ConnectionListener() {
                     @Override
-                    public void onConnectionSuccessful(List<LobbyPlayer> players) {
-                        updatePlayerList(players);
+                    public void onConnectionSuccessful(LobbyData players) {
+                        updatePlayerList(players.getPlayers());
                     }
 
                     @Override

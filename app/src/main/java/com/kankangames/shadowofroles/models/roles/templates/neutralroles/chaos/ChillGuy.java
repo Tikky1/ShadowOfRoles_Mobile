@@ -10,7 +10,11 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class ChillGuy extends NeutralRole implements NoAbility {
     public ChillGuy() {
         super(RoleID.ChillGuy, AbilityType.NO_ABILITY, RolePriority.NONE, RoleCategory.NEUTRAL_CHAOS,
-                WinningTeam.CHILL_GUY,0, 0, false, false);
+                WinningTeam.CHILL_GUY);
+
+        roleProperties.setCanWinWithAnyTeam(true)
+                .setHasNormalWinCondition(false)
+                .setWinsAlone(true);
 
     }
 
@@ -30,8 +34,4 @@ public final class ChillGuy extends NeutralRole implements NoAbility {
     }
 
 
-    @Override
-    public boolean canWinWithOtherTeams() {
-        return true;
-    }
 }

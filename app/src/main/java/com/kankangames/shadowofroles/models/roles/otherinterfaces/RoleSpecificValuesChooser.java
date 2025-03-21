@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.models.roles.abilities;
+package com.kankangames.shadowofroles.models.roles.otherinterfaces;
 
 import com.kankangames.shadowofroles.models.player.Player;
 

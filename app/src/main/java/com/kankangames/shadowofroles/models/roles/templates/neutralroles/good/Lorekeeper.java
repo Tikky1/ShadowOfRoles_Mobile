@@ -1,7 +1,7 @@
 package com.kankangames.shadowofroles.models.roles.templates.neutralroles.good;
 
 import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.abilities.RoleSpecificValuesChooser;
+import com.kankangames.shadowofroles.models.roles.otherinterfaces.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.NeutralRole;
 import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
@@ -17,7 +17,14 @@ public final class Lorekeeper extends NeutralRole implements RoleSpecificValuesC
     private int trueGuessCount;
     public Lorekeeper() {
         super(RoleID.Lorekeeper, AbilityType.ACTIVE_OTHERS, RolePriority.LORE_KEEPER,
-                RoleCategory.NEUTRAL_GOOD, WinningTeam.LORE_KEEPER, 0, 0, true, false);
+                RoleCategory.NEUTRAL_GOOD, WinningTeam.LORE_KEEPER);
+
+        roleProperties
+                .setCanWinWithAnyTeam(true)
+                .setHasNormalWinCondition(false)
+                .setWinsAlone(true)
+                .setRoleBlockImmune(true);
+
         trueGuessCount = 0;
         alreadyChosenPlayers = new ArrayList<>();
     }
@@ -72,11 +79,6 @@ public final class Lorekeeper extends NeutralRole implements RoleSpecificValuesC
 
     public List<Player> getAlreadyChosenPlayers() {
         return alreadyChosenPlayers;
-    }
-
-    @Override
-    public boolean canWinWithOtherTeams() {
-        return true;
     }
 
     @Override

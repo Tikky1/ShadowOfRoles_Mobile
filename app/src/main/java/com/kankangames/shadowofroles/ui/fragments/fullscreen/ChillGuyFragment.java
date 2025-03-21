@@ -9,18 +9,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.gamestate.WinStatus;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.networking.client.Client;
+import com.kankangames.shadowofroles.networking.client.ClientManager;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.ClientListener;
 import com.kankangames.shadowofroles.services.FinishGameService;
 
 public class ChillGuyFragment extends FullScreenFragment {
 
     private final Player chillGuyPlayer;
     private final FinishGameService finishGameService;
-    public ChillGuyFragment(OnClose onClose, Player chillGuyPlayer, FinishGameService finishGameService) {
+    private final GameMode gameMode;
+    public ChillGuyFragment(OnClose onClose, Player chillGuyPlayer, FinishGameService finishGameService, GameMode gameMode) {
         super(onClose);
         this.chillGuyPlayer = chillGuyPlayer;
         this.finishGameService = finishGameService;
+        this.gameMode = gameMode;
     }
 
 
@@ -35,10 +42,21 @@ public class ChillGuyFragment extends FullScreenFragment {
 
 
         confirmButton.setOnClickListener(v -> {
-            if(noButton.isChecked()){
-                chillGuyPlayer.setHasWon(true);
-                finishGameService.addWinningTeam(WinningTeam.CHILL_GUY);
+            boolean chillGuyWon = noButton.isChecked();
+
+            if(gameMode == GameMode.SINGLE_DEVICE){
+                chillGuyPlayer.setWinStatus(chillGuyWon ? WinStatus.WON : WinStatus.LOST);
+
+                if(chillGuyWon){
+                    finishGameService.addWinningTeam(WinningTeam.CHILL_GUY);
+                }
             }
+            else{
+                Client client = ClientManager.getInstance().getClient();
+                client.getClientGameManager().sendChillGuyInfo(chillGuyWon);
+            }
+
+
             onClose.backClicked();
             dismiss();
         });

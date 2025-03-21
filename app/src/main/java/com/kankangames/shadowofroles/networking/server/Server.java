@@ -48,6 +48,7 @@ public final class Server {
                     Socket clientSocket = serverSocket.accept();
 
                     ClientHandler clientHandler = new ClientHandler(clientSocket, this, clients.isEmpty());
+
                     Thread clientThread = new Thread(clientHandler);
                     clientThread.start();
 

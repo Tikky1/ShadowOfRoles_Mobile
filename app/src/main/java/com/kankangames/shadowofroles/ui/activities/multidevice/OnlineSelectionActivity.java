@@ -1,7 +1,6 @@
 package com.kankangames.shadowofroles.ui.activities.multidevice;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +11,8 @@ import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
 import com.kankangames.shadowofroles.ui.activities.multidevice.lobby.GameHostingActivity;
+
+import java.util.UUID;
 
 public class OnlineSelectionActivity extends ImageChangingActivity {
 
@@ -48,7 +49,7 @@ public class OnlineSelectionActivity extends ImageChangingActivity {
     private void initializeClient(Class<?> cls){
         String playerName = nameText.getText().toString();
         if(playerName.isEmpty()){
-            playerName = Build.BRAND + "_" + Build.MODEL;
+            playerName ="Player_" + UUID.randomUUID().toString().substring(0, 8);
         }
         Client client = new Client(playerName);
         ClientManager.getInstance().setClient(client);

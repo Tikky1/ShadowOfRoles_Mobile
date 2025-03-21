@@ -1,6 +1,7 @@
 package com.kankangames.shadowofroles.models.player;
 
 import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.gamestate.WinStatus;
 import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.models.player.properties.DeathProperties;
 import com.kankangames.shadowofroles.models.roles.Role;
@@ -13,7 +14,7 @@ public abstract class Player{
     protected final String name;
     protected final DeathProperties deathProperties;
     protected Role role;
-    protected boolean hasWon;
+    protected WinStatus winStatus;
     protected boolean isAI;
 
     public Player(int number, String name, boolean isAI) {
@@ -21,7 +22,7 @@ public abstract class Player{
         this.name = name;
         this.deathProperties = new DeathProperties();
         this.isAI = isAI;
-        hasWon = false;
+        winStatus = WinStatus.UNKNOWN;
     }
 
     public void killPlayer(Time deathTime, int deathDayCount, CauseOfDeath causeOfDeath, boolean isDay){
@@ -70,12 +71,13 @@ public abstract class Player{
         return String.format(Locale.ROOT,"%d.%s (%s)", number, name ,role.getTemplate().getName());
     }
 
-    public final boolean isHasWon() {
-        return hasWon;
+    public WinStatus getWinStatus() {
+        return winStatus;
     }
 
-    public final void setHasWon(boolean hasWon) {
-        this.hasWon = hasWon;
+    public Player setWinStatus(WinStatus winStatus) {
+        this.winStatus = winStatus;
+        return this;
     }
 
     public DeathProperties getDeathProperties() {
@@ -101,7 +103,7 @@ public abstract class Player{
                 ", name='" + name + '\'' +
                 ", deathProperties=" + deathProperties +
                 ", role=" + role +
-                ", hasWon=" + hasWon +
+                ", winStatus=" + winStatus +
                 ", isAI=" + isAI +
                 '}';
     }

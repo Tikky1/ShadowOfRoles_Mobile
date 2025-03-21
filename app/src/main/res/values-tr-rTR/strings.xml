@@ -26,7 +26,7 @@
     <string name="winner_team_corrupter">Yozlaşmış</string>
     <string name="winner_team_folk">Halk</string>
     <string name="winner_team_assassin">Suikastçı</string>
-    <string name="winner_team_chillguy">Düz Adam</string>
+    <string name="winner_team_chill_guy">Düz Adam</string>
     <string name="winner_team_clown">Palyaço</string>
     <string name="winner_team_lorekeeper">Kadim Bilge</string>
     <string name="winner_team_text">{team} kazandı!</string>
@@ -298,6 +298,7 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <!--Game End-->
     <string name="won">Kazandı</string>
     <string name="lost">Kaybetti</string>
+    <string name="tied">Berabere</string>
     <string name="alive">Hayatta</string>
     <string name="dead">Ölü</string>
     <string name="number_column">Numara</string>

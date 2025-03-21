@@ -10,7 +10,15 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class Assassin extends NeutralRole implements AttackAbility {
     public Assassin() {
         super(RoleID.Assassin, AbilityType.ACTIVE_OTHERS, RolePriority.NONE,
-                RoleCategory.NEUTRAL_KILLING, WinningTeam.ASSASSIN, 1, 1, true,true);
+                RoleCategory.NEUTRAL_KILLING, WinningTeam.ASSASSIN);
+
+        roleProperties.setAttack(1)
+                .setDefence(1)
+                .setHasAttackAbility(true)
+                .setWinsAlone(true)
+                .setMustBeLastStanding(true)
+                .setRoleBlockImmune(true)
+                .setCanKill1v1(true);
     }
 
     @Override
@@ -30,9 +38,5 @@ public final class Assassin extends NeutralRole implements AttackAbility {
         return new ChanceProperty(40, 1);
     }
 
-    @Override
-    public boolean canWinWithOtherTeams() {
-        return false;
-    }
 }
 

@@ -10,7 +10,7 @@ public final class Stalker extends FolkRole implements InvestigativeAbility {
 
     public Stalker() {
         super(RoleID.Stalker, AbilityType.ACTIVE_OTHERS,
-                RolePriority.NONE, RoleCategory.FOLK_ANALYST, 0, 0, false);
+                RolePriority.NONE, RoleCategory.FOLK_ANALYST);
     }
 
     @Override

@@ -9,7 +9,11 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 public final class Interrupter extends CorrupterRole implements RoleBlockAbility {
     public Interrupter() {
         super(RoleID.Interrupter, AbilityType.ACTIVE_OTHERS,
-                RolePriority.ROLE_BLOCK, RoleCategory.CORRUPTER_SUPPORT, 0, 0, true);
+                RolePriority.ROLE_BLOCK, RoleCategory.CORRUPTER_SUPPORT);
+
+        roleProperties.setKnowsTeamMembers(true)
+                .setCanRoleBlock(true)
+                .setRoleBlockImmune(true);
     }
 
     @Override

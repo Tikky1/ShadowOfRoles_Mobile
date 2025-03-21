@@ -2,8 +2,8 @@ package com.kankangames.shadowofroles.ui.helper;
 
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.support.LastJoke;
-import com.kankangames.shadowofroles.models.roles.templates.folkroles.protector.FolkHero;
+import com.kankangames.shadowofroles.models.roles.enums.RoleID;
+import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
 
 public class PlayerActionVisibility {
@@ -70,24 +70,23 @@ public class PlayerActionVisibility {
 
     private boolean applySpecialRoleRules(boolean previous){
         boolean visible = previous;
-        if (localPlayer.getRole().getTemplate() instanceof Lorekeeper) {
+        if (localPlayer.getRole().getTemplate().getId() == RoleID.Lorekeeper) {
             Lorekeeper lorekeeper = (Lorekeeper) localPlayer.getRole().getTemplate();
-            if (lorekeeper.getAlreadyChosenPlayers().contains(targetPlayer)) {
-                visible = false;
-            }
+            visible = !lorekeeper.getAlreadyChosenPlayers().contains(targetPlayer);
+
         }
 
-        else if (localPlayer.getRole().getTemplate() instanceof LastJoke) {
-            LastJoke lastJoke = (LastJoke) localPlayer.getRole().getTemplate();
+        else if (localPlayer.getRole().getTemplate().getId() == RoleID.LastJoke) {
+            RoleTemplate lastJoke = localPlayer.getRole().getTemplate();
             if(localPlayer.getDeathProperties().isAlive()) visible = false;
-            else if(lastJoke.canUseAbility()) visible = true;
+            else if(lastJoke.getRoleProperties().abilityUsesLeft() > 0 )
+                visible = lastJoke.getAbilityType().canUseAbility(localPlayer, targetPlayer);
         }
 
-        else if(localPlayer.getRole().getTemplate() instanceof FolkHero){
-            FolkHero folkHero = (FolkHero) localPlayer.getRole().getTemplate();
-            if(folkHero.getRemainingAbilityCount()<=0){
-                visible = false;
-            }
+        else if(localPlayer.getRole().getTemplate().getId() == RoleID.FolkHero){
+            RoleTemplate folkHero = localPlayer.getRole().getTemplate();
+            visible = folkHero.getRoleProperties().abilityUsesLeft() > 0;
+
         }
 
         return visible;

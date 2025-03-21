@@ -10,7 +10,11 @@ import java.util.Random;
 
 public final class Blinder extends CorrupterRole{
     public Blinder() {
-        super(RoleID.Blinder, AbilityType.OTHER_THAN_CORRUPTER, RolePriority.BLINDER, RoleCategory.CORRUPTER_SUPPORT, 0, 0,false);
+        super(RoleID.Blinder, AbilityType.OTHER_THAN_CORRUPTER,
+                RolePriority.BLINDER, RoleCategory.CORRUPTER_SUPPORT);
+
+        roleProperties.setKnowsTeamMembers(true)
+                .setHasBlindAbility(true);
     }
 
     @Override

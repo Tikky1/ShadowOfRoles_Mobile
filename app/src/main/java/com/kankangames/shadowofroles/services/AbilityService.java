@@ -2,7 +2,7 @@ package com.kankangames.shadowofroles.services;
 
 import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.abilities.PriorityChangingRole;
+import com.kankangames.shadowofroles.models.roles.otherinterfaces.PriorityChangingRole;
 import com.kankangames.shadowofroles.models.roles.enums.AbilityType;
 
 import java.util.ArrayList;

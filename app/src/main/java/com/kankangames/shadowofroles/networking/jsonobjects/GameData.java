@@ -2,22 +2,21 @@ package com.kankangames.shadowofroles.networking.jsonobjects;
 
 import com.kankangames.shadowofroles.models.Message;
 import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.services.BaseTimeService;
 import com.kankangames.shadowofroles.services.DataProvider;
-import com.kankangames.shadowofroles.services.TimeService;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class GameData implements DataProvider {
     private final List<Message> messages;
     private final ArrayList<Player> deadPlayers;
     private final ArrayList<Player> alivePlayers;
-    private final TimeService timeService;
+    private final BaseTimeService timeService;
     private final boolean isGameFinished;
     private final int playerNumber;
 
-    public GameData(List<Message> messages, ArrayList<Player> deadPlayers, ArrayList<Player> alivePlayers, TimeService timeService, boolean isGameFinished, int playerNumber) {
+    public GameData(List<Message> messages, ArrayList<Player> deadPlayers, ArrayList<Player> alivePlayers, BaseTimeService timeService, boolean isGameFinished, int playerNumber) {
         this.messages = messages;
         this.deadPlayers = deadPlayers;
         this.alivePlayers = alivePlayers;
@@ -42,7 +41,7 @@ public class GameData implements DataProvider {
     }
 
     @Override
-    public TimeService getTimeService() {
+    public BaseTimeService getTimeService() {
         return timeService;
     }
 
