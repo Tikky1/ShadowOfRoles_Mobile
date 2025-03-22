@@ -41,7 +41,7 @@
                 android:id="@+id/tv_game_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tap to join the game!"
+                android:text="@string/tap_to_join_the_game"
                 android:textSize="14sp"
                 android:textColor="@color/gray" />
         </LinearLayout>
@@ -50,7 +50,7 @@
             android:id="@+id/btn_join_game"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Join"
+            android:text="@string/join"
             android:textSize="14sp"
             android:textStyle="bold"
             android:paddingHorizontal="12dp"

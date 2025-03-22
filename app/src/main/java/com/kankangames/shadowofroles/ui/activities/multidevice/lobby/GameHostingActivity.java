@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.server.Server;
 import com.kankangames.shadowofroles.networking.server.ServerLobbyManager;
@@ -23,11 +24,13 @@ public class GameHostingActivity extends AbstractLobbyActivity {
         super.onCreate(savedInstanceState);
 
         startGameBtn.setOnClickListener(v -> {
-            Toast.makeText(this, "Oyun başlatılıyor...", Toast.LENGTH_SHORT).show();
             server.getServerGameManager().startGame();
         });
 
         plusBtn.setOnClickListener(v -> {
+            if(playerList.size() >= StartGameService.getInstance().MAX_PLAYER_COUNT){
+                return;
+            }
             new Thread(()->{
                 lobbyManager.addLobbyAIPlayer();
                 lobbyManager.sendPlayerList();
@@ -36,7 +39,10 @@ public class GameHostingActivity extends AbstractLobbyActivity {
         });
 
         minusBtn.setOnClickListener(v -> {
-            new Thread(() -> lobbyManager.kickPlayer(playerAdapter.getSelectedPosition())).start();
+            new Thread(() -> {
+                lobbyManager.kickPlayer(playerAdapter.getSelectedPosition());
+                playerAdapter.setSelectedPosition(playerAdapter.getSelectedPosition()-1);
+            }).start();
 
         });
 
@@ -49,7 +55,6 @@ public class GameHostingActivity extends AbstractLobbyActivity {
         server = Server.getInstance();
         server.startServer();
         lobbyManager = server.getServerLobbyManager();
-        runOnUiThread(() -> Toast.makeText(this, "Sunucu başlatıldı", Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -60,12 +65,12 @@ public class GameHostingActivity extends AbstractLobbyActivity {
 
     @Override
     protected String getAlertTitle() {
-        return "Game will be disbanded";
+        return getString(R.string.game_will_disbanded);
     }
 
     @Override
     protected String getAlertMessage() {
-        return "Do you want to go to the main menu?";
+        return getString(R.string.main_menu_alert);
     }
 
     @Override
@@ -81,23 +86,19 @@ public class GameHostingActivity extends AbstractLobbyActivity {
         }
 
         int playerCount = playerList.size();
-        Log.d("Lobby", "Player list updated: " + playerCount);
 
         StartGameService startGameService = StartGameService.getInstance();
         runOnUiThread(() -> {
             boolean isStartEnabled = playerCount >= startGameService.MIN_PLAYER_COUNT &&
                     playerCount <= startGameService.MAX_PLAYER_COUNT;
             startGameBtn.setEnabled(isStartEnabled);
-            Log.d("Lobby", "Start button enabled: " + isStartEnabled);
-            playerCountText.setText(String.format(Locale.ROOT, "Players: %d", playerList.size()));
+            playerCountText.setText(String.format(Locale.ROOT, getText(R.string.players_count).toString(), playerList.size()));
             playerAdapter.notifyDataSetChanged();
-            Log.d("Lobby", "Adapter notifyDataSetChanged called!");
         });
     }
 
     @Override
     protected void onDestroy() {
-        System.out.println("asgydashdasdj.");
         backPressedAction();
         super.onDestroy();
     }

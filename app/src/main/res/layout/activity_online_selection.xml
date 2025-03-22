@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout"
         app:layout_constraintTop_toTopOf="@+id/player_names_top_guideline"
-        android:hint="Player Name:"/>
+        android:hint="@string/player_name_hint"/>
 
     <LinearLayout
         android:id="@+id/relativeLayout"

@@ -60,6 +60,7 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
         closeBtn = findViewById(R.id.close_button);
         backgroundImage = findViewById(R.id.backgroundImage);
         playerCountText = findViewById(R.id.player_count_text);
+        playerCountText.setText(String.format(getText(R.string.players_count).toString(), 0));
         changeImage();
 
         clientManager = ClientManager.getInstance();
@@ -90,7 +91,7 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
                     public void onConnectionFailed(String errorMessage) {
                         runOnUiThread(()->{
                             AlertProvider.showGeneralAlert(AbstractLobbyActivity.this,
-                                    "Error", errorMessage, () ->{
+                                    getString(R.string.error), errorMessage, () ->{
                                 Intent intent = new Intent(AbstractLobbyActivity.this
                                         ,OnlineSelectionActivity.class);
                                 startActivity(intent);
@@ -103,7 +104,8 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
                 });
         listenerManager.addListener(OnGameStartingListener.class, this::startGame);
         listenerManager.addListener(OnGameDisbandedListener.class,
-                ()-> showInformationAlert("Do you want to go to the main menu?", "Game is disbanded"));
+                ()-> showInformationAlert(getString(R.string.main_menu_alert),
+                        getString(R.string.game_is_disbanded)));
         closeBtn.setOnClickListener(v ->
                 showConfirmationAlert(getAlertMessage(), getAlertTitle(), this::backPressedAction) );
         handleBackPressed();
@@ -124,7 +126,7 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
 
                     .setTitle(title)
                     .setMessage(message)
-                    .setPositiveButton("YES", (dialog, which) -> {
+                    .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
 
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
@@ -145,13 +147,13 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
             AlertDialog.Builder builder =  new AlertDialog.Builder(this)
                     .setTitle(title)
                     .setMessage(message)
-                    .setPositiveButton("YES", (dialog, which) -> {
+                    .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                         new Thread(action).start();
 
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
                     })
-                    .setNegativeButton("NO",  (dialog, which) -> {
+                    .setNegativeButton(getString(R.string.no),  (dialog, which) -> {
                         dialog.dismiss();
                     })
                     .setCancelable(false);

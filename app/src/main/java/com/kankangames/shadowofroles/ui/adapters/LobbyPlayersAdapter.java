@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.managers.TextManager;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class LobbyPlayersAdapter extends RecyclerView.Adapter<LobbyPlayersAdapte
         LobbyPlayer player = players.get(position);
 
         holder.playerName.setText(player.getName());
-        holder.playerStatus.setText(player.getLobbyPlayerStatus().name());
+        holder.playerStatus.setText(TextManager.getInstance().getTextEnum(player.getLobbyPlayerStatus().name()));
         holder.playerImage.setImageDrawable(player.isAI() ?
                 ContextCompat.getDrawable(context,R.drawable.bot) :
                 ContextCompat.getDrawable(context,R.drawable.logopng)
@@ -68,9 +69,9 @@ public class LobbyPlayersAdapter extends RecyclerView.Adapter<LobbyPlayersAdapte
     }
 
     public static class PlayerLobbyViewHolder extends RecyclerView.ViewHolder{
-        private TextView playerName;
-        private TextView playerStatus;
-        private ImageView playerImage;
+        private final TextView playerName;
+        private final TextView playerStatus;
+        private final ImageView playerImage;
         public PlayerLobbyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -82,5 +83,9 @@ public class LobbyPlayersAdapter extends RecyclerView.Adapter<LobbyPlayersAdapte
 
     public int getSelectedPosition() {
         return selectedPosition;
+    }
+
+    public void setSelectedPosition(int selectedPosition) {
+        this.selectedPosition = selectedPosition;
     }
 }

@@ -310,6 +310,7 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
 
     <!--Player Names-->
     <string name="player">"Oyuncu %d"</string>
+    <string name="random_player_name">"Oyuncu %s"</string>
     <string name="all_players_ai_alert">Tüm oyuncular AI oyuncusu olamaz!</string>
 
     <!--Main Menu Alert-->
@@ -326,6 +327,24 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="host_game">Oyun Kur</string>
     <string name="join_game">Oyuna Katıl</string>
     <string name="player_name_hint">Oyuncu Adı:</string>
+    <string name="shadow_of_roles_lobby">Shadow of Roles Lobisi</string>
+    <string name="select_a_game_to_join">Katılmak için tıklayın!</string>
+    <string name="players_count">Oyuncu Sayısı: %d</string>
+
+
+    <string name="waiting">BEKLİYOR</string>
+    <string name="bot">BOT</string>
+    <string name="host">YÖNETİCİ</string>
+
+    <string name="main_menu_alert">Ana menüye dönmek istediğinize emin misiniz?</string>
+    <string name="game_will_disbanded">Oyun iptal edilecek</string>
+    <string name="leaving_from_lobby">Lobiden ayrılıyorsunuz</string>
+    <string name="kicked_from_lobby">Lobiden atıldınız</string>
+    <string name="game_is_disbanded">Oyun iptal edildi</string>
+    <string name="error">Hata</string>
+    <string name="remaining_seconds">%d saniye kaldı</string>
+    <string name="tap_to_join_the_game">Katılmak için tıkla!</string>
+    <string name="join">Katıl</string>
 
 
 </resources>

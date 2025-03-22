@@ -12,6 +12,7 @@ import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
 import com.kankangames.shadowofroles.ui.activities.multidevice.lobby.GameHostingActivity;
 
+import java.util.Locale;
 import java.util.UUID;
 
 public class OnlineSelectionActivity extends ImageChangingActivity {
@@ -49,7 +50,8 @@ public class OnlineSelectionActivity extends ImageChangingActivity {
     private void initializeClient(Class<?> cls){
         String playerName = nameText.getText().toString();
         if(playerName.isEmpty()){
-            playerName ="Player_" + UUID.randomUUID().toString().substring(0, 8);
+            playerName = String.format(Locale.ROOT, getString(R.string.random_player_name),
+                    UUID.randomUUID().toString().substring(0, 8)) ;
         }
         Client client = new Client(playerName);
         ClientManager.getInstance().setClient(client);

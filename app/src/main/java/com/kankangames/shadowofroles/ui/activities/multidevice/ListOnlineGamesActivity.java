@@ -55,10 +55,8 @@ public class ListOnlineGamesActivity extends ImageChangingActivity {
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     private void startServerDiscovery() {
-        System.out.println("1");
         client = ClientManager.getInstance().getClient();
         client.getGameFinder().discoverServers();
-        System.out.println("2");
         isDiscoveryRunning = true;
 
         Runnable discoveryTask = new Runnable() {
@@ -69,10 +67,7 @@ public class ListOnlineGamesActivity extends ImageChangingActivity {
                 synchronized (deviceNameToIpMap) {
                     deviceNameToIpMap.clear();
                     deviceNameToIpMap.putAll(client.getGameFinder().getDiscoveredServers());
-                    System.out.println("3");
-                    System.out.println(deviceNameToIpMap);
                 }
-                System.out.println("4");
                 displayedDeviceNames.clear();
                 displayedDeviceNames.addAll(deviceNameToIpMap.keySet());
 
@@ -100,9 +95,8 @@ public class ListOnlineGamesActivity extends ImageChangingActivity {
             Intent intent = new Intent(this, GameLobbyActivity.class);
             startActivity(intent);
             stopServerDiscovery();
-            Toast.makeText(this, "Sunucuya bağlanılıyor: " + deviceName, LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Sunucu bulunamadı!", LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error), LENGTH_SHORT).show();
         }
     }
 }

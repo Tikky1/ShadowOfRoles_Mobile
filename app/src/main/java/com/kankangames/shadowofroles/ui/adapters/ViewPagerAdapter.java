@@ -9,7 +9,7 @@ import com.kankangames.shadowofroles.ui.fragments.AllRolesFragment;
 import com.kankangames.shadowofroles.ui.fragments.PlayerRoleFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
-    private GameMode gameMode;
+    private final GameMode gameMode;
     public ViewPagerAdapter(@NonNull Fragment fragment, GameMode gameMode){
         super(fragment);
         this.gameMode = gameMode;

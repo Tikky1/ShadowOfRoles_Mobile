@@ -21,13 +21,14 @@
         android:id="@+id/player_count_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Players: 0"
+        android:text="@string/players_count"
         android:textSize="16sp"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@id/hosting_lobby_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@drawable/text_background"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hosting_lobby_recycler_view"

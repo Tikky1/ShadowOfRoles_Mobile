@@ -84,9 +84,9 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
                 GoToMainAlert goToMainAlert = new GoToMainAlert(()->{
                     Intent intent = new Intent(MultipleDeviceGameActivity.this, MainActivity.class);
                     startActivity(intent);
-                    if(client.getClientLobbyManager().isHost()){
-                        client.getClientGameManager().
-                    }
+//                    if(client.getClientLobbyManager().isHost()){
+//                        client.getClientGameManager().
+//                    }
                     InstanceClearer.clearInstances();
                 });
                 goToMainAlert.show(getSupportFragmentManager(), getString(R.string.go_back_to_main_menu));
@@ -299,7 +299,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     public void onTimeUpdate(int remainingTime) {
         runOnUiThread(()->{
             int seconds = remainingTime / 1000;
-            clockText.setText(String.format(Locale.ROOT,"%d seconds remaining", seconds));
+            clockText.setText(String.format(Locale.ROOT,getString(R.string.remaining_seconds), seconds));
         });
 
     }

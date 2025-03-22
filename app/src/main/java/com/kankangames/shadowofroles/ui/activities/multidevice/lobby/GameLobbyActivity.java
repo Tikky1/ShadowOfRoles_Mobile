@@ -5,6 +5,7 @@ import static android.view.View.GONE;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnKickedFromLobbyListener;
 
@@ -23,7 +24,8 @@ public class GameLobbyActivity extends AbstractLobbyActivity {
         startGameBtn.setVisibility(GONE);
 
         listenerManager.addListener(OnKickedFromLobbyListener.class,
-                ()-> showInformationAlert("Do you want to go to the main menu?","You have kicked from lobby") );
+                ()-> showInformationAlert(getString(R.string.main_menu_alert),
+                        getString(R.string.kicked_from_lobby)));
 
     }
 
@@ -35,9 +37,8 @@ public class GameLobbyActivity extends AbstractLobbyActivity {
         }
 
         runOnUiThread(() -> {
-            playerCountText.setText(String.format(Locale.ROOT, "Players: %d", playerList.size()));
+            playerCountText.setText(String.format(Locale.ROOT, getText(R.string.players_count).toString(), playerList.size()));
             playerAdapter.notifyDataSetChanged();
-            Log.d("Lobby", "Adapter notifyDataSetChanged called!");
         });
     }
 
@@ -48,12 +49,12 @@ public class GameLobbyActivity extends AbstractLobbyActivity {
 
     @Override
     protected String getAlertTitle() {
-        return "Leaving from lobby";
+        return getString(R.string.leaving_from_lobby);
     }
 
     @Override
     protected String getAlertMessage() {
-        return "Do you want to go to the main menu?";
+        return getString(R.string.main_menu_alert);
     }
 
     @Override
