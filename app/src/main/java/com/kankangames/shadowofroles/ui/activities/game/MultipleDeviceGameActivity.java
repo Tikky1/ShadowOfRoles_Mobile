@@ -19,6 +19,7 @@ import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.gamestate.TimeManager;
 import com.kankangames.shadowofroles.managers.GameScreenImageManager;
+import com.kankangames.shadowofroles.managers.InstanceClearer;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
@@ -27,13 +28,16 @@ import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
 import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDataReceivedListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDisbandedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameEndedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameStartingListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnQuitedGameListener;
 import com.kankangames.shadowofroles.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 import com.kankangames.shadowofroles.ui.activities.GameEndActivity;
 import com.kankangames.shadowofroles.ui.activities.MainActivity;
 import com.kankangames.shadowofroles.ui.adapters.PlayersViewAdapter;
+import com.kankangames.shadowofroles.ui.alerts.AlertProvider;
 import com.kankangames.shadowofroles.ui.alerts.GoToMainAlert;
 import com.kankangames.shadowofroles.ui.fragments.GraveyardFragment;
 import com.kankangames.shadowofroles.ui.fragments.MessageFragment;
@@ -80,6 +84,10 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
                 GoToMainAlert goToMainAlert = new GoToMainAlert(()->{
                     Intent intent = new Intent(MultipleDeviceGameActivity.this, MainActivity.class);
                     startActivity(intent);
+                    if(client.getClientLobbyManager().isHost()){
+                        client.getClientGameManager().
+                    }
+                    InstanceClearer.clearInstances();
                 });
                 goToMainAlert.show(getSupportFragmentManager(), getString(R.string.go_back_to_main_menu));
             }
@@ -106,6 +114,24 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
             Intent intent = new Intent(this, GameEndActivity.class);
             startActivity(intent);
 
+        });
+
+        listenerManager.addListener(OnQuitedGameListener.class, new OnQuitedGameListener() {
+            @Override
+            public void onHostQuited() {
+                AlertProvider.showGeneralAlert(MultipleDeviceGameActivity.this,
+                        "Go to main menu","Host quited from game,",
+                        ()->{
+                            Intent intent = new Intent(MultipleDeviceGameActivity.this,
+                                    MainActivity.class);
+                            startActivity(intent);
+                        });
+            }
+
+            @Override
+            public void onClientQuited() {
+
+            }
         });
     }
 

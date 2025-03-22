@@ -98,6 +98,8 @@ public final class Client {
             clientGameManager.handleChillGuy(message);
         } else if (message.startsWith("WAITING_CHILLGUY:")) {
            clientGameManager.handleGameEnded(message);
+        } else if (message.startsWith("PLAYER_DISCONNECTED:")) {
+            clientGameManager.handlePlayerDisconnected(message);
         }
     }
 
@@ -121,6 +123,12 @@ public final class Client {
         System.out.println("çağırıldı");
         out.println("LOBBY_PLAYER_LEFT");
         disconnect();
+    }
+
+    void sendMessage(String message){
+        if(out==null)
+            return;
+        out.println(message);
     }
 
     <T> void  sendObject(T object, Class<T> clazz, String prefix){

@@ -10,9 +10,9 @@ import java.util.Locale;
 import java.util.Objects;
 
 public abstract class Player{
-    protected final int number;
-    protected final String name;
-    protected final DeathProperties deathProperties;
+    protected int number;
+    protected String name;
+    protected DeathProperties deathProperties;
     protected Role role;
     protected WinStatus winStatus;
     protected boolean isAI;
@@ -22,8 +22,20 @@ public abstract class Player{
         this.name = name;
         this.deathProperties = new DeathProperties();
         this.isAI = isAI;
-        winStatus = WinStatus.UNKNOWN;
+        winStatus = WinStatus.LOST;
     }
+
+    public static AIPlayer makeAI(Player player){
+        if(player.isAI){
+            return (AIPlayer) player;
+        }
+        AIPlayer aiPlayer = new AIPlayer(player.number, player.name);
+        aiPlayer.deathProperties = player.deathProperties;
+        aiPlayer.role = player.role;
+        aiPlayer.winStatus = player.winStatus;
+        return aiPlayer;
+    }
+
 
     public void killPlayer(Time deathTime, int deathDayCount, CauseOfDeath causeOfDeath, boolean isDay){
         deathProperties.setAlive(false);

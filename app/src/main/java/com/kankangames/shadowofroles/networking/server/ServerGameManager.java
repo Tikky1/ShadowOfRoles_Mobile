@@ -32,6 +32,15 @@ public final class ServerGameManager implements TurnTimerService.OnTimeChangeLis
         this.lobbyPlayers = server.getServerLobbyManager().getLobbyPlayers();
     }
 
+//    void playerLeft(Player player, boolean isHost){
+//        if(isHost){
+//
+//        }
+//        else {
+//            AIPlayer aiPlayer = Player.makeAI(player);
+//            multiDeviceGameService.p
+//        }
+//    }
 
     public void startGame() {
         ArrayList<Player> players = new ArrayList<>();

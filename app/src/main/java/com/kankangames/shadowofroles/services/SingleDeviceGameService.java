@@ -2,7 +2,6 @@ package com.kankangames.shadowofroles.services;
 
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.models.Message;
-import com.kankangames.shadowofroles.models.player.AIPlayer;
 import com.kankangames.shadowofroles.models.player.Player;
 
 import java.util.*;
@@ -16,23 +15,6 @@ public final class SingleDeviceGameService extends BaseGameService implements Da
         super(players, new BaseTimeService());
     }
 
-    @Override
-    public void toggleDayNightCycle() {
-        timeService.toggleTimeCycle();
-        Time time = timeService.getTime();
-        switch (time) {
-            case DAY :
-                abilityService.performAllAbilities();
-                break;
-            case NIGHT:
-                votingService.executeMaxVoted();
-                break;
-        }
-
-        if(finishGameService.checkGameFinished()){
-            finishGameService.finishGame();
-        }
-    }
 
     @Override
     public void updateAlivePlayers(){

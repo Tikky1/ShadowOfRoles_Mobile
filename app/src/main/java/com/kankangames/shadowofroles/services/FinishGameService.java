@@ -57,10 +57,10 @@ public final class FinishGameService {
 
 
             // Finishes the game if the last two players cannot kill each other
-            boolean playersCannotKill = (player2.getRole().getAttack()<=player1.getRole().getDefence()
-                    ||!player2.getRole().getTemplate().getRoleProperties().canWin1v1())
-                    &&(player1.getRole().getAttack()<=player2.getRole().getDefence()
-                    ||!player2.getRole().getTemplate().getRoleProperties().canWin1v1());
+            boolean playersCanKill = (player2.getRole().getAttack() > player1.getRole().getDefence()
+                    &&player2.getRole().getTemplate().getRoleProperties().canWin1v1())
+                    ||(player1.getRole().getAttack() > player2.getRole().getDefence()
+                    &&player1.getRole().getTemplate().getRoleProperties().canWin1v1());
 
             // Finishes the game if one of the last two players can role block and the other is not immune to role block
             boolean p1CanBlock = player1.getRole().getTemplate().getRoleProperties().canRoleBlock();
@@ -69,10 +69,10 @@ public final class FinishGameService {
             boolean p2CanBlock = player2.getRole().getTemplate().getRoleProperties().canRoleBlock();
             boolean p2BlockImmune = player2.getRole().getTemplate().getRoleProperties().isRoleBlockImmune();
 
-            boolean roleBlockCheck = !p1BlockImmune && p2CanBlock || !p2BlockImmune && p1CanBlock;
+            boolean roleBlockCheck = (!p1BlockImmune && p2CanBlock) || (!p2BlockImmune && p1CanBlock);
 
 
-            if(canWinTogether || playersCannotKill || roleBlockCheck ){
+            if(canWinTogether || !playersCanKill || roleBlockCheck ){
                 return true;
             }
 
@@ -110,6 +110,8 @@ public final class FinishGameService {
                     isDraw = true;
                     drawTeams.add(playerTeam);
                     drawTeams.add(otherTeam);
+                    player.setWinStatus(WinStatus.TIED);
+                    otherPlayer.setWinStatus(WinStatus.TIED);
                     break;
                 }
             }
@@ -119,7 +121,7 @@ public final class FinishGameService {
 
 
         if(isDraw){
-            for (Player player : alivePlayers) {
+            for (Player player : allPlayers) {
                 if (drawTeams.contains(player.getRole().getTemplate().getWinningTeam())
                 && !player.getRole().getTemplate().getRoleProperties().winsAlone()) {
                     player.setWinStatus(WinStatus.TIED);
@@ -127,18 +129,19 @@ public final class FinishGameService {
             }
         }
         else{
-            
+
             for (Player player : alivePlayers) {
                 WinningTeam team = player.getRole().getTemplate().getWinningTeam();
-                if (!player.getRole().getTemplate().getRoleProperties().winsAlone()) {
+                if (player.getRole().getTemplate().getRoleProperties().hasNormalWinCondition()) {
                     winningTeams.add(team);
+                    player.setWinStatus(WinStatus.WON);
                 }
             }
 
             for (Player player : allPlayers) {
                 WinningTeam playerTeam = player.getRole().getTemplate().getWinningTeam();
 
-                if (winningTeams.contains(playerTeam)) {
+                if (winningTeams.contains(playerTeam) && !player.getRole().getTemplate().getRoleProperties().winsAlone()) {
                     player.setWinStatus(WinStatus.WON);
                 }
             }

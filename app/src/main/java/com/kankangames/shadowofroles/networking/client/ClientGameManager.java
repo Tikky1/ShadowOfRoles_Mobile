@@ -1,5 +1,7 @@
 package com.kankangames.shadowofroles.networking.client;
 
+import com.kankangames.shadowofroles.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
 import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
 import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
@@ -8,6 +10,7 @@ import com.kankangames.shadowofroles.networking.listeners.clientlistener.ChillGu
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDataReceivedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameEndedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameStartingListener;
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnQuitedGameListener;
 import com.kankangames.shadowofroles.services.DataProvider;
 
 public class ClientGameManager {
@@ -22,6 +25,9 @@ public class ClientGameManager {
     }
 
 
+    void leaveFromGame(){
+        client.sendObject(dataProvider.getCurrentPlayer(), Player.class,"PLAYER_LEFT_GAME");
+    }
     void handleGameData(String message) {
         String json = message.replace("GAME_DATA:", "");
         dataProvider = GsonProvider.getGson().fromJson(json, GameData.class);
@@ -61,6 +67,17 @@ public class ClientGameManager {
                 ChillGuyListener::onHostSentInfo);
     }
 
+    public void handlePlayerDisconnected(String message) {
+        String json = message.replace("PLAYER_DISCONNECTED:", "");
+        LobbyPlayer lobbyPlayer = GsonProvider.getGson().fromJson(json, LobbyPlayer.class);
+
+        if(lobbyPlayer.isHost()){
+            client.getClientListenerManager().callListener(OnQuitedGameListener.class,
+                    OnQuitedGameListener::onHostQuited);
+        }
+
+    }
+
 
     public void sendPlayerInfo(PlayerInfo playerInfo) {
         client.sendObject(playerInfo, PlayerInfo.class, "UPDATE_PLAYER");
@@ -76,6 +93,7 @@ public class ClientGameManager {
     public EndGameData getEndGameData() {
         return endGameData;
     }
+
 
 
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public interface InvestigativeAbility {
+public interface InvestigativeAbility extends RoleAbility{
 
     /**
      *

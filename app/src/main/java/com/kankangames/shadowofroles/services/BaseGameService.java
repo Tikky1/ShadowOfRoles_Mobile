@@ -41,7 +41,22 @@ public abstract class BaseGameService {
 
     }
 
-    public abstract void toggleDayNightCycle();
+    public void toggleDayNightCycle() {
+        timeService.toggleTimeCycle();
+        Time time = timeService.getTime();
+        switch (time) {
+            case DAY :
+                abilityService.performAllAbilities();
+                break;
+            case NIGHT:
+                votingService.executeMaxVoted();
+                break;
+        }
+
+        if(finishGameService.checkGameFinished()){
+            finishGameService.finishGame();
+        }
+    }
     public void updateAlivePlayers(){
         alivePlayers.clear();
         for (Player player : allPlayers) {

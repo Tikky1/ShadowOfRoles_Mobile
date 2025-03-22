@@ -1,6 +1,5 @@
 package com.kankangames.shadowofroles.services;
 
-import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.gamestate.WinStatus;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
@@ -12,27 +11,9 @@ import java.util.Optional;
 public final class MultiDeviceGameService extends BaseGameService{
     TurnTimerService turnTimerService;
     public MultiDeviceGameService(ArrayList<Player> players, TurnTimerService.OnTimeChangeListener onTimeChangeListener) {
-        super(players, new MultiDeviceTimeService());
+        super(players, new BaseTimeService());
         turnTimerService = new TurnTimerService(this, onTimeChangeListener);
 
-    }
-
-    @Override
-    public void toggleDayNightCycle() {
-        timeService.toggleTimeCycle();
-        Time time = timeService.getTime();
-        switch (time) {
-            case VOTING:
-                abilityService.performAllAbilities();
-                break;
-            case NIGHT:
-                votingService.executeMaxVoted();
-                break;
-        }
-
-        if(finishGameService.checkGameFinished()){
-            finishGameService.finishGame();
-        }
     }
 
     public synchronized void updateAllPlayers(PlayerInfo playerInfo){

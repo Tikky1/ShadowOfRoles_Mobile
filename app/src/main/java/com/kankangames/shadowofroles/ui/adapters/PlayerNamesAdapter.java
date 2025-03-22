@@ -20,9 +20,6 @@ public class PlayerNamesAdapter extends RecyclerView.Adapter<PlayerNamesAdapter.
     private final List<String> playerNames;
     private final List<Boolean> isPlayersAI;
 
-    public void updateList(){
-
-    }
     public PlayerNamesAdapter(List<String> playerNames, List<Boolean> isPlayersAI) {
         this.playerNames = playerNames;
         this.isPlayersAI = isPlayersAI;

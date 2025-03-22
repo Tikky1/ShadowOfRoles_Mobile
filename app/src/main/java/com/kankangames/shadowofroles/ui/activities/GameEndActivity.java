@@ -72,6 +72,12 @@ public class GameEndActivity extends BaseActivity{
             SingleDeviceGameService singleDeviceGameService = (SingleDeviceGameService) dataProvider;
             finishGameService = singleDeviceGameService.getFinishGameService();
             allPlayers = singleDeviceGameService.getAllPlayers();
+
+            boolean chillGuyExist = createChillGuyAlert();
+            if(!chillGuyExist){
+                setActivity();
+            }
+
         }
         else{
 
@@ -92,14 +98,6 @@ public class GameEndActivity extends BaseActivity{
 
         }
 
-
-        if(gameMode == GameMode.SINGLE_DEVICE){
-            boolean chillGuyExist = createChillGuyAlert();
-            if(chillGuyExist){
-                setActivity();
-            }
-
-        }
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override

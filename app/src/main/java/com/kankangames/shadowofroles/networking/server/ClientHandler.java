@@ -2,6 +2,7 @@ package com.kankangames.shadowofroles.networking.server;
 
 import com.google.gson.Gson;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.player.properties.LobbyPlayerStatus;
 import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
 import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
@@ -61,10 +62,18 @@ public final class ClientHandler implements Runnable {
                 } else if (message.startsWith("ChillGuyWinStatus:")) {
                     Gson gson = GsonProvider.getGson();
                     String boolJson = message.replace("ChillGuyWinStatus:","");
-                    System.out.println(boolJson);
                     Boolean chillGuyWinStatus = gson.fromJson(boolJson, Boolean.class);
                     server.getServerGameManager().multiDeviceGameService.setChillGuyWinStatus(chillGuyWinStatus);
                     server.getServerGameManager().sendGameData(true);
+                } else if(message.startsWith("PLAYER_LEFT_GAME:")){
+                    Gson gson = GsonProvider.getGson();
+                    String json = message.replace("PLAYER_LEFT_GAME:","");
+                    Player player = gson.fromJson(json, Player.class);
+                    if(isHost){
+
+                    }else{
+
+                    }
                 }
 
             }

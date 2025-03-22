@@ -5,7 +5,7 @@ import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.models.roles.enums.AbilityResult;
 import com.kankangames.shadowofroles.services.BaseGameService;
 
-public interface ProtectiveAbility {
+public interface ProtectiveAbility extends RoleAbility{
 
     default AbilityResult heal(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         TextManager textManager = TextManager.getInstance();

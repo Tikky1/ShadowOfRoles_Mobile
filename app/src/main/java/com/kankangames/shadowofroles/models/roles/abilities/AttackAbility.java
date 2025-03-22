@@ -9,7 +9,7 @@ import com.kankangames.shadowofroles.services.BaseGameService;
 
 import java.util.Locale;
 
-public interface AttackAbility {
+public interface AttackAbility extends RoleAbility{
 
     default AbilityResult attack(Player roleOwner, Player choosenPlayer, BaseGameService gameService, CauseOfDeath causeOfDeath){
         TextManager textManager = TextManager.getInstance();

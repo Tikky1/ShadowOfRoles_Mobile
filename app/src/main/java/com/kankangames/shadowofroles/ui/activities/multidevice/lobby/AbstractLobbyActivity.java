@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.managers.InstanceClearer;
 import com.kankangames.shadowofroles.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
@@ -127,6 +128,7 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
 
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
+                        InstanceClearer.clearInstances();
                     })
                     .setCancelable(false)
                     .show();
