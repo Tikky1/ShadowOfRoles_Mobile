@@ -19,6 +19,6 @@ public final class Observer extends FolkRole implements InvestigativeAbility {
 
     @Override
     public ChanceProperty getChanceProperty() {
-        return new ChanceProperty(20, 10);
+        return new ChanceProperty(2000, 10);
     }
 }

@@ -43,7 +43,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/graveyard_title_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/graveyard_title_text_view"
+        android:background="@drawable/text_background"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/close_message_button"

@@ -28,7 +28,6 @@ import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
 import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDataReceivedListener;
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDisbandedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameEndedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameStartingListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnQuitedGameListener;
@@ -156,7 +155,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     private void setImageButtonOnClicked(){
         announcementsButton.setOnClickListener(v -> {
             MessageFragment messageFragment = new MessageFragment(
-                    gameData.getMessages(), gameData.getCurrentPlayer());
+                    gameData.getMessages());
 
             messageFragment.show(getSupportFragmentManager(), getString(R.string.messages));
         });
@@ -268,8 +267,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
 
     private void createAnnouncementsDialog(){
         AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(null);
-        announcementsFragment.setAnnouncementsAndTimeService(gameData.getMessages(),
-                gameData.getTimeService());
+        announcementsFragment.setAnnouncements(gameData.getMessages());
         announcementsFragment.setDayText(gameData.getTimeService().getTimeAndDay());
         announcementsFragment.show(getSupportFragmentManager(), "Start Day Announcements");
     }

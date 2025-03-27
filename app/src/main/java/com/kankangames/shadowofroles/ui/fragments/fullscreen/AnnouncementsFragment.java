@@ -11,18 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.models.Message;
-import com.kankangames.shadowofroles.services.BaseTimeService;
+import com.kankangames.shadowofroles.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.models.message.Message;
 import com.kankangames.shadowofroles.ui.adapters.MessagesViewAdapter;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class AnnouncementsFragment extends FullScreenFragment {
 
-    private List<Message> announcements;
-    private BaseTimeService timeService;
+    private Map<TimePeriod, List<Message>> announcements;
     private String dayText;
 
     public AnnouncementsFragment(OnClose onClose) {
@@ -42,32 +40,14 @@ public class AnnouncementsFragment extends FullScreenFragment {
 
         RecyclerView announcementsRecyclerView = view.findViewById(R.id.announcements_recycler_view);
         announcementsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        MessagesViewAdapter messagesViewAdapter = new MessagesViewAdapter();
-
-        messagesViewAdapter.setMessages(filterMessages());
+        MessagesViewAdapter messagesViewAdapter = new MessagesViewAdapter(announcements);
 
         announcementsRecyclerView.setAdapter(messagesViewAdapter);
 
     }
 
-
-    private List<Message> filterMessages(){
-        Time currentTime = timeService.getTime();
-        int currentDayCount = timeService.getDayCount();
-
-        List<Message> filteredMessages = announcements.stream()
-                .filter(message -> message.isPublic() && (
-                        (currentTime == Time.NIGHT && message.isDay() && message.getDayCount() == currentDayCount) ||
-                                (currentTime == Time.DAY && !message.isDay() && message.getDayCount() == currentDayCount - 1)
-                ))
-                .collect(Collectors.toList());
-
-        return filteredMessages;
-    }
-
-    public void setAnnouncementsAndTimeService(List<Message> announcements, BaseTimeService timeService) {
+    public void setAnnouncements(Map<TimePeriod, List<Message>> announcements) {
         this.announcements = announcements;
-        this.timeService = timeService;
     }
 
     public void setDayText(String dayText) {

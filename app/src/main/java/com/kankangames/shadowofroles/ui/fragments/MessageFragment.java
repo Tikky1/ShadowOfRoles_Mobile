@@ -12,22 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.Message;
-import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.models.message.Message;
 import com.kankangames.shadowofroles.ui.adapters.MessagesViewAdapter;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class MessageFragment extends HidingNavigationFragment {
 
-    private final List<Message> messages;
-    private final Player currentPlayer;
+    private final Map<TimePeriod, List<Message>> messages;
 
-    public MessageFragment(List<Message> messages, Player currentPlayer) {
+    public MessageFragment(Map<TimePeriod, List<Message>> messages) {
         this.messages = messages;
-        this.currentPlayer = currentPlayer;
     }
 
     @NonNull
@@ -45,10 +42,10 @@ public class MessageFragment extends HidingNavigationFragment {
 
         RecyclerView messagesView = dialog.findViewById(R.id.message_recycler_view);
         messagesView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        MessagesViewAdapter messagesViewAdapter = new MessagesViewAdapter();
-        messagesViewAdapter.setMessages(messages.stream().filter(
-                message -> message.isPublic()||message.getReceiver().isSamePlayer(currentPlayer)).collect(Collectors.toList()));
+        MessagesViewAdapter messagesViewAdapter = new MessagesViewAdapter(messages);
         messagesView.setAdapter(messagesViewAdapter);
+
+        messagesView.scrollToPosition(messagesViewAdapter.getItemCount() - 1);
 
 
         return dialog;

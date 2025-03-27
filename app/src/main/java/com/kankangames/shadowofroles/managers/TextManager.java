@@ -37,7 +37,7 @@ public final class TextManager {
 
     public String enumToStringXmlPrefix(String enumName, String prefix){
         enumName = enumName.toLowerCase(Locale.ROOT);
-        enumName =String.format("%s_%s", prefix, enumName);
+        enumName = String.format("%s_%s", prefix, enumName);
         return enumName;
     }
 

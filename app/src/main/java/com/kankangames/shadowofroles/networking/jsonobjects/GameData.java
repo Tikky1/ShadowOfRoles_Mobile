@@ -1,22 +1,24 @@
 package com.kankangames.shadowofroles.networking.jsonobjects;
 
-import com.kankangames.shadowofroles.models.Message;
+import com.kankangames.shadowofroles.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.models.message.Message;
 import com.kankangames.shadowofroles.models.player.Player;
 import com.kankangames.shadowofroles.services.BaseTimeService;
 import com.kankangames.shadowofroles.services.DataProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GameData implements DataProvider {
-    private final List<Message> messages;
+    private final Map<TimePeriod, List<Message>> messages;
     private final ArrayList<Player> deadPlayers;
     private final ArrayList<Player> alivePlayers;
     private final BaseTimeService timeService;
     private final boolean isGameFinished;
     private final int playerNumber;
 
-    public GameData(List<Message> messages, ArrayList<Player> deadPlayers, ArrayList<Player> alivePlayers, BaseTimeService timeService, boolean isGameFinished, int playerNumber) {
+    public GameData(Map<TimePeriod, List<Message>> messages, ArrayList<Player> deadPlayers, ArrayList<Player> alivePlayers, BaseTimeService timeService, boolean isGameFinished, int playerNumber) {
         this.messages = messages;
         this.deadPlayers = deadPlayers;
         this.alivePlayers = alivePlayers;
@@ -26,7 +28,7 @@ public class GameData implements DataProvider {
     }
 
     @Override
-    public List<Message> getMessages() {
+    public Map<TimePeriod, List<Message>> getMessages() {
         return messages;
     }
 

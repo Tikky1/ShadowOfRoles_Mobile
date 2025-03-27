@@ -7,14 +7,15 @@ public final class MultiDeviceTimeService extends BaseTimeService{
 
     @Override
     public void toggleTimeCycle(){
-        switch (time) {
+        switch (timePeriod.time()) {
 
-            case VOTING: time = Time.NIGHT;
+            case VOTING:
+                timePeriod.setTime(Time.NIGHT);
                 break;
 
             case NIGHT:
-                time = Time.VOTING;
-                dayCount++;
+                timePeriod.setTime(Time.VOTING);
+                timePeriod.incrementDayCount();
                 break;
 
         }

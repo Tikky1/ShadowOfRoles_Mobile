@@ -96,7 +96,7 @@ public final class VotingService {
                 gameService.getMessageService().sendMessage(TextManager.getInstance().getText("vote_execute")
                                 .replace("{playerName}", getMaxVoted().getName())
                                 .replace("{roleName}", getMaxVoted().getRole().getTemplate().getName()),
-                        null, true, true);
+                        null, true);
             }
 
         }
@@ -119,9 +119,9 @@ public final class VotingService {
         if(chosenPlayer!=null){
             gameService.messageService.sendMessage(TextManager.getInstance().getText("voted_for")
                             .replace("{playerName}", chosenPlayer.getNameAndNumber())
-                    ,player,false, true);
+                    ,player,false);
         }else{
-            gameService.messageService.sendMessage(TextManager.getInstance().getText("voted_for_none"), player, false, true);
+            gameService.messageService.sendMessage(TextManager.getInstance().getText("voted_for_none"), player, false);
         }
 
     }

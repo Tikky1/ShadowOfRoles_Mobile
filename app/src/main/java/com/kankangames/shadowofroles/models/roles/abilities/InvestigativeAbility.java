@@ -44,8 +44,11 @@ public interface InvestigativeAbility extends RoleAbility{
      * @return
      */
     default AbilityResult observerAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
+        TextManager textManager = TextManager.getInstance();
+        String teamName = textManager.enumToStringXmlPrefix(choosenPlayer.getRole().getTemplate().getWinningTeam().getTeam().name()
+                , "team");
         gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("observer_ability_message")
-                        .replace("{teamName}", choosenPlayer.getRole().getTemplate().getWinningTeam().getTeam().name()),roleOwner);
+                        .replace("{teamName}", textManager.getText(teamName)),roleOwner);
         return AbilityResult.SUCCESSFUL;
     }
 

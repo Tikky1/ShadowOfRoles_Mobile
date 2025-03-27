@@ -1,24 +1,33 @@
 package com.kankangames.shadowofroles.ui.adapters;
 
-import android.graphics.Color;
+import static android.view.View.GONE;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.Message;
+import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.models.message.Message;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class MessagesViewAdapter extends RecyclerView.Adapter<MessagesViewAdapter.ViewHolderMessage> {
 
-    private List<Message> messages = new LinkedList<>();
+    private Map<TimePeriod, List<Message>> messages = new HashMap<>();
+    private List<TimePeriod> timePeriods;
 
     @NonNull
     @Override
@@ -31,7 +40,10 @@ public class MessagesViewAdapter extends RecyclerView.Adapter<MessagesViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderMessage holder, int position) {
-        holder.setMessageText(messages.get(position));
+        TimePeriod timePeriod = timePeriods.get(position);
+        List<Message> messageList = messages.get(timePeriod);
+        holder.setMessageTextView(timePeriod, messageList);
+
     }
 
     @Override
@@ -39,19 +51,26 @@ public class MessagesViewAdapter extends RecyclerView.Adapter<MessagesViewAdapte
         return messages.size();
     }
 
-    public void setMessages(List<Message> messages) {
+    public MessagesViewAdapter(Map<TimePeriod, List<Message>> messages) {
+        setMessages(messages);
+    }
+
+    public void setMessages(Map<TimePeriod, List<Message>> messages) {
         this.messages = messages;
+        this.timePeriods = new ArrayList<>(messages.keySet());
         notifyDataSetChanged();
     }
 
     public static class ViewHolderMessage extends RecyclerView.ViewHolder {
 
-        private final TextView messageText;
+        private final TextView messageTextView;
+        private final RecyclerView recyclerView;
 
 
         public ViewHolderMessage(@NonNull View itemView) {
             super(itemView);
-            messageText = itemView.findViewById(R.id.message_text);
+            recyclerView = itemView.findViewById(R.id.recycler_view);
+            messageTextView = itemView.findViewById(R.id.message_text);
 
             ViewGroup.LayoutParams params = itemView.getLayoutParams();
             if (params instanceof ViewGroup.MarginLayoutParams) {
@@ -62,18 +81,21 @@ public class MessagesViewAdapter extends RecyclerView.Adapter<MessagesViewAdapte
 
         }
 
-        public void setMessageText(Message message) {
-            if(message.isPublic()){
-                itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.public_message));
-                messageText.setTextColor(Color.WHITE);
+        public void setMessageTextView(TimePeriod timePeriod, List<Message> messages) {
+            if(messages.isEmpty()){
+                messageTextView.setVisibility(GONE);
+                recyclerView.setVisibility(GONE);
+                return;
             }
-            else{
-                itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.private_message));
-                messageText.setTextColor(Color.BLACK);
-            }
+            TextManager textManager = TextManager.getInstance();
+           messageTextView.setText(String.format(Locale.ROOT,
+                   timePeriod.time() == Time.NIGHT ?
+                           textManager.getText("night")
+                   : textManager.getText("day"), timePeriod.dayCount()));
+           MessageListAdapter messageListAdapter = new MessageListAdapter(messages);
 
-
-            messageText.setText(String.format("%s\n %s", message.getTimeAndDayCountAsString(), message.getMessage()));
+           recyclerView.setAdapter(messageListAdapter);
+           recyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
 
 
         }

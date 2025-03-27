@@ -1,5 +1,7 @@
 package com.kankangames.shadowofroles.models.player;
 
+import androidx.annotation.NonNull;
+
 import com.kankangames.shadowofroles.gamestate.Time;
 import com.kankangames.shadowofroles.gamestate.WinStatus;
 import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
@@ -52,7 +54,7 @@ public abstract class Player{
 
 
     public final String getNameAndNumber(){
-        return String.format(Locale.ROOT,"%d.%s", number, name);
+        return String.format(Locale.ROOT,"(%d) %s", number, name);
     }
 
     @Override
@@ -80,16 +82,15 @@ public abstract class Player{
     }
 
     public final String getNameAndRole(){
-        return String.format(Locale.ROOT,"%d.%s (%s)", number, name ,role.getTemplate().getName());
+        return getNameAndNumber() + " (" + role.getTemplate().getName() + ")";
     }
 
     public WinStatus getWinStatus() {
         return winStatus;
     }
 
-    public Player setWinStatus(WinStatus winStatus) {
+    public void setWinStatus(WinStatus winStatus) {
         this.winStatus = winStatus;
-        return this;
     }
 
     public DeathProperties getDeathProperties() {
@@ -108,6 +109,7 @@ public abstract class Player{
         return this.number == number;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Player{" +

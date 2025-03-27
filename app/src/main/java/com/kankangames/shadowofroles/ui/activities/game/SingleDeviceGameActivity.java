@@ -98,7 +98,7 @@ public class SingleDeviceGameActivity extends BaseActivity {
     private void setImageButtonOnClicked(){
         announcementsButton.setOnClickListener(v -> {
             MessageFragment messageFragment = new MessageFragment(
-                    gameService.getMessageService().getMessages(), gameService.getCurrentPlayer());
+                    gameService.getMessageService().getPlayerMessages(gameService.getCurrentPlayer()));
 
             messageFragment.show(getSupportFragmentManager(), getString(R.string.messages));
         });
@@ -257,8 +257,7 @@ public class SingleDeviceGameActivity extends BaseActivity {
 
     private void createAnnouncementsDialog(){
         AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(()->{});
-        announcementsFragment.setAnnouncementsAndTimeService(gameService.getMessageService().getMessages(),
-                gameService.getTimeService());
+        announcementsFragment.setAnnouncements(gameService.getMessageService().getDailyAnnouncements());
         announcementsFragment.setDayText(gameService.getTimeService().getTimeAndDay());
         announcementsFragment.show(getSupportFragmentManager(), "Start Day Announcements");
     }

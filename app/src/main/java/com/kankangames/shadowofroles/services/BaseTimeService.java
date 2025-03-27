@@ -1,23 +1,25 @@
 package com.kankangames.shadowofroles.services;
 
 import com.kankangames.shadowofroles.gamestate.Time;
+import com.kankangames.shadowofroles.gamestate.TimePeriod;
 import com.kankangames.shadowofroles.managers.TextManager;
 
 public class BaseTimeService {
-    protected int dayCount = 1;
-    protected Time time = Time.NIGHT;
+    protected TimePeriod timePeriod = TimePeriod.of(Time.NIGHT, 1);
 
     public void toggleTimeCycle(){
-        switch (time) {
-            case DAY: time = Time.VOTING;
+        switch (timePeriod.time()) {
+            case DAY:
+                timePeriod.setTime(Time.VOTING);
                 break;
 
-            case VOTING: time = Time.NIGHT;
+            case VOTING:
+                timePeriod.setTime(Time.NIGHT);
                 break;
 
             case NIGHT:
-                time = Time.DAY;
-                dayCount++;
+                timePeriod.setTime(Time.DAY);
+                timePeriod.incrementDayCount();
                 break;
 
         }
@@ -25,18 +27,18 @@ public class BaseTimeService {
     }
 
     public int getDayCount() {
-        return dayCount;
+        return timePeriod.dayCount();
     }
 
 
     public Time getTime() {
-        return time;
+        return timePeriod.time();
     }
 
     public String getTimeAndDay(){
         TextManager textManager = TextManager.getInstance();
-        String timeStr = (time!=Time.NIGHT ? textManager.getText("day") : textManager.getText("night"));
-        timeStr = String.format(timeStr, dayCount);
+        String timeStr = (timePeriod.time()!=Time.NIGHT ? textManager.getText("day") : textManager.getText("night"));
+        timeStr = String.format(timeStr, timePeriod.dayCount());
         return timeStr;
     }
 

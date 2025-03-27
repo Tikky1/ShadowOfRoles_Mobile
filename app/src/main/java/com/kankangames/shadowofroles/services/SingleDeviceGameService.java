@@ -1,7 +1,7 @@
 package com.kankangames.shadowofroles.services;
 
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.models.Message;
+import com.kankangames.shadowofroles.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.models.message.Message;
 import com.kankangames.shadowofroles.models.player.Player;
 
 import java.util.*;
@@ -81,8 +81,8 @@ public final class SingleDeviceGameService extends BaseGameService implements Da
 
 
     @Override
-    public LinkedList<Message> getMessages() {
-        return messageService.getMessages();
+    public Map<TimePeriod, List<Message>> getMessages() {
+        return messageService.getPlayerMessages(getCurrentPlayer());
     }
 
     // Getters
