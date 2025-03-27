@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,6 +43,9 @@ public class PlayerNamesActivity extends ImageChangingActivity{
         startGameService.setGameMode(GameMode.SINGLE_DEVICE);
         backgroundImage = findViewById(R.id.backgroundImage);
         backgroundImage.setImageDrawable(sceneManager.nextImage());
+
+        AppCompatButton closeButton = findViewById(R.id.close_online_selection_button);
+        closeButton.setOnClickListener(v -> finish());
 
         Button minusBtn = findViewById(R.id.minusBtn);
         Button plusBtn = findViewById(R.id.plusBtn);

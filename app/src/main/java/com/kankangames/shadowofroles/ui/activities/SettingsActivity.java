@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import androidx.appcompat.widget.AppCompatButton;
+
 import com.kankangames.shadowofroles.GameApplication;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.managers.LanguageManager;
@@ -24,6 +26,9 @@ public class SettingsActivity extends ImageChangingActivity{
 
         background=findViewById(R.id.backgroundImage3);
         background.setImageDrawable(sceneManager.nextImage());
+
+        AppCompatButton closeButton = findViewById(R.id.close_settings_button);
+        closeButton.setOnClickListener(v -> finish());
 
         setLanguageSpinner();
     }

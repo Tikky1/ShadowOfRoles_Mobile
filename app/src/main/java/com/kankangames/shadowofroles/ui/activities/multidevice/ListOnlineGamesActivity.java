@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,9 @@ public class ListOnlineGamesActivity extends ImageChangingActivity {
 
         backgroundImage = findViewById(R.id.backgroundImage);
         changeImage();
+
+        AppCompatButton closeButton = findViewById(R.id.close_list_online_games_button);
+        closeButton.setOnClickListener(v -> finish());
 
         RecyclerView activeGamesView = findViewById(R.id.active_games_recycler_view);
         adapter =  new ServersAdapter(displayedDeviceNames, this::connectToServer);

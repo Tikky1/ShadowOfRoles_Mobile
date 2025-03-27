@@ -7,6 +7,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatButton;
+
 import com.kankangames.shadowofroles.R;
 
 public class ContactActivity extends ImageChangingActivity {
@@ -20,8 +22,12 @@ public class ContactActivity extends ImageChangingActivity {
         ImageButton gitButton = findViewById(R.id.gitBtn);
         ImageButton playStoreButton = findViewById(R.id.storeBtn);
         TextView contactText = findViewById(R.id.contactText);
+        AppCompatButton closeButton = findViewById(R.id.close_contact_button);
         backgroundImage = findViewById(R.id.contact_background_image);
         backgroundImage.setImageDrawable(sceneManager.nextImage());
+
+        closeButton.setOnClickListener(v -> finish());
+
 
         contactText.setText(R.string.contact_text);
 

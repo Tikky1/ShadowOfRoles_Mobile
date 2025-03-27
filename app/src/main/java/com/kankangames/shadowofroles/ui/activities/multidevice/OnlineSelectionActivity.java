@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.AppCompatButton;
+
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
@@ -24,6 +26,9 @@ public class OnlineSelectionActivity extends ImageChangingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_selection);
 
+
+        AppCompatButton closeButton = findViewById(R.id.close_online_selection_button);
+        closeButton.setOnClickListener(v -> finish());
 
         Button hostGameBtn = findViewById(R.id.host_game_btn);
         Button searchGameBtn = findViewById(R.id.search_game_btn);
