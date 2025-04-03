@@ -16,10 +16,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.ui.helper.PlayerActionVisibility;
 
 import java.util.ArrayList;
@@ -84,8 +84,6 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
                 ? context.getString(R.string.unselect)
                 : context.getString(R.string.select));
 
-
-
         RoleTemplate roleTemplate = targetPlayer.getRole().getTemplate();
         holder.roleName.setText(String.format("(%s)", roleTemplate.getName()));
 
@@ -131,17 +129,13 @@ public class PlayersViewAdapter extends RecyclerView.Adapter<PlayersViewAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        private final TextView playerNameView;
-        private final TextView playerNumberView;
+        private final TextView playerNameView, roleName, playerNumberView;
         private final Button selectionBtn;
-        private final TextView roleName;
         private final FrameLayout numberCircle;
 
         private boolean isSelected;
 
-        private Player currentPlayer;
-
-        private Player player;
+        private Player currentPlayer, player;
 
         private List<ViewHolder> allSelectionBoxes;
 

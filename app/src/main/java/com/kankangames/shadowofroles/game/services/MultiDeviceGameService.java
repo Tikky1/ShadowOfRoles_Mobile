@@ -1,9 +1,9 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.WinStatus;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
+import com.kankangames.shadowofroles.game.models.gamestate.WinStatus;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.PlayerDTO;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -16,13 +16,13 @@ public final class MultiDeviceGameService extends BaseGameService{
 
     }
 
-    public synchronized void updateAllPlayers(PlayerInfo playerInfo){
+    public synchronized void updateAllPlayers(PlayerDTO playerDTO){
 
-        Player player = findPlayer(playerInfo.getSenderPlayerNumber());
+        Player player = findPlayer(playerDTO.getSenderPlayerNumber());
 
         if(player!=null){
-            player.getRole().setChoosenPlayer(findPlayer(playerInfo.getChosenPlayerNumber()));
-            player.getRole().setTemplate(playerInfo.getSenderRole());
+            player.getRole().setChoosenPlayer(findPlayer(playerDTO.getChosenPlayerNumber()));
+            player.getRole().setTemplate(playerDTO.getSenderRole());
         }
 
         updateAlivePlayers();

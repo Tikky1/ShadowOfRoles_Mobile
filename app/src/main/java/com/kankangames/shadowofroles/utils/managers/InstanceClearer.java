@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.managers;
+package com.kankangames.shadowofroles.utils.managers;
 
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.server.Server;

@@ -1,11 +1,11 @@
-package com.kankangames.shadowofroles.utils.jsonutils;
+package com.kankangames.shadowofroles.networking.jsonutils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.utils.jsonutils.adapters.PlayerTypeAdapter;
-import com.kankangames.shadowofroles.utils.jsonutils.adapters.RoleTypeAdapter;
+import com.kankangames.shadowofroles.networking.jsonutils.adapters.PlayerTypeAdapter;
+import com.kankangames.shadowofroles.networking.jsonutils.adapters.RoleTypeAdapter;
 
 public final class GsonProvider {
     private GsonProvider(){}

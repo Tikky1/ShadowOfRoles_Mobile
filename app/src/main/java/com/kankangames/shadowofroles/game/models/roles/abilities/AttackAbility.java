@@ -1,8 +1,9 @@
 package com.kankangames.shadowofroles.game.models.roles.abilities;
 
-import com.kankangames.shadowofroles.game.gamestate.Time;
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
 import com.kankangames.shadowofroles.game.models.player.properties.CauseOfDeath;
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
 import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.game.models.roles.enums.AbilityResult;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
@@ -18,17 +19,17 @@ public interface AttackAbility extends RoleAbility{
             choosenPlayer.killPlayer(Time.NIGHT, gameService.getTimeService().getDayCount(), causeOfDeath, false);
 
 
-            String causeOfDeathStr = causeOfDeath.toString().toLowerCase(Locale.ROOT);
-            gameService.getMessageService().sendAbilityMessage(textManager.getText(causeOfDeathStr+"_kill_message"), roleOwner);
+            String causeOfDeathStr = causeOfDeath.name();
+            gameService.getMessageService().sendAbilityMessage(textManager.getTextEnumSuffix(causeOfDeathStr,"kill_message"), roleOwner);
             gameService.getMessageService().sendAbilityAnnouncement(
-                    textManager.getText(causeOfDeathStr+"_kill_announcement")
+                    textManager.getTextEnumSuffix(causeOfDeathStr,"kill_announcement")
                     .replace("{playerName}",choosenPlayer.getNameAndNumber())
                     .replace("{roleName}", choosenPlayer.getRole().getTemplate().getName()
                     ));
             return AbilityResult.SUCCESSFUL;
         }
         else{
-            gameService.getMessageService().sendAbilityMessage(textManager.getText("ability_defence"), roleOwner);
+            gameService.getMessageService().sendAbilityMessage(textManager.getText(R.string.ability_defence), roleOwner);
             return AbilityResult.ATTACK_INSUFFICIENT;
         }
     }

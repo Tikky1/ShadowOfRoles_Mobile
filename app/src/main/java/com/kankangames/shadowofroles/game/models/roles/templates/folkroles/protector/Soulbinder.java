@@ -7,16 +7,17 @@ import com.kankangames.shadowofroles.game.models.roles.enums.AbilityType;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
-import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.game.models.roles.templates.folkroles.FolkRole;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 
-public final class Soulbinder extends FolkRole implements ProtectiveAbility {
+public final class Soulbinder extends RoleTemplate implements ProtectiveAbility {
     public Soulbinder() {
-        super(RoleID.Soulbinder, AbilityType.ACTIVE_OTHERS, RolePriority.HEAL,
-                RoleCategory.FOLK_PROTECTOR);
+        super(RoleID.SOUL_BINDER, AbilityType.ACTIVE_OTHERS, RolePriority.HEAL,
+                RoleCategory.FOLK_PROTECTOR, WinningTeam.FOLK);
         roleProperties
-                .setHasHealingAbility(true);
+                .addAttribute(RoleAttribute.HAS_HEALING_ABILITY);
     }
 
     @Override

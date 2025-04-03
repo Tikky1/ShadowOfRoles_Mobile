@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.utils.jsonutils.adapters;
+package com.kankangames.shadowofroles.networking.jsonutils.adapters;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -37,41 +37,41 @@ public class RoleTypeAdapter implements JsonDeserializer<RoleTemplate> {
         RoleID roleID = RoleID.valueOf(jsonObject.get("id").getAsString());
 
         switch (roleID) {
-            case Detective:
+            case DETECTIVE:
                 return context.deserialize(jsonObject, Detective.class);
-            case Observer:
+            case OBSERVER:
                 return context.deserialize(jsonObject, Observer.class);
-            case Psycho:
+            case PSYCHO:
                 return context.deserialize(jsonObject, Psycho.class);
-            case Soulbinder:
+            case SOUL_BINDER:
                 return context.deserialize(jsonObject, Soulbinder.class);
-            case Stalker:
+            case STALKER:
                 return context.deserialize(jsonObject, Stalker.class);
-            case DarkRevealer:
+            case DARK_REVEALER:
                 return context.deserialize(jsonObject, DarkRevealer.class);
-            case Interrupter:
+            case INTERRUPTER:
                 return context.deserialize(jsonObject, Interrupter.class);
-            case SealMaster:
+            case SEAL_MASTER:
                 return context.deserialize(jsonObject, SealMaster.class);
-            case Assassin:
+            case ASSASSIN:
                 return context.deserialize(jsonObject, Assassin.class);
-            case ChillGuy:
+            case CHILL_GUY:
                 return context.deserialize(jsonObject, ChillGuy.class);
-            case LastJoke:
+            case LAST_JOKE:
                 return context.deserialize(jsonObject, LastJoke.class);
-            case Clown:
+            case CLOWN:
                 return context.deserialize(jsonObject, Clown.class);
-            case Disguiser:
+            case DISGUISER:
                 return context.deserialize(jsonObject, Disguiser.class);
-            case Darkseer:
+            case DARK_SEER:
                 return context.deserialize(jsonObject, Darkseer.class);
-            case FolkHero:
+            case FOLK_HERO:
                 return context.deserialize(jsonObject, FolkHero.class);
-            case Entrepreneur:
+            case ENTREPRENEUR:
                 return context.deserialize(jsonObject, Entrepreneur.class);
-            case Lorekeeper:
+            case LORE_KEEPER:
                 return context.deserialize(jsonObject, Lorekeeper.class);
-            case Blinder:
+            case BLINDER:
                 return context.deserialize(jsonObject, Blinder.class);
             default:
                 throw new JsonParseException("Unknown role type: " + roleID);

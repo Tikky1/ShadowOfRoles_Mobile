@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.TimePeriod;
-import com.kankangames.shadowofroles.models.message.Message;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.game.models.message.Message;
 import com.kankangames.shadowofroles.ui.adapters.MessagesViewAdapter;
 
 import java.util.List;

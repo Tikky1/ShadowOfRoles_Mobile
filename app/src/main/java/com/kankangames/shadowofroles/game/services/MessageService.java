@@ -1,11 +1,13 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.gamestate.TimePeriod;
-import com.kankangames.shadowofroles.managers.TextManager;
-import com.kankangames.shadowofroles.models.message.Message;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.enums.RolePriority;
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.message.Message;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -47,19 +49,19 @@ public final class MessageService {
         return currentPeriod;
     }
 
-    private TimePeriod getAnnouncementPeriod(){
-        TimePeriod currentPeriod = gameService.timeService.timePeriod;
+
+    private static TimePeriod getAnnouncementPeriod(TimePeriod currentPeriod){
         switch (currentPeriod.time()){
 
-           case NIGHT:
-               return new TimePeriod(Time.VOTING, currentPeriod.dayCount());
+            case NIGHT:
+                return new TimePeriod(Time.VOTING, currentPeriod.dayCount());
 
-           case DAY:
-               return new TimePeriod(Time.NIGHT, currentPeriod.dayCount()-1);
+            case DAY:
+                return new TimePeriod(Time.NIGHT, currentPeriod.dayCount()-1);
 
-           default:
-               return currentPeriod;
-       }
+            default:
+                return currentPeriod;
+        }
 
     }
 
@@ -69,9 +71,9 @@ public final class MessageService {
      */
     void sendSpecificRoleMessages(final Player alivePlayer){
 
-        if(alivePlayer.getRole().getTemplate().getRoleProperties().isRoleBlockImmune() && !alivePlayer.getRole().isCanPerform()
+        if(alivePlayer.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.ROLE_BLOCK_IMMUNE) && !alivePlayer.getRole().isCanPerform()
                 && !alivePlayer.getRole().isImmune()){
-            sendMessage(TextManager.getInstance().getText("rb_immune_message"),
+            sendMessage(TextManager.getInstance().getText(R.string.rb_immune_message),
                     alivePlayer, false);
         }
 
@@ -80,8 +82,8 @@ public final class MessageService {
         }
         if(alivePlayer.getRole().getChoosenPlayer().getRole().isImmune() &&
                 alivePlayer.getRole().getTemplate().getRolePriority().getPriority() <= RolePriority.ROLE_BLOCK.getPriority()
-        && !alivePlayer.getRole().getTemplate().getRoleProperties().hasImmuneAbility()){
-            sendMessage(TextManager.getInstance().getText("immune_message"),
+        && !alivePlayer.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.HAS_IMMUNE_ABILITY)){
+            sendMessage(TextManager.getInstance().getText(R.string.immune_message),
                     alivePlayer, false);
         }
     }
@@ -99,9 +101,13 @@ public final class MessageService {
 
     }
     public Map<TimePeriod, List<Message>> getDailyAnnouncements(){
+        return getDailyAnnouncements(messages, gameService.timeService.timePeriod);
+    }
+
+    public static Map<TimePeriod, List<Message>> getDailyAnnouncements(Map<TimePeriod, List<Message>> messages, TimePeriod currentPeriod){
         Map<TimePeriod, List<Message>> sendMap =
                 new HashMap<>();
-        TimePeriod timePeriod = getAnnouncementPeriod();
+        TimePeriod timePeriod = getAnnouncementPeriod(currentPeriod);
         List<Message> messageList = messages.getOrDefault(timePeriod, new ArrayList<>())
                 .stream()
                 .filter(Message::isPublic)

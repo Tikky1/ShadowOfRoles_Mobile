@@ -1,8 +1,9 @@
-package com.kankangames.shadowofroles.game.services;
+package com.kankangames.shadowofroles.game.models;
 
 import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
 import com.kankangames.shadowofroles.game.models.message.Message;
 import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.services.BaseTimeService;
 
 import java.util.ArrayList;
 import java.util.List;

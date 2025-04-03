@@ -12,8 +12,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.managers.TextManager;
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
 
 import java.util.List;
 

@@ -3,10 +3,9 @@ package com.kankangames.shadowofroles.ui.activities.multidevice.lobby;
 import static android.view.View.GONE;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnKickedFromLobbyListener;
 
 import java.util.List;

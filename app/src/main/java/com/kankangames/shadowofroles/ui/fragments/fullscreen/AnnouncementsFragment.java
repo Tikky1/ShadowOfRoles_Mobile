@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.TimePeriod;
-import com.kankangames.shadowofroles.models.message.Message;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.game.models.message.Message;
 import com.kankangames.shadowofroles.ui.adapters.MessagesViewAdapter;
 
 import java.util.List;
@@ -23,8 +23,9 @@ public class AnnouncementsFragment extends FullScreenFragment {
     private Map<TimePeriod, List<Message>> announcements;
     private String dayText;
 
-    public AnnouncementsFragment(OnClose onClose) {
+    public AnnouncementsFragment(OnClose onClose, Map<TimePeriod, List<Message>> announcements) {
         super(onClose);
+        this.announcements = announcements;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class AnnouncementsFragment extends FullScreenFragment {
     }
 
     public void setAnnouncements(Map<TimePeriod, List<Message>> announcements) {
-        this.announcements = announcements;
+
     }
 
     public void setDayText(String dayText) {

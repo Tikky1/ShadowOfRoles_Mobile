@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.game.models.player.Player;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.TimePeriod;
-import com.kankangames.shadowofroles.models.message.Message;
-import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.game.models.DataProvider;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.game.models.message.Message;
+import com.kankangames.shadowofroles.game.models.player.Player;
 
 import java.util.*;
 
@@ -33,10 +34,10 @@ public final class SingleDeviceGameService extends BaseGameService implements Da
     public boolean passTurn() {
 
         if(!doesHumanPlayerExist()){
-            while(!finishGameService.checkGameFinished()){
+            while(!finishGameService.isGameFinished()){
                 toggleDayNightCycle();
             }
-            finishGameService.finishGame();
+
             return true;
         }
 

@@ -8,140 +8,140 @@
     tools:context=".ui.activities.MainActivity"
     >
 
-    <!-- Background Image -->
-
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="Background Image"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/root"
         app:srcCompat="@drawable/background0" />
 
-    <!-- Logo -->
-    <ImageView
-        android:id="@+id/gameLogo"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@drawable/gamelogo"
-        app:layout_constraintBottom_toTopOf="@+id/main_guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Button Group (LinearLayout) -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/main_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <LinearLayout
-        android:id="@+id/buttonLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:theme="@style/FullscreenTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameLogo"
-        app:layout_constraintVertical_bias="0.25">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".ui.activities.MainActivity">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/startGameBtn"
+        <!-- Background Image -->
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/gameLogo"
             android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/gamelogo"
+            app:layout_constraintBottom_toTopOf="@+id/main_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Button Group (LinearLayout) -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/main_guideline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_style"
-            android:text="@string/start_game"
-            android:textColor="@color/white" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/multiDeviceGameBtn"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_style"
-            android:text="@string/multi_device"
-            android:textColor="@color/white" />
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameLogo"
+            app:layout_constraintVertical_bias="0.25">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/gameGuideBtn"
-            android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/startGameBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/start_game"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/multiDeviceGameBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/multi_device"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/gameGuideBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/game_guide"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/contactBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/contact"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/creditsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/credits"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/quitBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_style"
+                android:text="@string/quit"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/settingsBtn"
+            android:layout_width="67dp"
+            android:layout_height="64dp"
+            android:background="@drawable/contact_button_background"
+            android:backgroundTint="#92FFFFFF"
+            android:contentDescription="@string/settings"
+            android:scaleType="centerInside"
+            android:tooltipText="@string/settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonLayout"
+            app:layout_constraintVertical_bias="0.869"
+            app:srcCompat="@drawable/settingsbtn"
+            app:tint="@color/button_color_second" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cloud_guideline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_style"
-            android:text="@string/game_guide"
-            android:textColor="@color/white" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/contactBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_style"
-            android:text="@string/contact"
-            android:textColor="@color/white" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/creditsBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_style"
-            android:text="@string/credits"
-            android:textColor="@color/white" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/quitBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_style"
-            android:text="@string/quit"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/settingsBtn"
-        android:layout_width="67dp"
-        android:layout_height="64dp"
-        android:background="#00FFFFFF"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLayout"
-        app:layout_constraintVertical_bias="0.869"
-        app:srcCompat="@drawable/settingsbtn"
-        app:tint="@color/button_color_second" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/cloud_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75"  />
-
-    <TextView
-        android:id="@+id/versionTextview"
-        android:textColor="@color/white"
-        android:background="@drawable/text_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage"
-        app:layout_constraintVertical_bias="0.977" />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.gamestate.TimePeriod;
-import com.kankangames.shadowofroles.managers.LanguageManager;
-import com.kankangames.shadowofroles.managers.TextManager;
-import com.kankangames.shadowofroles.models.message.Message;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.message.Message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,8 +89,8 @@ public class MessagesViewAdapter extends RecyclerView.Adapter<MessagesViewAdapte
             TextManager textManager = TextManager.getInstance();
            messageTextView.setText(String.format(Locale.ROOT,
                    timePeriod.time() == Time.NIGHT ?
-                           textManager.getText("night")
-                   : textManager.getText("day"), timePeriod.dayCount()));
+                           textManager.getText(R.string.night)
+                   : textManager.getText(R.string.day), timePeriod.dayCount()));
            MessageListAdapter messageListAdapter = new MessageListAdapter(messages);
 
            recyclerView.setAdapter(messageListAdapter);

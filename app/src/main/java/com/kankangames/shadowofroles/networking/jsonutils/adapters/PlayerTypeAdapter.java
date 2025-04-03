@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.utils.jsonutils.adapters;
+package com.kankangames.shadowofroles.networking.jsonutils.adapters;
 
 import com.google.gson.*;
 import com.kankangames.shadowofroles.game.models.player.AIPlayer;

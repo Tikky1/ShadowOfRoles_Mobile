@@ -9,18 +9,18 @@ import android.widget.ImageView;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.utils.managers.SettingsManager;
+import com.kankangames.shadowofroles.game.models.settings.UserSettings;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
 import com.kankangames.shadowofroles.ui.activities.multidevice.lobby.GameHostingActivity;
 
-import java.util.Locale;
-import java.util.UUID;
-
 public class OnlineSelectionActivity extends ImageChangingActivity {
 
     private EditText nameText;
     private ImageView backgroundImage;
+    private UserSettings userSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,8 @@ public class OnlineSelectionActivity extends ImageChangingActivity {
         backgroundImage = findViewById(R.id.backgroundImage);
         changeImage();
         nameText = findViewById(R.id.online_player_name);
+        userSettings = SettingsManager.getSettings(this);
+        nameText.setText(userSettings.username());
 
         hostGameBtn.setOnClickListener(v -> {
             initializeClient(GameHostingActivity.class);
@@ -54,11 +56,11 @@ public class OnlineSelectionActivity extends ImageChangingActivity {
 
     private void initializeClient(Class<?> cls){
         String playerName = nameText.getText().toString();
-        if(playerName.isEmpty()){
-            playerName = String.format(Locale.ROOT, getString(R.string.random_player_name),
-                    UUID.randomUUID().toString().substring(0, 8)) ;
+        if(!playerName.equals(userSettings.username())){
+            userSettings.setUsername(playerName);
+            SettingsManager.saveSettings(this, userSettings);
         }
-        Client client = new Client(playerName);
+        Client client = new Client();
         ClientManager.getInstance().setClient(client);
 
         Intent intent = new Intent(this, cls);

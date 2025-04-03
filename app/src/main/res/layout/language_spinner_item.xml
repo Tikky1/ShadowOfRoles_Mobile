@@ -5,19 +5,20 @@
     android:id="@+id/langspinner_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="@drawable/text_background"
-    android:backgroundTint="@color/black"
-    android:visibility="visible">
+    android:background="@drawable/spinner_background"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp">
 
     <TextView
         android:id="@+id/language_spinner_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="English"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

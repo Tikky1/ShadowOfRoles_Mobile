@@ -1,6 +1,6 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.TimeManager;
+import com.kankangames.shadowofroles.game.models.gamestate.TimeManager;
 
 import java.util.Timer;
 import java.util.TimerTask;

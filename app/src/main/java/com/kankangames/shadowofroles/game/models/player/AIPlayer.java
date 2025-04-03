@@ -3,6 +3,7 @@ package com.kankangames.shadowofroles.game.models.player;
 import com.kankangames.shadowofroles.game.models.roles.otherinterfaces.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
 import com.kankangames.shadowofroles.game.models.roles.enums.Team;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class AIPlayer extends Player {
         ArrayList<Player> choosablePlayers = new ArrayList<>(players);
         choosablePlayers.remove(this);
         WinningTeam team = role.getTemplate().getWinningTeam();
-        if(role.getTemplate().getRoleProperties().knowsTeamMembers()){
+        if(role.getTemplate().getRoleProperties().hasAttribute(RoleAttribute.KNOWS_TEAM_MEMBERS)){
             for(Player player : players){
                 if(player.getRole().getTemplate().getWinningTeam() == team){
                     choosablePlayers.remove(player);

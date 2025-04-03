@@ -66,7 +66,8 @@
             android:text="—"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:tooltipText="@string/tooltip_remove_player"/>
 
         <TextView
             android:id="@+id/playerCountText"
@@ -90,7 +91,8 @@
             android:text="+"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:tooltipText="@string/tooltip_add_player"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -121,6 +123,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/player_names_bottom_guideline" />
+        app:layout_constraintTop_toTopOf="@+id/player_names_bottom_guideline"
+        android:tooltipText="@string/tooltip_start_game"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

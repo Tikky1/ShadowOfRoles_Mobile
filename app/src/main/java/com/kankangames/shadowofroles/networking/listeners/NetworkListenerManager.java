@@ -1,4 +1,6 @@
-package com.kankangames.shadowofroles.networking.listeners.clientlistener;
+package com.kankangames.shadowofroles.networking.listeners;
+
+import com.kankangames.shadowofroles.networking.listeners.clientlistener.ClientListener;
 
 import java.util.HashMap;
 import java.util.Map;

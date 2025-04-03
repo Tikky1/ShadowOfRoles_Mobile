@@ -1,7 +1,7 @@
 package com.kankangames.shadowofroles.networking.server;
 
 import com.kankangames.shadowofroles.networking.NetworkManager;
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
+import com.kankangames.shadowofroles.networking.listeners.NetworkListenerManager;
 
 import java.io.*;
 import java.net.*;

@@ -7,15 +7,15 @@ import com.kankangames.shadowofroles.game.models.roles.enums.AbilityType;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
-import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.game.models.roles.templates.folkroles.FolkRole;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 
-public final class Stalker extends FolkRole implements InvestigativeAbility {
+public final class Stalker extends RoleTemplate implements InvestigativeAbility {
 
     public Stalker() {
-        super(RoleID.Stalker, AbilityType.ACTIVE_OTHERS,
-                RolePriority.NONE, RoleCategory.FOLK_ANALYST);
+        super(RoleID.STALKER, AbilityType.ACTIVE_OTHERS,
+                RolePriority.NONE, RoleCategory.FOLK_ANALYST, WinningTeam.FOLK);
     }
 
     @Override

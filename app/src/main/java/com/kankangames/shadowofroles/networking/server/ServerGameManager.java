@@ -1,18 +1,18 @@
 package com.kankangames.shadowofroles.networking.server;
 
 import com.google.gson.Gson;
-import com.kankangames.shadowofroles.models.player.AIPlayer;
-import com.kankangames.shadowofroles.models.player.HumanPlayer;
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.Role;
-import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
-import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
-import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
-import com.kankangames.shadowofroles.services.MultiDeviceGameService;
-import com.kankangames.shadowofroles.services.RoleService;
-import com.kankangames.shadowofroles.services.TurnTimerService;
+import com.kankangames.shadowofroles.game.models.player.AIPlayer;
+import com.kankangames.shadowofroles.game.models.player.HumanPlayer;
+import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.properties.Role;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.EndGameDTO;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.GameDTO;
+import com.kankangames.shadowofroles.networking.jsonutils.GsonProvider;
+import com.kankangames.shadowofroles.game.services.MultiDeviceGameService;
+import com.kankangames.shadowofroles.game.services.RoleService;
+import com.kankangames.shadowofroles.game.services.TurnTimerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,13 +78,13 @@ public final class ServerGameManager implements TurnTimerService.OnTimeChangeLis
 
         if(isGameEnded){
 
-            EndGameData endGameData = new EndGameData(
+            EndGameDTO endGameDTO = new EndGameDTO(
                     multiDeviceGameService.getFinishGameService(),
                     multiDeviceGameService.getAllPlayers()
             );
             Optional<Player> chillGuyPlayer = Optional.ofNullable(multiDeviceGameService.getFinishGameService().getChillGuyPlayer());
 
-            String jsonEndGameData = gson.toJson(endGameData, EndGameData.class);
+            String jsonEndGameData = gson.toJson(endGameDTO, EndGameDTO.class);
             if(chillGuyPlayer.isPresent() && !chillGuyHandled){
                 server.broadcastMessage("WAITING_CHILLGUY:" + jsonEndGameData);
                 chillGuyHandled = true;
@@ -103,7 +103,7 @@ public final class ServerGameManager implements TurnTimerService.OnTimeChangeLis
                     continue;
                 }
                 Player player = multiDeviceGameService.findPlayer(i+1);
-                GameData gameData = new GameData(
+                GameDTO gameDTO = new GameDTO(
                         multiDeviceGameService.getMessageService().getPlayerMessages(player),
                         multiDeviceGameService.getDeadPlayers(),
                         multiDeviceGameService.getAlivePlayers(),
@@ -113,7 +113,7 @@ public final class ServerGameManager implements TurnTimerService.OnTimeChangeLis
                 );
 
 
-                String jsonGameData = gson.toJson(gameData);
+                String jsonGameData = gson.toJson(gameDTO);
                 String message = (didGameStarted ? "GAME_DATA:" : "GAME_STARTED:" ) + jsonGameData;
                 server.getClients().get(humanPlayerCount).sendMessage(message);
                 humanPlayerCount++;

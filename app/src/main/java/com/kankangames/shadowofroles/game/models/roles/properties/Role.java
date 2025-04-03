@@ -2,7 +2,6 @@ package com.kankangames.shadowofroles.game.models.roles.properties;
 
 import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.game.models.roles.enums.AbilityResult;
-import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 
 public class Role {

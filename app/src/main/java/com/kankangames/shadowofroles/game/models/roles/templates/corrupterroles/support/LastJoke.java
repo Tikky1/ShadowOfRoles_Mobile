@@ -8,23 +8,27 @@ import com.kankangames.shadowofroles.game.models.roles.enums.AbilityType;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
 import com.kankangames.shadowofroles.game.models.roles.otherinterfaces.RoleSpecificValuesChooser;
-import com.kankangames.shadowofroles.game.models.roles.templates.corrupterroles.CorrupterRole;
-import com.kankangames.shadowofroles.models.roles.enums.*;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 
 import java.util.List;
 
-public final class LastJoke extends CorrupterRole implements AttackAbility, RoleSpecificValuesChooser {
+public final class LastJoke extends RoleTemplate implements AttackAbility, RoleSpecificValuesChooser {
 
     public LastJoke() {
-        super(RoleID.LastJoke, AbilityType.OTHER_THAN_CORRUPTER,
-                RolePriority.LAST_JOKE, RoleCategory.CORRUPTER_SUPPORT);
+        super(RoleID.LAST_JOKE, AbilityType.OTHER_THAN_CORRUPTER,
+                RolePriority.LAST_JOKE, RoleCategory.CORRUPTER_SUPPORT, WinningTeam.CORRUPTER);
 
-        roleProperties.setKnowsTeamMembers(true)
-                .setHasPostDeathEffect(true)
+        roleProperties
+                .addAttribute(RoleAttribute.KNOWS_TEAM_MEMBERS)
+                .addAttribute(RoleAttribute.HAS_POST_DEATH_EFFECT)
+                .addAttribute(RoleAttribute.ROLE_BLOCK_IMMUNE)
+                .addAttribute(RoleAttribute.HAS_ATTACK_ABILITY)
                 .setAbilityUsesLeft(1)
-                .setCanKill1v1(false);
+                .setAttack(3);
 
     }
 

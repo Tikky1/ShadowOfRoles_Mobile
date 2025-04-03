@@ -50,7 +50,7 @@
             android:layout_below="@id/numberText"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="Role"
+            android:text="@string/current_role"
             android:textColor="@color/white" />
 
         <TextView
@@ -116,7 +116,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.974"
         app:srcCompat="@drawable/duyurubtn"
-        android:contentDescription="Announcements"/>
+        android:contentDescription="@string/announcements"
+        android:tooltipText="@string/announcements"/>
 
     <ImageButton
         android:id="@+id/gravestoneBtn"
@@ -124,7 +125,8 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
-        android:contentDescription="Gravestone"
+        android:contentDescription="@string/graveyard"
+        android:tooltipText="@string/graveyard"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/game_bottom_guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +142,8 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
-        android:contentDescription="Role Book"
+        android:contentDescription="@string/role_book"
+        android:tooltipText="@string/role_book"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/game_bottom_guideline"
         app:layout_constraintEnd_toEndOf="@+id/backgroundImageGame"
@@ -175,8 +178,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,11 @@
 package com.kankangames.shadowofroles.networking.server;
 
 import com.google.gson.Gson;
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.player.properties.LobbyPlayerStatus;
-import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
-import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
+import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.player.properties.LobbyPlayerStatus;
+import com.kankangames.shadowofroles.networking.jsonutils.GsonProvider;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.PlayerDTO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,7 +53,7 @@ public final class ClientHandler implements Runnable {
                     Gson gson = GsonProvider.getGson();
                     String playerJson = message.replace("UPDATE_PLAYER:","");
 
-                    PlayerInfo player = gson.fromJson(playerJson, PlayerInfo.class);
+                    PlayerDTO player = gson.fromJson(playerJson, PlayerDTO.class);
                     server.getServerGameManager().multiDeviceGameService.updateAllPlayers(player);
                 }
                 else if(message.startsWith("LOBBY_PLAYER_LEFT")){

@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.game.gamestate;
+package com.kankangames.shadowofroles.game.models.gamestate;
 
 import java.util.Objects;
 
@@ -47,5 +47,26 @@ public final class TimePeriod {
     public TimePeriod setDayCount(int dayCount) {
         this.dayCount = dayCount;
         return this;
+    }
+
+    public boolean isAfter(TimePeriod other) {
+        if (this.dayCount > other.dayCount) {
+            return true;
+        } else if (this.dayCount == other.dayCount) {
+            return this.time.compareTo(other.time) > 0;
+        }
+        return false;
+    }
+
+    public int subtract(TimePeriod timePeriod){
+        return dayCount - timePeriod.dayCount;
+    }
+
+    @Override
+    public String toString() {
+        return "TimePeriod{" +
+                "time=" + time +
+                ", dayCount=" + dayCount +
+                '}';
     }
 }

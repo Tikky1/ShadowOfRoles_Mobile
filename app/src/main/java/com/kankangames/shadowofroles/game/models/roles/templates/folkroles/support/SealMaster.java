@@ -7,16 +7,18 @@ import com.kankangames.shadowofroles.game.models.roles.enums.AbilityType;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
-import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.game.models.roles.templates.folkroles.FolkRole;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 
-public final class SealMaster extends FolkRole implements RoleBlockAbility {
+public final class SealMaster extends RoleTemplate implements RoleBlockAbility {
     public SealMaster() {
-        super(RoleID.SealMaster, AbilityType.ACTIVE_OTHERS, RolePriority.ROLE_BLOCK,
-                RoleCategory.FOLK_SUPPORT);
-        roleProperties.setCanRoleBlock(true)
-                .setRoleBlockImmune(true);
+        super(RoleID.SEAL_MASTER, AbilityType.ACTIVE_OTHERS, RolePriority.ROLE_BLOCK,
+                RoleCategory.FOLK_SUPPORT, WinningTeam.FOLK);
+        roleProperties
+                .addAttribute(RoleAttribute.CAN_ROLE_BLOCK)
+                .addAttribute(RoleAttribute.ROLE_BLOCK_IMMUNE);
     }
 
     @Override

@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 
 import java.util.Comparator;
 import java.util.List;

@@ -3,8 +3,7 @@ package com.kankangames.shadowofroles;
 import android.app.Application;
 import android.content.Context;
 
-import com.kankangames.shadowofroles.managers.LanguageManager;
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.utils.managers.LanguageManager;
 
 public class GameApplication extends Application {
 

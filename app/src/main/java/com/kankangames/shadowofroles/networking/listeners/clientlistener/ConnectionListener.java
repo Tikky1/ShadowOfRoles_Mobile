@@ -1,12 +1,9 @@
 package com.kankangames.shadowofroles.networking.listeners.clientlistener;
 
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
-import com.kankangames.shadowofroles.networking.jsonobjects.LobbyData;
-
-import java.util.List;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.LobbyDTO;
 
 public interface ConnectionListener extends ClientListener {
 
-    void onConnectionSuccessful(LobbyData lobbyData);
+    void onConnectionSuccessful(LobbyDTO lobbyDTO);
     void onConnectionFailed(String errorMessage);
 }

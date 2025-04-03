@@ -1,10 +1,10 @@
 package com.kankangames.shadowofroles.networking.client;
 
 import com.google.gson.Gson;
-import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
-import com.kankangames.shadowofroles.networking.jsonobjects.LobbyData;
+import com.kankangames.shadowofroles.networking.jsonutils.GsonProvider;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.LobbyDTO;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.ConnectionListener;
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
+import com.kankangames.shadowofroles.networking.listeners.NetworkListenerManager;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDisbandedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnKickedFromLobbyListener;
 import com.kankangames.shadowofroles.networking.server.ConnectionStatus;
@@ -12,7 +12,7 @@ import com.kankangames.shadowofroles.networking.server.ConnectionStatus;
 public class ClientLobbyManager {
     private final NetworkListenerManager networkListenerManager;
     private final Client client;
-    private LobbyData lobbyData;
+    private LobbyDTO lobbyDTO;
 
     ClientLobbyManager(Client client){
         this.client = client;
@@ -28,10 +28,10 @@ public class ClientLobbyManager {
     void updatePlayersList(String message) {
         Gson gson = GsonProvider.getGson();
         String jsonPlayers = message.replace("PLAYERS:", "");
-        lobbyData = gson.fromJson(jsonPlayers, LobbyData.class);
+        lobbyDTO = gson.fromJson(jsonPlayers, LobbyDTO.class);
 
         networkListenerManager.callListener(ConnectionListener.class,
-                connectionListener -> connectionListener.onConnectionSuccessful(lobbyData));
+                connectionListener -> connectionListener.onConnectionSuccessful(lobbyDTO));
     }
 
     void handleKickedFromLobby() {
@@ -44,13 +44,13 @@ public class ClientLobbyManager {
 
     }
 
-    public LobbyData getLobbyData() {
-        return lobbyData;
+    public LobbyDTO getLobbyData() {
+        return lobbyDTO;
     }
 
     public boolean isHost(){
-        if(lobbyData.getPlayer().isPresent()){
-            return lobbyData.getPlayer().get().isHost();
+        if(lobbyDTO.getPlayer().isPresent()){
+            return lobbyDTO.getPlayer().get().isHost();
         }
         return false;
     }

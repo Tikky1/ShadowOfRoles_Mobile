@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
 import com.kankangames.shadowofroles.ui.adapters.ViewPagerAdapter;
 
 public class RoleBookFragment extends HidingNavigationFragment implements IFullScreenFragment{

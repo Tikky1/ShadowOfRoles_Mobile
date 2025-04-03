@@ -2,16 +2,13 @@ package com.kankangames.shadowofroles.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
-import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.managers.SceneManager;
+import com.kankangames.shadowofroles.ui.helper.SceneManager;
 
 public abstract class ImageChangingActivity extends BaseActivity {
 

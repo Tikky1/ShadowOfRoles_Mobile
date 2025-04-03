@@ -1,8 +1,9 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.gamestate.TimePeriod;
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
 
 public class BaseTimeService {
     protected TimePeriod timePeriod = TimePeriod.of(Time.NIGHT, 1);
@@ -37,9 +38,13 @@ public class BaseTimeService {
 
     public String getTimeAndDay(){
         TextManager textManager = TextManager.getInstance();
-        String timeStr = (timePeriod.time()!=Time.NIGHT ? textManager.getText("day") : textManager.getText("night"));
+        String timeStr = (timePeriod.time()!=Time.NIGHT ? textManager.getText(R.string.day
+        ) : textManager.getText(R.string.night));
         timeStr = String.format(timeStr, timePeriod.dayCount());
         return timeStr;
     }
 
+    public TimePeriod getTimePeriod() {
+        return timePeriod;
+    }
 }

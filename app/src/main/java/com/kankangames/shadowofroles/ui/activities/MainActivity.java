@@ -1,13 +1,13 @@
 package com.kankangames.shadowofroles.ui.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.kankangames.shadowofroles.ui.activities.multidevice.OnlineSelectionActivity;
 import com.kankangames.shadowofroles.ui.alerts.QuitAlert;
@@ -18,7 +18,6 @@ public class MainActivity extends ImageChangingActivity {
 
     private ImageView backgroundImage;
 
-    private TextView versionTextView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +32,9 @@ public class MainActivity extends ImageChangingActivity {
         ImageButton settingsBtn = findViewById(R.id.settingsBtn);
 
 //        ImageView cloudImage = findViewById(R.id.cloud_image_view);
+        ViewGroup root = findViewById(R.id.root);
         backgroundImage = findViewById(R.id.backgroundImage);
-        versionTextView = findViewById(R.id.versionTextview);
 
-        version();
 
         // Click Listeners
         startGameBtn.setOnClickListener(v -> openActivity(PlayerNamesActivity.class));
@@ -55,9 +53,7 @@ public class MainActivity extends ImageChangingActivity {
             quitAlert.show(getSupportFragmentManager(), "Quit Alert");
         });
 
-        settingsBtn.setOnClickListener(v -> {
-            openActivity(SettingsActivity.class);
-        });
+        settingsBtn.setOnClickListener(v -> openActivity(SettingsActivity.class));
 
 //        backgroundImage.setImageDrawable(sceneManager.getCurrentImage());
 //
@@ -65,6 +61,10 @@ public class MainActivity extends ImageChangingActivity {
 //        getBackgroundImage().startAnimation(animationBackground);
 //        Animation animation = AnimationUtils.loadAnimation(this, R.anim.cloud_move);
 ////        cloudImage.startAnimation(animation);
+
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.main_animation);
+        root.startAnimation(animation);
+
 
     }
 
@@ -78,16 +78,7 @@ public class MainActivity extends ImageChangingActivity {
         Intent intent = new Intent(this, cls);
         launcher.launch(intent);
     }
-    private void version(){
-        try {
-            Context context = getApplicationContext();
-            String versionName = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), 0).versionName;
-            versionTextView.setText("Version: " + versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 
 

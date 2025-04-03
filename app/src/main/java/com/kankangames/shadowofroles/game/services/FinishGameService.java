@@ -1,14 +1,21 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.WinStatus;
-import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
-import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
+import com.kankangames.shadowofroles.game.GameConstants;
+import com.kankangames.shadowofroles.game.models.gamestate.GameEndReason;
+import com.kankangames.shadowofroles.game.models.gamestate.GameEndResult;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.game.models.gamestate.WinStatus;
+import com.kankangames.shadowofroles.game.models.player.properties.CauseOfDeath;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.game.models.roles.templates.neutralroles.good.Lorekeeper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -18,7 +25,7 @@ public final class FinishGameService {
     private transient final BaseGameService gameService;
 
     private final TreeSet<WinningTeam> winningTeams = new TreeSet<>(Comparator.comparing(WinningTeam::getPriority));
-
+    private final EnumSet<WinningTeam> drawTeams = EnumSet.noneOf(WinningTeam.class);
     private boolean isGameFinished = false;
     private Player chillGuyPlayer = null;
     FinishGameService(BaseGameService gameService){
@@ -31,7 +38,7 @@ public final class FinishGameService {
      * Checks the game if it is finished and finishes the game
      * @return game is finished or not
      */
-    public boolean checkGameFinished(){
+    public GameEndResult checkGameFinished(){
 
         ArrayList<Player> alivePlayers = gameService.getAlivePlayers();
 
@@ -39,8 +46,16 @@ public final class FinishGameService {
                 player.getRole().getTemplate().getWinningTeam()).collect(Collectors.toSet());
 
         // Finishes the game if only 1 player is alive or nobody is alive
-        if(alivePlayers.size() == 1 || alivePlayers.isEmpty()){
-            return true;
+        if(alivePlayers.isEmpty()){
+            return new GameEndResult(true, GameEndReason.NO_PLAYERS_ALIVE, WinStatus.TIED);
+        }
+
+        if(alivePlayers.size() == 1){
+            return new GameEndResult(true, GameEndReason.SINGLE_PLAYER_REMAINS, WinStatus.WON);
+        }
+
+        if (currentTeams.size() < 2 && (currentTeams.contains(WinningTeam.FOLK) || currentTeams.contains(WinningTeam.CORRUPTER))) {
+            return new GameEndResult(true, GameEndReason.ALL_SAME_TEAM, WinStatus.WON);
         }
 
 
@@ -58,30 +73,40 @@ public final class FinishGameService {
 
             // Finishes the game if the last two players cannot kill each other
             boolean playersCanKill = (player2.getRole().getAttack() > player1.getRole().getDefence()
-                    &&player2.getRole().getTemplate().getRoleProperties().canWin1v1())
+                    &&player2.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.CAN_KILL_1V1))
                     ||(player1.getRole().getAttack() > player2.getRole().getDefence()
-                    &&player1.getRole().getTemplate().getRoleProperties().canWin1v1());
+                    &&player1.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.CAN_KILL_1V1));
 
             // Finishes the game if one of the last two players can role block and the other is not immune to role block
-            boolean p1CanBlock = player1.getRole().getTemplate().getRoleProperties().canRoleBlock();
-            boolean p1BlockImmune = player1.getRole().getTemplate().getRoleProperties().isRoleBlockImmune();
+            boolean p1CanBlock = player1.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.CAN_ROLE_BLOCK);
+            boolean p1BlockImmune = player1.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.ROLE_BLOCK_IMMUNE);
 
-            boolean p2CanBlock = player2.getRole().getTemplate().getRoleProperties().canRoleBlock();
-            boolean p2BlockImmune = player2.getRole().getTemplate().getRoleProperties().isRoleBlockImmune();
+            boolean p2CanBlock = player2.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.CAN_ROLE_BLOCK);
+            boolean p2BlockImmune = player2.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.ROLE_BLOCK_IMMUNE);
 
             boolean roleBlockCheck = (!p1BlockImmune && p2CanBlock) || (!p2BlockImmune && p1CanBlock);
 
 
-            if(canWinTogether || !playersCanKill || roleBlockCheck ){
-                return true;
+            if(canWinTogether){
+                return new GameEndResult(true, GameEndReason.ONLY_TWO_CAN_WIN_TOGETHER, WinStatus.WON);
+            }
+
+            if(!playersCanKill || roleBlockCheck){
+                return new GameEndResult(true, GameEndReason.ONLY_TWO_CANNOT_KILL_EACH_OTHER, WinStatus.TIED);
             }
 
 
         }
 
-        // Finishes the game if all players have the same team
-        // Checks if the living players are neutral if so game continues because they are independent
-        return currentTeams.size() < 2 && (currentTeams.contains(WinningTeam.FOLK) || currentTeams.contains(WinningTeam.CORRUPTER));
+        TimePeriod currentPeriod = gameService.timeService.getTimePeriod();
+        if(currentPeriod.time() == Time.DAY){
+            TimePeriod lastKillPeriod = findLastKilledTime();
+            int daysWithoutKilling = currentPeriod.subtract(lastKillPeriod) - 1;
+            if(daysWithoutKilling > GameConstants.MAX_NIGHTS_WITHOUT_KILLS)
+                return new GameEndResult(true, GameEndReason.NO_KILLS_IN_MULTIPLE_NIGHTS, WinStatus.TIED);
+        }
+
+        return new GameEndResult(false, GameEndReason.NONE, WinStatus.UNKNOWN);
     }
 
     /**
@@ -89,107 +114,119 @@ public final class FinishGameService {
      */
     public void finishGame(){
 
+        GameEndResult gameEndResult = checkGameFinished();
+
+        if(!gameEndResult.isGameFinished()){
+            return;
+        }
+
         isGameFinished = true;
 
         ArrayList<Player> allPlayers = gameService.getAllPlayers();
         ArrayList<Player> alivePlayers = gameService.getAlivePlayers();
 
-        // Checks if the game is draw
-        boolean isDraw = false;
-        Set<WinningTeam> drawTeams = new HashSet<>();
-
-        for (Player player : alivePlayers) {
-            WinningTeam playerTeam = player.getRole().getTemplate().getWinningTeam();
-
-            for (Player otherPlayer : alivePlayers) {
-                if (player == otherPlayer) continue;
-
-                WinningTeam otherTeam = otherPlayer.getRole().getTemplate().getWinningTeam();
-
-                if (!playerTeam.canWinWith(otherTeam)) {
-                    isDraw = true;
-                    drawTeams.add(playerTeam);
-                    drawTeams.add(otherTeam);
-                    player.setWinStatus(WinStatus.TIED);
-                    otherPlayer.setWinStatus(WinStatus.TIED);
-                    break;
-                }
-            }
-
-            if (isDraw) break;
-        }
-
-
-        if(isDraw){
-            for (Player player : allPlayers) {
-                if (drawTeams.contains(player.getRole().getTemplate().getWinningTeam())
-                && !player.getRole().getTemplate().getRoleProperties().winsAlone()) {
-                    player.setWinStatus(WinStatus.TIED);
-                }
-            }
-        }
-        else{
-
-            for (Player player : alivePlayers) {
-                WinningTeam team = player.getRole().getTemplate().getWinningTeam();
-                if (player.getRole().getTemplate().getRoleProperties().hasNormalWinCondition()) {
-                    winningTeams.add(team);
+        Player player;
+        RoleTemplate role;
+        Player player2;
+        switch (gameEndResult.getReason()){
+            case SINGLE_PLAYER_REMAINS:
+                player = alivePlayers.get(0);
+                role = player.getRole().getTemplate();
+                if(!role.getRoleProperties()
+                        .hasAttribute(RoleAttribute.HAS_OTHER_WIN_CONDITION)){
+                    winningTeams.add(role.getWinningTeam());
                     player.setWinStatus(WinStatus.WON);
                 }
-            }
+                break;
 
-            for (Player player : allPlayers) {
-                WinningTeam playerTeam = player.getRole().getTemplate().getWinningTeam();
+            case ALL_SAME_TEAM:
+                player = alivePlayers.get(0);
+                role = player.getRole().getTemplate();
+                winningTeams.add(role.getWinningTeam());
+                break;
 
-                if (winningTeams.contains(playerTeam) && !player.getRole().getTemplate().getRoleProperties().winsAlone()) {
+            case ONLY_TWO_CAN_WIN_TOGETHER:
+                player = alivePlayers.get(0);
+                player2 = alivePlayers.get(1);
+
+                if(player.getRole().getTemplate().getWinningTeam().getPriority()
+                        < player2.getRole().getTemplate().getWinningTeam().getPriority()){
+                    winningTeams.add(player.getRole().getTemplate().getWinningTeam());
                     player.setWinStatus(WinStatus.WON);
                 }
-            }
+                else{
+                    winningTeams.add(player2.getRole().getTemplate().getWinningTeam());
+                    player2.setWinStatus(WinStatus.WON);
+                }
+                break;
+
+            case ONLY_TWO_CANNOT_KILL_EACH_OTHER:
+                player = alivePlayers.get(0);
+                player2 = alivePlayers.get(1);
+                drawTeams.add(player.getRole().getTemplate().getWinningTeam());
+                drawTeams.add(player2.getRole().getTemplate().getWinningTeam());
+                player.setWinStatus(WinStatus.TIED);
+                player2.setWinStatus(WinStatus.TIED);
+                break;
+
+            case NO_PLAYERS_ALIVE:
+                ArrayList<Player> lastLivingPlayers = findLastLivingPlayers();
+                for(Player player1 : lastLivingPlayers){
+                    role = player1.getRole().getTemplate();
+                    if(!player1.getRole().getTemplate().getRoleProperties()
+                            .hasAttribute(RoleAttribute.HAS_OTHER_WIN_CONDITION)){
+                        drawTeams.add(role.getWinningTeam());
+                        player1.setWinStatus(WinStatus.TIED);
+                    }
+                }
+                break;
+
+            case NO_KILLS_IN_MULTIPLE_NIGHTS:
+                for(Player player1 : alivePlayers){
+                    if(!player1.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.HAS_OTHER_WIN_CONDITION)){
+                        drawTeams.add(player1.getRole().getTemplate().getWinningTeam());
+                        player1.setWinStatus(WinStatus.TIED);
+                    }
+                }
+                break;
+
         }
 
-        // If folk or corrupter wins, makes all team members won
-        for(WinningTeam winningTeam : winningTeams){
+        for(Player player1 : allPlayers){
+            if(!player1.getRole().getTemplate().getRoleProperties()
+                    .hasAttribute(RoleAttribute.WINS_ALONE)){
 
-            for(Player player : allPlayers){
-
-                switch (winningTeam){
-                    case FOLK:
-                    case CORRUPTER:
-                        if(player.getRole().getTemplate().getWinningTeam() == winningTeam){
-                            player.setWinStatus(WinStatus.WON);
-                            continue;
-                        }
-                        break;
-                    default:
-                        break;
+                if(winningTeams.contains(player1.getRole().getTemplate().getWinningTeam())){
+                    player1.setWinStatus(WinStatus.WON);
+                } else if (drawTeams.contains(player1.getRole().getTemplate().getWinningTeam())) {
+                    player1.setWinStatus(WinStatus.TIED);
                 }
             }
+
         }
 
 
-        for(Player player: allPlayers){
+        for(Player player3: allPlayers){
 
-            switch (player.getRole().getTemplate().getWinningTeam()) {
+            switch (player3.getRole().getTemplate().getWinningTeam()) {
                 case CHILL_GUY:
-                    chillGuyPlayer = player;
+                    chillGuyPlayer = player3;
                     break;
 
                 case CLOWN:
-                    if (!player.getDeathProperties().isAlive() && !player.getDeathProperties().getCausesOfDeath().contains(CauseOfDeath.HANGING)) {
-                        player.setWinStatus(WinStatus.WON);
-                        winningTeams.add(WinningTeam.CLOWN);
+                    if (!player3.getDeathProperties().isAlive() && !player3.getDeathProperties().getCausesOfDeath().contains(CauseOfDeath.HANGING)) {
+                        player3.setWinStatus(WinStatus.WON);
+                        addWinningTeam(WinningTeam.CLOWN);
                     }
                     break;
 
                 case LORE_KEEPER:
-                    Lorekeeper lorekeeper = (Lorekeeper) player.getRole().getTemplate();
-                    int winCount;
-
-                    winCount = gameService.getSpecialRolesService().LORE_KEEPER_WINNING_COUNT;
+                    Lorekeeper lorekeeper = (Lorekeeper) player3.getRole().getTemplate();
+                    int winCount  = gameService.getSpecialRolesService().LORE_KEEPER_WINNING_COUNT;
 
                     if (lorekeeper.getTrueGuessCount() >= winCount) {
-                        player.setWinStatus(WinStatus.WON);
-                        winningTeams.add(WinningTeam.LORE_KEEPER);
+                        player3.setWinStatus(WinStatus.WON);
+                        addWinningTeam(WinningTeam.LORE_KEEPER);
                     }
                     break;
 
@@ -210,6 +247,32 @@ public final class FinishGameService {
             MultiDeviceGameService multiDeviceGameService = (MultiDeviceGameService) gameService;
             multiDeviceGameService.turnTimerService.stopTimer();
         }
+    }
+
+    private ArrayList<Player> findLastLivingPlayers(){
+        if(!gameService.alivePlayers.isEmpty()){
+            return gameService.alivePlayers;
+        }
+        TimePeriod timePeriod = findLastKilledTime();
+        ArrayList<Player> players = new ArrayList<>();
+
+        for(Player player : gameService.allPlayers){
+            if(player.getDeathProperties().getDeathTimePeriod().equals(timePeriod)){
+                players.add(player);
+            }
+        }
+        return players;
+    }
+
+    private TimePeriod findLastKilledTime(){
+        TimePeriod timePeriod = new TimePeriod(Time.DAY, -1);
+
+        for(Player player : gameService.allPlayers){
+            if(player.getDeathProperties().getDeathTimePeriod().isAfter(timePeriod)){
+                timePeriod = player.getDeathProperties().getDeathTimePeriod();
+            }
+        }
+        return timePeriod;
     }
 
     public boolean isGameFinished() {

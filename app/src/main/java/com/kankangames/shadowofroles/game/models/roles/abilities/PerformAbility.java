@@ -1,6 +1,7 @@
 package com.kankangames.shadowofroles.game.models.roles.abilities;
 
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
 import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.game.models.roles.enums.AbilityResult;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
@@ -16,7 +17,7 @@ public interface PerformAbility {
      */
     default AbilityResult defaultPerformAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
         if(!roleOwner.getRole().isCanPerform()&&!roleOwner.getRole().isImmune()){
-            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("role_blocked_message"),roleOwner);
+            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText(R.string.role_blocked_message),roleOwner);
             return AbilityResult.ROLE_BLOCKED;
         }
 
@@ -39,7 +40,7 @@ public interface PerformAbility {
      */
     default AbilityResult performAbilityForPassiveRoles(Player roleOwner, BaseGameService gameService){
         if(!roleOwner.getRole().isCanPerform()&&!roleOwner.getRole().isImmune()){
-            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("role_blocked_message"),roleOwner);
+            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText(R.string.role_blocked_message),roleOwner);
             return AbilityResult.ROLE_BLOCKED;
         }
         return roleOwner.getRole().getTemplate().executeAbility(roleOwner, null, gameService);
@@ -86,7 +87,7 @@ public interface PerformAbility {
         }
 
         if(!roleOwner.getRole().isCanPerform()){
-            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("role_blocked_message") ,roleOwner);
+            gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText(R.string.role_blocked_message) ,roleOwner);
             return AbilityResult.ROLE_BLOCKED;
         }
 

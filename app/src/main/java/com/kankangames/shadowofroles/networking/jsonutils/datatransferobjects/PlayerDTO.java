@@ -2,12 +2,12 @@ package com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects;
 
 import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 
-public class PlayerInfo {
+public class PlayerDTO {
     private final int senderPlayerNumber;
     private final int chosenPlayerNumber;
     private final RoleTemplate senderRole;
 
-    public PlayerInfo(int senderPlayerNumber, int chosenPlayerNumber, RoleTemplate senderRole) {
+    public PlayerDTO(int senderPlayerNumber, int chosenPlayerNumber, RoleTemplate senderRole) {
         this.senderPlayerNumber = senderPlayerNumber;
         this.chosenPlayerNumber = chosenPlayerNumber;
         this.senderRole = senderRole;

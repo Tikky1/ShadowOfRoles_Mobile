@@ -3,9 +3,10 @@ package com.kankangames.shadowofroles.game.models.message;
 
 import androidx.annotation.NonNull;
 
-import com.kankangames.shadowofroles.game.gamestate.Time;
-import com.kankangames.shadowofroles.game.gamestate.TimePeriod;
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
 import com.kankangames.shadowofroles.game.models.player.Player;
 
 public class Message {
@@ -43,7 +44,8 @@ public class Message {
 
     public String getTimeAndDayCountAsString(){
         TextManager textManager = TextManager.getInstance();
-        String timeStr = (timePeriod.time() != Time.NIGHT ? textManager.getText("day") : textManager.getText("night"));
+        String timeStr = (timePeriod.time() != Time.NIGHT ?
+                textManager.getText(R.string.day) : textManager.getText(R.string.night));
         timeStr = String.format(timeStr, timePeriod.dayCount());
         return timeStr;
     }

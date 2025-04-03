@@ -15,17 +15,17 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 import com.kankangames.shadowofroles.ui.activities.GameEndActivity;
 import com.kankangames.shadowofroles.ui.activities.MainActivity;
 import com.kankangames.shadowofroles.ui.adapters.PlayersViewAdapter;
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.managers.GameScreenImageManager;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.services.SingleDeviceGameService;
-import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.ui.helper.GameScreenImageManager;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.services.SingleDeviceGameService;
+import com.kankangames.shadowofroles.game.services.StartGameService;
 import com.kankangames.shadowofroles.ui.alerts.GoToMainAlert;
 import com.kankangames.shadowofroles.ui.fragments.RoleBookFragment;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.AnnouncementsFragment;
@@ -232,7 +232,6 @@ public class SingleDeviceGameActivity extends BaseActivity {
         PassTurnFragment passTurnFragment = new PassTurnFragment(this::changePlayerUI);
         passTurnFragment.setPlayerName(gameService.getCurrentPlayer().getName());
 
-
         GameScreenImageManager gameScreenImageManager = GameScreenImageManager.getInstance(this);
         Drawable image;
         switch (gameService.getTimeService().getTime()){
@@ -256,8 +255,8 @@ public class SingleDeviceGameActivity extends BaseActivity {
     }
 
     private void createAnnouncementsDialog(){
-        AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(()->{});
-        announcementsFragment.setAnnouncements(gameService.getMessageService().getDailyAnnouncements());
+        AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(null,
+                gameService.getMessageService().getDailyAnnouncements());
         announcementsFragment.setDayText(gameService.getTimeService().getTimeAndDay());
         announcementsFragment.show(getSupportFragmentManager(), "Start Day Announcements");
     }

@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.managers;
+package com.kankangames.shadowofroles.ui.helper;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

@@ -1,7 +1,6 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
 
 public final class MultiDeviceTimeService extends BaseTimeService{
 

@@ -6,11 +6,11 @@ import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
 import java.util.List;
 import java.util.Optional;
 
-public class LobbyData {
+public class LobbyDTO {
     private final List<LobbyPlayer> players;
     private final int id;
 
-    public LobbyData(List<LobbyPlayer> players, int id) {
+    public LobbyDTO(List<LobbyPlayer> players, int id) {
         this.players = players;
         this.id = id;
     }

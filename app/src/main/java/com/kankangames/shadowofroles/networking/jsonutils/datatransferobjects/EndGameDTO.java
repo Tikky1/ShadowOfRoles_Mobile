@@ -5,11 +5,11 @@ import com.kankangames.shadowofroles.game.services.FinishGameService;
 
 import java.util.ArrayList;
 
-public class EndGameData {
+public class EndGameDTO {
     private final FinishGameService finishGameService;
     private final ArrayList<Player> allPlayers;
 
-    public EndGameData(FinishGameService finishGameService, ArrayList<Player> allPlayers) {
+    public EndGameDTO(FinishGameService finishGameService, ArrayList<Player> allPlayers) {
         this.finishGameService = finishGameService;
         this.allPlayers = allPlayers;
     }

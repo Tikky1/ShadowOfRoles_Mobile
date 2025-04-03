@@ -1,7 +1,8 @@
 package com.kankangames.shadowofroles.game.models.player.properties;
 
-import com.kankangames.shadowofroles.game.gamestate.Time;
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.gamestate.TimePeriod;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,14 +10,12 @@ import java.util.stream.Collectors;
 
 public class DeathProperties {
     private final List<CauseOfDeath> causesOfDeath;
-    private int dayCountOfDeath;
-    private Time deathTime;
+    private final TimePeriod deathTimePeriod;
     private boolean isAlive;
 
     public DeathProperties() {
         causesOfDeath = new LinkedList<>();
-        dayCountOfDeath = -1;
-        deathTime = null;
+        deathTimePeriod = TimePeriod.of(Time.DAY, -1);
         isAlive = true;
     }
 
@@ -26,15 +25,15 @@ public class DeathProperties {
 
     public String getDeathTimeAndDayCount(){
         TextManager textManager = TextManager.getInstance();
-        String deathTimeStr = textManager.getTextEnum(deathTime.name());
+        String deathTimeStr = textManager.getTextEnum(deathTimePeriod.time().name());
 
-        return String.format(deathTimeStr,dayCountOfDeath);
+        return String.format(deathTimeStr, deathTimePeriod.dayCount());
     }
 
     public final String getCausesOfDeathAsString(){
         TextManager textManager = TextManager.getInstance();
         return causesOfDeath.stream()
-                .map(causeOfDeath-> textManager.getTextPrefix(causeOfDeath.name(),"cause_of_death"))
+                .map(causeOfDeath-> textManager.getTextEnumPrefix(causeOfDeath.name(),"cause_of_death"))
                 .collect(Collectors.joining(", "));
     }
 
@@ -44,23 +43,27 @@ public class DeathProperties {
     }
 
     public int getDayCountOfDeath() {
-        return dayCountOfDeath;
+        return deathTimePeriod.dayCount();
     }
 
     public void setDayCountOfDeathDay(int dayCountOfDeath) {
-        this.dayCountOfDeath = dayCountOfDeath;
+        deathTimePeriod.setDayCount(dayCountOfDeath);
     }
 
     public void setDayCountOfDeathNight(int dayCountOfDeath) {
-        this.dayCountOfDeath = dayCountOfDeath-1;
+        deathTimePeriod.setDayCount(dayCountOfDeath-1);
     }
 
     public Time getDeathTime() {
-        return deathTime;
+        return deathTimePeriod.time();
     }
 
-    public void setDeathTime(Time deathTime) {
-        this.deathTime = deathTime;
+    public void setDeathTime(Time deathTimePeriod) {
+        this.deathTimePeriod.setTime(deathTimePeriod);
+    }
+
+    public TimePeriod getDeathTimePeriod() {
+        return deathTimePeriod;
     }
 
     public boolean isAlive() {

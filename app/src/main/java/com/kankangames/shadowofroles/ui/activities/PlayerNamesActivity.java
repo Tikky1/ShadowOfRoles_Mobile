@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.player.AIPlayer;
-import com.kankangames.shadowofroles.models.player.HumanPlayer;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.networking.GameMode;
-import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.game.GameConstants;
+import com.kankangames.shadowofroles.game.models.player.AIPlayer;
+import com.kankangames.shadowofroles.game.models.player.HumanPlayer;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
+import com.kankangames.shadowofroles.game.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.game.SingleDeviceGameActivity;
 import com.kankangames.shadowofroles.ui.adapters.PlayerNamesAdapter;
 
@@ -62,7 +63,7 @@ public class PlayerNamesActivity extends ImageChangingActivity{
         playerNamesContainer.setLayoutManager(new LinearLayoutManager(this));
         playerNamesContainer.setAdapter(adapter);
 
-        for (int i = 1; i <= startGameService.MIN_PLAYER_COUNT; i++) {
+        for (int i = 1; i <= GameConstants.MIN_PLAYER_COUNT; i++) {
             playerNames.add(String.format(Locale.ROOT,getString(R.string.player), i));
             isPlayersAI.add(false);
         }
@@ -71,7 +72,7 @@ public class PlayerNamesActivity extends ImageChangingActivity{
         playerCountText.setText(String.format(Locale.ROOT,"%d",startGameService.getPlayerCount()));
 
         plusBtn.setOnClickListener(v -> {
-            if (startGameService.getPlayerCount() < startGameService.MAX_PLAYER_COUNT) {
+            if (startGameService.getPlayerCount() < GameConstants.MAX_PLAYER_COUNT) {
                 playerCountText.setText(String.format(Locale.ROOT,"%d",startGameService.increasePlayerCount()));
                 playerNames.add(String.format(Locale.ROOT,getString(R.string.player), startGameService.getPlayerCount()));
                 isPlayersAI.add(false);
@@ -82,7 +83,7 @@ public class PlayerNamesActivity extends ImageChangingActivity{
         });
 
         minusBtn.setOnClickListener(v -> {
-            if (startGameService.getPlayerCount() > startGameService.MIN_PLAYER_COUNT) {
+            if (startGameService.getPlayerCount() > GameConstants.MIN_PLAYER_COUNT) {
                 playerCountText.setText(String.format(Locale.ROOT,"%d",startGameService.decreasePlayerCount()));
                 int lastIndex = playerNames.size() - 1;
                 playerNames.remove(lastIndex);

@@ -1,5 +1,6 @@
 package com.kankangames.shadowofroles.game.models.roles.templates.folkroles.unique;
 
+import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.game.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.game.models.roles.abilities.AttackAbility;
@@ -8,28 +9,30 @@ import com.kankangames.shadowofroles.game.models.roles.enums.AbilityType;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
 import com.kankangames.shadowofroles.game.models.roles.otherinterfaces.PriorityChangingRole;
 import com.kankangames.shadowofroles.game.models.roles.abilities.ProtectiveAbility;
 import com.kankangames.shadowofroles.game.models.roles.abilities.InvestigativeAbility;
 import com.kankangames.shadowofroles.game.models.roles.otherinterfaces.RoleSpecificValuesChooser;
-import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.game.models.roles.templates.folkroles.FolkRole;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 
 import java.util.List;
 import java.util.Random;
 
-public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackAbility,
+public final class Entrepreneur extends RoleTemplate implements ProtectiveAbility, AttackAbility,
         InvestigativeAbility, PriorityChangingRole, RoleSpecificValuesChooser {
     private ChosenAbility chosenAbility;
     public Entrepreneur() {
-        super(RoleID.Entrepreneur, AbilityType.ACTIVE_ALL, RolePriority.NONE,
-                RoleCategory.FOLK_UNIQUE);
-        roleProperties.setAttack(1)
-                .setHasAttackAbility(true)
+        super(RoleID.ENTREPRENEUR, AbilityType.ACTIVE_ALL, RolePriority.NONE,
+                RoleCategory.FOLK_UNIQUE, WinningTeam.FOLK);
+        roleProperties
+                .setAttack(1)
                 .setMoney(5)
-                .setHasHealingAbility(true)
-                .setCanKill1v1(true);
+                .addAttribute(RoleAttribute.HAS_ATTACK_ABILITY)
+                .addAttribute(RoleAttribute.HAS_HEALING_ABILITY)
+                .addAttribute(RoleAttribute.CAN_KILL_1V1);
         this.setChosenAbility(ChosenAbility.NONE);
     }
 
@@ -107,17 +110,17 @@ public class Entrepreneur extends FolkRole implements ProtectiveAbility, AttackA
     }
 
     private AbilityResult insufficientMoney(Player roleOwner, BaseGameService gameService){
-        String message = textManager.getText("money_insufficient");
+        String message = textManager.getText(R.string.money_insufficient);
 
         switch (chosenAbility){
             case ATTACK: message = message
-                    .replace("{abilityName}", textManager.getText("entrepreneur_attack"));
+                    .replace("{abilityName}", textManager.getText(R.string.entrepreneur_attack));
                 break;
             case HEAL:  message = message
-                    .replace("{abilityName}", textManager.getText("entrepreneur_heal"));
+                    .replace("{abilityName}", textManager.getText(R.string.entrepreneur_heal));
                 break;
             case INFO:  message = message
-                    .replace("{abilityName}", textManager.getText("entrepreneur_info"));
+                    .replace("{abilityName}", textManager.getText(R.string.entrepreneur_info));
                 break;
         }
         sendAbilityMessage(message, roleOwner, gameService.getMessageService());

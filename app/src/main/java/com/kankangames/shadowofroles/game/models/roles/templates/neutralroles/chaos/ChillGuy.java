@@ -8,19 +8,20 @@ import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
 import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.game.models.roles.templates.neutralroles.NeutralRole;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 
 
-public final class ChillGuy extends NeutralRole implements NoAbility {
+public final class ChillGuy extends RoleTemplate implements NoAbility {
     public ChillGuy() {
-        super(RoleID.ChillGuy, AbilityType.NO_ABILITY, RolePriority.NONE, RoleCategory.NEUTRAL_CHAOS,
+        super(RoleID.CHILL_GUY, AbilityType.NO_ABILITY, RolePriority.NONE, RoleCategory.NEUTRAL_CHAOS,
                 WinningTeam.CHILL_GUY);
 
-        roleProperties.setCanWinWithAnyTeam(true)
-                .setHasNormalWinCondition(false)
-                .setWinsAlone(true);
+        roleProperties
+                .addAttribute(RoleAttribute.CAN_WIN_WITH_ANY_TEAM)
+                .addAttribute(RoleAttribute.HAS_OTHER_WIN_CONDITION)
+                .addAttribute(RoleAttribute.WINS_ALONE);
 
     }
 

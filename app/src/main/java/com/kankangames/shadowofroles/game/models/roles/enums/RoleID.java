@@ -2,24 +2,24 @@ package com.kankangames.shadowofroles.game.models.roles.enums;
 
 public enum RoleID {
 
-    Detective(1),
-    Observer(2),
-    Soulbinder(3),
-    Stalker(4),
-    Psycho(5),
-    DarkRevealer(6),
-    Interrupter(7),
-    SealMaster(8),
-    Assassin(9),
-    ChillGuy(10),
-    LastJoke(11),
-    Clown(12),
-    Disguiser(13),
-    Darkseer(14),
-    Blinder(15),
-    FolkHero(16),
-    Entrepreneur(17),
-    Lorekeeper(18);
+    DETECTIVE(1),
+    OBSERVER(2),
+    SOUL_BINDER(3),
+    STALKER(4),
+    PSYCHO(5),
+    DARK_REVEALER(6),
+    INTERRUPTER(7),
+    SEAL_MASTER(8),
+    ASSASSIN(9),
+    CHILL_GUY(10),
+    LAST_JOKE(11),
+    CLOWN(12),
+    DISGUISER(13),
+    DARK_SEER(14),
+    BLINDER(15),
+    FOLK_HERO(16),
+    ENTREPRENEUR(17),
+    LORE_KEEPER(18);
 
     RoleID(int i) {
     }

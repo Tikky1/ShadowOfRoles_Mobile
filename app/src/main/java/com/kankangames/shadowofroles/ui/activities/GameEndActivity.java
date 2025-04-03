@@ -15,19 +15,19 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.managers.InstanceClearer;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.managers.TextManager;
-import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.utils.managers.InstanceClearer;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
-import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.EndGameDTO;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.ChillGuyListener;
-import com.kankangames.shadowofroles.services.DataProvider;
-import com.kankangames.shadowofroles.services.FinishGameService;
-import com.kankangames.shadowofroles.services.SingleDeviceGameService;
-import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.game.models.DataProvider;
+import com.kankangames.shadowofroles.game.services.FinishGameService;
+import com.kankangames.shadowofroles.game.services.SingleDeviceGameService;
+import com.kankangames.shadowofroles.game.services.StartGameService;
 import com.kankangames.shadowofroles.ui.fragments.BlackScreenFragment;
 import com.kankangames.shadowofroles.ui.fragments.fullscreen.ChillGuyFragment;
 
@@ -82,11 +82,11 @@ public class GameEndActivity extends BaseActivity{
         else{
 
             client = ClientManager.getInstance().getClient();
-            EndGameData endGameData = client.getClientGameManager().getEndGameData();
-            finishGameService = endGameData.getFinishGameService();
-            allPlayers = endGameData.getAllPlayers();
+            EndGameDTO endGameDTO = client.getClientGameManager().getEndGameData();
+            finishGameService = endGameDTO.getFinishGameService();
+            allPlayers = endGameDTO.getAllPlayers();
 
-            if(endGameData.getFinishGameService().getChillGuyPlayer()!= null){
+            if(endGameDTO.getFinishGameService().getChillGuyPlayer()!= null){
                 createBlankAlert();
                 if(client.getClientLobbyManager().isHost()){
                     createChillGuyAlert();
@@ -115,9 +115,9 @@ public class GameEndActivity extends BaseActivity{
         client.getClientListenerManager().addListener(ChillGuyListener.class,
                 () -> {
                     blackScreenFragment.dismiss();
-                    EndGameData endGameData = client.getClientGameManager().getEndGameData();
-                    finishGameService = endGameData.getFinishGameService();
-                    allPlayers = endGameData.getAllPlayers();
+                    EndGameDTO endGameDTO = client.getClientGameManager().getEndGameData();
+                    finishGameService = endGameDTO.getFinishGameService();
+                    allPlayers = endGameDTO.getAllPlayers();
                     setActivity();
                 });
     }

@@ -1,9 +1,10 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.managers.TextManager;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.otherinterfaces.PriorityChangingRole;
-import com.kankangames.shadowofroles.models.roles.enums.AbilityType;
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.otherinterfaces.PriorityChangingRole;
+import com.kankangames.shadowofroles.game.models.roles.enums.AbilityType;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,12 +30,12 @@ public final class AbilityService {
         AbilityType abilityType = player.getRole().getTemplate().getAbilityType();
         if(!(abilityType == AbilityType.PASSIVE || abilityType == AbilityType.NO_ABILITY) && !player.isAIPlayer()){
             if(chosenPlayer!=null){
-                gameService.messageService.sendAbilityMessage(TextManager.getInstance().getText("ability_used_on")
+                gameService.messageService.sendAbilityMessage(TextManager.getInstance().getText(R.string.ability_used_on)
                                 .replace("{playerName}", chosenPlayer.getNameAndNumber())
                         ,player);
             }
             else{
-                gameService.messageService.sendAbilityMessage(TextManager.getInstance().getText("ability_did_not_used"), player);
+                gameService.messageService.sendAbilityMessage(TextManager.getInstance().getText(R.string.ability_did_not_used), player);
             }
         }
 

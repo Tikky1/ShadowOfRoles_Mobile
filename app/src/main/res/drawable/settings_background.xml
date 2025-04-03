@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="6dp" />
+
+    <gradient
+        android:startColor="@color/player_circle_others_start"
+        android:endColor="@color/player_circle_others_end"
+        android:angle="45"/>
+    <stroke
+        android:width="2dp"
+        android:color="@color/settings_border">
+    </stroke>
   
 </shape>

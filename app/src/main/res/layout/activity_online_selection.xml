@@ -61,7 +61,8 @@
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout"
         app:layout_constraintTop_toTopOf="@+id/player_names_top_guideline"
-        android:hint="@string/player_name_hint"/>
+        android:hint="@string/player_name_hint"
+        android:tooltipText="@string/tooltip_username"/>
 
     <LinearLayout
         android:id="@+id/relativeLayout"
@@ -78,7 +79,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_style"
             android:text="@string/host_game"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:tooltipText="@string/tooltip_host_game"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/search_game_btn"
@@ -87,7 +89,8 @@
             android:background="@drawable/button_style"
             android:text="@string/join_game"
             android:textColor="@color/white"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:tooltipText="@string/tooltip_join_game"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

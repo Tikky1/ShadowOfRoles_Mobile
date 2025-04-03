@@ -1,14 +1,13 @@
 package com.kankangames.shadowofroles.ui.activities.multidevice.lobby;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.game.GameConstants;
+import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.server.Server;
 import com.kankangames.shadowofroles.networking.server.ServerLobbyManager;
-import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.game.services.StartGameService;
 
 import java.util.List;
 import java.util.Locale;
@@ -28,7 +27,7 @@ public class GameHostingActivity extends AbstractLobbyActivity {
         });
 
         plusBtn.setOnClickListener(v -> {
-            if(playerList.size() >= StartGameService.getInstance().MAX_PLAYER_COUNT){
+            if(playerList.size() >= GameConstants.MAX_PLAYER_COUNT){
                 return;
             }
             new Thread(()->{
@@ -87,10 +86,9 @@ public class GameHostingActivity extends AbstractLobbyActivity {
 
         int playerCount = playerList.size();
 
-        StartGameService startGameService = StartGameService.getInstance();
         runOnUiThread(() -> {
-            boolean isStartEnabled = playerCount >= startGameService.MIN_PLAYER_COUNT &&
-                    playerCount <= startGameService.MAX_PLAYER_COUNT;
+            boolean isStartEnabled = playerCount >= GameConstants.MIN_PLAYER_COUNT &&
+                    playerCount <= GameConstants.MAX_PLAYER_COUNT;
             startGameBtn.setEnabled(isStartEnabled);
             playerCountText.setText(String.format(Locale.ROOT, getText(R.string.players_count).toString(), playerList.size()));
             playerAdapter.notifyDataSetChanged();

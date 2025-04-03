@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.message.Message;
+import com.kankangames.shadowofroles.game.models.message.Message;
 
 import java.util.List;
 

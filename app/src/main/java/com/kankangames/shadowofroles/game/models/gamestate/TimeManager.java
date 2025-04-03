@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.game.gamestate;
+package com.kankangames.shadowofroles.game.models.gamestate;
 
 public class TimeManager {
 

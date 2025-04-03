@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.managers;
+package com.kankangames.shadowofroles.utils.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.game.models.settings.Language;
 import com.kankangames.shadowofroles.game.models.settings.UserSettings;
-import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
+import com.kankangames.shadowofroles.networking.jsonutils.GsonProvider;
 
 import java.util.Locale;
 import java.util.UUID;

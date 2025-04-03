@@ -1,23 +1,26 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.properties.Role;
-import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.networking.GameMode;
-import com.kankangames.shadowofroles.networking.jsonobjects.EndGameData;
+import static com.kankangames.shadowofroles.game.GameConstants.MAX_PLAYER_COUNT;
+import static com.kankangames.shadowofroles.game.GameConstants.MIN_PLAYER_COUNT;
+
+import com.kankangames.shadowofroles.game.GameConstants;
+import com.kankangames.shadowofroles.game.models.DataProvider;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.properties.Role;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.EndGameDTO;
 
 import java.util.ArrayList;
 
 public final class StartGameService {
 
-    public final int MAX_PLAYER_COUNT = 10;
-    public final int MIN_PLAYER_COUNT = 5;
     private static StartGameService instance;
     private int playerCount = MIN_PLAYER_COUNT;
 
     private DataProvider gameService;
     private GameMode gameMode;
-    private EndGameData endGameData;
+    private EndGameDTO endGameDTO;
 
 
     public static StartGameService getInstance(){
@@ -46,14 +49,14 @@ public final class StartGameService {
         this.gameService = new SingleDeviceGameService(players);
     }
     public int increasePlayerCount(){
-        if(playerCount<MAX_PLAYER_COUNT){
+        if(playerCount < MAX_PLAYER_COUNT){
             playerCount++;
         }
         return playerCount;
     }
 
     public int decreasePlayerCount(){
-        if(playerCount>MIN_PLAYER_COUNT){
+        if(playerCount > MIN_PLAYER_COUNT){
             playerCount--;
         }
         return playerCount;
@@ -83,11 +86,11 @@ public final class StartGameService {
         return gameMode;
     }
 
-    public EndGameData getEndGameData() {
-        return endGameData;
+    public EndGameDTO getEndGameData() {
+        return endGameDTO;
     }
 
-    public void setEndGameData(EndGameData endGameData) {
-        this.endGameData = endGameData;
+    public void setEndGameData(EndGameDTO endGameDTO) {
+        this.endGameDTO = endGameDTO;
     }
 }

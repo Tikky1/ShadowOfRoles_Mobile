@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GameData implements DataProvider {
+public class GameDTO implements DataProvider {
     private final Map<TimePeriod, List<Message>> messages;
     private final ArrayList<Player> deadPlayers;
     private final ArrayList<Player> alivePlayers;
@@ -18,7 +18,7 @@ public class GameData implements DataProvider {
     private final boolean isGameFinished;
     private final int playerNumber;
 
-    public GameData(Map<TimePeriod, List<Message>> messages, ArrayList<Player> deadPlayers, ArrayList<Player> alivePlayers, BaseTimeService timeService, boolean isGameFinished, int playerNumber) {
+    public GameDTO(Map<TimePeriod, List<Message>> messages, ArrayList<Player> deadPlayers, ArrayList<Player> alivePlayers, BaseTimeService timeService, boolean isGameFinished, int playerNumber) {
         this.messages = messages;
         this.deadPlayers = deadPlayers;
         this.alivePlayers = alivePlayers;

@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.networking;
+package com.kankangames.shadowofroles.game.models.gamestate;
 
 public enum GameMode {
     SINGLE_DEVICE,

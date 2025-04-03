@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.managers;
+package com.kankangames.shadowofroles.game.models.settings;
 
 public class UserSettings {
 

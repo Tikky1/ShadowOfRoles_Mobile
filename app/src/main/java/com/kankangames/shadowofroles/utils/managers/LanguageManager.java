@@ -1,4 +1,4 @@
-package com.kankangames.shadowofroles.managers;
+package com.kankangames.shadowofroles.utils.managers;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

@@ -5,11 +5,13 @@ import static com.kankangames.shadowofroles.networking.NetworkManager.PORT;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.GameApplication;
+import com.kankangames.shadowofroles.utils.managers.SettingsManager;
+import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
 import com.kankangames.shadowofroles.networking.NetworkManager;
-import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
+import com.kankangames.shadowofroles.networking.jsonutils.GsonProvider;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.ConnectionListener;
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
+import com.kankangames.shadowofroles.networking.listeners.NetworkListenerManager;
 import com.kankangames.shadowofroles.networking.server.ConnectionStatus;
 
 import java.io.BufferedReader;
@@ -33,8 +35,8 @@ public final class Client {
     private final String name;
 
 
-    public Client(String name) {
-        this.name = name;
+    public Client() {
+        name = SettingsManager.getSettings(GameApplication.getAppContext()).username();
         ip = NetworkManager.getIp();
         networkListenerManager = new NetworkListenerManager();
         gameFinder = new GameFinder(connectionStatus);
@@ -131,7 +133,7 @@ public final class Client {
         out.println(message);
     }
 
-    <T> void  sendObject(T object, Class<T> clazz, String prefix){
+    <T> void sendObject(final T object, Class<T> clazz, String prefix){
         T castedObject = clazz.cast(object);
 
         new Thread(() -> {

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.player.Player;
+import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.ui.adapters.GraveyardViewAdapter;
 
 import java.util.List;

@@ -3,11 +3,11 @@ package com.kankangames.shadowofroles.networking.server;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.kankangames.shadowofroles.managers.InstanceClearer;
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
-import com.kankangames.shadowofroles.models.player.properties.LobbyPlayerStatus;
-import com.kankangames.shadowofroles.networking.jsonobjects.GsonProvider;
-import com.kankangames.shadowofroles.networking.jsonobjects.LobbyData;
+import com.kankangames.shadowofroles.utils.managers.InstanceClearer;
+import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.game.models.player.properties.LobbyPlayerStatus;
+import com.kankangames.shadowofroles.networking.jsonutils.GsonProvider;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.LobbyDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +62,8 @@ public final class ServerLobbyManager {
 
         for(ClientHandler clientHandler : clients){
             System.out.println(clientHandler.getClientPlayer().getId());
-            LobbyData lobbyData = new LobbyData(lobbyPlayers, clientHandler.getClientPlayer().getId());
-            String json = gson.toJson(lobbyData);
+            LobbyDTO lobbyDTO = new LobbyDTO(lobbyPlayers, clientHandler.getClientPlayer().getId());
+            String json = gson.toJson(lobbyDTO);
 
             String message = "PLAYERS:" + json;
             clientHandler.sendMessage(message);

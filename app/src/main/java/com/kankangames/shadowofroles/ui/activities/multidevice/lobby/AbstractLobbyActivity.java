@@ -12,18 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.managers.InstanceClearer;
-import com.kankangames.shadowofroles.models.player.LobbyPlayer;
-import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.utils.managers.InstanceClearer;
+import com.kankangames.shadowofroles.game.models.player.LobbyPlayer;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
-import com.kankangames.shadowofroles.networking.jsonobjects.LobbyData;
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.LobbyDTO;
+import com.kankangames.shadowofroles.networking.listeners.NetworkListenerManager;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDisbandedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameStartingListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.ConnectionListener;
-import com.kankangames.shadowofroles.services.DataProvider;
-import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.game.models.DataProvider;
+import com.kankangames.shadowofroles.game.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.ImageChangingActivity;
 import com.kankangames.shadowofroles.ui.activities.MainActivity;
 import com.kankangames.shadowofroles.ui.activities.game.MultipleDeviceGameActivity;
@@ -83,7 +83,7 @@ public abstract class AbstractLobbyActivity extends ImageChangingActivity {
         listenerManager.addListener(ConnectionListener.class,
                 new ConnectionListener() {
                     @Override
-                    public void onConnectionSuccessful(LobbyData players) {
+                    public void onConnectionSuccessful(LobbyDTO players) {
                         updatePlayerList(players.getPlayers());
                     }
 

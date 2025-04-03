@@ -1,7 +1,6 @@
 package com.kankangames.shadowofroles.ui.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.content.ContextCompat;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.game.models.settings.Language;
 
-import java.util.List;
-
-public class LanguageSelectAdapter extends ArrayAdapter<String> {
-    private final String[] languageList = {"English","Türkçe"};
+public class LanguageSelectAdapter extends ArrayAdapter<Language> {
+    private final Language[] languageList = Language.values();
 
     private final Context context;
 
@@ -37,7 +32,7 @@ public class LanguageSelectAdapter extends ArrayAdapter<String> {
 
     @Nullable
     @Override
-    public String getItem(int position) {
+    public Language getItem(int position) {
         return languageList[position];
     }
 
@@ -50,7 +45,7 @@ public class LanguageSelectAdapter extends ArrayAdapter<String> {
         }
         ConstraintLayout constraintLayout = convertView.findViewById(R.id.langspinner_container);
         TextView textView = constraintLayout.findViewById(R.id.language_spinner_item_name);
-        textView.setText(languageList[position]);
+        textView.setText(languageList[position].text());
         return convertView;
     }
 
@@ -61,7 +56,7 @@ public class LanguageSelectAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(R.layout.language_spinner_item, parent, false);
         }
 
-        String lang = languageList[position];
+        String lang = languageList[position].text();
 
         TextView textView = convertView.findViewById(R.id.language_spinner_item_name);
         textView.setText(lang);

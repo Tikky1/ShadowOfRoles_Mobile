@@ -19,7 +19,7 @@
     <string name="voting">Oylama: %d</string>
 
     <!--Ayarlar-->
-    <string name="settings_language">Dil Seçin</string>
+    <string name="settings">Ayarlar</string>
     <string name="select_language">Seç</string>
 
     <!--Oyun Sonu-->
@@ -28,31 +28,40 @@
     <string name="winner_team_assassin">Suikastçı</string>
     <string name="winner_team_chill_guy">Düz Adam</string>
     <string name="winner_team_clown">Palyaço</string>
-    <string name="winner_team_lorekeeper">Kadim Bilge</string>
+    <string name="winner_team_lore_keeper">Kadim Bilge</string>
     <string name="winner_team_text">{team} kazandı!</string>
     <string name="winner_draw">Oyun Berabere Bitti!</string>
 
     <string name="credits_text">
-*Oyun Geliştirme Ekibi:*\n
-- *Baş Geliştirici:* Furkan Kırat\n
-- *Oyun Tasarımı:* Furkan Kırat ve Efekan Kul\n
-- *Kodlama ve Programlama:* Furkan Kırat ve Efekan Kul\n
-- *Grafik Tasarım:* Furkan Kırat ve Efekan Kul\n
-- *Test ve QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı*\n\n
+    🎮 Oyun Geliştirme Ekibi\n\n
+        👑 Baş Geliştirici: Furkan Kırat\n
+        🎨 Oyun Tasarımı: Furkan Kırat &amp; Efekan Kul\n
+        💻 Kodlama &amp; Programlama: Furkan Kırat &amp; Efekan Kul\n
+        🎭 Grafik Tasarımı: Furkan Kırat &amp; Efekan Kul\n
+        🛠️ Test &amp; QA: Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n\n
 
-*Özel Teşekkürler:*\n
-Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n\n
+        🌟 Özel Teşekkürler\n
+        Büyük teşekkürler:\n💡 Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
+        Desteğiniz ve katkılarınız paha biçilmez!\n\n
 
-*Geliştirme Araçları ve Kaynakları:*\n
-- Java - Programlama dili\n
-- Android Studio - UI kütüphanesi\n
-- GitHub - Versiyon kontrolü\n\n
+        🔧 Geliştirme Araçları &amp; Kaynaklar\n
+        ☕ Java – Programlama dili\n
+        🖥️ Android Studio – UI &amp; geliştirme\n
+        🗂️ GitHub – Versiyon kontrolü\n\n
 
-*Özel Teşekkürler:*\n
-Bu oyunun geliştirilmesine yardımcı olan, geri bildirimde bulunan ve projeye katkıda bulunan tüm oyunculara teşekkür ederiz.\n\n
-Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans altında oyunu kullanabilir, kopyalayabilir, değiştirebilir ve dağıtabilirsiniz. Lisansın bir kopyasına https://www.apache.org/licenses/LICENSE-2.0 adresinden ulaşabilirsiniz.
+        ❤️ Oyuncularımıza Özel Teşekkür\n
+        Bu oyunun geliştirilmesine katkıda bulunan, geri bildirim sağlayan ve deneyimi şekillendirmemize yardımcı olan tüm oyuncularımıza minnettarız. Desteğiniz bizim için çok kıymetli!\n\n
+
+        📜 Lisans Bilgisi\n
+        Bu oyun, Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır.\n
+        Bu oyunu, lisansın şartları altında kullanabilir, kopyalayabilir, değiştirebilir ve dağıtabilirsiniz, ticari amaçlarla dahi.\n\n
+        📄 Lisansın bir kopyasına şu adresten ulaşabilirsiniz:\n🔗 https://www.apache.org/licenses/LICENSE-2.0
     </string>
-    <string name="contact_text">Geri bildirimlerinizi ve önerilerinizi duymaktan memnuniyet duyarız. Ayrıca Google Play\'de oyumuzu derecelendirerek destek olabilirsiniz!</string>
+    <string name="contact_text">✨ Görüşlerinizi duymaktan mutluluk duyarız!\n\n
+⭐ Geri bildirimlerinizi ve önerilerinizi paylaşın.\n\n
+📱 Google Play\'de puan vererek bize destek olun!
+    </string>
+    <string name="contact_text1">Herhangi bir sorunuz veya endişeniz varsa, aşağıdaki butonları kullanarak bizimle iletişime geçebilirsiniz. Yardımcı olmaktan memnuniyet duyarız!</string>
     <string name="ok">Tamam</string>
     <string name="cancel">İptal</string>
     <string name="quit_message">Çıkmak istiyor musunuz?</string>
@@ -73,9 +82,9 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="observer_ability_message">Hedefinizin takımı: {teamName}</string>
 
     <!--Ruh Bağlayıcı-->
-    <string name="soulbinder_name">Ruh Bağlayıcı</string>
-    <string name="soulbinder_abilities">Birini seçip, o kişi saldırıya uğrarsa, ölmesini engellersiniz</string>
-    <string name="soulbinder_attributes">Yok</string>
+    <string name="soul_binder_name">Ruh Bağlayıcı</string>
+    <string name="soul_binder_abilities">Birini seçip, o kişi saldırıya uğrarsa, ölmesini engellersiniz</string>
+    <string name="soul_binder_attributes">Yok</string>
 
     <!--Takipçi-->
     <string name="stalker_name">Takipçi</string>
@@ -92,10 +101,10 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="psycho_kill_announcement">{playerName} ({roleName}) bir Psikopat tarafından öldürüldü</string>
 
     <!--Karanlık Kahin-->
-    <string name="darkrevealer_name">Karanlık Kahin</string>
-    <string name="darkrevealer_abilities">Geceleyin, birinin rolünü görebilirsiniz</string>
-    <string name="darkrevealer_attributes">Yok</string>
-    <string name="darkrevealer_ability_message">Hedefinizin rolü: {roleName}</string>
+    <string name="dark_revealer_name">Karanlık Kahin</string>
+    <string name="dark_revealer_abilities">Geceleyin, birinin rolünü görebilirsiniz</string>
+    <string name="dark_revealer_attributes">Yok</string>
+    <string name="dark_revealer_ability_message">Hedefinizin rolü: {roleName}</string>
 
     <!--Oyalayacı-->
     <string name="interrupter_name">Oyalayacı</string>
@@ -103,9 +112,9 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="interrupter_attributes">Yok</string>
 
     <!--Mühür Ustası-->
-    <string name="sealmaster_name">Mühür Ustası</string>
-    <string name="sealmaster_abilities">Birini geceleyin engelleyebilirsiniz</string>
-    <string name="sealmaster_attributes">Yok</string>
+    <string name="seal_master_name">Mühür Ustası</string>
+    <string name="seal_master_abilities">Birini geceleyin engelleyebilirsiniz</string>
+    <string name="seal_master_attributes">Yok</string>
 
     <!--Rol Engelleme-->
     <string name="role_blocked_message">Bu gece rolünüz engellendi</string>
@@ -122,15 +131,15 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="assassin_kill_announcement">{playerName} ({roleName}) bir Suikastçı tarafından öldürüldü</string>
 
     <!--Soğuk Adam-->
-    <string name="chillguy_name">Düz Adam</string>
-    <string name="chillguy_abilities">Sadece basit bir kişisiniz. Hiçbir şey yapmazsınız</string>
-    <string name="chillguy_attributes">Eğer rolünüzü açığa çıkarırsanız, oyunu kaybedersiniz</string>
-    <string name="chillguy_goal">Eğlenmek</string>
+    <string name="chill_guy_name">Düz Adam</string>
+    <string name="chill_guy_abilities">Sadece basit bir kişisiniz. Hiçbir şey yapmazsınız</string>
+    <string name="chill_guy_attributes">Eğer rolünüzü açığa çıkarırsanız, oyunu kaybedersiniz</string>
+    <string name="chill_guy_goal">Eğlenmek</string>
 
     <!--Son Şaka-->
-    <string name="lastjoke_name">Son Şaka</string>
-    <string name="lastjoke_abilities">Öldüğünüzde hayata geri dönersiniz ve birini öldürürsünüz</string>
-    <string name="lastjoke_attributes">Yok</string>
+    <string name="last_joke_name">Son Şaka</string>
+    <string name="last_joke_abilities">Öldüğünüzde hayata geri dönersiniz ve birini öldürürsünüz</string>
+    <string name="last_joke_attributes">Yok</string>
     <string name="last_joke_kill_message">Başarıyla {playerName} adlı oyuncuya son şakanızı yaptınız</string>
     <string name="last_joke_kill_announcement">Birisi {playerName} ({roleName}) adlı oyuncuya Son Şakasını yaptı</string>
 
@@ -149,12 +158,12 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="disguiser_kill_announcement">{playerName} ({roleName}) gölgelerde gizlenen biri tarafından öldürüldü</string>
 
     <!--Karanlık Görücü-->
-    <string name="darkseer_name">Karanlık Görücü</string>
-    <string name="darkseer_abilities">Yaşayan iki oyuncunun rolünü görürsünüz, ancak rol sahiplerini göremezsiniz</string>
-    <string name="darkseer_attributes">N/A</string>
-    <string name="darkseer_ability_message">Oyun içindeki şu an yaşayan iki oyuncunun rolleri: {roleName1} ve {roleName2}</string>
-    <string name="darkseer_ability_message_one_left">Oyun içindeki şu an yaşayan kişinin rolü: {roleName}</string>
-    <string name="darkseer_ability_message_no_left">Rolünü görebileceğiniz oyuncu kalmadı</string>
+    <string name="dark_seer_name">Karanlık Görücü</string>
+    <string name="dark_seer_abilities">Yaşayan iki oyuncunun rolünü görürsünüz, ancak rol sahiplerini göremezsiniz</string>
+    <string name="dark_seer_attributes">N/A</string>
+    <string name="dark_seer_ability_message">Oyun içindeki şu an yaşayan iki oyuncunun rolleri: {roleName1} ve {roleName2}</string>
+    <string name="dark_seer_ability_message_one_left">Oyun içindeki şu an yaşayan kişinin rolü: {roleName}</string>
+    <string name="dark_seer_ability_message_no_left">Rolünü görebileceğiniz oyuncu kalmadı</string>
 
     <!--Kör Edici-->
     <string name="blinder_name">Kör Edici</string>
@@ -164,12 +173,12 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="got_blinded_message">Bu gece kör edildiniz</string>
 
     <!--Halk Kahramanı-->
-    <string name="folkhero_name">Halk Kahramanı</string>
-    <string name="folkhero_abilities">İnsanları dokunulmaz yaparak, diğer oyuncuların hedefinize gitmesini engellersiniz</string>
-    <string name="folkhero_attributes">Oyunda iki kez yeteneğinizi kullanabilirsiniz</string>
-    <string name="folkhero_ability_message">Hedefinizi başarılı bir şekilde bağışıklık kazandırdınız</string>
-    <string name="folkhero_remaining_ability_count">Kalan Yetenek Sayısı: %d</string>
-    <string name="folkhero_expected_ability_count">Beklenen Yetenek Sayısı: %d</string>
+    <string name="folk_hero_name">Halk Kahramanı</string>
+    <string name="folk_hero_abilities">İnsanları dokunulmaz yaparak, diğer oyuncuların hedefinize gitmesini engellersiniz</string>
+    <string name="folk_hero_attributes">Oyunda iki kez yeteneğinizi kullanabilirsiniz</string>
+    <string name="folk_hero_ability_message">Hedefinizi başarılı bir şekilde bağışıklık kazandırdınız</string>
+    <string name="folk_hero_remaining_ability_count">Kalan Yetenek Sayısı: %d</string>
+    <string name="folk_hero_expected_ability_count">Beklenen Yetenek Sayısı: %d</string>
 
     <!--Yatırımcı-->
     <string name="entrepreneur_name">Yatırımcı</string>
@@ -188,16 +197,16 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) bir Yatırımcı tarafından öldürüldü</string>
 
     <!--Kadim Bilge-->
-    <string name="lorekeeper_name">Kadim Bilge</string>
-    <string name="lorekeeper_attributes">Oyundaki oyuncu sayısı 7 veya daha az ise 2 kişinin daha fazla ise 3 kişinin rolünü doğru tahmin etmeniz gerek</string>
-    <string name="lorekeeper_abilities">Bir oyuncuyu seçer ve ardından o oyuncunun hangi role sahip olduğunu tahmin edersiniz, doğru tahmin ederseniz oyuncunun rolü açıklanır.</string>
-    <string name="lorekeeper_goal">Oyuncuların rollerini doğru tahmin etmeye çalışırsınız</string>
-    <string name="lorekeeper_ability_message">Aşağıdaki oyuncunun rolü açıklandı: {playerName} ({roleName})</string>
-    <string name="lorekeeper_guess">Doğru tahmin sayınız: {guessCount}</string>
-    <string name="lorekeeper_guessed_role">Seçilen rol: %s</string>
-    <string name="lorekeeper_guessed_role_none">Hiç rol seçilmedi!</string>
-    <string name="lorekeeper_winning_true_guess_count">Kazanmanız için %d rolü doğru tahmin etmeniz gerekiyor!</string>
-    <string name="lorekeeper_current_true_guess_count">Şu anda %d rolü doğru tahmin ettiniz!</string>
+    <string name="lore_keeper_name">Kadim Bilge</string>
+    <string name="lore_keeper_attributes">Oyundaki oyuncu sayısı 7 veya daha az ise 2 kişinin daha fazla ise 3 kişinin rolünü doğru tahmin etmeniz gerek</string>
+    <string name="lore_keeper_abilities">Bir oyuncuyu seçer ve ardından o oyuncunun hangi role sahip olduğunu tahmin edersiniz, doğru tahmin ederseniz oyuncunun rolü açıklanır.</string>
+    <string name="lore_keeper_goal">Oyuncuların rollerini doğru tahmin etmeye çalışırsınız</string>
+    <string name="lore_keeper_ability_message">Aşağıdaki oyuncunun rolü açıklandı: {playerName} ({roleName})</string>
+    <string name="lore_keeper_guess">Doğru tahmin sayınız: {guessCount}</string>
+    <string name="lore_keeper_guessed_role">Seçilen rol: %s</string>
+    <string name="lore_keeper_guessed_role_none">Hiç rol seçilmedi!</string>
+    <string name="lore_keeper_winning_true_guess_count">Kazanmanız için %d rolü doğru tahmin etmeniz gerekiyor!</string>
+    <string name="lore_keeper_current_true_guess_count">Şu anda %d rolü doğru tahmin ettiniz!</string>
 
     <!--Yetenek-->
     <string name="ability_no_use_left">Yetenek sınırına ulaştığınız için yeteneğiniz kullanılamadı</string>
@@ -216,8 +225,8 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="cause_of_death_entrepreneur">Yatırımcı</string>
 
     <!--Hedef-->
-    <string name="goal_folk">Tüm yozlaşmış ve tarafsızları bulup öldürün</string>
-    <string name="goal_corrupter">Halkı ve tarafsızları öldürün</string>
+    <string name="folk_goal">Tüm yozlaşmış ve tarafsızları bulup öldürün</string>
+    <string name="corrupter_goal">Halkı ve tarafsızları öldürün</string>
 
     <!--Oylama-->
     <string name="voted_for">Şu kişiye oy verdiniz: {playerName}</string>
@@ -231,7 +240,7 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
 
 
     <!-- Role Book-->
-
+    <string name="role_book">Rol Kitabı</string>
     <!-- Main Categories -->
     <string name="role_book_role">Roller</string>
     <string name="role_book_folk_role">Halk Rolleri</string>
@@ -345,6 +354,16 @@ Bu oyun Apache Lisansı, Versiyon 2.0 altında yayımlanmıştır. Bu lisans alt
     <string name="remaining_seconds">%d saniye kaldı</string>
     <string name="tap_to_join_the_game">Katılmak için tıkla!</string>
     <string name="join">Katıl</string>
+    <string name="language">Dil</string>
+    <string name="announcements">Duyurular</string>
 
+    <string name="tooltip_username">Kullanıcı adınızı girin. Oyunda sizi tanımlamak için kullanılacaktır.</string>
+    <string name="tooltip_language">Oyun arayüzü için tercih ettiğiniz dili seçin.</string>
+    <string name="username">İsim</string>
+    <string name="tooltip_host_game">Bir oyun lobisi oluştur ve oyuncuların katılmasını bekle.Tüm oyuncular aynı yerel ağda olmalıdır.</string>
+    <string name="tooltip_join_game">Mevcut bir oyun lobisine katıl.Ana bilgisayar ile aynı yerel ağa bağlı olduğundan emin ol.</string>
+    <string name="tooltip_add_player">Oyuna yeni bir oyuncu ekle. (Maksimum: 10 oyuncu)</string>
+    <string name="tooltip_remove_player">Seçilen oyuncuyu oyundan çıkar. (Oyunun başlaması için en az 5 oyuncu gerekir.)</string>
+    <string name="tooltip_start_game">Tüm oyuncular hazır olduğunda oyunu başlat.Oyunun başlaması için en az 5, en fazla 10 oyuncu olmalıdır.</string>
 
 </resources>

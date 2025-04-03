@@ -13,7 +13,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.game.models.settings.Language;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class RolesViewAdapter extends RecyclerView.Adapter<RolesViewAdapter.Role
     private final Clickable clickable;
 
     private final ArrayList<RoleTemplate> roles;
+    private final transient TextManager textManager = TextManager.getInstance();
 
     public RolesViewAdapter(ArrayList<RoleTemplate> roles, Clickable clickable) {
         this.roles = roles;
@@ -63,6 +66,9 @@ public class RolesViewAdapter extends RecyclerView.Adapter<RolesViewAdapter.Role
                 break;
         }
         holder.layout.setBackground(background);
+        holder.layout.setTooltipText(
+                textManager.getTextEnumSuffix(roles.get(position).getId().name(),"name",
+                Language.ENGLISH));
     }
 
     @Override
@@ -76,7 +82,7 @@ public class RolesViewAdapter extends RecyclerView.Adapter<RolesViewAdapter.Role
 
     public static class RolesViewHolder extends RecyclerView.ViewHolder {
 
-        private RelativeLayout layout;
+        private final RelativeLayout layout;
         private final TextView roleName;
         public RolesViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -1,9 +1,10 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.models.player.AIPlayer;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.templates.corrupterroles.support.LastJoke;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.player.AIPlayer;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.game.models.roles.templates.corrupterroles.support.LastJoke;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +54,7 @@ public abstract class BaseGameService {
                 break;
         }
 
-        if(finishGameService.checkGameFinished()){
-            finishGameService.finishGame();
-        }
+        finishGameService.finishGame();
     }
     public void updateAlivePlayers(){
         alivePlayers.clear();
@@ -69,7 +68,7 @@ public abstract class BaseGameService {
 
                 /* If players role is last joke, player is dead and player has not used ability
                  * yet adds the player to the alive players to use their ability */
-                if (player.getRole().getTemplate().getRoleProperties().hasPostDeathEffect()) {
+                if (player.getRole().getTemplate().getRoleProperties().hasAttribute(RoleAttribute.HAS_POST_DEATH_EFFECT)) {
 
                     LastJoke lastJoker = (LastJoke) player.getRole().getTemplate();
                     if (lastJoker.canUseAbility() && timeService.getTime() == Time.NIGHT) {

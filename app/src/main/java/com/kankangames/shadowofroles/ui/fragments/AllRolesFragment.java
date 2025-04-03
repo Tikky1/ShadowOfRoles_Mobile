@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.services.RoleService;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.game.services.RoleService;
 import com.kankangames.shadowofroles.ui.adapters.RolesViewAdapter;
 
 import java.util.ArrayList;

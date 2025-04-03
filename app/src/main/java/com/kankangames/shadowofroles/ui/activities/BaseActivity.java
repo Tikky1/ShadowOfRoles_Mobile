@@ -8,7 +8,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.kankangames.shadowofroles.managers.LanguageManager;
+import com.kankangames.shadowofroles.utils.managers.LanguageManager;
 
 public abstract class BaseActivity extends AppCompatActivity {
 

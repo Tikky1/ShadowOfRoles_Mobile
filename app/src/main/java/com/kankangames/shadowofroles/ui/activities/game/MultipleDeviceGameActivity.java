@@ -16,22 +16,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.gamestate.TimeManager;
-import com.kankangames.shadowofroles.managers.GameScreenImageManager;
-import com.kankangames.shadowofroles.managers.InstanceClearer;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.gamestate.TimeManager;
+import com.kankangames.shadowofroles.game.services.MessageService;
+import com.kankangames.shadowofroles.ui.helper.GameScreenImageManager;
+import com.kankangames.shadowofroles.utils.managers.InstanceClearer;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.NetworkListenerManager;
+import com.kankangames.shadowofroles.networking.listeners.NetworkListenerManager;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
-import com.kankangames.shadowofroles.networking.jsonobjects.GameData;
-import com.kankangames.shadowofroles.networking.jsonobjects.PlayerInfo;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.GameDTO;
+import com.kankangames.shadowofroles.networking.jsonutils.datatransferobjects.PlayerDTO;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameDataReceivedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameEndedListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnGameStartingListener;
 import com.kankangames.shadowofroles.networking.listeners.clientlistener.OnQuitedGameListener;
-import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.game.services.StartGameService;
 import com.kankangames.shadowofroles.ui.activities.BaseActivity;
 import com.kankangames.shadowofroles.ui.activities.GameEndActivity;
 import com.kankangames.shadowofroles.ui.activities.MainActivity;
@@ -47,7 +48,7 @@ import com.kankangames.shadowofroles.ui.helper.ClockService;
 import java.util.Locale;
 
 public class MultipleDeviceGameActivity extends BaseActivity implements ClockService.ClockUpdateListener {
-    private GameData gameData;
+    private GameDTO gameDTO;
     private RecyclerView alivePlayersView;
     private TextView timeText, nameText, numberText, roleText, clockText;
     private ImageButton announcementsButton, graveyardButton, roleBookButton;
@@ -66,7 +67,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
         client = ClientManager.getInstance().getClient();
         initializeClientListeners();
 
-        if(gameData == null) gameData = (GameData) client.getClientGameManager().getDataProvider();
+        if(gameDTO == null) gameDTO = (GameDTO) client.getClientGameManager().getDataProvider();
 
         clockService = new ClockService(this);
         initializeViews();
@@ -97,13 +98,13 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     private void initializeClientListeners(){
         NetworkListenerManager listenerManager = client.getClientListenerManager();
 
-        listenerManager.addListener(OnGameDataReceivedListener.class, receivedGameData -> {
-                    gameData = receivedGameData;
+        listenerManager.addListener(OnGameDataReceivedListener.class, receivedGameDTO -> {
+                    gameDTO = receivedGameDTO;
                     runOnUiThread(this::updateGameUI);
 
                 });
         listenerManager.addListener(OnGameStartingListener.class,dataProvider -> {
-            gameData = (GameData) dataProvider;
+            gameDTO = (GameDTO) dataProvider;
 
         });
         listenerManager.addListener(OnGameEndedListener.class, endGameData -> {
@@ -155,14 +156,14 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     private void setImageButtonOnClicked(){
         announcementsButton.setOnClickListener(v -> {
             MessageFragment messageFragment = new MessageFragment(
-                    gameData.getMessages());
+                    gameDTO.getMessages());
 
             messageFragment.show(getSupportFragmentManager(), getString(R.string.messages));
         });
 
         graveyardButton.setOnClickListener(v -> {
             GraveyardFragment graveyardFragment = new GraveyardFragment(
-                    gameData.getDeadPlayers());
+                    gameDTO.getDeadPlayers());
 
             graveyardFragment.show(getSupportFragmentManager(), getString(R.string.graveyard));
         });
@@ -175,11 +176,11 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
 
 
     private void setTimeText(){
-        String template = gameData.getTimeService().getTime() != Time.NIGHT ?
+        String template = gameDTO.getTimeService().getTime() != Time.NIGHT ?
                 getString(R.string.day) :
                 getString(R.string.night);
 
-        template = String.format(template, gameData.getTimeService().getDayCount());
+        template = String.format(template, gameDTO.getTimeService().getDayCount());
         timeText.setText(template);
     }
 
@@ -196,7 +197,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
 
     private void startTimerText(){
         int time;
-        switch (gameData.getTimeService().getTime()){
+        switch (gameDTO.getTimeService().getTime()){
             case NIGHT:
                 time = TimeManager.nightTime;
                 break;
@@ -215,8 +216,8 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
 
     private void updateAlivePlayersUI(){
         PlayersViewAdapter playersViewAdapter = new PlayersViewAdapter(
-                gameData.getTimeService().getTime(), gameData.getCurrentPlayer(), this);
-        playersViewAdapter.setPlayers(gameData.getAlivePlayers());
+                gameDTO.getTimeService().getTime(), gameDTO.getCurrentPlayer(), this);
+        playersViewAdapter.setPlayers(gameDTO.getAlivePlayers());
         alivePlayersView.setAdapter(playersViewAdapter);
         alivePlayersView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -224,14 +225,14 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
         ViewGroup.LayoutParams params = alivePlayersView.getLayoutParams();
         params.height = maxHeight;
         alivePlayersView.setLayoutParams(params);
-        alivePlayersView.setItemViewCacheSize(gameData.getAlivePlayers().size());
+        alivePlayersView.setItemViewCacheSize(gameDTO.getAlivePlayers().size());
     }
 
 
     private void updateBackgroundImage(){
         GameScreenImageManager gameScreenImageManager = GameScreenImageManager.getInstance(this);
         Drawable image;
-        switch (gameData.getTimeService().getTime()){
+        switch (gameDTO.getTimeService().getTime()){
             case DAY:
                 image = gameScreenImageManager.nextDayImage();
                 break;
@@ -254,7 +255,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
         updateBackgroundImage();
         setTimeText();
 
-        switch (gameData.getTimeService().getTime()){
+        switch (gameDTO.getTimeService().getTime()){
             case DAY:
             case NIGHT:
                 createAnnouncementsDialog();
@@ -266,14 +267,14 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     }
 
     private void createAnnouncementsDialog(){
-        AnnouncementsFragment announcementsFragment = new AnnouncementsFragment(null);
-        announcementsFragment.setAnnouncements(gameData.getMessages());
-        announcementsFragment.setDayText(gameData.getTimeService().getTimeAndDay());
+        AnnouncementsFragment announcementsFragment
+                = new AnnouncementsFragment(null, MessageService.getDailyAnnouncements(gameDTO.getMessages(), gameDTO.getTimeService().getTimePeriod()));
+        announcementsFragment.setDayText(gameDTO.getTimeService().getTimeAndDay());
         announcementsFragment.show(getSupportFragmentManager(), "Start Day Announcements");
     }
 
     private void setNameText(){
-        Player currentPlayer = gameData.getCurrentPlayer();
+        Player currentPlayer = gameDTO.getCurrentPlayer();
         String template = getString(R.string.player_name);
         template = template
                 .replace("{playerName}", currentPlayer.getName());
@@ -281,14 +282,14 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
     }
 
     private void setNumberText(){
-        Player currentPlayer = gameData.getCurrentPlayer();
+        Player currentPlayer = gameDTO.getCurrentPlayer();
         String template = getString(R.string.player_number);
         template = String.format(Locale.ROOT, template, currentPlayer.getNumber());
         numberText.setText(template);
     }
 
     private void setRoleText(){
-        Player currentPlayer = gameData.getCurrentPlayer();
+        Player currentPlayer = gameDTO.getCurrentPlayer();
         roleText.setText(currentPlayer.getRole().getTemplate().getName());
     }
 
@@ -304,13 +305,13 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
 
     @Override
     public void onTimeUp() {
-        if(gameData.getTimeService().getTime()!=Time.DAY){
-            Player chosenPlayer = gameData.getCurrentPlayer().getRole().getChoosenPlayer();
+        if(gameDTO.getTimeService().getTime()!=Time.DAY){
+            Player chosenPlayer = gameDTO.getCurrentPlayer().getRole().getChoosenPlayer();
             int chosenPlayerNumber = chosenPlayer==null ? -1 : chosenPlayer.getNumber();
-            client.getClientGameManager().sendPlayerInfo(new PlayerInfo(
-                            gameData.getCurrentPlayer().getNumber(),
+            client.getClientGameManager().sendPlayerInfo(new PlayerDTO(
+                            gameDTO.getCurrentPlayer().getNumber(),
                             chosenPlayerNumber,
-                            gameData.getCurrentPlayer().getRole().getTemplate()
+                            gameDTO.getCurrentPlayer().getRole().getTemplate()
                     ));
         }
     }

@@ -28,5 +28,7 @@
     <color name="selectedItem">#FFDD57</color>
     <color name="transparent">#00000000</color>
 
+    <color name="settings_border">#416EDC</color>
+
 
 </resources>

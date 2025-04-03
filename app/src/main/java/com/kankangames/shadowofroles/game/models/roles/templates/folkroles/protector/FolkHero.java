@@ -1,21 +1,24 @@
 package com.kankangames.shadowofroles.game.models.roles.templates.folkroles.protector;
 
+import com.kankangames.shadowofroles.R;
 import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.game.models.roles.enums.AbilityResult;
 import com.kankangames.shadowofroles.game.models.roles.enums.AbilityType;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
-import com.kankangames.shadowofroles.models.roles.enums.*;
-import com.kankangames.shadowofroles.game.models.roles.templates.folkroles.FolkRole;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 
-public final class FolkHero extends FolkRole {
+public final class FolkHero extends RoleTemplate {
 
     public FolkHero() {
-        super(RoleID.FolkHero, AbilityType.ACTIVE_ALL, RolePriority.IMMUNE,
-                RoleCategory.FOLK_PROTECTOR);
-        roleProperties.setHasImmuneAbility(true)
+        super(RoleID.FOLK_HERO, AbilityType.ACTIVE_ALL, RolePriority.IMMUNE,
+                RoleCategory.FOLK_PROTECTOR, WinningTeam.FOLK);
+        roleProperties
+                .addAttribute(RoleAttribute.HAS_IMMUNE_ABILITY)
                 .setAbilityUsesLeft(2);
     }
 
@@ -27,7 +30,7 @@ public final class FolkHero extends FolkRole {
     @Override
     public AbilityResult executeAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService) {
         if(roleProperties.abilityUsesLeft() > 0){
-            sendAbilityMessage(textManager.getText("folkhero_ability_message") ,roleOwner, gameService.getMessageService());
+            sendAbilityMessage(textManager.getText(R.string.folk_hero_ability_message) ,roleOwner, gameService.getMessageService());
             choosenPlayer.getRole().setImmune(true);
             roleProperties.decrementAbilityUsesLeft();
             return AbilityResult.SUCCESSFUL;

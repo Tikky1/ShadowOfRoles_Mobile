@@ -1,6 +1,7 @@
 package com.kankangames.shadowofroles.game.models.roles.abilities;
 
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
 import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.game.models.roles.enums.AbilityResult;
 import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
@@ -27,7 +28,7 @@ public interface InvestigativeAbility extends RoleAbility{
         String roleName1 = firstIsChosen ? choosenPlayer.getRole().getTemplate().getName() : randRole.getName();
         String roleName2 = firstIsChosen ? randRole.getName() : choosenPlayer.getRole().getTemplate().getName();
 
-        String message = TextManager.getInstance().getText("detective_ability_message")
+        String message = TextManager.getInstance().getText(R.string.detective_ability_message)
                 .replace("{roleName1}", roleName1)
                 .replace("{roleName2}", roleName2);
 
@@ -47,7 +48,7 @@ public interface InvestigativeAbility extends RoleAbility{
         TextManager textManager = TextManager.getInstance();
         String teamName = textManager.enumToStringXmlPrefix(choosenPlayer.getRole().getTemplate().getWinningTeam().getTeam().name()
                 , "team");
-        gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText("observer_ability_message")
+        gameService.getMessageService().sendAbilityMessage(TextManager.getInstance().getText(R.string.observer_ability_message)
                         .replace("{teamName}", textManager.getText(teamName)),roleOwner);
         return AbilityResult.SUCCESSFUL;
     }
@@ -62,10 +63,10 @@ public interface InvestigativeAbility extends RoleAbility{
     default AbilityResult stalkerAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
         String message;
         if(choosenPlayer.getRole().getChoosenPlayer()==null||!choosenPlayer.getRole().isCanPerform()){
-            message = TextManager.getInstance().getText("stalker_ability_message_nobody");
+            message = TextManager.getInstance().getText(R.string.stalker_ability_message_nobody);
         }
         else{
-            message = TextManager.getInstance().getText("stalker_ability_message")
+            message = TextManager.getInstance().getText(R.string.stalker_ability_message)
                     .replace("{playerName}", choosenPlayer.getRole().getChoosenPlayer().getName());
         }
 
@@ -82,7 +83,7 @@ public interface InvestigativeAbility extends RoleAbility{
      */
     default AbilityResult darkRevealerAbility(Player roleOwner, Player choosenPlayer, BaseGameService gameService){
 
-        String message = TextManager.getInstance().getText("darkrevealer_ability_message").replace("{roleName}",choosenPlayer.getRole().getTemplate().getName());
+        String message = TextManager.getInstance().getText(R.string.dark_revealer_ability_message).replace("{roleName}",choosenPlayer.getRole().getTemplate().getName());
         gameService.getMessageService().sendAbilityMessage(message,roleOwner);
 
         return AbilityResult.SUCCESSFUL;
@@ -104,16 +105,16 @@ public interface InvestigativeAbility extends RoleAbility{
         String message;
 
         if (players.size() >= 2) {
-            message = TextManager.getInstance().getText("darkseer_ability_message")
+            message = TextManager.getInstance().getText(R.string.dark_seer_ability_message)
                     .replace("{roleName1}",players.get(0).getRole().getTemplate().getName())
                     .replace("{roleName2}",players.get(1).getRole().getTemplate().getName());
         }
         else if (players.size()==1) {
-            message = TextManager.getInstance().getText("darkseer_ability_message_one_left")
+            message = TextManager.getInstance().getText(R.string.dark_seer_ability_message_one_left)
                     .replace("{roleName}",players.get(0).getRole().getTemplate().getName());
         }
         else{
-            message = TextManager.getInstance().getText("darkseer_ability_message_no_left");
+            message = TextManager.getInstance().getText(R.string.dark_seer_ability_message_no_left);
         }
 
         gameService.getMessageService().sendAbilityMessage(message,roleOwner);

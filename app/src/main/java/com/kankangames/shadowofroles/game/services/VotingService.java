@@ -1,10 +1,11 @@
-package com.kankangames.shadowofroles.services;
+package com.kankangames.shadowofroles.game.services;
 
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.managers.TextManager;
-import com.kankangames.shadowofroles.models.player.AIPlayer;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.player.properties.CauseOfDeath;
+import com.kankangames.shadowofroles.R;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.player.AIPlayer;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.player.properties.CauseOfDeath;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,7 +94,7 @@ public final class VotingService {
 
 
             if(getMaxVoted()!=null){
-                gameService.getMessageService().sendMessage(TextManager.getInstance().getText("vote_execute")
+                gameService.getMessageService().sendMessage(TextManager.getInstance().getText(R.string.vote_execute)
                                 .replace("{playerName}", getMaxVoted().getName())
                                 .replace("{roleName}", getMaxVoted().getRole().getTemplate().getName()),
                         null, true);
@@ -117,11 +118,11 @@ public final class VotingService {
         Player chosenPlayer = player.getRole().getChoosenPlayer();
 
         if(chosenPlayer!=null){
-            gameService.messageService.sendMessage(TextManager.getInstance().getText("voted_for")
+            gameService.messageService.sendMessage(TextManager.getInstance().getText(R.string.voted_for)
                             .replace("{playerName}", chosenPlayer.getNameAndNumber())
                     ,player,false);
         }else{
-            gameService.messageService.sendMessage(TextManager.getInstance().getText("voted_for_none"), player, false);
+            gameService.messageService.sendMessage(TextManager.getInstance().getText(R.string.voted_for_none), player, false);
         }
 
     }

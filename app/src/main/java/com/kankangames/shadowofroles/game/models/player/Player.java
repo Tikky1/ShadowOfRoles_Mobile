@@ -2,8 +2,8 @@ package com.kankangames.shadowofroles.game.models.player;
 
 import androidx.annotation.NonNull;
 
-import com.kankangames.shadowofroles.game.gamestate.Time;
-import com.kankangames.shadowofroles.game.gamestate.WinStatus;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.game.models.gamestate.WinStatus;
 import com.kankangames.shadowofroles.game.models.player.properties.CauseOfDeath;
 import com.kankangames.shadowofroles.game.models.player.properties.DeathProperties;
 import com.kankangames.shadowofroles.game.models.roles.properties.Role;

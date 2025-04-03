@@ -18,17 +18,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.Time;
-import com.kankangames.shadowofroles.managers.TextManager;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.templates.RoleTemplate;
-import com.kankangames.shadowofroles.models.roles.templates.folkroles.unique.Entrepreneur;
-import com.kankangames.shadowofroles.models.roles.templates.neutralroles.good.Lorekeeper;
-import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.game.models.gamestate.Time;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
+import com.kankangames.shadowofroles.game.models.roles.templates.folkroles.unique.Entrepreneur;
+import com.kankangames.shadowofroles.game.models.roles.templates.neutralroles.good.Lorekeeper;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
-import com.kankangames.shadowofroles.services.DataProvider;
-import com.kankangames.shadowofroles.services.RoleService;
-import com.kankangames.shadowofroles.services.StartGameService;
+import com.kankangames.shadowofroles.game.models.DataProvider;
+import com.kankangames.shadowofroles.game.services.RoleService;
+import com.kankangames.shadowofroles.game.services.StartGameService;
 import com.kankangames.shadowofroles.ui.adapters.LorekeeperAdapter;
 
 import java.util.Locale;
@@ -74,15 +74,15 @@ public class PlayerRoleFragment extends Fragment {
 
 
         switch (currentPlayer.getRole().getTemplate().getId()){
-            case Lorekeeper:
+            case LORE_KEEPER:
                 setLoreKeeperInfo(view, inflater);
                 break;
 
-            case Entrepreneur:
+            case ENTREPRENEUR:
                 setEntrepreneurInfo(view,inflater);
                 break;
 
-            case FolkHero:
+            case FOLK_HERO:
                 setFolkHeroInfo(view, inflater);
                 break;
 
@@ -179,15 +179,15 @@ public class PlayerRoleFragment extends Fragment {
         int currentGuessCount = lorekeeper.getTrueGuessCount();
         int playerCount = dataProvider.getAlivePlayers().size() + dataProvider.getDeadPlayers().size();
         int winningGuessCount = playerCount >= 8 ? 3 : 2;
-        currentGuessCountText.setText(String.format(Locale.ROOT, getString(R.string.lorekeeper_current_true_guess_count),
+        currentGuessCountText.setText(String.format(Locale.ROOT, getString(R.string.lore_keeper_current_true_guess_count),
                 currentGuessCount));
-        winningGuessCountText.setText(String.format(Locale.ROOT, getString(R.string.lorekeeper_winning_true_guess_count),
+        winningGuessCountText.setText(String.format(Locale.ROOT, getString(R.string.lore_keeper_winning_true_guess_count),
                 winningGuessCount));
     }
     private void setLoreKeeperSelectedRole(Lorekeeper lorekeeper, TextView textView){
         textView.setText((lorekeeper.getGuessedRole()==null)
-                ? getString(R.string.lorekeeper_guessed_role_none)
-                : String.format(Locale.ROOT, getString(R.string.lorekeeper_guessed_role),lorekeeper.getGuessedRole().getName()));
+                ? getString(R.string.lore_keeper_guessed_role_none)
+                : String.format(Locale.ROOT, getString(R.string.lore_keeper_guessed_role),lorekeeper.getGuessedRole().getName()));
     }
 
     private void setEntrepreneurInfo(View view, LayoutInflater inflater){
@@ -251,14 +251,14 @@ public class PlayerRoleFragment extends Fragment {
             message = String.format(
                     context.getString(R.string.entrepreneur_selected) + " "
                             + context.getString(R.string.entrepreneur_expected_money)
-                    , textManager.getTextPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
+                    , textManager.getTextEnumPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
                     , (currentMoney - abilityMoney)
             );
         } else {
             message = String.format(
                     context.getString(R.string.entrepreneur_selected) +
                             context.getString(R.string.money_insufficient),
-                    textManager.getTextPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
+                    textManager.getTextEnumPrefix(entrepreneur.getChosenAbility().name(),"entrepreneur")
             );
         }
         textView.setText(message);
@@ -276,12 +276,12 @@ public class PlayerRoleFragment extends Fragment {
         Context context = currentText.getContext();
 
         int remainingAbilityCount = folkHero.getRoleProperties().abilityUsesLeft();
-        currentText.setText(String.format(context.getString(R.string.folkhero_remaining_ability_count), remainingAbilityCount));
+        currentText.setText(String.format(context.getString(R.string.folk_hero_remaining_ability_count), remainingAbilityCount));
 
         boolean isAbilityUsed = currentPlayer.getRole().getChoosenPlayer() != null;
         int expectedCount = isAbilityUsed ? remainingAbilityCount - 1 : remainingAbilityCount;
 
-        nextText.setText(String.format(context.getString(R.string.folkhero_expected_ability_count), expectedCount));
+        nextText.setText(String.format(context.getString(R.string.folk_hero_expected_ability_count), expectedCount));
 
         if(time !=Time.NIGHT){
             nextText.setVisibility(GONE);

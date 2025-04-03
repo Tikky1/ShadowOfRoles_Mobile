@@ -9,14 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kankangames.shadowofroles.R;
-import com.kankangames.shadowofroles.gamestate.WinStatus;
-import com.kankangames.shadowofroles.models.player.Player;
-import com.kankangames.shadowofroles.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.networking.GameMode;
+import com.kankangames.shadowofroles.game.models.gamestate.WinStatus;
+import com.kankangames.shadowofroles.game.models.player.Player;
+import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
+import com.kankangames.shadowofroles.game.models.gamestate.GameMode;
 import com.kankangames.shadowofroles.networking.client.Client;
 import com.kankangames.shadowofroles.networking.client.ClientManager;
-import com.kankangames.shadowofroles.networking.listeners.clientlistener.ClientListener;
-import com.kankangames.shadowofroles.services.FinishGameService;
+import com.kankangames.shadowofroles.game.services.FinishGameService;
 
 public class ChillGuyFragment extends FullScreenFragment {
 

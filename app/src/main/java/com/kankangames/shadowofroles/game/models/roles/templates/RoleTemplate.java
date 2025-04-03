@@ -6,11 +6,10 @@ import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
 import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.managers.TextManager;
+import com.kankangames.shadowofroles.utils.managers.TextManager;
 import com.kankangames.shadowofroles.game.models.player.Player;
 import com.kankangames.shadowofroles.game.models.roles.properties.RoleProperties;
 import com.kankangames.shadowofroles.game.models.roles.abilities.PerformAbility;
-import com.kankangames.shadowofroles.models.roles.enums.*;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 import com.kankangames.shadowofroles.game.services.MessageService;
 
@@ -25,14 +24,14 @@ public abstract class RoleTemplate implements PerformAbility, Serializable {
     protected final RoleProperties roleProperties;
     protected final RoleCategory roleCategory;
     protected final WinningTeam winningTeam;
-    protected transient RolePriority rolePriority;
+    protected RolePriority rolePriority;
     protected AbilityType abilityType;
 
     protected transient final TextManager textManager = TextManager.getInstance();
 
     public RoleTemplate(RoleID id, AbilityType abilityType, RolePriority rolePriority, RoleCategory roleCategory,
                         WinningTeam winningTeam) {
-        // IMPORTANT! When adding a new role template, the role id and role name in the lang json files must be the same!
+        // IMPORTANT! While adding a new role template, the role id must have own _attributes and _abilities!
         this.id = id;
         this.roleProperties = new RoleProperties();
         this.abilityType = abilityType;
@@ -95,20 +94,24 @@ public abstract class RoleTemplate implements PerformAbility, Serializable {
     }
 
     public final String getName() {
-        return textManager.getTextSuffix(id.name(),"name");
+        return textManager.getTextEnumSuffix(id.name(),"name");
     }
 
     public final String getAttributes() {
-        return textManager.getTextSuffix(id.name(), "attributes");
+        return textManager.getTextEnumSuffix(id.name(), "attributes");
     }
 
     public final String getAbilities() {
-        return textManager.getTextSuffix(id.name(),"abilities");
+        return textManager.getTextEnumSuffix(id.name(),"abilities");
     }
 
-    public abstract String getGoal();
+    public String getGoal(){
+        String enumName = textManager.enumToStringXmlSuffix(winningTeam.name(), "goal");
+        return textManager.getText(enumName);
+    }
 
     public final RolePriority getRolePriority() {
+        System.out.println(rolePriority);
         return rolePriority;
     }
 
@@ -117,7 +120,7 @@ public abstract class RoleTemplate implements PerformAbility, Serializable {
     }
 
     public final String getTeamText(){
-        return textManager.getTextPrefix(winningTeam.getTeam().name(),"team");
+        return textManager.getTextEnumPrefix(winningTeam.getTeam().name(),"team");
     }
 
     public final RoleCategory getRoleCategory() {

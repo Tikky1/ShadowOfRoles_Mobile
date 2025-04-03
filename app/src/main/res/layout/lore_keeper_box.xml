@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/role_select_button"
-        android:text="@string/lorekeeper_guessed_role"
+        android:text="@string/lore_keeper_guessed_role"
         android:layout_marginTop="20dp"
         android:textColor="@color/white"/>
 
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/selected_role_text"
-        android:text="@string/lorekeeper_current_true_guess_count"
+        android:text="@string/lore_keeper_current_true_guess_count"
         android:layout_marginTop="20dp"
         android:textColor="@color/white"/>
 
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/winning_guess_count"
-        android:text="@string/lorekeeper_winning_true_guess_count"
+        android:text="@string/lore_keeper_winning_true_guess_count"
         android:layout_marginTop="20dp"
         android:textColor="@color/white"/>
 

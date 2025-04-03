@@ -11,9 +11,10 @@ public enum WinningTeam {
     CORRUPTER(-1, Team.CORRUPTER),
 
     ASSASSIN(1, Team.NEUTRAL),
-    CHILL_GUY(2, Team.NEUTRAL),
+    LORE_KEEPER(2, Team.NEUTRAL),
     CLOWN(3, Team.NEUTRAL),
-    LORE_KEEPER(4, Team.NEUTRAL);
+    CHILL_GUY(4, Team.NEUTRAL);
+
 
     final int priority;
     final Team team;
@@ -43,5 +44,6 @@ public enum WinningTeam {
     public boolean canWinWith(WinningTeam winningTeam){
         return !cannotWinWithMap.getOrDefault(this, EnumSet.noneOf(WinningTeam.class)).contains(winningTeam);
     }
+
 
 }
