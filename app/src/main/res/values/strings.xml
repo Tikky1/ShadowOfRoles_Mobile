@@ -21,7 +21,7 @@
     <string name="voting">Voting: %d</string>
 
     <!--Settings-->
-    <string name="settings_language">Choose Language</string>
+    <string name="settings">Settings</string>
     <string name="select_language">Select</string>
 
     <!--Game End-->
@@ -30,31 +30,40 @@
     <string name="winner_team_assassin">Assassin</string>
     <string name="winner_team_chill_guy">Chill Guy</string>
     <string name="winner_team_clown">Clown</string>
-    <string name="winner_team_lorekeeper">Lore Keeper</string>
+    <string name="winner_team_lore_keeper">Lore Keeper</string>
     <string name="winner_team_text">{team} has won!</string>
     <string name="winner_draw">Game is Draw!</string>
 
     <string name="credits_text">
-*Game Development Team:*\n
-- *Lead Developer:* Furkan Kırat\n
-- *Game Design:* Furkan Kırat and Efekan Kul\n
-- *Coding and Programming:* Furkan Kırat and Efekan Kul\n
-- *Graphic Design:* Furkan Kırat and Efekan Kul\n
-- *Testing and QA:* Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı*\n\n
+        🎮 Game Development Team\n\n
+        👑 Lead Developer: Furkan Kırat\n
+        🎨 Game Design: Furkan Kırat &amp; Efekan Kul\n
+        💻 Coding &amp; Programming: Furkan Kırat &amp; Efekan Kul\n
+        🎭 Graphic Design: Furkan Kırat &amp; Efekan Kul\n
+        🛠️ Testing &amp; QA: Furkan Kırat, Efekan Kul, Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n\n
 
-*Special Thanks:*\n
-Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n\n
+        🌟 Special Thanks\n
+        A huge thank you to:\n💡 Halil Efe Çelik, Enis Taşkın, Ege Eren Ceylan, Fatih Kınacı\n
+        Your support and contributions have been invaluable!\n\n
 
-*Development Tools and Resources:*\n
-- Java - Programming language\n
-- Android Studio - UI library\n
-- GitHub - Version control\n\n
+        🔧 Development Tools &amp; Resources\n
+        ☕ Java – Programming language\n
+        🖥️ Android Studio – UI &amp; development\n
+        🗂️ GitHub – Version control\n\n
 
-*Special Thanks:*
-We would like to thank all the players who helped in the development of this game, provided feedback, and contributed to the project.\n\n
-This game is released under the Apache License, Version 2.0. You may use, copy, modify, and distribute this game, even for commercial purposes, under the terms of the license. A copy of the license is available at https://www.apache.org/licenses/LICENSE-2.0.
+        ❤️ A Special Thanks to Our Players\n
+        We deeply appreciate all the players who contributed to the development of this game, provided feedback, and helped shape the experience. Your support means the world to us!\n\n
+
+        📜 License Information\n
+        This game is released under the Apache License, Version 2.0.\n
+        You are free to use, copy, modify, and distribute this game, even for commercial purposes, under the terms of the license.\n\n
+        📄 A copy of the license is available at:\n🔗 https://www.apache.org/licenses/LICENSE-2.0
     </string>
-    <string name="contact_text">We\'d love to hear your feedback and suggestions. You can also support us by rating us on Google Play!</string>
+    <string name="contact_text">✨ We\’d love to hear your thoughts!\n\n
+⭐ Share your feedback and suggestions.\n\n
+📱 Support us by rating on Google Play!
+    </string>
+    <string name="contact_text1">For any questions or concerns, feel free to reach out using the buttons below. We\'re here to help!</string>
     <string name="ok">OK</string>
     <string name="cancel">"Cancel"</string>
     <string name="quit_message">Do you want to exit?</string>
@@ -75,9 +84,9 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="observer_ability_message">Your target\'s team is: {teamName}</string>
 
     <!--Soulbinder-->
-    <string name="soulbinder_name">Soulbinder</string>
-    <string name="soulbinder_abilities">You choose someone at night and if they get attacked, you prevent them from dying</string>
-    <string name="soulbinder_attributes">N/A</string>
+    <string name="soul_binder_name">Soulbinder</string>
+    <string name="soul_binder_abilities">You choose someone at night and if they get attacked, you prevent them from dying</string>
+    <string name="soul_binder_attributes">N/A</string>
 
     <!--Stalker-->
     <string name="stalker_name">Stalker</string>
@@ -94,10 +103,10 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="psycho_kill_announcement">{playerName} ({roleName}) has been slain by a Psycho</string>
 
     <!--Dark Revealer-->
-    <string name="darkrevealer_name">Dark Revealer</string>
-    <string name="darkrevealer_abilities">At night you see someone\'s role</string>
-    <string name="darkrevealer_attributes">N/A</string>
-    <string name="darkrevealer_ability_message">Your target\'s role is: {roleName}</string>
+    <string name="dark_revealer_name">Dark Revealer</string>
+    <string name="dark_revealer_abilities">At night you see someone\'s role</string>
+    <string name="dark_revealer_attributes">N/A</string>
+    <string name="dark_revealer_ability_message">Your target\'s role is: {roleName}</string>
 
     <!--Interrupter-->
     <string name="interrupter_name">Interrupter</string>
@@ -105,9 +114,9 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="interrupter_attributes">N/A</string>
 
     <!--Seal Master-->
-    <string name="sealmaster_name">Seal Master</string>
-    <string name="sealmaster_abilities">You can role block someone in the night</string>
-    <string name="sealmaster_attributes">N/A</string>
+    <string name="seal_master_name">Seal Master</string>
+    <string name="seal_master_abilities">You can role block someone in the night</string>
+    <string name="seal_master_attributes">N/A</string>
 
     <!--Role Block-->
     <string name="role_blocked_message">You have been role blocked this night</string>
@@ -124,15 +133,15 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="assassin_kill_announcement">{playerName} ({roleName}) has been slain by an Assassin</string>
 
     <!--Seal Master-->
-    <string name="chillguy_name">Chill Guy</string>
-    <string name="chillguy_abilities">Just simple person. You do nothing</string>
-    <string name="chillguy_attributes">If you reveal your role you will lose the game</string>
-    <string name="chillguy_goal">Have Fun</string>
+    <string name="chill_guy_name">Chill Guy</string>
+    <string name="chill_guy_abilities">Just simple person. You do nothing</string>
+    <string name="chill_guy_attributes">If you reveal your role you will lose the game</string>
+    <string name="chill_guy_goal">Have Fun</string>
 
     <!--Last Joke-->
-    <string name="lastjoke_name">Last Joke</string>
-    <string name="lastjoke_abilities">When you die you will comeback to life and you must kill one player</string>
-    <string name="lastjoke_attributes">N/A</string>
+    <string name="last_joke_name">Last Joke</string>
+    <string name="last_joke_abilities">When you die you will comeback to life and you must kill one player</string>
+    <string name="last_joke_attributes">N/A</string>
     <string name="last_joke_kill_message">You have successfully made your last joke to {playerName}</string>
     <string name="last_joke_kill_announcement">Someone make their Last Joke to {playerName} ({roleName})</string>
 
@@ -150,12 +159,12 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="disguiser_kill_announcement">{playerName} ({roleName}) were killed by someone hiding in the shadows</string>
 
     <!--Dark Seer-->
-    <string name="darkseer_name">Dark Seer</string>
-    <string name="darkseer_abilities">You see the role of two living people, but you cannot see the role owner</string>
-    <string name="darkseer_attributes">N/A</string>
-    <string name="darkseer_ability_message">The roles of the two currently living player in the play are: {roleName1} and {roleName2}</string>
-    <string name="darkseer_ability_message_one_left">The role of the currently living person in the play is: {roleName}</string>
-    <string name="darkseer_ability_message_no_left">There are not any players to see their role</string>
+    <string name="dark_seer_name">Dark Seer</string>
+    <string name="dark_seer_abilities">You see the role of two living people, but you cannot see the role owner</string>
+    <string name="dark_seer_attributes">N/A</string>
+    <string name="dark_seer_ability_message">The roles of the two currently living player in the play are: {roleName1} and {roleName2}</string>
+    <string name="dark_seer_ability_message_one_left">The role of the currently living person in the play is: {roleName}</string>
+    <string name="dark_seer_ability_message_no_left">There are not any players to see their role</string>
 
     <!--Blinder-->
     <string name="blinder_name">Blinder</string>
@@ -165,12 +174,12 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="got_blinded_message">You are blinded this night</string>
 
     <!--Folk Hero-->
-    <string name="folkhero_name">Folk Hero</string>
-    <string name="folkhero_abilities">You make people immune others cannot visit your target</string>
-    <string name="folkhero_attributes">You can use your ability twice in a game</string>
-    <string name="folkhero_ability_message">You have successfully immunized your target</string>
-    <string name="folkhero_remaining_ability_count">Remaining Ability Count: %d</string>
-    <string name="folkhero_expected_ability_count">Expected Ability Count: %d</string>
+    <string name="folk_hero_name">Folk Hero</string>
+    <string name="folk_hero_abilities">You make people immune others cannot visit your target</string>
+    <string name="folk_hero_attributes">You can use your ability twice in a game</string>
+    <string name="folk_hero_ability_message">You have successfully immunized your target</string>
+    <string name="folk_hero_remaining_ability_count">Remaining Ability Count: %d</string>
+    <string name="folk_hero_expected_ability_count">Expected Ability Count: %d</string>
 
     <!-- Entrepreneur -->
     <string name="entrepreneur_name">Entrepreneur</string>
@@ -189,16 +198,16 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="entrepreneur_kill_announcement">{playerName} ({roleName}) has been slain by an Entrepreneur</string>
 
     <!-- Lorekeeper -->
-    <string name="lorekeeper_name">Lore Keeper</string>
-    <string name="lorekeeper_attributes">If the number of players in the game is 7 or less, you need to correctly guess the role of 2 players, if more, you need to guess the role of 3 players</string>
-    <string name="lorekeeper_abilities">You choose a player and then you choose what role that player has, if you find it correctly player\'s role will be revealed.</string>
-    <string name="lorekeeper_goal">You try to guess the players\' roles</string>
-    <string name="lorekeeper_ability_message">The following player has revealed: {playerName} ({roleName})</string>
-    <string name="lorekeeper_guess">Your true guess count is: {guessCount}</string>
-    <string name="lorekeeper_guessed_role">Selected role: %s</string>
-    <string name="lorekeeper_guessed_role_none">No role selected!</string>
-    <string name="lorekeeper_winning_true_guess_count">You have to guess %d roles correctly to win!</string>
-    <string name="lorekeeper_current_true_guess_count">You have guessed %d roles currently!</string>
+    <string name="lore_keeper_name">Lore Keeper</string>
+    <string name="lore_keeper_attributes">If the number of players in the game is 7 or less, you need to correctly guess the role of 2 players, if more, you need to guess the role of 3 players</string>
+    <string name="lore_keeper_abilities">You choose a player and then you choose what role that player has, if you find it correctly player\'s role will be revealed.</string>
+    <string name="lore_keeper_goal">You try to guess the players\' roles</string>
+    <string name="lore_keeper_ability_message">The following player has revealed: {playerName} ({roleName})</string>
+    <string name="lore_keeper_guess">Your true guess count is: {guessCount}</string>
+    <string name="lore_keeper_guessed_role">Selected role: %s</string>
+    <string name="lore_keeper_guessed_role_none">No role selected!</string>
+    <string name="lore_keeper_winning_true_guess_count">You have to guess %d roles correctly to win!</string>
+    <string name="lore_keeper_current_true_guess_count">You have guessed %d roles currently!</string>
 
     <!-- Ability-->
     <string name="ability_no_use_left">Your ability could not be used because you have reached your ability\'s maximum usage queue</string>
@@ -217,8 +226,8 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="cause_of_death_entrepreneur">Entrepreneur</string>
 
     <!-- Goal -->
-    <string name="goal_folk">Find and execute all corrupters and neutrals</string>
-    <string name="goal_corrupter">Kill the folk and neutrals</string>
+    <string name="folk_goal">Find and execute all corrupters and neutrals</string>
+    <string name="corrupter_goal">Kill the folk and neutrals</string>
 
     <!-- Voting -->
     <string name="voted_for">You have voted for : {playerName}</string>
@@ -231,7 +240,7 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="team_neutral">Neutral</string>
 
     <!-- Role Book-->
-
+    <string name="role_book">Role Book</string>
     <!-- Main Catagories -->
     <string name="role_book_role">Roles</string>
     <string name="role_book_folk_role">Folk Roles</string>
@@ -344,6 +353,20 @@ This game is released under the Apache License, Version 2.0. You may use, copy, 
     <string name="remaining_seconds">%d seconds remaining</string>
     <string name="tap_to_join_the_game">Tap to join the game!</string>
     <string name="join">Join</string>
+    <string name="language">Language</string>
 
+    <string name="github" translatable="false">GitHub</string>
+    <string name="google_play" translatable="false">Google Play</string>
+    <string name="mail" translatable="false">Mail</string>
+    <string name="announcements">Announcements</string>
+
+    <string name="tooltip_username">Enter your username. It will be used to identify you in the game.</string>
+    <string name="tooltip_language">Select your preferred language for the game interface.</string>
+    <string name="username">Name</string>
+    <string name="tooltip_host_game">Create a game lobby and wait for players to join.All players must be on the same local network.</string>
+    <string name="tooltip_join_game">Join an existing game lobby.Make sure you are connected to the same local network as the host.</string>
+    <string name="tooltip_add_player">Add a new player to the game.</string>
+    <string name="tooltip_remove_player">Removes the selected player from the game.</string>
+    <string name="tooltip_start_game">Start the game when all players are ready. The game requires at least 5 and at most 10 players.</string>
 
 </resources>
