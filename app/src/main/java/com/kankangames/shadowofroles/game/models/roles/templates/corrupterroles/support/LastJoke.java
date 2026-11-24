@@ -9,14 +9,11 @@ import com.kankangames.shadowofroles.game.models.roles.enums.RoleCategory;
 import com.kankangames.shadowofroles.game.models.roles.enums.RoleID;
 import com.kankangames.shadowofroles.game.models.roles.enums.RolePriority;
 import com.kankangames.shadowofroles.game.models.roles.enums.WinningTeam;
-import com.kankangames.shadowofroles.game.models.roles.otherinterfaces.RoleSpecificValuesChooser;
 import com.kankangames.shadowofroles.game.models.roles.properties.RoleAttribute;
 import com.kankangames.shadowofroles.game.models.roles.templates.RoleTemplate;
 import com.kankangames.shadowofroles.game.services.BaseGameService;
 
-import java.util.List;
-
-public final class LastJoke extends RoleTemplate implements AttackAbility, RoleSpecificValuesChooser {
+public final class LastJoke extends RoleTemplate implements AttackAbility {
 
     public LastJoke() {
         super(RoleID.LAST_JOKE, AbilityType.OTHER_THAN_CORRUPTER,
@@ -61,8 +58,6 @@ public final class LastJoke extends RoleTemplate implements AttackAbility, RoleS
         return roleProperties.abilityUsesLeft() > 0;
     }
 
-    @Override
-    public void chooseRoleSpecificValues(List<Player> choosablePlayers) {}
 
 
 }

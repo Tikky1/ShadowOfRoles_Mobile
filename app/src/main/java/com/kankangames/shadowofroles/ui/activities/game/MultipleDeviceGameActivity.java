@@ -275,9 +275,7 @@ public class MultipleDeviceGameActivity extends BaseActivity implements ClockSer
 
     private void setNameText(){
         Player currentPlayer = gameDTO.getCurrentPlayer();
-        String template = getString(R.string.player_name);
-        template = template
-                .replace("{playerName}", currentPlayer.getName());
+        String template = String.format(Locale.ROOT, "%s",currentPlayer.getName());
         nameText.setText(template);
     }
 

@@ -128,9 +128,7 @@ public class SingleDeviceGameActivity extends BaseActivity {
 
     private void setNameText(){
         Player currentPlayer = gameService.getCurrentPlayer();
-        String template = getString(R.string.player_name);
-        template = template
-                .replace("{playerName}", currentPlayer.getName());
+        String template = String.format("%s",currentPlayer.getName());
         nameText.setText(template);
     }
 

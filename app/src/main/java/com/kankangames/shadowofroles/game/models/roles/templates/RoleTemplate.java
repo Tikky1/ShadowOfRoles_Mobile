@@ -111,7 +111,6 @@ public abstract class RoleTemplate implements PerformAbility, Serializable {
     }
 
     public final RolePriority getRolePriority() {
-        System.out.println(rolePriority);
         return rolePriority;
     }
 

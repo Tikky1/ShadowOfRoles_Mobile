@@ -8,31 +8,39 @@
     <string name="credits">Credits</string>
     <string name="quit">Quit</string>
 
-    <string name="select">"Select"</string>
-    <string name="unselect">"Unselect"</string>
+    <!--General-->
+    <string name="select">Select</string>
+    <string name="unselect">Unselect</string>
     <string name="clear">Clear</string>
     <string name="ai">AI</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
-    <string name="player_name" translatable="false">"{playerName}"</string>
     <string name="player_number">Number: %d</string>
     <string name="day">Day: %d</string>
     <string name="night">Night: %d</string>
     <string name="voting">Voting: %d</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="quit_message">Do you want to exit?</string>
+    <string name="pass_turn">Pass Turn</string>
+
+    <!-- Alerts-->
+    <string name="chill_guy_alert_text">Oh no! Ending Screen Was Captured by a Chill Guy! Did they revealed their role in the game?</string>
+    <string name="go_back_to_main_menu">Go Back to Main Menu</string>
+    <string name="main_menu_alert_message">Do you want to go to main menu?</string>
+    <string name="pass_turn_message">It\'s %s\'s turn</string>
+    <string name="error">Error</string>
+    <string name="main_menu_alert">Do you want to go to the main menu?</string>
+    <string name="game_will_disbanded">Game will be disbanded</string>
+    <string name="leaving_from_lobby">Leaving from lobby</string>
+    <string name="kicked_from_lobby">You have kicked from lobby</string>
+    <string name="game_is_disbanded">Game is disbanded</string>
 
     <!--Settings-->
     <string name="settings">Settings</string>
     <string name="select_language">Select</string>
-
-    <!--Game End-->
-    <string name="winner_team_corrupter">Corrupter</string>
-    <string name="winner_team_folk">Folk</string>
-    <string name="winner_team_assassin">Assassin</string>
-    <string name="winner_team_chill_guy">Chill Guy</string>
-    <string name="winner_team_clown">Clown</string>
-    <string name="winner_team_lore_keeper">Lore Keeper</string>
-    <string name="winner_team_text">{team} has won!</string>
-    <string name="winner_draw">Game is Draw!</string>
+    <string name="language">Language</string>
+    <string name="username">Name</string>
 
     <string name="credits_text">
         🎮 Game Development Team\n\n
@@ -59,17 +67,7 @@
         You are free to use, copy, modify, and distribute this game, even for commercial purposes, under the terms of the license.\n\n
         📄 A copy of the license is available at:\n🔗 https://www.apache.org/licenses/LICENSE-2.0
     </string>
-    <string name="contact_text">✨ We\’d love to hear your thoughts!\n\n
-⭐ Share your feedback and suggestions.\n\n
-📱 Support us by rating on Google Play!
-    </string>
-    <string name="contact_text1">For any questions or concerns, feel free to reach out using the buttons below. We\'re here to help!</string>
-    <string name="ok">OK</string>
-    <string name="cancel">"Cancel"</string>
-    <string name="quit_message">Do you want to exit?</string>
-    <string name="pass_turn">Pass Turn</string>
 
-    <!--Roles-->
 
     <!--Detective-->
     <string name="detective_name">Detective</string>
@@ -132,7 +130,7 @@
     <string name="assassin_kill_message">You have slain your target successfully</string>
     <string name="assassin_kill_announcement">{playerName} ({roleName}) has been slain by an Assassin</string>
 
-    <!--Seal Master-->
+    <!-- Chill Guy-->
     <string name="chill_guy_name">Chill Guy</string>
     <string name="chill_guy_abilities">Just simple person. You do nothing</string>
     <string name="chill_guy_attributes">If you reveal your role you will lose the game</string>
@@ -239,9 +237,7 @@
     <string name="team_folk">Folk</string>
     <string name="team_neutral">Neutral</string>
 
-    <!-- Role Book-->
-    <string name="role_book">Role Book</string>
-    <!-- Main Catagories -->
+    <!-- Role Categories-->
     <string name="role_book_role">Roles</string>
     <string name="role_book_folk_role">Folk Roles</string>
     <string name="role_book_corrupter_role">Corrupter Roles</string>
@@ -270,18 +266,21 @@
     <string name="role_book_neutral_chaos">Neutral Chaos</string>
     <string name="role_book_neutral_good">Neutral Good</string>
 
-    <!-- Properties -->
+    <!-- Role Properties -->
     <string name="role_book_abilities">Abilities</string>
     <string name="role_book_attributes">Attributes</string>
     <string name="role_book_goal">Goal</string>
     <string name="role_book_attack">Attack</string>
     <string name="role_book_defence">Defence</string>
 
+    <!-- Message-->
     <string name="messages">Messages</string>
-    <string name="graveyard">Graveyard</string>
-    <string name="chill_guy_alert_text">Oh no! Ending Screen Was Captured by a Chill Guy! Did they revealed their role in the game?</string>
+    <string name="public_message">Public Message</string>
+    <string name="private_message">Private Message</string>
+    <string name="announcements">Announcements</string>
 
     <!--Role Book-->
+    <string name="role_book">Role Book</string>
     <string name="role_info">Role Info</string>
     <string name="role_guide">Role Guide</string>
     <string name="game_rules">Game Rules</string>
@@ -299,12 +298,15 @@
     <string name="team">Team:</string>
     <string name="current_role">Current Role:</string>
 
-    <string name="public_message">Public Message</string>
-    <string name="private_message">Private Message</string>
-
-    <string name="go_back_to_main_menu">Go Back to Main Menu</string>
-
     <!--Game End-->
+    <string name="winner_team_corrupter">Corrupter</string>
+    <string name="winner_team_folk">Folk</string>
+    <string name="winner_team_assassin">Assassin</string>
+    <string name="winner_team_chill_guy">Chill Guy</string>
+    <string name="winner_team_clown">Clown</string>
+    <string name="winner_team_lore_keeper">Lore Keeper</string>
+    <string name="winner_team_text">{team} has won!</string>
+    <string name="winner_draw">Game is Draw!</string>
     <string name="won">Won</string>
     <string name="lost">Lost</string>
     <string name="tied">Tied</string>
@@ -322,51 +324,47 @@
     <string name="random_player_name">"Player %s"</string>
     <string name="all_players_ai_alert">All Players Cannot be AI Player!</string>
 
-    <!--Main Menu Alert-->
-    <string name="main_menu_alert_message">Do you want to go to main menu?</string>
-
-    <string name="pass_turn_message">"It's %s's turn"</string>
-
     <!--Graveyard-->
+    <string name="graveyard">Graveyard</string>
     <string name="graveyard_death_time">Death Time: %s</string>
     <string name="causes_of_death">Causes of death: %s</string>
+
+    <!-- Multi Device-->
     <string name="multi_device">Multi Device</string>
     <string name="host_game">Host Game</string>
     <string name="join_game">Join Game</string>
+    <string name="remaining_seconds">%d seconds remaining</string>
+    <string name="tap_to_join_the_game">Tap to join the game!</string>
+    <string name="join">Join</string>
 
-    <string name="player_name_hint">Player Name:</string>
     <string name="shadow_of_roles_lobby">Shadow of Roles Lobby</string>
     <string name="select_a_game_to_join">Select a game to join!</string>
     <string name="players_count">Players: %d</string>
+
+    <!-- Hints -->
+    <string name="player_name_hint">Player Name:</string>
+    <string name="tooltip_username">Enter your username. It will be used to identify you in the game.</string>
+    <string name="tooltip_language">Select your preferred language for the game interface.</string>
+    <string name="tooltip_host_game">Create a game lobby and wait for players to join.All players must be on the same local network.</string>
+    <string name="tooltip_join_game">Join an existing game lobby.Make sure you are connected to the same local network as the host.</string>
+    <string name="tooltip_add_player">Add a new player to the game.</string>
+    <string name="tooltip_remove_player">Removes the selected player from the game.</string>
+    <string name="tooltip_start_game">Start the game when all players are ready. The game requires at least 5 and at most 10 players.</string>
 
     <!--Lobby Player Status-->
     <string name="waiting">WAITING</string>
     <string name="bot">BOT</string>
     <string name="host">HOST</string>
 
-    <string name="main_menu_alert">Do you want to go to the main menu?</string>
-    <string name="game_will_disbanded">Game will be disbanded</string>
-    <string name="leaving_from_lobby">Leaving from lobby</string>
-    <string name="kicked_from_lobby">You have kicked from lobby</string>
-    <string name="game_is_disbanded">Game is disbanded</string>
-    <string name="error">Error</string>
-    <string name="remaining_seconds">%d seconds remaining</string>
-    <string name="tap_to_join_the_game">Tap to join the game!</string>
-    <string name="join">Join</string>
-    <string name="language">Language</string>
-
+    <!-- Contact-->
     <string name="github" translatable="false">GitHub</string>
     <string name="google_play" translatable="false">Google Play</string>
     <string name="mail" translatable="false">Mail</string>
-    <string name="announcements">Announcements</string>
+    <string name="contact_text">✨ We\’d love to hear your thoughts!\n\n
+⭐ Share your feedback and suggestions.\n\n
+📱 Support us by rating on Google Play!
+    </string>
+    <string name="contact_text1">For any questions or concerns, feel free to reach out using the buttons below. We\'re here to help!</string>
 
-    <string name="tooltip_username">Enter your username. It will be used to identify you in the game.</string>
-    <string name="tooltip_language">Select your preferred language for the game interface.</string>
-    <string name="username">Name</string>
-    <string name="tooltip_host_game">Create a game lobby and wait for players to join.All players must be on the same local network.</string>
-    <string name="tooltip_join_game">Join an existing game lobby.Make sure you are connected to the same local network as the host.</string>
-    <string name="tooltip_add_player">Add a new player to the game.</string>
-    <string name="tooltip_remove_player">Removes the selected player from the game.</string>
-    <string name="tooltip_start_game">Start the game when all players are ready. The game requires at least 5 and at most 10 players.</string>
 
 </resources>
